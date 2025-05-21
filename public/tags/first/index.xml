@@ -1,65 +1,58 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>First on ExampleSite</title>
-    <link>http://localhost:1313/tags/first/</link>
-    <description>Recent content in First on ExampleSite</description>
+    <title>First on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/first/</link>
+    <description>Recent content in First on cspaulia-blog</description>
     <image>
-      <title>ExampleSite</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.147.3</generator>
     <language>en</language>
     <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/first/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/first/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About Me</title>
-      <link>http://localhost:1313/posts/about/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/about/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/about/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/about/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>CSPaulia的AI学习网站</title>
-      <link>http://localhost:1313/posts/lalala/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/lalala/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/lalala/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/lalala/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>DL Skills</title>
-      <link>http://localhost:1313/posts/dl-skills-skills/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/dl-skills-skills/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/dl-skills-skills/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/dl-skills-skills/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>My 1st post</title>
-      <link>http://localhost:1313/posts/first/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/first/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/first/</guid>
-      <description>Desc Text.</description>
-    </item>
-    <item>
-      <title>Rebuttal Method（论文回复方法）</title>
-      <link>http://localhost:1313/posts/writing-tips-rebuttal/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/writing-tips-rebuttal/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/first/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>screen基本命令</title>
-      <link>http://localhost:1313/posts/server-tips-screen/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/server-tips-screen/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/server-tips-screen/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/server-tips-screen/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>上传本地文件到Github库</title>
-      <link>http://localhost:1313/posts/github-tips-upload/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/github-tips-upload/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/github-tips-upload/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/github-tips-upload/</guid>
       <description>Desc Text.</description>
     </item>
   </channel>

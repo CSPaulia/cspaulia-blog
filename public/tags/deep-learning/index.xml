@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Deep Learning on ExampleSite</title>
-    <link>http://localhost:1313/tags/deep-learning/</link>
-    <description>Recent content in Deep Learning on ExampleSite</description>
+    <title>Deep Learning on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/deep-learning/</link>
+    <description>Recent content in Deep Learning on cspaulia-blog</description>
     <image>
-      <title>ExampleSite</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.147.3</generator>
     <language>en</language>
     <lastBuildDate>Tue, 20 May 2025 12:59:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记录100种损失函数（Loss Function）</title>
-      <link>http://localhost:1313/posts/loss/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/loss/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/loss/</guid>
       <description>Epoch 6/100</description>
     </item>
   </channel>

@@ -13,12 +13,12 @@ draft: false
 hidemeta: false
 comments: false
 description: "Epoch 6/100"
-canonicalURL: "https://canonical.url/to/page"
+# canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
@@ -32,7 +32,7 @@ cover:
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
 editPost:
-    URL: "https://github.com/CSPaulia/cspaulia-blog/content"
+    URL: "https://github.com/CSPaulia/cspaulia-blog/tree/main/content/"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
@@ -167,7 +167,7 @@ $$
 
 $p_t$是模型预测的结果的类别概率值。$−\log(p_t)$和交叉熵损失函数一致，因此当前样本类别对应的那个$p_t$如果越小，说明预测越不准确，那么$(1-p_t)^{\gamma}$这一项就会增大，这一项也作为困难样本的系数，预测越不准，Focal Loss越倾向于把这个样本当作困难样本，这个系数也就越大，目的是让困难样本对损失和梯度的贡献更大。
 
-![easyhard](/posts/imgs/Focal_exp.png)
+![Focal_exp](/posts/imgs/Focal_exp.png)
 
 前面的$\alpha_t$是类别权重系数。如果你有一个类别不平衡的数据集，那么你肯定想对数量少的那一类在loss贡献上赋予一个高权重，这个$\alpha_t$就起到这样的作用。因此，$\alpha_t$应该是一个**向量**，向量的长度等于类别的个数，用于存放各个类别的权重。一般来说$\alpha_t$中的值为**每一个类别样本数量的倒数**，相当于平衡样本的数量差距
 

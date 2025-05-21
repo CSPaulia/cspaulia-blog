@@ -2,61 +2,64 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/tags/deep-learning/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/</loc>
+    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/paper-writing/</loc>
+    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/</loc>
+    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/</loc>
+    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/writing-tips-rebuttal/</loc>
+    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/deep-learning/</loc>
     <lastmod>2025-05-20T12:59:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/loss/</loc>
     <lastmod>2025-05-20T12:59:00+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-05-20T12:59:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2025-05-20T12:59:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/loss/</loc>
-    <lastmod>2025-05-20T12:59:00+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/about/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/about/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/lalala/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/lalala/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/dl-skills-skills/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/dl-skills-skills/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/tags/first/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/first/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/first/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/first/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/writing-tips-rebuttal/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/server-tips-screen/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/server-tips-screen/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/github-tips-upload/</loc>
     <lastmod>2020-09-15T11:30:03+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/github-tips-upload/</loc>
-    <lastmod>2020-09-15T11:30:03+00:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/cross_attention/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/flops/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/flops/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/focal/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/focal/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/gelu/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/gelu/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/layernormalizaition/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/layernormalizaition/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/lovasz/</loc>
   </url><url>
-    <loc>http://localhost:1313/posts/lovasz/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/archives/</loc>
   </url><url>
-    <loc>http://localhost:1313/archives/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/search/</loc>
+    <loc>https://cspaulia.github.io/cspaulia-blog/search/</loc>
   </url>
 </urlset>

@@ -1,23 +1,23 @@
 ---
-title: "Rebuttal Method（论文回复方法）"
-date: 2020-09-15T11:30:03+00:00
+title: "论文回复方法(Rebuttal Method)"
+date: 2025-05-21T19:41:00+08:00
 # weight: 1
 # aliases: ["/first"]
-tags: ["first"]
-author: "Me"
+tags: ["Paper Writing"]
+author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Desc Text."
-canonicalURL: "https://canonical.url/to/page"
+description: ""
+# canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: false
-searchHidden: true
+searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
 ShowPostNavLinks: true
