@@ -11,27 +11,62 @@
     </image>
     <generator>Hugo -- 0.147.4</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 21 May 2025 19:41:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 21 May 2025 22:15:00 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Paper Writing</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/paper-writing/</link>
+      <title>Server</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/server/</link>
+      <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/server/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Activation</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/activation/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/activation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Attention</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/attention/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/attention/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Normalization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/normalization/</link>
+      <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/normalization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Github</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/github/</link>
+      <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/github/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Computational Cost</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/computational-cost/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/paper-writing/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/computational-cost/</guid>
       <description></description>
     </item>
     <item>
-      <title>Deep Learning</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/deep-learning/</link>
+      <title>Rebuttal</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/</link>
+      <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Loss</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/deep-learning/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>First</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/first/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/first/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/loss/</guid>
       <description></description>
     </item>
   </channel>
