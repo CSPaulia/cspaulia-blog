@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Posts on ExampleSite</title>
+    <link>https://examplesite.com/posts/</link>
+    <description>Recent content in Posts on ExampleSite</description>
+    <image>
+      <title>ExampleSite</title>
+      <url>https://examplesite.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://examplesite.com/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.147.4</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 20 May 2025 12:59:00 +0800</lastBuildDate>
+    <atom:link href="https://examplesite.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录100种损失函数（Loss Function）</title>
+      <link>https://examplesite.com/posts/loss/</link>
+      <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
+      <guid>https://examplesite.com/posts/loss/</guid>
+      <description>Epoch 6/100</description>
+    </item>
+    <item>
+      <title>About Me</title>
+      <link>https://examplesite.com/posts/about/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/about/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>CSPaulia的AI学习网站</title>
+      <link>https://examplesite.com/posts/lalala/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/lalala/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>DL Skills</title>
+      <link>https://examplesite.com/posts/dl-skills-skills/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/dl-skills-skills/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>My 1st post</title>
+      <link>https://examplesite.com/posts/first/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/first/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>Rebuttal Method（论文回复方法）</title>
+      <link>https://examplesite.com/posts/writing-tips-rebuttal/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/writing-tips-rebuttal/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>screen基本命令</title>
+      <link>https://examplesite.com/posts/server-tips-screen/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/server-tips-screen/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title>上传本地文件到Github库</title>
+      <link>https://examplesite.com/posts/github-tips-upload/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
+      <guid>https://examplesite.com/posts/github-tips-upload/</guid>
+      <description>Desc Text.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/cross_attention/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/cross_attention/</guid>
+      <description>&lt;h1 id=&#34;cross-attention&#34;&gt;Cross Attention&lt;/h1&gt;
+&lt;p&gt;来自&lt;a href=&#34;https://vaclavkosar.com/ml/cross-attention-in-transformer-architecture&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;Cross Attention是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;融合两种不同的嵌入序列的注意力机制&lt;/li&gt;
+&lt;li&gt;两个序列必须包含&lt;strong&gt;相同的维度&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;两个序列可以来自不同的模态（例如文本、图像、声音）&lt;/li&gt;
+&lt;li&gt;其中一个序列作为&lt;strong&gt;Query的输入&lt;/strong&gt;，决定了输出的长度&lt;/li&gt;
+&lt;li&gt;另一个序列作为&lt;strong&gt;Key和Value的输入&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;cross-attention-vs-self-attention&#34;&gt;Cross Attention vs Self-attention&lt;/h2&gt;
+&lt;p&gt;Cross Attention与Self-attention只有输入不同。Cross Attention输入为两个维度相同的嵌入序列；Self-attention输入为一个嵌入序列，其KQV均由该序列生成。&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;cross-attention算法&#34;&gt;Cross Attention算法&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;拥有两个序列S1、S2&lt;/li&gt;
+&lt;li&gt;计算S1的K、V&lt;/li&gt;
+&lt;li&gt;计算S2的Q&lt;/li&gt;
+&lt;li&gt;根据K和Q计算注意力矩阵&lt;/li&gt;
+&lt;li&gt;将V应用于注意力矩阵&lt;/li&gt;
+&lt;li&gt;输出的序列长度与S2一致&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+\pmb{\text{softmax}}((W_Q S_2)(W_K S_1)^\mathrm{T})W_v S_1
+$$&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/flops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/flops/</guid>
+      <description>&lt;h1 id=&#34;flops&#34;&gt;FLOPs&lt;/h1&gt;
+&lt;p&gt;注意s小写，是floating point operations的缩写（这里的小s则表示复数），表示浮点运算数，理解为计算量。可以用来衡量算法/模型的复杂度&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/focal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/focal/</guid>
+      <description>&lt;h1 id=&#34;focal-loss&#34;&gt;Focal Loss&lt;/h1&gt;
+&lt;p&gt;$$
+\text{FL}(p_t) = (1-p_t)^\gamma\log(p_t)
+$$&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;Focal Loss是为了解决&lt;strong&gt;样本数量不平衡&lt;/strong&gt;而提出的，还强调了样本的&lt;strong&gt;难易性&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;balenced-cross-entropy&#34;&gt;Balenced Cross Entropy&lt;/h2&gt;
+&lt;p&gt;为了解决&lt;strong&gt;样本数量不平衡&lt;/strong&gt;这个问题，我们可以选择给Cross Entropy添加权重。以二分类问题举例，&lt;a href=&#34;CE.md&#34;&gt;Cross Entropy &amp;amp; KL Divergence&lt;/a&gt;这篇博客已经介绍过Binary Cross Entropy：&lt;/p&gt;
+&lt;p&gt;$$
+\text{L} = \sum_{i=1}^N [y_i\log p + (1-y_i)\log(1-p)]
+$$&lt;/p&gt;
+&lt;p&gt;改写一下，&lt;/p&gt;
+&lt;p&gt;$$
+\text{L}=\left{
+\begin{aligned}
+&amp;amp; -log(p) &amp;amp; \text{if}~y=1 \
+&amp;amp; -log(1-p) &amp;amp; \text{otherwise}
+\end{aligned}
+\right.
+$$&lt;/p&gt;
+&lt;p&gt;再改写一下，&lt;/p&gt;
+&lt;p&gt;$$
+p_t=\left{
+\begin{aligned}
+&amp;amp; p &amp;amp; \text{if}~y=1 \
+&amp;amp; 1-p &amp;amp; \text{otherwise}
+\end{aligned}
+\right.
+$$&lt;/p&gt;
+&lt;p&gt;$$
+\text{L} = -log(p_t)
+$$&lt;/p&gt;
+&lt;p&gt;添加权重，&lt;/p&gt;
+&lt;p&gt;$$
+\text{L} = -\alpha_tlog(p_t)
+$$&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/gelu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/gelu/</guid>
+      <description>&lt;h1 id=&#34;gelu&#34;&gt;GELU&lt;/h1&gt;
+&lt;p&gt;$$
+\text{GELU}(x) = 0.5x(1+\tanh(\sqrt{\frac{2}{\pi}}(x+0.044715x^3)))
+$$&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;GELU_Derivative&#34; loading=&#34;lazy&#34; src=&#34;GELU/GELU_Derivative.jpg&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;优点&#34;&gt;优点&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;具有更光滑的导数&lt;/strong&gt;：GELU函数的导数是连续的，这使得在训练深度神经网络时可以更容易地传播梯度，避免了ReLU函数在$x=0$处的导数不连续的问题，从而减少了训练过程中出现的梯度消失问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可以提高模型的性能&lt;/strong&gt;：在实际任务中，使用GELU函数的模型通常比使用ReLU函数的模型表现更好，尤其是在自然语言处理和计算机视觉任务中。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可以加速收敛&lt;/strong&gt;：GELU函数在激活函数的非线性变换中引入了类似于sigmoid函数的变换，这使得GELU函数的输出可以落在一个更广的范围内，有助于加速模型的收敛速度。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/layernormalizaition/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/layernormalizaition/</guid>
+      <description>&lt;h1 id=&#34;layer-normalization&#34;&gt;Layer Normalization&lt;/h1&gt;
+&lt;p&gt;&lt;img alt=&#34;LNvsBN&#34; loading=&#34;lazy&#34; src=&#34;LN_Pic/LNvsBN.jpg&#34;&gt;{style=&amp;ldquo;margin:0px 100px 0px 100px&amp;rdquo;}&lt;/p&gt;
+&lt;p&gt;在上图中，$N$表示样本轴，$C$表示通道轴，$F$是每个通道的特征数量。BN如右侧所示，它是取&lt;strong&gt;不同样本的同一个通道&lt;/strong&gt;的特征做归一化；LN则是如左侧所示，它取的是&lt;strong&gt;同一个样本的不同通道&lt;/strong&gt;做归一化&lt;/p&gt;
+&lt;h2 id=&#34;1-bn的问题&#34;&gt;1. BN的问题&lt;/h2&gt;
+&lt;h3 id=&#34;11-bn与batch-size&#34;&gt;1.1. BN与Batch Size&lt;/h3&gt;
+&lt;p&gt;BN是按照&lt;strong&gt;样本数&lt;/strong&gt;计算归一化统计量的，当样本数很少时，比如说只有4个，这四个样本的均值和方差便不能反映全局的统计分布息，所以基于少量样本的BN的效果会变得很差。&lt;/p&gt;
+&lt;h3 id=&#34;12-bn与rnn&#34;&gt;1.2. BN与RNN&lt;/h3&gt;
+&lt;p&gt;&lt;img alt=&#34;LNvsBN&#34; loading=&#34;lazy&#34; src=&#34;LN_Pic/RNN.jpg&#34;&gt;{style=&amp;ldquo;margin:0px 250px 0px 250px&amp;rdquo;}&lt;/p&gt;
+&lt;p&gt;在一个batch中，通常各个样本的长度都是不同的，当统计到比较靠后的时间片时，例如上图中$t&amp;gt;4$时，这时只有一个样本还有数据，基于这个样本的统计信息不能反映全局分布，所以这时BN的效果并不好。&lt;/p&gt;
+&lt;p&gt;另外如果在测试时我们遇到了长度大于任何一个训练样本的测试样本，我们无法找到保存的归一化统计量，所以BN无法运行。&lt;/p&gt;
+&lt;h2 id=&#34;2-ln详解&#34;&gt;2. LN详解&lt;/h2&gt;
+&lt;h3 id=&#34;21-mlp中的ln&#34;&gt;2.1. MLP中的LN&lt;/h3&gt;
+&lt;p&gt;先看MLP中的LN。设$H$是一层中隐层节点的数量，$l$是MLP的层数，我们可以计算LN的归一化统计量$\mu$和$\sigma$：&lt;/p&gt;
+&lt;p&gt;$$
+\mu^{l} = \frac{1}{H} \sum_{i=1}^{H} a^l_i ~~~~~~~
+\sigma^{l} = \sqrt{\frac{1}{H} \sum_{i=1}^{H}(a^l_i-\mu^l)^2}
+$$&lt;/p&gt;
+&lt;p&gt;注意上面统计量的计算是和样本数量没有关系的，它的数量只取决于隐层节点的数量，所以只要隐层节点的数量足够多，我们就能保证LN的归一化统计量足够具有代表性。通过$\mu^{l}$和$\sigma^{l}$
+可以得到归一化后的值：&lt;/p&gt;
+&lt;p&gt;$$
+\hat{a}^l = \frac{a^l-\mu^l}{\sqrt{(\sigma^l)^2+\epsilon}} \tag{1}
+$$&lt;/p&gt;
+&lt;p&gt;其中$\epsilon$是一个很小的小数，防止除0。&lt;/p&gt;
+&lt;p&gt;在LN中我们也需要一组参数来保证归一化操作不会破坏之前的信息，在LN中这组参数叫做增（gain）$g$和偏置（bias）$b$。假设激活函数为$f$，最终LN的输出为：&lt;/p&gt;
+&lt;p&gt;$$
+h^l = f(g^l \odot \hat{a}^l + b^l) \tag{2}
+$$&lt;/p&gt;
+&lt;p&gt;合并公式(1)和(2)并忽略参数$l$，有：&lt;/p&gt;
+&lt;p&gt;$$
+h=f(\frac{g}{\sqrt{\sigma^2+\epsilon}} \odot (a-\mu) + b)
+$$&lt;/p&gt;
+&lt;h3 id=&#34;22-rnn中的ln&#34;&gt;2.2. RNN中的LN&lt;/h3&gt;
+&lt;p&gt;对于RNN时刻$t$时的节点，其输入是$t-1$时刻的隐层状态$h^t$和$t$时刻的输入数据$\text{x}_t$，可以表示为：&lt;/p&gt;
+&lt;p&gt;$$
+\text{a}^t = W_{hh}h^{t-1}+W_{xh}\text{x}^{t}
+$$&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://examplesite.com/posts/lovasz/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://examplesite.com/posts/lovasz/</guid>
+      <description>&lt;h1 id=&#34;lovasz-loss&#34;&gt;Lovasz Loss&lt;/h1&gt;
+&lt;h2 id=&#34;lovasz-loss的推导&#34;&gt;Lovasz Loss的推导&lt;/h2&gt;
+&lt;p&gt;IoU (intersection-over-union，也叫jaccard index)是自然图像分割比赛中常用的一个衡量分割效果的评价指标，所以一个自然的想法就是能否将IoU作为loss function来直接优化。交并比公式：&lt;/p&gt;
+&lt;p&gt;$$
+J_c(y^{&lt;em&gt;},\widetilde{y}) = \frac{\vert {y^{&lt;/em&gt;}=c} \cap {\widetilde{y}=c}\vert}{\vert {y^{*}=c} \cup {\widetilde{y}=c}\vert}
+$$&lt;/p&gt;
+&lt;p&gt;其中$y^{*}$表示Ground Truth标签，$\widetilde{y}$表示预测标签，$\vert \cdot \vert$表示集合中的元素个数。可以看出上式的值是介于0到1之间的，由此可以设计出损失函数：&lt;/p&gt;
+&lt;p&gt;$$
+\Delta_{J_c}(y^{&lt;em&gt;},\widetilde{y})=1-J_c(y^{&lt;/em&gt;},\widetilde{y})
+$$&lt;/p&gt;
+&lt;p&gt;这个损失函数是离散的，无法直接求导，需要对其做&lt;strong&gt;光滑延拓&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;改写一下$\Delta_{J_c}$,&lt;/p&gt;
+&lt;p&gt;$$
+\Delta_{J_c} = 1-J_c(y^{&lt;em&gt;},\widetilde{y}) = \frac{\vert M_c \vert}{\vert {y^{&lt;/em&gt;}=c} \cup M_c \vert} \tag{1}
+$$&lt;/p&gt;
+&lt;p&gt;其中，$M_c(y^{&lt;em&gt;},\widetilde{y}) = {y^{&lt;/em&gt;}=c,\widetilde{y}\neq c} \cup {y^{*} \neq c,\widetilde{y}=c}$，$M_c$是损失函数的自变量，它表达网络分割结果与Ground Truth标签不匹配的集合。$M_c$的定义域为${0,1}^p$，即$M_c \in {0,1}^p$，$p$表示集合$M_c$中像素的个数。&lt;/p&gt;
+&lt;p&gt;由于(1)是次模（submodular）函数，故可以对其做&lt;strong&gt;光滑延拓&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;定义1&lt;/strong&gt; 若一个集合函数$\Delta:{0,1}^p \rightarrow \mathbb{R}$对于所有的集合$A,B \in {0,1}^p$满足&lt;/p&gt;
+&lt;p&gt;$$
+\Delta(A) + \Delta(B) \geq \Delta(A \cup B) + \Delta(A \cap B)
+$$&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
