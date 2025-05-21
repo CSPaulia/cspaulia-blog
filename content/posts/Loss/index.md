@@ -157,7 +157,7 @@ $$
 
 Balenced Cross Entropy确实解决了样本不均衡问题，但并未解决样本难易问题。为解决这个问题，详见[Focal Loss](#focal-loss).
 
-![easyhard](/posts/imgs/easyhard.jpg)
+![easyhard](easyhard.jpg)
 
 ### <span style="color: #DFC08A;">Focal Loss</span>
 
@@ -167,7 +167,7 @@ $$
 
 $p_t$是模型预测的结果的类别概率值。$−\log(p_t)$和交叉熵损失函数一致，因此当前样本类别对应的那个$p_t$如果越小，说明预测越不准确，那么$(1-p_t)^{\gamma}$这一项就会增大，这一项也作为困难样本的系数，预测越不准，Focal Loss越倾向于把这个样本当作困难样本，这个系数也就越大，目的是让困难样本对损失和梯度的贡献更大。
 
-![Focal_exp](/posts/imgs/Focal_exp.png)
+![Focal_exp](Focal_exp.png)
 
 前面的$\alpha_t$是类别权重系数。如果你有一个类别不平衡的数据集，那么你肯定想对数量少的那一类在loss贡献上赋予一个高权重，这个$\alpha_t$就起到这样的作用。因此，$\alpha_t$应该是一个**向量**，向量的长度等于类别的个数，用于存放各个类别的权重。一般来说$\alpha_t$中的值为**每一个类别样本数量的倒数**，相当于平衡样本的数量差距
 
