@@ -1,79 +1,79 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>ExampleSite</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on ExampleSite</description>
+    <title>CSPaulia-Blog</title>
+    <link>https://cspaulia.github.io/</link>
+    <description>Recent content on CSPaulia-Blog</description>
     <image>
-      <title>ExampleSite</title>
-      <url>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <title>CSPaulia-Blog</title>
+      <url>https://cspaulia.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.147.3</generator>
     <language>en</language>
     <lastBuildDate>Tue, 20 May 2025 12:59:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cspaulia.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记录100种损失函数（Loss Function）</title>
-      <link>http://localhost:1313/posts/loss/</link>
+      <link>https://cspaulia.github.io/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
-      <guid>http://localhost:1313/posts/loss/</guid>
+      <guid>https://cspaulia.github.io/posts/loss/</guid>
       <description>Epoch 6/100</description>
     </item>
     <item>
       <title>About Me</title>
-      <link>http://localhost:1313/posts/about/</link>
+      <link>https://cspaulia.github.io/posts/about/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/about/</guid>
+      <guid>https://cspaulia.github.io/posts/about/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>CSPaulia的AI学习网站</title>
-      <link>http://localhost:1313/posts/lalala/</link>
+      <link>https://cspaulia.github.io/posts/lalala/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/lalala/</guid>
+      <guid>https://cspaulia.github.io/posts/lalala/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>DL Skills</title>
-      <link>http://localhost:1313/posts/dl-skills-skills/</link>
+      <link>https://cspaulia.github.io/posts/dl-skills-skills/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/dl-skills-skills/</guid>
+      <guid>https://cspaulia.github.io/posts/dl-skills-skills/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>My 1st post</title>
-      <link>http://localhost:1313/posts/first/</link>
+      <link>https://cspaulia.github.io/posts/first/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/first/</guid>
+      <guid>https://cspaulia.github.io/posts/first/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>Rebuttal Method（论文回复方法）</title>
-      <link>http://localhost:1313/posts/writing-tips-rebuttal/</link>
+      <link>https://cspaulia.github.io/posts/writing-tips-rebuttal/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/writing-tips-rebuttal/</guid>
+      <guid>https://cspaulia.github.io/posts/writing-tips-rebuttal/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>screen基本命令</title>
-      <link>http://localhost:1313/posts/server-tips-screen/</link>
+      <link>https://cspaulia.github.io/posts/server-tips-screen/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/server-tips-screen/</guid>
+      <guid>https://cspaulia.github.io/posts/server-tips-screen/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title>上传本地文件到Github库</title>
-      <link>http://localhost:1313/posts/github-tips-upload/</link>
+      <link>https://cspaulia.github.io/posts/github-tips-upload/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/posts/github-tips-upload/</guid>
+      <guid>https://cspaulia.github.io/posts/github-tips-upload/</guid>
       <description>Desc Text.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/cross_attention/</link>
+      <link>https://cspaulia.github.io/posts/cross_attention/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/cross_attention/</guid>
+      <guid>https://cspaulia.github.io/posts/cross_attention/</guid>
       <description>&lt;h1 id=&#34;cross-attention&#34;&gt;Cross Attention&lt;/h1&gt;
 &lt;p&gt;来自&lt;a href=&#34;https://vaclavkosar.com/ml/cross-attention-in-transformer-architecture&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
@@ -103,17 +103,24 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/flops/</link>
+      <link>https://cspaulia.github.io/posts/cross_entropy/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/flops/</guid>
+      <guid>https://cspaulia.github.io/posts/cross_entropy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://cspaulia.github.io/posts/flops/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://cspaulia.github.io/posts/flops/</guid>
       <description>&lt;h1 id=&#34;flops&#34;&gt;FLOPs&lt;/h1&gt;
 &lt;p&gt;注意s小写，是floating point operations的缩写（这里的小s则表示复数），表示浮点运算数，理解为计算量。可以用来衡量算法/模型的复杂度&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/focal/</link>
+      <link>https://cspaulia.github.io/posts/focal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/focal/</guid>
+      <guid>https://cspaulia.github.io/posts/focal/</guid>
       <description>&lt;h1 id=&#34;focal-loss&#34;&gt;Focal Loss&lt;/h1&gt;
 &lt;p&gt;$$
 \text{FL}(p_t) = (1-p_t)^\gamma\log(p_t)
@@ -153,9 +160,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/gelu/</link>
+      <link>https://cspaulia.github.io/posts/gelu/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/gelu/</guid>
+      <guid>https://cspaulia.github.io/posts/gelu/</guid>
       <description>&lt;h1 id=&#34;gelu&#34;&gt;GELU&lt;/h1&gt;
 &lt;p&gt;$$
 \text{GELU}(x) = 0.5x(1+\tanh(\sqrt{\frac{2}{\pi}}(x+0.044715x^3)))
@@ -170,9 +177,9 @@ $$&lt;/p&gt;
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/layernormalizaition/</link>
+      <link>https://cspaulia.github.io/posts/layernormalizaition/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/layernormalizaition/</guid>
+      <guid>https://cspaulia.github.io/posts/layernormalizaition/</guid>
       <description>&lt;h1 id=&#34;layer-normalization&#34;&gt;Layer Normalization&lt;/h1&gt;
 &lt;p&gt;&lt;img alt=&#34;LNvsBN&#34; loading=&#34;lazy&#34; src=&#34;LN_Pic/LNvsBN.jpg&#34;&gt;{style=&amp;ldquo;margin:0px 100px 0px 100px&amp;rdquo;}&lt;/p&gt;
 &lt;p&gt;在上图中，$N$表示样本轴，$C$表示通道轴，$F$是每个通道的特征数量。BN如右侧所示，它是取&lt;strong&gt;不同样本的同一个通道&lt;/strong&gt;的特征做归一化；LN则是如左侧所示，它取的是&lt;strong&gt;同一个样本的不同通道&lt;/strong&gt;做归一化&lt;/p&gt;
@@ -212,9 +219,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/posts/lovasz/</link>
+      <link>https://cspaulia.github.io/posts/lovasz/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/lovasz/</guid>
+      <guid>https://cspaulia.github.io/posts/lovasz/</guid>
       <description>&lt;h1 id=&#34;lovasz-loss&#34;&gt;Lovasz Loss&lt;/h1&gt;
 &lt;h2 id=&#34;lovasz-loss的推导&#34;&gt;Lovasz Loss的推导&lt;/h2&gt;
 &lt;p&gt;IoU (intersection-over-union，也叫jaccard index)是自然图像分割比赛中常用的一个衡量分割效果的评价指标，所以一个自然的想法就是能否将IoU作为loss function来直接优化。交并比公式：&lt;/p&gt;
