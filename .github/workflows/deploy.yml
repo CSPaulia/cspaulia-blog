@@ -2,7 +2,8 @@ name: Deploy Hugo site to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -12,7 +13,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          submodules: true
+          submodules: true  # 如果你用了 Hugo 主题
           fetch-depth: 0
 
       - name: Setup Hugo
