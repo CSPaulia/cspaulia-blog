@@ -3,7 +3,8 @@ title: "记录100种损失函数（Loss Function）"
 date: 2025-05-20T12:59:00+08:00
 # weight: 1
 # aliases: ["/first"]
-tags: ["Deep Learning"]
+categories: ["Deep Learning Skills"]
+tags: ["Loss"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 math: true

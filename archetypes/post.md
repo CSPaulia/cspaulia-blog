@@ -1,8 +1,9 @@
 ---
 title: "My 1st post"
-date: 2020-09-15T11:30:03+00:00
+date: 2020-09-15T11:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
+draft: true
 tags: ["first"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
