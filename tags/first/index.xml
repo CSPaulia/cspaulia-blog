@@ -11,27 +11,13 @@
     </image>
     <generator>Hugo -- 0.147.3</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/cspaulia-blog/tags/first/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>CSPaulia的AI学习网站</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/lalala/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/lalala/</guid>
-      <description>Desc Text.</description>
-    </item>
-    <item>
-      <title>screen基本命令</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/server-tips-screen/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/server-tips-screen/</guid>
-      <description>Desc Text.</description>
-    </item>
-    <item>
-      <title>上传本地文件到Github库</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/github-tips-upload/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/github-tips-upload/</guid>
+      <title>My 1st post</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/clip/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/clip/</guid>
       <description>Desc Text.</description>
     </item>
   </channel>
