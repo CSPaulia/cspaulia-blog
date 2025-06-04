@@ -56,7 +56,8 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;lseg&#34;&gt;LSeg&lt;/h2&gt;
+&lt;h2 id=&#34;利用clip做语义分割&#34;&gt;利用CLIP做语义分割&lt;/h2&gt;
+&lt;h3 id=&#34;lseg&#34;&gt;LSeg&lt;/h3&gt;
 &lt;p align=&#34;center&#34;&gt;
   &lt;img src=&#34;lseg.png&#34; alt=&#34;lseg&#34; /&gt;
 &lt;/p&gt;
@@ -76,27 +77,38 @@
 &lt;p&gt;与CLIP不同的点：&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;table style=&#34;width:100%; text-align:center;&#34;&gt;
-  &lt;tr&gt;
-    &lt;th&gt;列1&lt;/th&gt;
-    &lt;th&gt;列2&lt;/th&gt;
-    &lt;th&gt;列3&lt;/th&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;内容1&lt;/td&gt;
-    &lt;td&gt;内容2&lt;/td&gt;
-    &lt;td&gt;内容3&lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-    &lt;td&gt;内容4&lt;/td&gt;
-    &lt;td&gt;内容5&lt;/td&gt;
-    &lt;td&gt;内容6&lt;/td&gt;
-  &lt;/tr&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;方法&lt;/th&gt;
+          &lt;th&gt;训练方式&lt;/th&gt;
+          &lt;th&gt;文本编码器参数&lt;/th&gt;
+          &lt;th&gt;相似度计算&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;CLIP&lt;/td&gt;
+          &lt;td&gt;对比学习&lt;/td&gt;
+          &lt;td&gt;可训练&lt;/td&gt;
+          &lt;td&gt;计算图像文本对的相似度&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;LSeg&lt;/td&gt;
+          &lt;td&gt;有监督学习&lt;/td&gt;
+          &lt;td&gt;冻结&lt;/td&gt;
+          &lt;td&gt;计算图像特征与文本特征之间的相似度&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;pre&gt;&lt;code&gt;- 对比学习:x:，有监督学习:white_check_mark:；
-
-- 
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;ul&gt;
+&lt;li&gt;CLIP的输入：多个图像文本对&lt;/li&gt;
+&lt;li&gt;LSeg的输入：一张图像+标签（可看作图像的描述文本）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;groupvit&#34;&gt;GroupViT&lt;/h3&gt;
+&lt;p align=&#34;center&#34;&gt;
+  &lt;img src=&#34;groupvit_overview.png&#34; alt=&#34;groupvit_overview&#34; width=&#34;50%&#34; /&gt;
+&lt;/p&gt;</description>
     </item>
     <item>
       <title>终端多路复用工具Screen的用法</title>

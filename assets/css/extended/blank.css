@@ -69,12 +69,12 @@ body {
 .post-content h1 {
     font-size: 2.6rem;
     margin-top: 4rem;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
 .post-content h2 {
     font-size: 1.8rem;
     margin-top: 4rem;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
 .post-content h3 {
     font-size: 1.6rem;
@@ -106,3 +106,9 @@ body {
 .post-content table td {
     border: 1px solid #979da3 !important;
 } */
+.post-content table {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: fit-content;
+}

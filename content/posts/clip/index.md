@@ -27,11 +27,12 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "clip_cover.png" # image path/url
+    alt: "clip with advanced methods" # alt text
+    caption: "clip with advanced methods" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
@@ -64,7 +65,9 @@ editPost:
     
     - 将标签构建的文本特征与图像特征进行相似度匹配，从而完成预测。
 
-## LSeg
+## 利用CLIP做语义分割
+
+### LSeg
 
 <p align="center">
   <img src="lseg.png" alt="lseg" />
@@ -78,24 +81,57 @@ editPost:
 
 2. 与CLIP不同的点：
 
-<table style="width:100%; text-align:center;">
-  <tr>
-    <th>列1</th>
-    <th>列2</th>
-    <th>列3</th>
-  </tr>
-  <tr>
-    <td>内容1</td>
-    <td>内容2</td>
-    <td>内容3</td>
-  </tr>
-  <tr>
-    <td>内容4</td>
-    <td>内容5</td>
-    <td>内容6</td>
-  </tr>
-</table>
+| 方法         | 训练方式   | 文本编码器参数 | 相似度计算 |
+|--------------|------------|---------------|------------|
+| CLIP         | 对比学习   | 可训练        | 计算图像文本对的相似度 |
+| LSeg         | 有监督学习 | 冻结          | 计算图像特征与文本特征之间的相似度 |
 
-    - 对比学习:x:，有监督学习:white_check_mark:；
+- CLIP的输入：多个图像文本对
+- LSeg的输入：一张图像+标签（可看作图像的描述文本）
 
-    - 
+### GroupViT
+
+<p align="center">
+  <img src="groupvit_overview.png" alt="groupvit_overview" width="50%" />
+</p>
+
+1. 与CLIP和LSeg的关系：
+
+| 方法         | 训练方式   | 相似度计算 |
+|--------------|------------|---------------|------------|
+| CLIP         | 对比学习   | 计算图像文本对的相似度 |
+| LSeg         | 有监督学习 | 计算图像特征与文本特征之间的相似度 |
+| GroupViT         | 对比学习 | 计算图像文本对的相似度 |
+
+- LSeg的训练方式：利用已经对齐好的 CLIP 特征空间进行有监督训练；
+- GroupViT的训练方式：调整CLIP中视觉编码器的架构，以适应语义分割任务，进行与CLIP一致的对比学习。
+
+2. 架构细节：
+
+<p align="center">
+  <img src="groupvit.png" alt="groupvit" />
+</p>
+
+- 模型输入：`图像Patchs` + `可学习Group Tokens`
+- 分割流程：通过`Group Block`将`Patch特征`分配给`可学习Group Tokens`
+- `可学习Group Tokens`：类似于聚类中心
+
+## 利用CLIP做目标检测
+
+### ViLD
+
+<p align="center">
+  <img src="vild_compare.png" alt="vild_compare" />
+</p>
+
+- `Vanilla Detector` = `Head` + `Classifier` + 交叉熵有监督
+- `ViLD-text` = `Head` +  `相似度匹配` + 交叉熵有监督
+  - 相似度匹配流程（CLIP流程）：
+    - n个标签通过提示词工程送入`文本编码器`得到n个`文本编码`；
+    - 为防止`文本编码`无法描述所有`region embeddings`，引入`背景编码`描述剩余的`region embeddings`；
+    - `region embeddings`与`文本编码`和`背景编码`做相似度匹配，得到n个`Text Embeddings`和一个`Background`，这一步替代`Classifier`，且在训练中冻结:snowflake:；
+- `ViLD-image` = `教师网络` + `学生网络` + L1知识蒸馏
+  - `教师网络`：CLIP图像编码器
+  - `学生网络`：`Vanilla Detector`
+  - 为了减少训练量，利用预训练检测模型提前提取m个`region embeddings`
+- `ViLD` = `ViLD-text` + `ViLD-image`
