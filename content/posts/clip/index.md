@@ -27,7 +27,7 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "clip_cover.png" # image path/url
+    image: "clip.png" # image path/url
     alt: "clip with advanced methods" # alt text
     caption: "clip with advanced methods" # display caption under cover
     relative: false # when using page bundles set this to true
@@ -39,7 +39,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## CLIP
+## I. CLIP
 
 <p align="center">
   <img src="clip.png" alt="clip" />
@@ -65,9 +65,9 @@ editPost:
     
     - 将标签构建的文本特征与图像特征进行相似度匹配，从而完成预测。
 
-## 利用CLIP做语义分割
+## II. 利用CLIP做语义分割
 
-### LSeg
+### 2.1 LSeg
 
 <p align="center">
   <img src="lseg.png" alt="lseg" />
@@ -89,7 +89,7 @@ editPost:
 - CLIP的输入：多个图像文本对
 - LSeg的输入：一张图像+标签（可看作图像的描述文本）
 
-### GroupViT
+### 2.2 GroupViT
 
 <p align="center">
   <img src="groupvit_overview.png" alt="groupvit_overview" width="50%" />
@@ -116,9 +116,9 @@ editPost:
 - 分割流程：通过`Group Block`将`Patch特征`分配给`可学习Group Tokens`
 - `可学习Group Tokens`：类似于聚类中心
 
-## 利用CLIP做目标检测
+## III. 利用CLIP做目标检测
 
-### ViLD
+### 3.1 ViLD
 
 <p align="center">
   <img src="vild_compare.png" alt="vild_compare" />
@@ -135,3 +135,17 @@ editPost:
   - `学生网络`：`Vanilla Detector`
   - 为了减少训练量，利用预训练检测模型提前提取m个`region embeddings`
 - `ViLD` = `ViLD-text` + `ViLD-image`
+
+## IV. 利用CLIP做Visual Grounding
+
+### 4.1 GLIP
+
+<p align="center">
+  <img src="glip.png" alt="glip" />
+</p>
+
+- 本质为有监督训练；
+- 计算`Regions`和`Words`之间的相似度，从而完成`Regions`的分类/caption。
+- 模型的训练阶段，必须知道`Regions`和Caption中`Words`之间的对应关系，为此：
+  - Detection数据集：利用Bounding Boxes的标注构造Caption（例如Banana-->There is a banana.）
+  - Caption数据集：利用在Detection数据集上训练好的GLIP模型在Caption数据集中找到`Regions`和`Words`之间的关系，构造伪标签。
