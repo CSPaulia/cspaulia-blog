@@ -149,3 +149,37 @@ editPost:
 - 模型的训练阶段，必须知道`Regions`和Caption中`Words`之间的对应关系，为此：
   - Detection数据集：利用Bounding Boxes的标注构造Caption（例如Banana-->There is a banana.）
   - Caption数据集：利用在Detection数据集上训练好的GLIP模型在Caption数据集中找到`Regions`和`Words`之间的关系，构造伪标签。
+
+## V. 利用CLIP做图像生成
+
+### 5.1 CLIPasso
+
+<p align="center">
+  <img src="clipasso.png" alt="clipasso" />
+</p>
+
+#### 工作出发点
+
+发现问题：以往的简笔画生成方法，仅适用于某一特定类别
+
+解决问题：利用CLIP模型强大的泛化性，完成对所有类别的简笔画生成
+
+#### 工作流程
+
+1. 生成简笔画：
+   - 首先利用`图像编码器`，获取图像的热图
+   - 根据热图采样点
+   - 通过`可学习参数`聚合点，生成贝兹曲线，从而获得简笔画
+2. 利用CLIP约束生成：
+   - 将生成的简笔画和原图送入两个不同的CLIP图像编码器
+   - $L_g$约束两张图的几何信息，越接近越好
+   - $L_s$约束两张图的语义信息，越接近越好
+
+## 利用CLIP做视频检索
+
+### CLIP4Clip
+
+#### 工作出发点
+
+- CLIP是为图像-文本对设计的模型。对于视频检索任务来说，其本质上是一段文本和多张图像（视频帧）进行匹配，找到最相关的视频帧
+- CLIP4Clip

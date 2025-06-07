@@ -18,7 +18,7 @@
       <link>http://localhost:1313/cspaulia-blog/posts/clip/</link>
       <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/clip/</guid>
-      <description>&lt;h2 id=&#34;clip&#34;&gt;CLIP&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;i-clip&#34;&gt;I. CLIP&lt;/h2&gt;
 &lt;p align=&#34;center&#34;&gt;
   &lt;img src=&#34;clip.png&#34; alt=&#34;clip&#34; /&gt;
 &lt;/p&gt;
@@ -56,8 +56,8 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;利用clip做语义分割&#34;&gt;利用CLIP做语义分割&lt;/h2&gt;
-&lt;h3 id=&#34;lseg&#34;&gt;LSeg&lt;/h3&gt;
+&lt;h2 id=&#34;ii-利用clip做语义分割&#34;&gt;II. 利用CLIP做语义分割&lt;/h2&gt;
+&lt;h3 id=&#34;21-lseg&#34;&gt;2.1 LSeg&lt;/h3&gt;
 &lt;p align=&#34;center&#34;&gt;
   &lt;img src=&#34;lseg.png&#34; alt=&#34;lseg&#34; /&gt;
 &lt;/p&gt;
@@ -105,7 +105,7 @@
 &lt;li&gt;CLIP的输入：多个图像文本对&lt;/li&gt;
 &lt;li&gt;LSeg的输入：一张图像+标签（可看作图像的描述文本）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;groupvit&#34;&gt;GroupViT&lt;/h3&gt;
+&lt;h3 id=&#34;22-groupvit&#34;&gt;2.2 GroupViT&lt;/h3&gt;
 &lt;p align=&#34;center&#34;&gt;
   &lt;img src=&#34;groupvit_overview.png&#34; alt=&#34;groupvit_overview&#34; width=&#34;50%&#34; /&gt;
 &lt;/p&gt;</description>
