@@ -25,6 +25,12 @@
 /* .post-content pre code {
     max-height: 40rem;
 } */
+.post-content pre {  /* 代码块缩进样式 */
+    margin-left: 2em;  /* 缩进距离 */
+}
+.post-content li pre { /* 列表中的代码块额外缩进 */
+    margin-left: 4em;  /* 列表中的代码块缩进更多 */
+}
 /* 图片居中 */
 .post-content img {
     margin: auto;

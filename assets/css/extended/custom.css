@@ -1,0 +1,9 @@
+.post-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.post-meta-item svg {
+    stroke: var(--secondary);
+}

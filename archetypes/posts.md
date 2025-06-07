@@ -9,7 +9,7 @@ tags: ["first"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
-TocOpen: false # show table of contents
+TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
@@ -18,7 +18,7 @@ description: "Desc Text."
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
-hideSummary: false
+hideSummary: true
 searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
@@ -32,6 +32,7 @@ cover:
     caption: "<text>" # display caption under cover
     relative: true # when using page bundles set this to true
     hidden: true # only hide on current single page
+    hiddenInList: true # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text

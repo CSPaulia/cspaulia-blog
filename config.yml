@@ -21,13 +21,16 @@ params:
   title: ExampleSite
   description: "ExampleSite description"
   keywords: [Blog, Portfolio, PaperMod]
-  author: Me
+  author: CSPaulia
+  GitHubUser: CSPaulia
   # author: ["Me", "You"] # multiple authors
   images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
+  showLastMod: true # show last modified date in single pages
+  showDate: true # show date in list pages
   ShowReadingTime: true
   ShowShareButtons: true
   ShowPostNavLinks: true
@@ -45,13 +48,15 @@ params:
   tocopen: false
 
   assets:
-    # disableHLJS: true # to disable highlight.js
+    disableHLJS: false # to disable highlight.js
     # disableFingerprinting: true
     favicon: "<link / abs url>"
     favicon16x16: "<link / abs url>"
     favicon32x32: "<link / abs url>"
     apple_touch_icon: "<link / abs url>"
     safari_pinned_tab: "<link / abs url>"
+
+  syntax_highlighter: "highlight.js" # 设置代码高亮主题
 
   label:
     text: "Home"
@@ -166,3 +171,14 @@ outputs:
     - RSS
     - JSON # necessary for search
 
+frontmatter:
+  date:
+    - date
+    - publishDate
+    - lastmod
+  lastmod:
+    - :git
+    - :fileModTime
+    - lastmod
+    - date
+    - publishDate

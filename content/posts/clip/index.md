@@ -1,6 +1,7 @@
 ---
 title: "CLIP及其改进工作"
 date: 2025-06-03T10:46:03+08:00
+lastmod: 2024-06-07T15:30:00+08:00   # 修改日期
 # weight: 1
 # aliases: ["/first"]
 draft: true
@@ -9,7 +10,7 @@ tags: ["CLIP"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
-TocOpen: false # show table of contents
+TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
@@ -18,7 +19,7 @@ description: ""
 disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
-hideSummary: false
+hideSummary: true
 searchHidden: false
 ShowReadingTime: true
 ShowBreadCrumbs: true
@@ -33,6 +34,7 @@ cover:
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
+    class: "post-cover"
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
@@ -175,9 +177,9 @@ editPost:
    - $L_g$约束两张图的几何信息，越接近越好
    - $L_s$约束两张图的语义信息，越接近越好
 
-## 利用CLIP做视频检索
+## VI. 利用CLIP做视频检索
 
-### CLIP4Clip
+### 6.1 CLIP4Clip
 
 #### 工作出发点
 
