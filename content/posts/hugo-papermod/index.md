@@ -112,43 +112,67 @@ editPost:
     }
     ```
 
-- **列表页面隐藏**
+- **列表页面隐藏** （可选）
 
-    若不希望列表页出现`ReadingTime`
+    若不希望列表页出现`ReadingTime`，则复制一份`layouts/partials/post_meta.html`，命名为`post_meta_list.html`，将`post_meta_list.html`中的如下代码删去
+
+    ```html
+    <!-- layouts/partials/post_meta_list.html -->
+    <!-- 删掉 -->
+    {{ if (.Param "ShowReadingTime") }}
+        ...
+    {{ end }}
+    ```
+
+    并在`layouts/_default/list.html`中将：
+
+    ```html
+    <!-- layouts/_default/list.html -->
+    {{- partial "post_meta.html" . -}}
+    ```
+
+    修改为
+
+    ```html
+    <!-- layouts/_default/list.html -->
+    {{- partial "post_meta_list.html" . -}}
+    ```
 
 ## 代码块改进
 
 ### 代码块缩进设置
 
-- 在 `blank.css` 中添加以下代码：
+在 `blank.css` 中添加以下代码：
 
-    ```css
-    /* assets/css/extended/blank.css */
-    .post-content pre { /* 代码块缩进样式 */
-        margin-left: 2em;  /* 缩进距离 */
-    }
-    .post-content li pre {  /* 列表中的代码块额外缩进 */
-        margin-left: 4em;  /* 列表中的代码块缩进更多 */
-    }
-    ```
+```css
+/* assets/css/extended/blank.css */
+.post-content pre { /* 代码块缩进样式 */
+    margin-left: 2em;  /* 缩进距离 */
+}
+.post-content li pre {  /* 列表中的代码块额外缩进 */
+    margin-left: 4em;  /* 列表中的代码块缩进更多 */
+}
+```
 
 ### PaperMod 主题的语法高亮设置
 
-- `config.yaml`中设置正确的语法高亮：
+`config.yaml`中设置正确的语法高亮：
 
-    ```yaml
-    params:
-    # ...existing code...
-    assets:
-        disableHLJS: false  # 启用 highlight.js
-    
-    # 设置代码高亮主题
-    syntax_highlighter: "highlight.js"
-    ```
+```yaml
+params:
+# ...existing code...
+assets:
+    disableHLJS: false  # 启用 highlight.js
+
+# 设置代码高亮主题
+syntax_highlighter: "highlight.js"
+```
 
 ## 博客文章封面图片缩小并移到侧边
 
-- 从`themes/PaperMod/layouts/_default/list.html`中复制一份`list.html`放置于`layouts/_default/list.html`，并将
+- **复制`list.html`**
+    
+    从`themes/PaperMod/layouts/_default/list.html`中复制一份`list.html`放置于`layouts/_default/list.html`，并将
 
     ```html
     <!-- layouts/_default/list.html -->
@@ -212,7 +236,7 @@ editPost:
     </article>
     ```
 
-- 添加自定义样式：
+- **添加自定义样式**
     
     ```css
     /* assets/css/extended/blank.css */
@@ -234,5 +258,19 @@ editPost:
         display: inline-block;
         overflow: hidden;
         width: 90%;
+    }
+    ```
+
+- **侧边首图放大动画**
+
+    ```css
+    /* assets/css/extended/blank.css */
+    .post-entry img{
+        transition: all 0.3s ease-out;
+        transform:scale(1,1);
+    }
+    .post-entry:hover img{
+        transition: all 0.3s ease-out;
+        transform:scale(1.02,1.02);
     }
     ```

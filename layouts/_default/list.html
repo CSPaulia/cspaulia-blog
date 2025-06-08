@@ -63,7 +63,7 @@
 {{- $class = "post-entry tag-entry" }}
 {{- end }}
 
-<!-- <article class="{{ $class }}">
+<article class="{{ $class }}">
   {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
   {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
   <header class="entry-header">
@@ -90,8 +90,8 @@
   </footer>
   {{- end }}
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
-</article> -->
-<article class="{{ $class }}">
+</article>
+<!-- <article class="{{ $class }}">
     <div class="post-info">
         <header class="entry-header">
             <h2>{{ .Title }}</h2>
@@ -114,7 +114,7 @@
     {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
     {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
     <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
-</article>
+</article> -->
 {{- end }}
 
 {{- if gt $paginator.TotalPages 1 }}

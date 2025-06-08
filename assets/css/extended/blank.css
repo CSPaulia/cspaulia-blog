@@ -119,7 +119,7 @@ body {
     width: fit-content;
 }
 /* 首图侧边缩略 */
-.post-entry {
+/* .post-entry {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -135,4 +135,13 @@ body {
     display: inline-block;
     overflow: hidden;
     width: 90%;
+} */
+/* extended > blanks.css */
+/* .post-entry img{
+    transition: all 0.3s ease-out;
+    transform:scale(1,1);
 }
+.post-entry:hover img{
+    transition: all 0.3s ease-out;
+    transform:scale(1.02,1.02);
+} */
