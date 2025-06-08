@@ -118,3 +118,21 @@ body {
     display: block;
     width: fit-content;
 }
+/* 首图侧边缩略 */
+.post-entry {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.entry-cover {
+    overflow: hidden;
+    padding-left: 18px;
+    height: 100%;
+    width: 50%;
+    margin-bottom: unset;
+}
+.post-info {
+    display: inline-block;
+    overflow: hidden;
+    width: 90%;
+}
