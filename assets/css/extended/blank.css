@@ -27,6 +27,12 @@
 } */
 .post-content pre {  /* 代码块缩进样式 */
     margin-left: 2em;  /* 缩进距离 */
+    max-height: 400px;      /* 最大高度，可自定义 */
+    overflow: auto;         /* 超出部分滚动 */
+}
+.post-content pre::-webkit-scrollbar {
+    width: 10px;   /* 更细的滚动条 */
+    height: 10px;
 }
 .post-content li pre { /* 列表中的代码块额外缩进 */
     margin-left: 4em;  /* 列表中的代码块缩进更多 */
@@ -119,29 +125,70 @@ body {
     width: fit-content;
 }
 /* 首图侧边缩略 */
-/* .post-entry {
+.post-entry {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 .entry-cover {
     overflow: hidden;
-    padding-left: 18px;
+    /* padding-left: 18px; */
     height: 100%;
     width: 50%;
     margin-bottom: unset;
+    border-radius: 12px; /* 你可以根据需要调整圆角大小 */
+}
+.entry-cover img {
+    border-radius: 12px;
 }
 .post-info {
     display: inline-block;
     overflow: hidden;
     width: 90%;
-} */
+}
 /* extended > blanks.css */
-/* .post-entry img{
+.post-entry img{
     transition: all 0.3s ease-out;
     transform:scale(1,1);
 }
 .post-entry:hover img{
     transition: all 0.3s ease-out;
-    transform:scale(1.02,1.02);
-} */
+    transform:scale(1.1,1.1);
+}
+
+/* 参考文献样式 */
+/* 浅色模式 */
+.zhihu-ref {
+    background: #f6f7fa;
+    border-radius: 8px;
+    padding: 1.2em 1.5em 1.2em 1.5em;
+    margin-top: 2em;
+    font-size: 1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border-left: 4px solid #0084ff;
+    transition: background 0.3s, border-color 0.3s;
+}
+.zhihu-ref-title {
+    font-weight: bold;
+    color: #175199;
+    margin-bottom: 0.5em;
+    font-size: 1.1em;
+}
+.zhihu-ref a {
+    color: #175199;
+}
+.zhihu-ref a:hover {
+    color: #0084ff;
+}
+/* 深色模式（PaperMod主题深色class为 .dark） */
+.dark .zhihu-ref {
+    background: #23272e;
+    border-left: 4px solid #3ea6ff;
+}
+.dark .zhihu-ref-title,
+.dark .zhihu-ref a {
+    color: #3ea6ff;
+}
+.dark .zhihu-ref a:hover {
+    color: #8cc8ff;
+}

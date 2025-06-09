@@ -33,9 +33,10 @@ params:
   showDate: true # show date in list pages
   ShowReadingTime: true
   ShowShareButtons: true
+  ShareButtons: ["twitter", "facebook", "telegram"]
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
-  ShowCodeCopyButtons: false
+  ShowCodeCopyButtons: true
   ShowWordCount: true
   ShowRssButtonInSectionTermList: true
   UseHugoToc: true

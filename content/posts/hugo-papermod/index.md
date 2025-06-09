@@ -168,6 +168,27 @@ assets:
 syntax_highlighter: "highlight.js"
 ```
 
+### 限制代码块长度
+
+- **限制代码块长度，超出部分滚动**
+
+    ```css
+    /* assets/css/extended/blank.css */
+    .post-content pre {  /* 代码块缩进样式 */
+        max-height: 400px;      /* 最大高度，可自定义 */
+        overflow: auto;         /* 超出部分滚动 */
+    }
+    ```
+
+- **设置滚动条大小**
+
+    ```css
+    .post-content pre::-webkit-scrollbar {
+        width: 10px;   /* 更细的滚动条 */
+        height: 10px;
+    }
+    ```
+
 ## 博客文章封面图片缩小并移到侧边
 
 - **复制`list.html`**
@@ -245,15 +266,17 @@ syntax_highlighter: "highlight.js"
         flex-direction: row;
         align-items: center;
     }
-
     .entry-cover {
         overflow: hidden;
-        padding-left: 18px;
+        /* padding-left: 18px; */
         height: 100%;
         width: 50%;
         margin-bottom: unset;
+        border-radius: 12px; /* 你可以根据需要调整圆角大小 */
     }
-
+    .entry-cover img {
+        border-radius: 12px;
+    }
     .post-info {
         display: inline-block;
         overflow: hidden;
@@ -274,3 +297,126 @@ syntax_highlighter: "highlight.js"
         transform:scale(1.02,1.02);
     }
     ```
+
+## 自定义 Post Footer
+
+- **复制`single.html`**
+
+在路径`themes/PaperMod/layouts/_default`找到`single.html`这个文件，复制到`layouts/_default/single.html`这个位置
+
+- **修改`post-footer`段落**
+
+找到
+
+```html
+<!-- layouts/_default/single.html -->
+<footer class="post-footer">
+    ...
+</footer>
+```
+
+修改为
+
+```html
+<!-- layouts/_default/single.html -->
+<footer class="post-footer">
+  {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
+  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">tags:</p>
+  <ul class="post-tags">
+    {{- range ($.GetTerms $tags) }}
+    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{- end }}
+  </ul>
+  {{- $categories := .Language.Params.Taxonomies.categories | default "categories" }}
+  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">categories:</p>
+  <ul class="post-tags">
+    {{- range ($.GetTerms $categories) }}
+    <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+    {{- end }}
+  </ul>
+  {{- if (.Param "ShowPostNavLinks") }}
+  {{- partial "post_nav_links.html" . }}
+  {{- end }}
+  {{- if (and site.Params.ShowShareButtons (ne .Params.disableShare true)) }}
+  {{- partial "share_icons.html" . -}}
+  {{- end }}
+</footer>
+```
+
+- **效果**
+
+<p align="center">
+  <img src="post_footer.png" alt="post_footer" width=80% />
+</p>
+
+## 博客末尾放参考链接
+
+- 在`blank.css`里加一点样式
+
+    ```css
+    /* assets/css/extended/blank.css */
+    /* 浅色模式 */
+    .zhihu-ref {
+        background: #f6f7fa;
+        border-radius: 8px;
+        padding: 1.2em 1.5em 1.2em 1.5em;
+        margin-top: 2em;
+        font-size: 1em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        border-left: 4px solid #0084ff;
+        transition: background 0.3s, border-color 0.3s;
+    }
+    .zhihu-ref-title {
+        font-weight: bold;
+        color: #175199;
+        margin-bottom: 0.5em;
+        font-size: 1.1em;
+    }
+    .zhihu-ref a {
+        color: #175199;
+    }
+    .zhihu-ref a:hover {
+        color: #0084ff;
+    }
+    /* 深色模式（PaperMod主题深色class为 .dark） */
+    .dark .zhihu-ref {
+        background: #23272e;
+        border-left: 4px solid #3ea6ff;
+    }
+    .dark .zhihu-ref-title,
+    .dark .zhihu-ref a {
+        color: #3ea6ff;
+    }
+    .dark .zhihu-ref a:hover {
+        color: #8cc8ff;
+    }
+    ```
+
+- markdown中语法如下
+
+    ```md
+    <hr>
+    <div class="references">
+    <h3>参考资料</h3>
+    <ol>
+        <li><a href="https://gohugo.io/documentation/" target="_blank">Hugo 官方文档</a></li>
+        <li><a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">PaperMod 主题</a></li>
+        <li><a href="https://www.markdownguide.org/" target="_blank">Markdown Guide</a></li>
+    </ol>
+    </div>
+    ```
+
+- 效果如下
+
+<p align="center">
+  <img src="zhihu-ref.png" alt="zhihu-ref" width=80% />
+</p>
+
+---
+
+<div class="zhihu-ref">
+  <div class="zhihu-ref-title">参考文献</div>
+  <ol>
+    <li><a href="https://www.lilmp.com/categories/小m平部落格整形手術/" target="_blank">小M平碎碎念-小M平部落格整形手術</a></li>
+  </ol>
+</div>

@@ -14,7 +14,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: ""
+description: "CLIP及其改进工作"
 # canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
@@ -28,13 +28,13 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "clip.png" # image path/url
+    image: "clip_cover.png" # image path/url
     alt: "clip with advanced methods" # alt text
     caption: "clip with advanced methods" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
-    class: "post-cover"
+    # class: "post-cover"
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
