@@ -156,17 +156,26 @@ editPost:
 
 ### PaperMod 主题的语法高亮设置
 
-`config.yaml`中设置正确的语法高亮：
+- `config.yaml`中设置正确的语法高亮：
 
-```yaml
-params:
-# ...existing code...
-assets:
-    disableHLJS: false  # 启用 highlight.js
+    ```yaml
+    params:
+    # ...existing code...
+    assets:
+        disableHLJS: false  # 启用 highlight.js
 
-# 设置代码高亮主题
-syntax_highlighter: "highlight.js"
-```
+    # 设置代码高亮主题
+    syntax_highlighter: "highlight.js"
+    ```
+
+- 高亮代码语法如下：
+
+    ```python {hl_lines=[3]}
+    print("第一行")
+    print("第二行")
+    print("**这一行会高亮**")
+    print("第四行")
+    ```
 
 ### 限制代码块长度
 
@@ -642,6 +651,60 @@ syntax_highlighter: "highlight.js"
     .toc li a:hover {
         color: var(--secondary);
     }
+    ```
+
+## 按照LastMod参数进行文章排序
+
+### Posts界面
+
+- 修改`layouts/_default/list.html`如下
+
+    ```html {hl_lines=[7]}
+    <!-- layouts/_default/list.html -->
+    {{- if .IsHome }}
+    {{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+    {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+    {{- end }}
+
+    {{- $pages := $pages.ByLastmod.Reverse }} <!-- 添加这行代码 -->
+
+    {{- $paginator := .Paginate $pages }}
+    ```
+
+### archives界面
+
+- 复制`themes/PaperMod/layouts/_default/archives.html`至`layouts/_default`，将
+
+    ```html
+    <!-- layouts/_default/archives.html -->
+    {{- range $pages.GroupByPublishDate "2006" }}
+        ...
+        {{- range .Pages.GroupByDate "January" }}
+        ...
+            {{- range .Pages }}
+            ...
+            {{- end }}
+            ...
+        {{- end }}
+        ...
+    {{- end }}
+    ```
+
+    修改为
+
+    ```html {hl_lines=[2, 4, 6]}
+    <!-- layouts/_default/archives.html -->
+    {{- range $pages.GroupByParamDate "lastmod" "2006" }}
+        ...
+        {{- range .Pages.GroupByParamDate "lastmod" "January" }}
+        ...
+            {{- range .Pages.ByLastmod.Reverse }}
+            ...
+            {{- end }}
+            ...
+        {{- end }}
+        ...
+    {{- end }}
     ```
 
 ---
