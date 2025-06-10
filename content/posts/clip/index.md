@@ -1,7 +1,6 @@
 ---
 title: "CLIP及其改进工作"
 date: 2025-06-03T10:46:03+08:00
-lastmod: 2024-06-07T15:30:00+08:00   # 修改日期
 # weight: 1
 # aliases: ["/first"]
 draft: true

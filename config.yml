@@ -82,7 +82,7 @@ params:
   # home-info mode
   homeInfoParams:
     Title: "Hi there \U0001F44B"
-    Content: Welcome to my blog
+    Content: Welcome to CSPaulia's blog
 
   socialIcons:
     # - name: x
@@ -178,8 +178,8 @@ frontmatter:
     - publishDate
     - lastmod
   lastmod:
-    - :git
-    - :fileModTime
+    # - :git
+    # - :fileModTime
     - lastmod
     - date
     - publishDate
