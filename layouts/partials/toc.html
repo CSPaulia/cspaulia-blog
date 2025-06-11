@@ -1,4 +1,5 @@
-{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
+<!-- {{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}} -->
+{{- $headers := findRE "<h[23].*?>(.|\n])+?</h[23]>" .Content -}}
 {{- $has_headers := ge (len $headers) 1 -}}
 {{- if $has_headers -}}
 <aside id="toc-container" class="toc-container wide">
@@ -11,14 +12,16 @@
             <div class="inner">
                 {{- $largest := 6 -}}
                 {{- range $headers -}}
-                {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
+                <!-- {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}} -->
+                {{- $headerLevel := index (findRE "[23]" . 1) 0 -}}
                 {{- $headerLevel := len (seq $headerLevel) -}}
                 {{- if lt $headerLevel $largest -}}
                 {{- $largest = $headerLevel -}}
                 {{- end -}}
                 {{- end -}}
 
-                {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}}
+                <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}} -->
+                {{- $firstHeaderLevel := len (seq (index (findRE "[23]" (index $headers 0) 1) 0)) -}}
 
                 {{- $.Scratch.Set "bareul" slice -}}
                 <ul>
@@ -27,7 +30,8 @@
                         {{- $.Scratch.Add "bareul" (sub (add $largest .) 1) -}}
                         {{- end -}}
                         {{- range $i, $header := $headers -}}
-                        {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}}
+                        <!-- {{- $headerLevel := index (findRE "[1-6]" . 1) 0 -}} -->
+                        {{- $headerLevel := index (findRE "[23]" . 1) 0 -}}
                         {{- $headerLevel := len (seq $headerLevel) -}}
 
                         {{/* get id="xyz" */}}
@@ -35,10 +39,12 @@
 
                         {{- /* strip id="" to leave xyz, no way to get regex capturing groups in hugo */ -}}
                         {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
-                        {{- $header := replaceRE "<h[1-6].*?>((.|\n])+?)</h[1-6]>" "$1" $header -}}
+                        <!-- {{- $header := replaceRE "<h[1-6].*?>((.|\n])+?)</h[1-6]>" "$1" $header -}} -->
+                        {{- $header := replaceRE "<h[23].*?>((.|\n])+?)</h[23]>" "$1" $header -}}
 
                         {{- if ne $i 0 -}}
-                        {{- $prevHeaderLevel := index (findRE "[1-6]" (index $headers (sub $i 1)) 1) 0 -}}
+                        <!-- {{- $prevHeaderLevel := index (findRE "[1-6]" (index $headers (sub $i 1)) 1) 0 -}} -->
+                        {{- $prevHeaderLevel := index (findRE "[23]" (index $headers (sub $i 1)) 1) 0 -}}
                         {{- $prevHeaderLevel := len (seq $prevHeaderLevel) -}}
                         {{- if gt $headerLevel $prevHeaderLevel -}}
                         {{- range seq $prevHeaderLevel (sub $headerLevel 1) -}}
@@ -77,7 +83,8 @@
                         {{- end -}}
                         <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}} -->
                         {{- $firstHeaderLevel := $largest }}
-                        {{- $lastHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers (sub (len $headers) 1)) 1) 0)) }}
+                        <!-- {{- $lastHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers (sub (len $headers) 1)) 1) 0)) }} -->
+                        {{- $lastHeaderLevel := len (seq (index (findRE "[23]" (index $headers (sub (len $headers) 1)) 1) 0)) }}
                     </li>
                     {{- range seq (sub $lastHeaderLevel $firstHeaderLevel) -}}
                     {{- if in ($.Scratch.Get "bareul") (add . $firstHeaderLevel) }}
@@ -98,7 +105,8 @@
     window.addEventListener('DOMContentLoaded', function (event) {
         checkTocPosition();
 
-        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        // elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+        elements = document.querySelectorAll('h2[id],h3[id]');
          // Make the first header active
          activeElement = elements[0];
          const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();

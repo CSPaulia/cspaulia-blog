@@ -182,5 +182,73 @@ editPost:
 
 #### 工作出发点
 
+<p align="center">
+  <img src="clip4clip.png" alt="clip4clip" />
+</p>
+
 - CLIP是为图像-文本对设计的模型。对于视频检索任务来说，其本质上是一段文本和多张图像（视频帧）进行匹配，找到最相关的视频帧
-- CLIP4Clip
+- CLIP4Clip探索了三种匹配方法;
+  - Parameter-free Type：不需要参数的模块，例如均值池化（没考虑时序）
+  - Sequential Type：时序模块，例如LSTM和Transformer
+  - Tight Type：使用一个Transformer Encoder共同学习文本特征和视频特征，输出相似度
+
+### 6.2 ActionCLIP
+
+<p align="center">
+  <img src="actionclip_overview.png" alt="actionclip_overview" width=50% />
+</p>
+
+<p align="center">
+  <img src="actionclip.png" alt="actionclip" />
+</p>
+
+与CLIP4Clip类似
+
+## VII. 利用CLIP做语音识别
+
+### 7.1 AudioCLIP
+
+<p align="center">
+  <img src="audioclip.png" alt="audioclip"/>
+</p>
+
+添加音频编码器，仿照CLIP架构构造`音频-图像对比学习`和`音频-文本对比学习`
+
+## VIII. 利用CLIP做三维理解
+
+### 8.1 PointCLIP
+
+<p align="center">
+  <img src="pointclip.png" alt="pointclip"/>
+</p>
+
+1. 将点云映射到二维空间；
+2. 构造Prompt：Point Cloud Depth Map of a [CLASS]
+
+## IX. 利用CLIP做深度估计
+
+### 9.1 DepthCLIP
+
+<p align="center">
+  <img src="depthclip.png" alt="depthclip"/>
+</p>
+
+- 构建七类文本Prompt："This object is [distance class]"，[distance class]：
+  - ’giant’
+  - ’extremely close’
+  - ’close’
+  - ’not in distance’
+  - ’a little remote’
+  - ’far’
+  - ’unseen’
+- 网络结构与LSeg类似，通过`Softmax`完成分类预测
+
+---
+
+<div class="zhihu-ref">
+  <div class="zhihu-ref-title">参考文献</div>
+  <ol>
+    <li><a href="https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8" target="_blank">CLIP 改进工作串讲（上）【论文精读·42】</a></li>
+    <li><a href="https://www.bilibili.com/video/BV1gg411U7n4?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8" target="_blank">CLIP 改进工作串讲（下）【论文精读·42】</a></li>
+  </ol>
+</div>

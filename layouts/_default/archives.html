@@ -33,7 +33,7 @@
 {{- $pages = site.RegularPages }}
 {{- end }}
 
-<!-- {{- range $pages.GroupByPublishDate "2006" }} -->
+{{/*- range $pages.GroupByPublishDate "2006" */}}
 {{- range $pages.GroupByParamDate "lastmod" "2006" }}
 {{- if ne .Key "0001" }}
 <div class="archive-year">
@@ -44,7 +44,7 @@
     </a>
     <sup class="archive-count">&nbsp;{{ len .Pages }}</sup>
   </h2>
-  <!-- {{- range .Pages.GroupByDate "January" }} -->
+  {{/*- range .Pages.GroupByDate "January" */}}
   {{- range .Pages.GroupByParamDate "lastmod" "January" }}
   <div class="archive-month">
     <h3 class="archive-month-header" id="{{ $year }}-{{ .Key }}">
@@ -54,7 +54,7 @@
       <sup class="archive-count">&nbsp;{{ len .Pages }}</sup>
     </h3>
     <div class="archive-posts">
-      <!-- {{- range .Pages }} -->
+      {{/*- range .Pages */}}
       {{- range .Pages.ByLastmod.Reverse }}
       {{- if eq .Kind "page" }}
       <div class="archive-entry">

@@ -166,6 +166,10 @@ markup:
       unsafe: true
   math:
     enable: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+    ordered: false
 
 outputs:
   home:
