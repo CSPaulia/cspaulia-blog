@@ -3,103 +3,107 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/cspaulia-blog/categories/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/hugo/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-10T22:04:54+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/papermod/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-10T22:04:54+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/hugo-papermod/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-10T22:04:54+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-10T22:04:54+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/%E5%BB%BA%E7%AB%99/</loc>
-    <lastmod>2025-06-07T17:32:03+08:00</lastmod>
+    <lastmod>2025-06-10T22:04:54+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/base-model/</loc>
-    <lastmod>2025-06-03T10:46:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/clip/</loc>
-    <lastmod>2025-06-03T10:46:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/clip/</loc>
-    <lastmod>2025-06-03T10:46:03+08:00</lastmod>
+    <lastmod>2025-06-11T16:46:36+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/server/</loc>
-    <lastmod>2025-05-21T22:15:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/tips/</loc>
-    <lastmod>2025-05-21T22:15:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/screen/</loc>
-    <lastmod>2025-05-21T22:15:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/activation/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/attention/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/deep-learning-skills/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/model-blocks/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/cross_attention/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/activation/</loc>
-    <lastmod>2025-05-21T22:04:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/normalization/</loc>
-    <lastmod>2025-05-21T21:15:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/norm/</loc>
-    <lastmod>2025-05-21T21:15:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/github/</loc>
-    <lastmod>2025-05-21T22:07:00+09:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/github-tips/</loc>
-    <lastmod>2025-05-21T22:07:00+09:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/computational-cost/</loc>
-    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/paper-writing/</loc>
-    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/rebuttal/</loc>
-    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/params/</loc>
-    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</loc>
-    <lastmod>2025-05-21T19:41:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/loss/</loc>
-    <lastmod>2025-05-20T12:59:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/loss/</loc>
-    <lastmod>2025-05-20T12:59:00+08:00</lastmod>
+    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/archives/</loc>
+    <lastmod>2025-05-21T11:43:18+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/search/</loc>
+    <lastmod>2025-05-21T11:43:18+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cspaulia-blog/series/</loc>
   </url>
 </urlset>
