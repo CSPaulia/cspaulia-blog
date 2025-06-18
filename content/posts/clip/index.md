@@ -4,6 +4,9 @@ date: 2025-06-03T10:46:03+08:00
 # weight: 1
 # aliases: ["/first"]
 draft: true
+series:
+    main: "VLM"
+    subseries: "基础"
 categories: ["Base Model"]
 tags: ["CLIP"]
 author: "CSPaulia"

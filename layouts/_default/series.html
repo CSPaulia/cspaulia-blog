@@ -1,0 +1,279 @@
+{{- define "main" }}
+{{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+
+{{- /* 获取所有主系列 */ -}}
+{{- $mainSeries := slice }}
+{{- range $pages }}
+    {{- with .Params.series.main }}
+        {{- $mainSeries = union $mainSeries (slice .) }}
+    {{- end }}
+{{- end }}
+
+<div class="series-container">
+    <div class="series-grid">
+        {{- range $index, $main := $mainSeries }}
+        <div class="series-section">
+            <button class="collapse-btn" onclick="toggleSeries({{ $index }})">
+                <span class="collapse-text">{{ $main }}</span>
+                <span class="collapse-icon">▼</span>
+            </button>
+            <div class="series-card collapsed" id="series-{{ $index }}">
+                <div class="posts-list">
+                    {{- /* 获取当前主系列下的所有子系列 */ -}}
+                    {{- $currentPosts := where $pages "Params.series.main" $main }}
+                    {{- $subseries := slice }}
+                    {{- range $currentPosts }}
+                        {{- with .Params.series.subseries }}
+                            {{- $subseries = union $subseries (slice .) }}
+                        {{- end }}
+                    {{- end }}
+                    
+                    {{- /* 按子系列分组显示文章 */ -}}
+                    {{- range $subIndex, $sub := $subseries }}
+                    <div class="subseries-group">
+                        <button class="subseries-btn" onclick="toggleSubseries({{ $index }}, {{ $subIndex }})">
+                            <span class="subseries-text">{{ $sub }}</span>
+                            <span class="subseries-icon">▼</span>
+                        </button>
+                        <div class="subseries-content collapsed" id="subseries-{{ $index }}-{{ $subIndex }}">
+                            {{- range $currentPosts }}
+                                {{- if eq .Params.series.subseries $sub }}
+                                <div class="post-item">
+                                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                                    <span class="post-meta">
+                                        <time>{{ .Date.Format "2006-01-02" }}</time>
+                                    </span>
+                                </div>
+                                {{- end }}
+                            {{- end }}
+                        </div>
+                    </div>
+                    {{- end }}
+                </div>
+            </div>
+        </div>
+        {{- end }}
+    </div>
+</div>
+
+<style>
+series-container {
+    margin: 2rem 0;
+}
+
+.series-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.series-section {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.collapse-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: var(--entry);
+    border: none;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.collapse-btn:hover {
+    background: var(--border);
+}
+
+.collapse-icon {
+    transition: transform 0.3s ease;
+}
+
+.collapse-btn.collapsed .collapse-icon {
+    transform: rotate(-90deg);
+}
+
+.series-card {
+    background: var(--entry);
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    max-height: 1000px;
+    opacity: 1;
+}
+
+.series-card.collapsed {
+    max-height: 0;
+    opacity: 0;
+}
+
+.posts-list {
+    padding: 1rem;
+}
+
+.post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-meta {
+    color: var(--secondary);
+    font-size: 0.9rem;
+}
+.subseries-group {
+    margin: 1rem 0;
+    border-left: 3px solid var(--primary);
+    background: var(--entry);
+}
+
+.subseries-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--primary);
+}
+
+.subseries-btn:hover {
+    background: var(--border);
+}
+
+.subseries-icon {
+    transition: transform 0.3s ease;
+}
+
+.subseries-btn.collapsed .subseries-icon {
+    transform: rotate(-90deg);
+}
+
+.subseries-content {
+    padding: 0 1rem 1rem 1rem;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+    max-height: 500px;
+    opacity: 1;
+}
+
+.subseries-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+</style>
+
+<script>
+function toggleSeries(index) {
+    const seriesCard = document.getElementById(`series-${index}`);
+    const btn = seriesCard.previousElementSibling;
+    const icon = btn.querySelector('.collapse-icon');
+    
+    seriesCard.classList.toggle('collapsed');
+    btn.classList.toggle('collapsed');
+    
+    // 保存折叠状态到 localStorage
+    const collapsedState = seriesCard.classList.contains('collapsed');
+    localStorage.setItem(`series-${index}-collapsed`, collapsedState);
+}
+
+// 页面加载时恢复折叠状态
+document.addEventListener('DOMContentLoaded', function() {
+    const seriesCards = document.querySelectorAll('.series-card');
+    seriesCards.forEach((card, index) => {
+        const collapsedState = localStorage.getItem(`series-${index}-collapsed`);
+        if (collapsedState === 'true') {
+            card.classList.add('collapsed');
+            card.previousElementSibling.classList.add('collapsed');
+        }
+    });
+});
+
+function toggleSubseries(mainIndex, subIndex) {
+    const content = document.getElementById(`subseries-${mainIndex}-${subIndex}`);
+    const btn = content.previousElementSibling;
+    const icon = btn.querySelector('.subseries-icon');
+    
+    content.classList.toggle('collapsed');
+    btn.classList.toggle('collapsed');
+    
+    // 保存子系列折叠状态
+    const collapsedState = content.classList.contains('collapsed');
+    localStorage.setItem(`subseries-${mainIndex}-${subIndex}-collapsed`, collapsedState);
+}
+
+// 页面加载时恢复所有折叠状态
+ocument.addEventListener('DOMContentLoaded', function() {
+    // 检查是否是首次访问
+    const isFirstVisit = !localStorage.getItem('visited');
+    
+    if (isFirstVisit) {
+        // 首次访问，设置所有系列为折叠状态
+        const seriesCards = document.querySelectorAll('.series-card');
+        const subseriesContents = document.querySelectorAll('.subseries-content');
+        
+        seriesCards.forEach((card, index) => {
+            card.classList.add('collapsed');
+            card.previousElementSibling.classList.add('collapsed');
+            localStorage.setItem(`series-${index}-collapsed`, 'true');
+        });
+        
+        subseriesContents.forEach((content) => {
+            content.classList.add('collapsed');
+            content.previousElementSibling.classList.add('collapsed');
+            localStorage.setItem(`${content.id}-collapsed`, 'true');
+        });
+        
+        // 标记已访问
+        localStorage.setItem('visited', 'true');
+    } else {
+        // 非首次访问，使用保存的状态
+        const seriesCards = document.querySelectorAll('.series-card');
+        seriesCards.forEach((card, index) => {
+            const collapsedState = localStorage.getItem(`series-${index}-collapsed`);
+            if (collapsedState !== 'false') {
+                card.classList.add('collapsed');
+                card.previousElementSibling.classList.add('collapsed');
+            }
+        });
+        
+        const subseries = document.querySelectorAll('.subseries-content');
+        subseries.forEach((content) => {
+            const id = content.id;
+            const collapsedState = localStorage.getItem(`${id}-collapsed`);
+            if (collapsedState !== 'false') {
+                content.classList.add('collapsed');
+                content.previousElementSibling.classList.add('collapsed');
+            }
+        });
+    }
+});
+</script>
+
+{{- end }}

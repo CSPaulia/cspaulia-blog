@@ -131,6 +131,10 @@ menu:
       name: posts
       url: /posts/
       weight: 10
+    - identifier: series
+      name: series
+      url: /series/
+      weight: 20
     - identifier: categories
       name: categories
       url: /categories/
