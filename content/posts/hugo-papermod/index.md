@@ -4,9 +4,6 @@ date: 2025-06-07T17:32:03+08:00
 # weight: 1
 # aliases: ["/first"]
 draft: true
-series:
-    main: "LLM"
-    subseries: "基础"
 categories: ["建站"]
 tags: ["Hugo", "PaperMod", "建站"]
 author: "CSPaulia"

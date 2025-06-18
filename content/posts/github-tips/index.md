@@ -3,9 +3,6 @@ title: "如何上传本地文件到Github库"
 date: 2025-05-21T22:07:00+09:00
 # weight: 1
 # aliases: ["/first"]
-series:
-    main: "LLM"
-    subseries: "基础"
 categories: ["Tips"]
 tags: ["Github"]
 author: "CSPaulia"
