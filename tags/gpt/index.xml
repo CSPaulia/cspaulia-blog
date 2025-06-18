@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GPT on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/gpt/</link>
+    <description>Recent content in GPT on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.147.8</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/gpt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>GPT系列</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</link>
+      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</guid>
+      <description>详解 GPT系列 预训练语言模型</description>
+    </item>
+  </channel>
+</rss>
