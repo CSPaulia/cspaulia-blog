@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Rebuttal on cspaulia-blog</title>
-    <link>http://localhost:1313/cspaulia-blog/tags/rebuttal/</link>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/</link>
     <description>Recent content in Rebuttal on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
-      <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.3</generator>
+    <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
     <lastBuildDate>Wed, 04 Jun 2025 21:43:23 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/cspaulia-blog/tags/rebuttal/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>论文回复方法（Rebuttal Method）</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</guid>
       <description>&lt;h2 id=&#34;回复流程&#34;&gt;回复流程&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;

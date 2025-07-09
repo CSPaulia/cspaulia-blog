@@ -13,7 +13,7 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "Epoch 6/100"
+description: "[Epoch  6/100] Updating..."
 # canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
@@ -39,9 +39,9 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## <span style="color: #CC7E40;">分类任务损失函数</span>
+## 分类任务损失函数
 
-### <span style="color: #DFC08A;">交叉熵（Cross Entropy）</span>
+### 交叉熵（Cross Entropy）
 
 $$
 \text{H}_p(q) = \sum_x q(x) \log_2(\frac{1}{p(x)}) = - \sum_x q(x) \log_2(p(x))
@@ -85,7 +85,7 @@ $$
 $$
 
 
-### <span style="color: #DFC08A;">KL 散度（KL Divergence）</span>
+### KL 散度（KL Divergence）
 
 $$
 \text{D}_{\text{KL}}(q \| p) = - \sum_i q(x) \log_2(p(x)) + \sum_x p(x) \log_2(p(x)) = \text{H}_p(q) - \text{H}(p)
@@ -95,7 +95,7 @@ $$
 
 在神经网络的训练当中，由于p往往是标签的分布，p的熵值是确定的。所以KL散度和交叉熵是等价的。但是由于交叉熵不惜要计算信息熵，计算更加简单，所以交叉熵使用更加广泛。
 
-### <span style="color: #DFC08A;">二值交叉熵（Binary Cross Entropy）</span>
+### 二值交叉熵（Binary Cross Entropy）
 
 模型预测结果：
 
@@ -117,7 +117,7 @@ $$
 
 这个损失函数就是$y_i$与$\theta$的交叉熵$H_y(\theta)$。
 
-### <span style="color: #DFC08A;">平衡交叉熵（Balenced Cross Entropy）</span>
+### 平衡交叉熵（Balenced Cross Entropy）
 
 为了解决**样本数量不平衡**这个问题，我们可以选择给Cross Entropy添加权重。以二分类问题举例，[Binary Cross Entropy](#二值交叉熵binary-cross-entropy)已经介绍过Binary Cross Entropy：
 
@@ -161,7 +161,7 @@ Balenced Cross Entropy确实解决了样本不均衡问题，但并未解决样�
 
 ![easyhard](easyhard.jpg)
 
-### <span style="color: #DFC08A;">Focal Loss</span>
+### Focal Loss
 
 $$
 \text{FL}(p_t) = (1-p_t)^\gamma\log(p_t)
@@ -174,7 +174,7 @@ $p_t$是模型预测的结果的类别概率值。$−\log(p_t)$和交叉熵损�
 前面的$\alpha_t$是类别权重系数。如果你有一个类别不平衡的数据集，那么你肯定想对数量少的那一类在loss贡献上赋予一个高权重，这个$\alpha_t$就起到这样的作用。因此，$\alpha_t$应该是一个**向量**，向量的长度等于类别的个数，用于存放各个类别的权重。一般来说$\alpha_t$中的值为**每一个类别样本数量的倒数**，相当于平衡样本的数量差距
 
 
-### <span style="color: #DFC08A;">Lovasz Loss</span>
+### Lovasz Loss
 
 #### Lovasz Loss的推导
 

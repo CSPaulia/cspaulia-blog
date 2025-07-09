@@ -2,64 +2,64 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on cspaulia-blog</title>
-    <link>http://localhost:1313/cspaulia-blog/categories/</link>
+    <link>https://cspaulia.github.io/cspaulia-blog/categories/</link>
     <description>Recent content in Categories on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
-      <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.3</generator>
+    <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Jun 2025 20:25:38 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 09 Jul 2025 16:25:32 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Large Language Model</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/large-language-model/</link>
-      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/large-language-model/</guid>
+      <title>Deep Learning Skills</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</guid>
       <description></description>
     </item>
     <item>
-      <title>Deep Learning Skills</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/deep-learning-skills/</link>
-      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/deep-learning-skills/</guid>
+      <title>Large Language Model</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</link>
+      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</guid>
       <description></description>
     </item>
     <item>
       <title>建站</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/</link>
       <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/</guid>
       <description></description>
     </item>
     <item>
       <title>Base Model</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/base-model/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/base-model/</link>
       <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/base-model/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/base-model/</guid>
       <description></description>
     </item>
     <item>
       <title>Tips</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/tips/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/tips/</link>
       <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/tips/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/tips/</guid>
       <description></description>
     </item>
     <item>
       <title>Model Blocks</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/model-blocks/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/model-blocks/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/model-blocks/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/model-blocks/</guid>
       <description></description>
     </item>
     <item>
       <title>Paper Writing</title>
-      <link>http://localhost:1313/cspaulia-blog/categories/paper-writing/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/categories/paper-writing/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</guid>
       <description></description>
     </item>
   </channel>

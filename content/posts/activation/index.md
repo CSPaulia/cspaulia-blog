@@ -13,7 +13,7 @@ TocOpen: false # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Epoch 1/NaN"
+description: "[Epoch  1/NaN] Updating..."
 # canonicalURL: "https://canonical.url/to/page"
 disableHLJS: true # to disable highlightjs
 disableShare: false
