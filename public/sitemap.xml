@@ -3,36 +3,45 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</loc>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/tags/metrics/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/llm/</loc>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/categories/nlp/</loc>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</loc>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/tokenization/</loc>
+    <lastmod>2025-07-19T19:46:14+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</loc>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/metrics/</loc>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/metric/</loc>
-    <lastmod>2025-07-09T16:25:32+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/gpt/</loc>
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/tags/llm/</loc>
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/pre-training/</loc>
@@ -81,7 +90,7 @@
     <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/activation/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/attention/</loc>
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
@@ -93,13 +102,13 @@
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/activation/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/normalization/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/norm/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/github/</loc>
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
@@ -108,7 +117,7 @@
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/computational-cost/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</loc>
     <lastmod>2025-06-04T21:43:23+08:00</lastmod>
@@ -117,7 +126,7 @@
     <lastmod>2025-06-04T21:43:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/params/</loc>
-    <lastmod>2025-06-04T21:43:23+08:00</lastmod>
+    <lastmod>2025-07-09T16:26:23+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</loc>
     <lastmod>2025-06-04T21:43:23+08:00</lastmod>
