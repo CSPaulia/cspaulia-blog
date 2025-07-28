@@ -3,24 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/flops/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/tags/llm/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/memory/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/nlp/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/pytorch/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/training/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/llm/</loc>
     <lastmod>2025-07-19T19:49:05+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</loc>
