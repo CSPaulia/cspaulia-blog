@@ -67,9 +67,9 @@ params:
 
   # profile-mode
   profileMode:
-    enabled: false # needs to be explicitly set
-    title: ExampleSite
-    subtitle: "This is subtitle"
+    enabled: true # needs to be explicitly set
+    title: CSPaulia
+    subtitle: "Welcome to CSPaulia's blog"
     imageUrl: "<img location>"
     imageWidth: 120
     imageHeight: 120
@@ -79,6 +79,10 @@ params:
         url: posts
       - name: Tags
         url: tags
+      - name: Categories
+        url: categories
+      - name: Series
+        url: series
 
   # home-info mode
   homeInfoParams:
