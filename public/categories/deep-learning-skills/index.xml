@@ -9,10 +9,21 @@
       <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.3</generator>
+    <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
+<<<<<<< HEAD
     <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
+=======
+    <lastBuildDate>Wed, 09 Jul 2025 16:26:23 +0800</lastBuildDate>
+>>>>>>> 5f18812fde586037dee9ac9e2ce3ba91a7f73b11
     <atom:link href="http://localhost:1313/cspaulia-blog/categories/deep-learning-skills/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录100种评价指标</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/metric/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/metric/</guid>
+      <description>[Epoch  10/100] Updating...</description>
+    </item>
     <item>
       <title>LoRA: 大模型低秩适配方法详解</title>
       <link>http://localhost:1313/cspaulia-blog/posts/lora/</link>
@@ -25,28 +36,28 @@
       <link>http://localhost:1313/cspaulia-blog/posts/activation/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/activation/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>收集N个Norm方法</title>
       <link>http://localhost:1313/cspaulia-blog/posts/norm/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/norm/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>收集N个模型参数衡量指标</title>
       <link>http://localhost:1313/cspaulia-blog/posts/params/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/params/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>记录100种损失函数（Loss Function）</title>
       <link>http://localhost:1313/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/loss/</guid>
-      <description>Epoch 6/100</description>
+      <description>[Epoch  6/100] Updating...</description>
     </item>
   </channel>
 </rss>

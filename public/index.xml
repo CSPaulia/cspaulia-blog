@@ -11,8 +11,29 @@
     </image>
     <generator>Hugo -- 0.147.3</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Aug 2025 14:01:00 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/cspaulia-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基本原语（primitives）与资源计算</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/primitives/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/primitives/</guid>
+      <description>深度学习训练中的基本原语与资源计算总结</description>
+    </item>
+    <item>
+      <title>Tokenization</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/tokenization/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/tokenization/</guid>
+      <description>Tokenization in LLM</description>
+    </item>
+    <item>
+      <title>记录100种评价指标</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/metric/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/metric/</guid>
+      <description>[Epoch  10/100] Updating...</description>
+    </item>
     <item>
       <title>GPT系列</title>
       <link>http://localhost:1313/cspaulia-blog/posts/gpt/</link>
@@ -120,14 +141,14 @@ $$&lt;/p&gt;</description>
       <link>http://localhost:1313/cspaulia-blog/posts/activation/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/activation/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>收集N个Norm方法</title>
       <link>http://localhost:1313/cspaulia-blog/posts/norm/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/norm/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>如何上传本地文件到Github库</title>
@@ -182,7 +203,7 @@ $$&lt;/p&gt;</description>
       <link>http://localhost:1313/cspaulia-blog/posts/params/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/params/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>论文回复方法（Rebuttal Method）</title>
@@ -245,7 +266,7 @@ $$&lt;/p&gt;</description>
       <link>http://localhost:1313/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/loss/</guid>
-      <description>Epoch 6/100</description>
+      <description>[Epoch  6/100] Updating...</description>
     </item>
     <item>
       <title>Series</title>

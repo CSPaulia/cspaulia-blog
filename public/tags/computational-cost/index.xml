@@ -9,16 +9,16 @@
       <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.3</generator>
+    <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 04 Jun 2025 21:43:23 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Jul 2025 16:26:23 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/cspaulia-blog/tags/computational-cost/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>收集N个模型参数衡量指标</title>
       <link>http://localhost:1313/cspaulia-blog/posts/params/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/posts/params/</guid>
-      <description>Epoch 1/NaN</description>
+      <description>[Epoch  1/NaN] Updating...</description>
     </item>
   </channel>
 </rss>
