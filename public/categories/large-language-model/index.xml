@@ -11,12 +11,15 @@
     </image>
     <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-<<<<<<< HEAD
-    <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
-=======
-    <lastBuildDate>Sat, 19 Jul 2025 19:49:05 +0800</lastBuildDate>
->>>>>>> 5f18812fde586037dee9ac9e2ce3ba91a7f73b11
+    <lastBuildDate>Mon, 28 Jul 2025 13:42:46 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/cspaulia-blog/categories/large-language-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基本原语（primitives）与资源计算</title>
+      <link>http://localhost:1313/cspaulia-blog/posts/primitives/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>http://localhost:1313/cspaulia-blog/posts/primitives/</guid>
+      <description>深度学习训练中的基本原语与资源计算总结</description>
+    </item>
     <item>
       <title>Tokenization</title>
       <link>http://localhost:1313/cspaulia-blog/posts/tokenization/</link>

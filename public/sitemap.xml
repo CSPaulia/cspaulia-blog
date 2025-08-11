@@ -3,53 +3,39 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/cspaulia-blog/categories/</loc>
-<<<<<<< HEAD
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/tags/gpt/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/posts/gpt/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
+    <loc>http://localhost:1313/cspaulia-blog/tags/flops/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/large-language-model/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/tags/llm/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/posts/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/tags/pre-training/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/tags/</loc>
-    <lastmod>2025-06-18T20:47:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/categories/deep-learning-skills/</loc>
-=======
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/</loc>
-    <lastmod>2025-07-28T11:12:32+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/categories/large-language-model/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/tags/llm/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <loc>http://localhost:1313/cspaulia-blog/tags/memory/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/categories/nlp/</loc>
-    <lastmod>2025-07-19T19:49:05+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/</loc>
-    <lastmod>2025-07-28T11:12:32+08:00</lastmod>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cspaulia-blog/tags/pytorch/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cspaulia-blog/tags/training/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cspaulia-blog/posts/primitives/</loc>
+    <lastmod>2025-07-28T13:42:46+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/cspaulia-blog/tags/llm/</loc>
     <lastmod>2025-07-19T19:49:05+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/tokenization/</loc>
@@ -74,7 +60,6 @@
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/pre-training/</loc>
->>>>>>> 5f18812fde586037dee9ac9e2ce3ba91a7f73b11
     <lastmod>2025-06-18T20:47:05+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/tags/fine-tuning/</loc>
@@ -166,9 +151,6 @@
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/posts/loss/</loc>
     <lastmod>2025-07-09T16:25:32+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/cspaulia-blog/posts/training_primitives/</loc>
-    <lastmod>2025-07-28T11:12:32+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/cspaulia-blog/archives/</loc>
     <lastmod>2025-05-21T11:43:18+08:00</lastmod>

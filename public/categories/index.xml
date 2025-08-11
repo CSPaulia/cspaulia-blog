@@ -11,23 +11,19 @@
     </image>
     <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-<<<<<<< HEAD
-    <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
-=======
-    <lastBuildDate>Sat, 19 Jul 2025 19:49:05 +0800</lastBuildDate>
->>>>>>> 5f18812fde586037dee9ac9e2ce3ba91a7f73b11
+    <lastBuildDate>Mon, 28 Jul 2025 13:42:46 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Large Language Model</title>
       <link>http://localhost:1313/cspaulia-blog/categories/large-language-model/</link>
-      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/categories/large-language-model/</guid>
       <description></description>
     </item>
     <item>
       <title>NLP</title>
       <link>http://localhost:1313/cspaulia-blog/categories/nlp/</link>
-      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>http://localhost:1313/cspaulia-blog/categories/nlp/</guid>
       <description></description>
     </item>

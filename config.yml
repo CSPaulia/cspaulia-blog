@@ -70,7 +70,7 @@ params:
     enabled: true # needs to be explicitly set
     title: CSPaulia
     subtitle: "Welcome to CSPaulia's blog"
-    imageUrl: "<img location>"
+    imageUrl: "images/ly&sj.jpg"
     imageWidth: 120
     imageHeight: 120
     imageTitle: my image
