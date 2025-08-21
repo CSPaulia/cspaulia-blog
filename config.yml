@@ -58,6 +58,10 @@ params:
     apple_touch_icon: "<link / abs url>"
     safari_pinned_tab: "<link / abs url>"
 
+  extend_head: |
+    <link rel="stylesheet" href="{{ "css/extended/alerts.css" | absURL }}">
+    <script src="{{ "js/alerts.js" | absURL }}"></script>
+
   syntax_highlighter: "highlight.js" # 设置代码高亮主题
 
   label:

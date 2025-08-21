@@ -1,0 +1,26 @@
+{{- $type := .Get "type" | default "info" -}}
+{{- $title := .Get "title" | default "" -}}
+{{- $closable := .Get "closable" | default "true" -}}
+{{- $content := .Inner | markdownify -}}
+
+{{- $icons := dict 
+    "success" "✓"
+    "error" "!"
+    "warning" "⚠"
+    "info" "i"
+-}}
+
+{{- $icon := index $icons $type | default "i" -}}
+
+<div class="alert alert-{{ $type }}">
+    <div class="alert-icon">{{ $icon }}</div>
+    <div class="alert-content">
+        {{- if $title -}}
+        <div class="alert-title">{{ $title }}</div>
+        {{- end -}}
+        <div class="alert-message">{{ $content }}</div>
+    </div>
+    {{- if eq $closable "true" -}}
+    <button class="alert-close" onclick="closeAlert(this)">&times;</button>
+    {{- end -}}
+</div>

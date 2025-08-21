@@ -10,14 +10,14 @@
 }
 
 /* 链接样式 */
-.post-content a {
+/* .post-content a {
     color: #0969da;
     box-shadow: none;
     text-decoration: none;
 }
 .post-content a:hover {
     text-decoration: underline;
-}
+} */
 
 /* 行内代码 - 左右间距 */
 .post-content code {
