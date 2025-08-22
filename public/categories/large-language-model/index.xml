@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Large Language Model on cspaulia-blog</title>
-    <link>http://localhost:1313/cspaulia-blog/categories/large-language-model/</link>
+    <link>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</link>
     <description>Recent content in Large Language Model on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
-      <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Jul 2025 13:42:46 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/cspaulia-blog/categories/large-language-model/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Aug 2025 15:49:19 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基本原语（primitives）与资源计算</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/primitives/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</link>
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/primitives/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</guid>
       <description>深度学习训练中的基本原语与资源计算总结</description>
     </item>
     <item>
       <title>Tokenization</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/tokenization/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</link>
       <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/tokenization/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</guid>
       <description>Tokenization in LLM</description>
     </item>
     <item>
       <title>GPT系列</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/gpt/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</link>
       <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/gpt/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</guid>
       <description>详解 GPT系列 预训练语言模型</description>
     </item>
   </channel>

@@ -2,71 +2,71 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on cspaulia-blog</title>
-    <link>http://localhost:1313/cspaulia-blog/posts/</link>
+    <link>https://cspaulia.github.io/cspaulia-blog/posts/</link>
     <description>Recent content in Posts on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
-      <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Jul 2025 13:42:46 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/cspaulia-blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Aug 2025 15:49:19 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基本原语（primitives）与资源计算</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/primitives/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</link>
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/primitives/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</guid>
       <description>深度学习训练中的基本原语与资源计算总结</description>
     </item>
     <item>
       <title>Tokenization</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/tokenization/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</link>
       <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/tokenization/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</guid>
       <description>Tokenization in LLM</description>
     </item>
     <item>
       <title>记录100种评价指标</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/metric/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/metric/</link>
       <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/metric/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/metric/</guid>
       <description>[Epoch  10/100] Updating...</description>
     </item>
     <item>
       <title>GPT系列</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/gpt/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</link>
       <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/gpt/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</guid>
       <description>详解 GPT系列 预训练语言模型</description>
     </item>
     <item>
       <title>LoRA: 大模型低秩适配方法详解</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/lora/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/lora/</link>
       <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/lora/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/lora/</guid>
       <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
     </item>
     <item>
       <title>PaperMod进化论</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/hugo-papermod/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/hugo-papermod/</link>
       <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/hugo-papermod/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/hugo-papermod/</guid>
       <description>改进我的PaperMod</description>
     </item>
     <item>
       <title>CLIP及其改进工作</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/clip/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/clip/</link>
       <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/clip/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/clip/</guid>
       <description>CLIP及其改进工作</description>
     </item>
     <item>
       <title>终端多路复用工具Screen的用法</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/screen/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/screen/</link>
       <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/screen/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/screen/</guid>
       <description>&lt;h2 id=&#34;screen基本命令&#34;&gt;screen基本命令&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;新建一个screen会话&lt;/li&gt;
@@ -106,9 +106,9 @@
     </item>
     <item>
       <title>交叉注意力机制</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/cross_attention/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/cross_attention/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</guid>
       <description>&lt;h2 id=&#34;cross-attention&#34;&gt;Cross Attention&lt;/h2&gt;
 &lt;p&gt;来自&lt;a href=&#34;https://vaclavkosar.com/ml/cross-attention-in-transformer-architecture&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;简介&#34;&gt;简介&lt;/h3&gt;
@@ -122,7 +122,7 @@
 &lt;/ul&gt;
 &lt;h3 id=&#34;cross-attention-vs-self-attention&#34;&gt;Cross Attention vs Self-attention&lt;/h3&gt;
 &lt;p&gt;Cross Attention与Self-attention只有输入不同。Cross Attention输入为两个维度相同的嵌入序列；Self-attention输入为一个嵌入序列，其KQV均由该序列生成。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;http://localhost:1313/cspaulia-blog/posts/cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;cross-attention算法&#34;&gt;Cross Attention算法&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;拥有两个序列S1、S2&lt;/li&gt;
@@ -138,23 +138,23 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>收集N个激活函数</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/activation/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/activation/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/activation/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/activation/</guid>
       <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>收集N个Norm方法</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/norm/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/norm/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/norm/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/norm/</guid>
       <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
       <title>如何上传本地文件到Github库</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/github-tips/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</link>
       <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/github-tips/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</guid>
       <description>&lt;h2 id=&#34;上传本地文件到github库&#34;&gt;上传本地文件到Github库&lt;/h2&gt;
 &lt;h3 id=&#34;1-在github上创建仓库远程仓库&#34;&gt;1. 在GitHub上创建仓库（远程仓库）&lt;/h3&gt;
 &lt;p&gt;在 GitHub 上创建一个新的代码仓库&lt;/p&gt;
@@ -199,17 +199,10 @@ $$&lt;/p&gt;</description>
 &lt;p&gt;在 GitHub 上创建一个新的远程仓库，获取复制该仓库的 SSH 或 HTTPS 链接&lt;/p&gt;</description>
     </item>
     <item>
-      <title>收集N个模型参数衡量指标</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/params/</link>
-      <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/params/</guid>
-      <description>[Epoch  1/NaN] Updating...</description>
-    </item>
-    <item>
       <title>论文回复方法（Rebuttal Method）</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/writing-tips-rebuttal/</guid>
       <description>&lt;h2 id=&#34;回复流程&#34;&gt;回复流程&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -263,9 +256,9 @@ $$&lt;/p&gt;</description>
     </item>
     <item>
       <title>记录100种损失函数（Loss Function）</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/loss/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/loss/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/loss/</guid>
       <description>[Epoch  6/100] Updating...</description>
     </item>
   </channel>

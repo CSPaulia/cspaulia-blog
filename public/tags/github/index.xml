@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Github on cspaulia-blog</title>
-    <link>http://localhost:1313/cspaulia-blog/tags/github/</link>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/github/</link>
     <description>Recent content in Github on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
-      <url>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
-      <link>http://localhost:1313/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.148.0</generator>
     <language>en</language>
     <lastBuildDate>Wed, 18 Jun 2025 20:47:05 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/cspaulia-blog/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>如何上传本地文件到Github库</title>
-      <link>http://localhost:1313/cspaulia-blog/posts/github-tips/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</link>
       <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
-      <guid>http://localhost:1313/cspaulia-blog/posts/github-tips/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</guid>
       <description>&lt;h2 id=&#34;上传本地文件到github库&#34;&gt;上传本地文件到Github库&lt;/h2&gt;
 &lt;h3 id=&#34;1-在github上创建仓库远程仓库&#34;&gt;1. 在GitHub上创建仓库（远程仓库）&lt;/h3&gt;
 &lt;p&gt;在 GitHub 上创建一个新的代码仓库&lt;/p&gt;

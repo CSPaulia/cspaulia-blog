@@ -21,7 +21,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 UseHugoToc: true
 cover:
-    image: "training_primitives_cover.jpg"
+    image: "primitive.jpg"
     alt: "training primitives"
     caption: "training primitives"
     relative: false
@@ -521,80 +521,498 @@ x = rearrange(x, "... heads hidden2 -> ... (heads hidden2)")  # @inspect x
     
 - 模型 FLOPs 利用率（MFU）：(实际 FLOP/s) / (承诺 FLOP/s)
 
-## 5. 计算量（FLOPs）分析
+---
 
-- **FLOPs**：浮点运算次数，衡量训练/推理的计算消耗。
-- 训练 GPT-3 约需 3.14e23 FLOPs，GPT-4 约 2e25 FLOPs。
-- A100 峰值 312 TFLOP/s，H100 峰值 1979 TFLOP/s（稀疏）。
-- 线性模型/Transformer 的 FLOPs 主要由矩阵乘法决定。
+### 2.4. 梯度与反向传播
 
-### FLOPs 利用率（MFU）
+#### 2.4.1. 梯度基础
 
-- MFU = 实际 FLOP/s / 理论峰值 FLOP/s
-- MFU ≥ 0.5 已属高效。
+假设我们有一个简单的线性模型
+
+$$
+y = 0.5 \cdot (x \times w - 5)^2
+$$
+
+**前向传播**：计算损失
+
+```python
+x = torch.tensor([1., 2, 3])
+w = torch.tensor([1., 1, 1], requires_grad=True)  # Want gradient
+pred_y = x @ w
+loss = 0.5 * (pred_y - 5).pow(2)
+```
+
+**反向传播**：计算梯度
+
+```python
+loss.backward()
+assert loss.grad is None
+assert pred_y.grad is None
+assert x.grad is None
+assert torch.equal(w.grad, torch.tensor([1, 2, 3]))
+```
 
 ---
 
-## 6. 梯度与反向传播
+#### 2.4.2. 梯度 FLOPs
 
-- 前向传播：计算损失。
-- 反向传播：自动求梯度，更新参数。
-- 反向传播 FLOPs 通常是前向的 2 倍，总 FLOPs 约为 6 ×（数据点数 × 参数数）。
+计算梯度 FLOPs，我们以线性模型为例
 
----
+```python
+x = torch.ones(B, D, device=device)
+w1 = torch.randn(D, D, device=device, requires_grad=True)
+w2 = torch.randn(D, K, device=device, requires_grad=True)
+h1 = x @ w1
+h2 = h1 @ w2
+loss = h2.pow(2).mean()
+```
 
-## 7. 模型参数与初始化
+> 回顾一下前向传播的 FLOPs 计算：
+> - Multiply x[i][j] * w1[j][k]
+> - Add to h1[i][k]
+> - Multiply h1[i][j] * w2[j][k]
+> - Add to h2[i][k]
+>
+> ```python
+> num_forward_flops = (2 * B * D * D) + (2 * B * D * K)  # @inspect num_forward_flops
+> ```
 
-- 参数用 `nn.Parameter` 存储，支持自动求导。
-- 初始化建议用 Xavier/Glorot 初始化，避免梯度爆炸/消失。
-- 可用截断正态分布进一步避免极端值。
+反向传播路径：loss --> h2 --> w2 --> h1 --> w1 --> x
 
----
+对于参数 w2，根据链式法则，可以得出其梯度为
 
-## 8. 自定义模型与训练循环
+$$
+\text{w2.grad} = \frac{\partial loss}{\partial w2} = \frac{\partial loss}{\partial h2} \cdot \frac{\partial h2}{\partial w2}
+$$
+$$
+w2.grad[j,k] = \frac{\partial loss}{\partial w2[j, k]} = \sum_{i=0}^{N-1} \frac{\partial loss}{\partial h2[i, k]} \cdot \frac{\partial h2[i, k]}{\partial w2[j, k]} = \sum_{i=0}^{N-1} h2.grad[i,k] \cdot h1[i,j]
+$$
 
-- 以 `Cruncher` 为例，堆叠多个线性层，最后输出单值。
-- 训练循环包括：采样 batch、前向、反向、优化器 step、梯度清零。
+对于每一个三元组 (i,j,k)，都要做一次乘法和加法，所以
 
----
+```python
+num_backward_flops += 2 * B * D * K  # @inspect num_backward_flops
+```
 
-## 9. 数据加载与批处理
+而这其中，有四个参数需要计算梯度，所以最终需要的 FLOPs 为
 
-- 数据通常为整数序列（token）。
-- 推荐用 numpy memmap 懒加载大数据集。
-- 支持 pinned memory 和异步数据传输提升效率。
+```python
+num_backward_flops = (2 + 2) * B * D * K + (2 + 2) * B * D * D  # @inspect num_backward_flops
+```
 
----
+<p align="center">
+  <img src="back_flops.gif" alt="back_flops" />
+</p>
 
-## 10. 优化器
-
-- 介绍了 SGD、AdaGrad 两种优化器的实现与原理。
-- AdaGrad 适合稀疏梯度场景，自动调整学习率。
-
----
-
-## 11. 检查点与混合精度训练
-
-- 长时间训练需定期保存模型和优化器状态（checkpoint）。
-- 混合精度训练（AMP）：前向用低精度，参数/梯度用高精度，兼顾速度与稳定性。
-
----
-
-## 12. 训练中的随机性
-
-- 随机性影响初始化、dropout、数据顺序等。
-- 建议同时设置 torch、numpy、python 的随机种子，保证可复现性。
-
----
-
-## 参考资料
-
-- [PyTorch 张量文档](https://pytorch.org/docs/stable/tensors.html)
-- [Xavier 初始化论文](https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
-- [Einops 教程](https://einops.rocks/1-einops-basics/)
-- [混合精度训练论文](https://arxiv.org/pdf/1710.03740.pdf)
-- [Transformer 计算与内存分析博客](https://erees.dev/transformer-memory/), [Transformer FLOPs 计算](https://www.adamcasson.com/posts/transformer-flops)
+{{< alert type="info" title="总结" >}}
+- 前向传播：2 (# data points) (# parameters) FLOPs
+- 反向传播：4 (# data points) (# parameters) FLOPs
+- 总合：6 (# data points) (# parameters) FLOPs
+{{< /alert >}}
 
 ---
 
-如需插入图片、代码或进一步细化某一部分，可随时告知！
+## 3. 模型
+
+### 3.1. 模型参数
+
+模型参数均以`nn.Parameter`对象的形式存储于 Pytorch
+
+```python
+input_dim = 16384
+output_dim = 32
+
+w = nn.Parameter(torch.randn(input_dim, output_dim))
+assert isinstance(w, torch.Tensor)  # Behaves like a tensor
+assert type(w.data) == torch.Tensor  # Access the underlying tensor
+```
+
+#### 3.1.1. 参数初始化
+
+假设我们随机初始化权重 w，并与 x 做乘法操作
+
+```python
+x = nn.Parameter(torch.randn(input_dim))
+output = x @ w  # @inspect output
+assert output.size() == torch.Size([output_dim])
+```
+
+输出：
+
+```text
+output = [
+  18.919979095458984,
+  ...
+]
+```
+
+由于 $output[k] = x \times w[:, k]$，所以 output 中的每一个元素的大小均与 `input_dim` 线性相关
+
+当 `input_dim` 过大时，会导致参数梯度爆炸，倒是模型训练不稳定
+
+我们希望初始值与 `input_dim` 无关，为此，我们将参数统一放缩 1/sqrt(input_dim)
+
+```python
+w = nn.Parameter(torch.randn(input_dim, output_dim) / np.sqrt(input_dim))
+output = x @ w  # @inspect output
+```
+
+输出：
+
+```text
+output = [
+  -1.5302726030349731,
+  ...
+]
+```
+
+简单来说，这就是 [Xavier 初始化](https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf)
+
+为了更加安全，我们将正态分布截断为[-3, 3]，以避免出现任何异常值
+
+```python
+w = nn.Parameter(nn.init.trunc_normal_(torch.empty(input_dim, output_dim), std=1 / np.sqrt(input_dim), a=-3, b=3))
+```
+
+---
+
+#### 3.1.2. 构建模型
+
+以线性模型为例
+
+```python
+class Linear(nn.Module):
+  """Simple linear layer."""
+  def __init__(self, input_dim: int, output_dim: int):
+      super().__init__()
+      self.weight = nn.Parameter(torch.randn(input_dim, output_dim) / np.sqrt(input_dim))
+  def forward(self, x: torch.Tensor) -> torch.Tensor:
+      return x @ self.weight
+
+class Cruncher(nn.Module):
+  def __init__(self, dim: int, num_layers: int):
+      super().__init__()
+      self.layers = nn.ModuleList([
+          Linear(dim, dim)
+          for i in range(num_layers)
+      ])
+      self.final = Linear(dim, 1)
+  def forward(self, x: torch.Tensor) -> torch.Tensor:
+      # Apply linear layers
+      B, D = x.size()
+      for layer in self.layers:
+          x = layer(x)
+      # Apply final head
+      x = self.final(x)
+      assert x.size() == torch.Size([B, 1])
+      # Remove the last dimension
+      x = x.squeeze(-1)
+      assert x.size() == torch.Size([B])
+      return x
+
+B = 8  # Batch size
+x = torch.randn(B, D, device=device)
+y = model(x)
+assert y.size() == torch.Size([B])
+```
+
+模型参数
+
+```python
+param_sizes = [
+    (name, param.numel())
+    for name, param in model.state_dict().items()
+]
+assert param_sizes == [
+    ("layers.0.weight", D * D),
+    ("layers.1.weight", D * D),
+    ("final.weight", D),
+]
+num_parameters = get_num_parameters(model)
+assert num_parameters == (D * D) + (D * D) + D
+```
+
+---
+
+### 3.2. 模型训练
+
+#### 3.2.1. 随机性
+
+- 随机性在许多地方都会出现：参数初始化、dropout、数据排序等。
+- 为了确保可重复性，我们建议您在每次使用随机性时都传入不同的随机种子
+- 确定性在调试时特别有用，这样您可以定位并解决问题
+- 设置随机种子有三个地方，为了安全起见，您应该一次性全部设置好
+
+```python
+# Torch
+seed = 0
+torch.manual_seed(seed)
+# NumPy
+import numpy as np
+np.random.seed(seed)
+# Python
+import random
+random.seed(seed)
+```
+
+---
+
+#### 3.2.2. 数据加载
+
+在语言模型中，数据可以表征为整数的序列（以 token 的形式输出）
+
+可以使用 numpy 数组进行序列化
+
+```python
+orig_data = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], dtype=np.int32)
+orig_data.tofile("data.npy")
+```
+
+你可以使用 numpy 数组加载数据
+
+如果你不希望一次性将所有数据载入内存（有些数据集巨大无比，例如 LLaMA 包含 2.8TB 数据），可以使用 `memmap` 将需要访问的部分载入内存
+
+```python
+data = np.memmap("data.npy", dtype=np.int32)
+assert np.array_equal(data, orig_data)
+```
+
+一个数据加载器（dataloader）会生成一个 batch 的数据用于训练
+
+```python
+def get_batch(data: np.array, batch_size: int, sequence_length: int, device: str) -> torch.Tensor:
+  # Sample batch_size random positions into data.
+  start_indices = torch.randint(len(data) - sequence_length, (batch_size,))
+  assert start_indices.size() == torch.Size([batch_size])
+
+  # Index into the data.
+  x = torch.tensor([data[start:start + sequence_length] for start in start_indices])
+  assert x.size() == torch.Size([batch_size, sequence_length])
+
+  # Pinned memory
+  if torch.cuda.is_available():
+    x = x.pin_memory()
+
+  x = x.to(device, non_blocking=True)
+
+  return x
+
+B = 2  # Batch size
+L = 4  # Length of sequence
+x = get_batch(data, batch_size=B, sequence_length=L, device=get_device())
+assert x.size() == torch.Size([B, L])
+```
+
+默认情况下，CPU 张量存储在分页内存（paged memory）中，我们可以显式地将其固定（pin），运行代码`x = x.pin_memory()`
+
+这允许我们并行完成两项任务：
+
+- 从数据中提取下一个 batch 到 CPU 上
+- 在 GPU 上处理 x
+
+---
+
+#### 3.2.3. 优化器 Optimizer
+
+依旧请出老朋友线性模型
+
+```python
+B = 2
+D = 4
+num_layers = 2
+model = Cruncher(dim=D, num_layers=num_layers).to(get_device())
+```
+
+**定义** AdaGrad 优化器
+
+- momentum = SGD + exponential averaging of grad
+- AdaGrad = SGD + averaging by grad^2 
+- RMSProp = AdaGrad + exponentially averaging of grad^2   
+- Adam = RMSProp + momentum
+
+[AdaGrad](https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf)
+
+```python
+class AdaGrad(torch.optim.Optimizer):
+    def __init__(self, params: Iterable[nn.Parameter], lr: float = 0.01):
+        super(AdaGrad, self).__init__(params, dict(lr=lr))
+
+    def step(self):
+        for group in self.param_groups:
+            lr = group["lr"]
+            for p in group["params"]:
+                # Optimizer state
+                state = self.state[p]
+                grad = p.grad.data
+
+                # Get squared gradients g2 = sum_{i<t} g_i^2
+                g2 = state.get("g2", torch.zeros_like(grad))
+
+                # Update optimizer state
+                g2 += torch.square(grad)
+                state["g2"] = g2
+
+                # Update parameters
+                p.data -= lr * grad / torch.sqrt(g2 + 1e-5)
+
+optimizer = AdaGrad(model.parameters(), lr=0.01)
+state = model.state_dict()  # @inspect state
+```
+
+计算梯度
+
+```python
+x = torch.randn(B, D, device=get_device())
+y = torch.tensor([4., 5.], device=get_device())
+pred_y = model(x)
+loss = F.mse_loss(input=pred_y, target=y)
+loss.backward()
+```
+
+优化一个 step
+
+```python
+optimizer.step()
+state = model.state_dict()  # @inspect state
+```
+
+释放内存（可选）
+
+```python
+optimizer.zero_grad(set_to_none=True)
+```
+
+##### 关于内存
+
+- 参数所需的内存
+
+  ```python
+  def get_num_parameters(model: nn.Module) -> int:
+    return sum(param.numel() for param in model.parameters())
+
+  num_parameters = (D * D * num_layers) + D  # @inspect num_parameters
+  assert num_parameters == get_num_parameters(model)
+  ```
+
+  输出
+
+  ```python
+  num_parameters = 36
+  ```
+
+- 激活函数所需的内存
+
+  ```python
+  num_activations = B * D * num_layers  # @inspect num_activations
+  ```
+
+  输出
+
+  ```python
+  num_parameters = 16
+  ```
+
+- 梯度所需的内存
+
+  ```python
+  num_gradients = num_parameters  # @inspect num_gradients
+  ```
+
+  输出
+
+  ```python
+  num_parameters = 36
+  ```
+
+- 优化器 state 所需的内存
+
+  ```python
+  num_optimizer_states = num_parameters  # @inspect num_optimizer_states
+  ```
+
+  输出
+
+  ```python
+  num_parameters = 36
+  ```
+
+- 总共需要（假设数据均以 float32 存储，需要 4 Bytes）
+
+  ```python
+  total_memory = 4 * (num_parameters + num_activations + num_gradients + num_optimizer_states)  # @inspect total_memory
+  ```
+
+  输出
+
+  ```python
+  num_parameters = 496
+  ```
+
+---
+
+#### 3.2.4. 训练循环（loop）
+
+```python
+def train(name: str, get_batch,
+          D: int, num_layers: int,
+          B: int, num_train_steps: int, lr: float):
+    model = Cruncher(dim=D, num_layers=0).to(get_device())
+    optimizer = SGD(model.parameters(), lr=0.01)
+    for t in range(num_train_steps):
+        # Get data
+        x, y = get_batch(B=B)
+        # Forward (compute loss)
+        pred_y = model(x)
+        loss = F.mse_loss(pred_y, y)
+        # Backward (compute gradients)
+        loss.backward()
+        # Update parameters
+        optimizer.step()
+        optimizer.zero_grad(set_to_none=True)
+
+train("simple", get_batch, D=D, num_layers=0, B=4, num_train_steps=10, lr=0.01)
+```
+
+---
+
+#### 3.2.5. checkpoint
+
+在训练阶段，阶段性的保存模型以及优化器状态（state）到硬盘中是非常有用的
+
+```python
+checkpoint = {
+    "model": model.state_dict(),
+    "optimizer": optimizer.state_dict(),
+}
+torch.save(checkpoint, "model_checkpoint.pt")
+```
+
+加载 checkpoint
+
+```python
+loaded_checkpoint = torch.load("model_checkpoint.pt")
+```
+
+#### 混合精度训练
+
+- 数据类型的选择（float32、bfloat16、fp8）存在权衡
+  - 更高精度：更准确/稳定，占用更多内存，计算量更大
+  - 精度较低：精度/稳定性较低，内存占用较少，计算量较少
+- 如何兼顾两者优势？
+  - 解决方案：默认使用float32，但在可能的情况下使用{bfloat16, fp8}
+  - 具体计划：
+    1. 在前向传播（激活函数）中使用{bfloat16, fp8}
+    2. 使用float32进行其余操作（参数、梯度）
+  - [混合精度训练](https://arxiv.org/pdf/1710.03740.pdf)
+  - [Pytorch 提供自动混合精度（AMP）库](https://pytorch.org/docs/stable/amp.html)
+  - [NVIDIA](https://docs.nvidia.com/deeplearning/performance/mixed-precision-training/) 的 Transformer Engine 支持 FP8 用于线性层
+    在训练过程中广泛使用 [FP8](https://arxiv.org/pdf/2310.18313)
+
+---
+
+<div class="zhihu-ref">
+  <div class="zhihu-ref-title">参考文献</div>
+  <ol>
+    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var%2Ftraces%2Flecture_02.json&step=1660" target="_blank">stanford-cs336 lecture 2</a></li>
+  </ol>
+</div>
