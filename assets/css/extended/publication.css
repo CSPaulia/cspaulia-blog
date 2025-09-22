@@ -1,0 +1,44 @@
+.pub-entry {
+    display: flex;
+}
+
+.pub-entry a:hover {
+    text-decoration: underline;
+}
+
+.pub-entry .entry-cover {
+    margin: auto 3% auto 0;
+    flex: 2;
+}
+
+.pub-entry .entry-content {
+    -webkit-line-clamp: 5;
+}
+
+.pub-entry .venue {
+    margin-top: 0.5em;
+    color:midnightblue;
+}
+
+@media screen and (max-width: 600px) {
+    .pub-entry .entry-cover {
+        margin: auto 5% auto 0;
+        flex: 3;
+    }
+}
+
+.pub-meta {
+    margin-top: auto;
+    margin-bottom: auto;
+    flex: 5;
+}
+
+.pub-entry, .project-entry {
+    position: relative;
+    margin-bottom: var(--gap);
+    padding: var(--gap);
+    background: var(--entry);
+    border-radius: var(--radius);
+    transition: transform 0.1s;
+    border: 1px solid var(--border);
+}
