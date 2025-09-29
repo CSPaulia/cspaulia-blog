@@ -4,7 +4,7 @@ date: 2025-06-18T10:00:00+08:00
 series:
     main: "Large Language Model"
     subseries: "Fine-tuning"
-categories: ["Deep Learning Skills"]
+categories: ["Deep Learning Skills", "Large Language Model"]
 tags: ["LoRA", "fine-tuning", "LLM"]
 author: "CSPaulia"
 showToc: true
