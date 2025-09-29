@@ -138,6 +138,8 @@ params:
   busuanzi:
     enable: true
 
+  showCopyright: true
+
 menu:
   main:
     - identifier: publications
