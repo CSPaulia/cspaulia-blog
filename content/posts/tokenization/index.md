@@ -75,9 +75,9 @@ class Tokenizer:
 
 ---
 
-## Character-based tokenization
+## 1. Character-based tokenization
 
-### Unicode 概述
+### 1.1. Unicode 概述
 
 - 统一全球字符编码的标准（约 150,000 个字符）
 - `ord(char)`：获取字符的十进制编码
@@ -87,7 +87,7 @@ ord("h")     # 104
 ord("😊")    # 128522
 ```
 
-### 编解码
+### 1.2. 编解码
 
 ```python
 class CharacterTokenizer(Tokenizer):
@@ -115,7 +115,7 @@ indices = [72, 101, 108, 108, 111, 44, 32, 127757, 33, 32, 20320, 22909, 33]
 reconstructed_string = "Hello, 🌍! 你好!"
 ```
 
-### 存在的问题
+### 1.3. 存在的问题
 
 - 问题一：这会是一个相当大的词汇表（vocabulary）
 - 问题二：很多字符出现几率很低（例如🌍），对词汇表的使用并不高效
@@ -142,7 +142,7 @@ reconstructed_string = "Hello, 🌍! 你好!"
 
 ---
 
-## Byte-based tokenization
+## 2. Byte-based tokenization
 
 - Unicode 字符串（String）可以表示为一串字节（Byte），其中字节（即八位二进制）可以表示为0到255的数字
 - 最常见的 Unicode 编码是 UTF-8
@@ -161,7 +161,7 @@ reconstructed_string = "Hello, 🌍! 你好!"
     b"\xf0\x9f\x8c\x8d"s # multiple bytes
     ```
 
-### 编解码
+### 2.1. 编解码
 
 ```python
 class ByteTokenizer(Tokenizer):
@@ -194,7 +194,7 @@ indices = [72, 101, 108, 108, 111, 44, 32, 240, 159, 140, 141, 33, 32, 228, 189,
 reconstructed_string = "Hello, 🌍! 你好!"
 ```
 
-### 存在的问题
+### 2.2. 存在的问题
 
 - 问题一：虽然词汇表很小（仅为256），但这也导致序列很长。而在 Transformer 中，计算复杂度是随着序列长度**二次增长**的
 
@@ -213,7 +213,7 @@ reconstructed_string = "Hello, 🌍! 你好!"
 
 ---
 
-## Word-based tokenization
+## 3. Word-based tokenization
 
 使用类似于传统NLP分词方法分离字符串，**输入**：
 
@@ -228,12 +228,12 @@ segments = regex.findall(r"\w+|.", string)  # @inspect segments
 segments = ["I", "ll", "say", "supercalifragilisticexpialidocious", "!"]
 ```
 
-### 编解码
+### 3.1. 编解码
 
 - 要将其转换为一个`tokenizer`，我们需要将这些片段映射为整数
 - 构建一个从每个片段到整数的映射
 
-### 存在的问题
+### 3.2. 存在的问题
 
 - 词的数量是非常庞大的
 - 很多词很少出现，模型不会从这些词中学习到很多内容
@@ -241,7 +241,7 @@ segments = ["I", "ll", "say", "supercalifragilisticexpialidocious", "!"]
 
 ---
 
-## Byte Pair Encoding（BPE）
+## 4. Byte Pair Encoding（BPE）
 
 **主要思想**：在原始文本上训练`tokenizer`，自发的生成词汇表
 
@@ -249,7 +249,7 @@ segments = ["I", "ll", "say", "supercalifragilisticexpialidocious", "!"]
 
 **算法简述**：首先将每一个**byte**看作是一个token，随后逐渐合并常出现的相邻token为一个新token
 
-### 算法流程
+### 4.1. 算法流程
 
 ```python
 def merge(indices: list[int], pair: tuple[int, int], new_index: int) -> list[int]:  # @inspect indices, @inspect pair, @inspect new_index
@@ -266,7 +266,7 @@ def merge(indices: list[int], pair: tuple[int, int], new_index: int) -> list[int
     return new_indices
 ```
 
-### BPE 编码器
+### 4.2. BPE 编码器
 
 ```python
 class BPETokenizer(Tokenizer):
@@ -285,7 +285,7 @@ class BPETokenizer(Tokenizer):
         return string
 ```
 
-### 训练 BPE
+### 4.3. 训练 BPE
 
 ```python
 def train_bpe(string: str, num_merges: int) -> BPETokenizerParams:  # @inspect string, @inspect num_merges

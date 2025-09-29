@@ -993,7 +993,7 @@ torch.save(checkpoint, "model_checkpoint.pt")
 loaded_checkpoint = torch.load("model_checkpoint.pt")
 ```
 
-#### 混合精度训练
+#### 3.2.6. 混合精度训练
 
 - 数据类型的选择（float32、bfloat16、fp8）存在权衡
   - 更高精度：更准确/稳定，占用更多内存，计算量更大
