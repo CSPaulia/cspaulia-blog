@@ -9,9 +9,9 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.150.0</generator>
+    <generator>Hugo -- 0.150.1</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 22 Aug 2025 14:46:27 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Sep 2025 10:35:20 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Large Language Model</title>
@@ -67,6 +67,13 @@
       <link>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>First</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/first/</link>
+      <pubDate>Tue, 15 Sep 2020 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/first/</guid>
       <description></description>
     </item>
   </channel>
