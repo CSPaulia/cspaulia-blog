@@ -135,6 +135,9 @@ params:
 
   math: true
 
+  busuanzi:
+    enable: true
+
 menu:
   main:
     - identifier: publications
