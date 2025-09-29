@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- 0.150.1</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Sep 2025 11:43:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Sep 2025 19:55:35 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SFT and RLHF</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/sft_rlhf/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/sft_rlhf/</guid>
+      <description>Introduction of SFT and RLHF.</description>
+    </item>
     <item>
       <title>基本原语（primitives）与资源计算</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</link>
@@ -33,6 +40,13 @@
       <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/gpt/</guid>
       <description>详解 GPT系列 预训练语言模型</description>
+    </item>
+    <item>
+      <title>LoRA: 大模型低秩适配方法详解</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/lora/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/lora/</guid>
+      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
     </item>
   </channel>
 </rss>

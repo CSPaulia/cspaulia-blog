@@ -11,13 +11,27 @@
     </image>
     <generator>Hugo -- 0.150.1</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Sep 2025 11:43:53 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 29 Sep 2025 19:55:35 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Learning Skills</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Large Language Model</title>
       <link>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</link>
-      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforce Learning</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/reinforce-learning/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/reinforce-learning/</guid>
       <description></description>
     </item>
     <item>
@@ -25,13 +39,6 @@
       <link>https://cspaulia.github.io/cspaulia-blog/categories/nlp/</link>
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/categories/nlp/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Deep Learning Skills</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</link>
-      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</guid>
       <description></description>
     </item>
     <item>
@@ -67,13 +74,6 @@
       <link>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/categories/paper-writing/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>First</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/categories/first/</link>
-      <pubDate>Tue, 15 Sep 2020 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/categories/first/</guid>
       <description></description>
     </item>
   </channel>
