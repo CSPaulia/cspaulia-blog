@@ -144,7 +144,11 @@ editPost:
 
 ### 实现RLHF的方法
 
+![rlhf](rlhf.png)
 
+#### DPO
+
+![dpo](dpo.png)
 
 ---
 
