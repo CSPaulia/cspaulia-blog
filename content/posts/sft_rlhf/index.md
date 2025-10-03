@@ -42,7 +42,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## Post Training 三阶段
+## 1. Post Training 三阶段
 
 > 来源于 InstructGPT[[1]](#ref1)
 
@@ -62,9 +62,11 @@ editPost:
     - 奖励模型计算输出的奖励分数（Reward）
     - 根据奖励分数利用 PPO 等强化学习方法对策略进行更新
 
-## SFT 数据集的构建
+---
 
-### 数据集中的问题
+## 2. SFT 数据集的构建
+
+### 2.1. 数据集中的问题
 
 > 来自 FLAN 数据集的一个例子:
 >
@@ -89,19 +91,25 @@ editPost:
 
 ![instruction_dataset](./instrction_dataset.png)
 
-### SFT 数据集构建经验
+---
+
+### 2.2. SFT 数据集构建经验
 
 1. SFT 在模型已经具备某些能力的前提下，通过数据来“抽取”这些能力的表现效果最好；但如果试图用 SFT 去“添加”模型原本不具备的新行为，往往效果不佳
 2. 并不是所有事实正确的数据都会提升模型表现，有时即使是高质量的事实数据，也可能干扰模型已有的分布或对齐，反而让性能下降
 3. 某些类型的数据（例如安全性、遵循指令、风格等）哪怕只有少量，也能对模型带来巨大提升，不过，模型的长尾行为（覆盖面广、稀疏分布的场景）则更依赖于大量数据来改善
 
-### 在预训练中使用指令微调（Instruction Tuning）
+---
+
+### 2.3. 在预训练中使用指令微调（Instruction Tuning）
 
 1. 在网页或预训练数据集上进行预训练
 2. 将指令微调数据混入预训练中
 3. 额外进行一个简短的指令微调
 
-### 'Midtraining' / 'Two-phase Training'
+---
+
+### 2.4. 'Midtraining' / 'Two-phase Training'
 
 ![minicpm](./minicpm.png)
 
@@ -109,9 +117,11 @@ editPost:
 - 在 Stable 阶段采用纯预训练数据集训练（如上图左侧所示）；
 - 在 Decay 阶段采用预训练+指令微调混合数据集进行训练（如上图右侧所示）
 
-## RLHF（Reinforcement Learning with Human Feedback）
+---
 
-### 从模仿（Imitation）到优化（optimization）
+## 3. RLHF（Reinforcement Learning with Human Feedback）
+
+### 3.1. 从模仿（Imitation）到优化（optimization）
 
 **模仿（Imitation，即SFT）**：根据一些参考分布 $p^\*(y|x)$ 调整模型的输出分布，使得输出分布 $\hat{p}(y|x) \approx p^\*(y|x)$
 
@@ -123,14 +133,18 @@ editPost:
 - 优化的不是抽象的“真实分布”，而是一个我们能定义并测量的奖励函数（在 RLHF 里，这个奖励函数来自人类反馈，比如人类排序、偏好比较，或者训练出的 reward model）
 - 在这个阶段，我们不再把语言模型看作“近似真实分布$p^\*(y|x)$的模型”（像 SFT 那样），而是把它当作一个 **策略 policy**，用来最大化奖励信号
 
-### 需要RLHF的原因
+---
+
+### 3.2. 需要RLHF的原因
 
 1. **成本**：SFT 的成本非常高昂，尤其是标注成本
 2. **G-V Gap (Generation-Value Gap)**：人们写的内容（生成分布 G）和 人们实际偏好的内容（价值模型 V 的视角）并不总是一致
 
 > 在一项过去的实验[[3]](#ref3)中发现，一些标注者在对比自己写的摘要和模型写的摘要时，有时会更喜欢模型写的摘要，也就是说人类标注并不是最优的
 
-### 如何获得RLHF的数据
+---
+
+### 3.3. 如何获得RLHF的数据
 
 **方案一**：（在网页上）让模型输出 N 个结果，让标注者（用户）对结果进行排序
 - 存在的问题：
@@ -142,9 +156,11 @@ editPost:
 
 **方案二**：使用大语言模型（如GPT-4）对模型（可以是多个不同的模型）输出的 N 个结果进行排序，我们常常称之为 AI Feedback
 
-### 实现RLHF的方法
+---
 
-#### 人类反馈下的PPO（PPO with Human Feedback）
+### 3.4. 实现RLHF的方法
+
+#### 3.4.1. 人类反馈下的PPO（PPO with Human Feedback）
 
 原始的PPO算法 = Policy Gradient + Off Policy，其优化目标为：
 
@@ -161,15 +177,148 @@ $$
 人类反馈下的PPO的优化目标为：
 
 $$
-L^{RLHF}(\theta) = \mathbb{E}_{x \sim D, y \sim \pi} [ r(x,y) ] - \beta D_{KL} \left[ \pi(y|x) \;\|\; \pi_{\text{ref}}(y|x) \right]
+L^{RLHF}(\theta) = \mathbb{E}\_{x \sim D, y \sim \pi} [ r(x,y) ] - \beta D\_{KL} \left[ \pi(y|x) || \pi_{\text{ref}}(y|x) \right]
 $$
 
-- 在传统的强化学习任务中，我们往往会从离线策略中获得优势函数$\hat{A}_t$，因此优化目标为$\max \mathbb{E}_t [r_t(\theta) \hat{A}_t]$
-- 在LLM基于人类反馈的强化学习任务，我们选择利用奖励模型（Reward model）直接对在线的LLM的输出进行打分，因此无需使用$r_t(\theta)$进行重要性采样修正
+其中，
+- $r(x,y)$：是奖励模型对输出$y$在输入$x$下的奖励评分
+- $\pi(y∣x)$：是当前训练的策略（即RLHF中训练的模型），表示在输入$x$下生成$y$的概率分布
+- $\pi_{\text{ref}}(y∣x)$：是参考策略，通常是一个冻结的 SFT 模型，用于对比当前模型的生成结果，保证不会过度偏离基准模型
+- $D_{KL} \left[ \pi(y|x) || \pi_{\text{ref}}(y|x) \right]$：是当前策略与参考策略之间的 KL 散度，用于约束新策略不能偏离参考策略太远
 
-#### DPO
+**问题一**：为什么传统PPO中优化$\mathbb{E}_t [r_t(\theta) \hat{A}_t]$，而RLHF优化$\mathbb{E}\_{x, y} [ r(x,y) ]$？
+- 在传统的强化学习任务中，我们往往会从**离线**策略中获得优势函数$\hat{A}_t$，因此优化目标为$\max \mathbb{E}_t [r_t(\theta) \hat{A}_t]$
+- 在LLM基于人类反馈的强化学习任务，我们选择利用奖励模型（Reward model）直接对**在线**的LLM的输出进行打分，因此无需使用$r_t(\theta)$进行重要性采样修正
+
+**问题二**：传统PPO中的$\pi\_{old}$和RLHF PPO中的$\pi\_{\text{ref}}$有什么区别？
+- $\pi\_{old}$：上一次迭代的策略，用于收集数据和做重要性采样，会不断更新，通常就是“前一版策略”
+- $\pi\_{\text{ref}}$：一个固定的参考策略，一般是 SFT（监督微调模型），也就是在 RLHF 训练前冻结的模型，不会更新
+
+---
+
+#### 3.4.2. DPO
 
 ![dpo](dpo.png)
+
+DPO训练目标与PPO一致：
+
+$$
+\max L^{RLHF}(\theta) = \mathbb{E}\_{x \sim D, y \sim \pi} [ r(x,y) ] - \beta D\_{KL} \left[ \pi(y|x) || \pi_{\text{ref}}(y|x) \right]
+$$
+
+由该优化目标可得最优Policy为：
+
+$$
+\pi(y|x) = \frac{1}{Z(x)}\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))
+$$
+
+其中，$Z(x) = \sum\limits\_y \pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))$
+
+<details>
+  <summary>点击展开公式推导</summary>
+
+  $$
+  \begin{align}
+  &\max\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ r(x,y) ] - \beta D\_{KL} \left[ \pi(y|x) || \pi\_{\text{ref}}(y|x) \right] \\\\
+   = &\max\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ r(x,y) ] -  \mathbb{E}\_{x \sim D, y \sim \pi} [ \beta \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)} ] \\\\
+   = &\max\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ r(x,y) - \beta \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)} ] \\\\
+   = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \beta \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)} - r(x,y) ] \\\\
+   = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)} - \log \exp(\frac{1}{\beta}r(x,y)) ] \\\\
+   = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))}] \\\\
+   = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))\frac{1}{Z(x)} Z(x)}] \\\\
+   = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\frac{1}{Z(x)}\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))} - \log Z(x)] \\\\
+   \end{align}
+  $$
+
+  其中$Z(x) = \sum\limits\_y \pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))$，
+  
+  令$\pi^\star(y|x) = \frac{1}{Z(x)}\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y)) = \frac{\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))}{\sum\limits\_y \pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))}$，则有
+
+  $$
+  \begin{align}
+    &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\frac{1}{Z(x)}\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))} - \log Z(x)] \\\\
+    = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\pi^\star(y|x)} - \log Z(x)] \\\\
+    = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [ \log \frac{\pi(y|x)}{\pi^\star(y|x)}] \\\\
+    = &\min\limits\_\pi \mathbb{E}\_{x \sim D, y \sim \pi} [D\_{KL} (\pi(y|x) || \pi^\star(y|x))] \\\\
+   \end{align}
+  $$
+
+  最优解为$\pi(y|x) = \pi^\star(y|x) = \frac{1}{Z(x)}\pi\_{\text{ref}}(y|x)\exp(\frac{1}{\beta}r(x,y))$
+  
+</details>
+
+将最优policy带入Bradley-Terry模型建模的最大似然估计中，即可得到DPO损失函数为：
+
+$$
+Loss\_{DPO} = - \ln \sigma \left( \beta \ln \frac{\pi(y^+ \mid x)}{\pi\_{ref}(y^+ \mid x)} - \beta \ln \frac{\pi(y^- \mid x)}{\pi\_{ref}(y^- \mid x)} \right)
+$$
+
+其中$y^+$：是 人类偏好（或高质量的生成样本），是被标注为“更优”的样本，$y^-$：是 负偏好（或低质量的生成样本），是被标注为“较差”的样本
+
+<details>
+  <summary>点击展开Bradley-Terry模型简介</summary>
+
+  **Bradley-Terry模型**：
+  
+  $$
+  P(i>j) = \frac{\alpha\_i}{\alpha\_i + \alpha\_j}
+  $$
+  
+  $P(i>j)$表示第$i$个元素战胜第$j$个元素的概率，一般的loss函数为
+
+  $$
+  Loss = -\mathbb{E}\_{(\alpha\_x, \alpha\_y) \sim D} [ \ln  \frac{\alpha\_i}{\alpha\_i + \alpha\_j}]
+  $$
+
+  **大模型中的Bradley-Terry模型**：
+
+  $$
+  P(y\_1>y\_2) = \frac{r(x,y\_1)}{r(x,y\_1) + r(x,y\_2)}
+  $$
+
+  其中$x$为输入的prompt，$y$为输出，$r(x,y)$为奖励得分，为防止$r(x,y)$为负数，加入指数函数：
+
+  $$
+  P(y\_1>y\_2) = \frac{\exp(r(x,y\_1))}{\exp(r(x,y\_1)) + \exp(r(x,y\_2))}
+  $$
+
+  其Loss为
+
+  $$
+  \begin{align}
+  \text{Loss} &= - \mathbb{E}\_{(x, y^+, y^-) \sim D} [ \ln ( \frac{\exp(r(x, y^+))}{\exp(r(x, y^+)) + \exp(r(x, y^-))} ) ] \\\\
+  &= - \mathbb{E}\_{(x, y^+, y^-) \sim D} [ \ln ( \frac{1}{1 + \exp(r(x, y^-)) - r(x, y^+)}    ) ] \\\\
+  &= - \mathbb{E}_{(x, y^+, y^-) \sim D} [ \ln \sigma ( r(x, y^+) - r(x, y^-) ) ]
+  \end{align}
+  $$
+
+  其中$\sigma (x) = \frac{1}{1+\exp(-x)}$为sigmoid函数
+
+</details>
+
+<details>
+  <summary>点击展开公式推导</summary>
+
+  $$
+  \begin{align}
+  &\pi(y \mid x) = \frac{1}{Z(x)} \pi\_{ref}(y \mid x) \exp( \frac{1}{\beta} r(x, y)) \\\\
+  \Rightarrow &\exp( \frac{1}{\beta} r(x, y) ) = \frac{\pi(y \mid x)}{\pi\_{ref}(y \mid x)} Z(x) \\\\
+  \Rightarrow &r(x, y) = \beta \ln ( \frac{\pi(y \mid x)}{\pi\_{ref}(y \mid x)} Z(x) ) \\\\
+  \Rightarrow &r(x, y) = \beta \ln ( \frac{\pi(y \mid x)}{\pi\_{ref}(y \mid x)} ) + \beta \ln Z(x) \\\\
+  \end{align}
+  $$
+
+  将奖励评分送入Bradley-Terry模型得到：
+
+  $$
+  \begin{align}
+  Loss & = - \ln \sigma ( r(x, y^+) - r(x, y^-) ) \\\\
+  & = - \ln \sigma (\beta \ln ( \frac{\pi(y^+ \mid x)}{\pi\_{ref}(y^+ \mid x)} ) + \beta \ln Z(x) - \beta \ln ( \frac{\pi(y^- \mid x)}{\pi\_{ref}(y^- \mid x)} ) - \beta \ln Z(x)) \\\\
+  & = - \ln \sigma (\beta \ln ( \frac{\pi(y^+ \mid x)}{\pi\_{ref}(y^+ \mid x)} ) - \beta \ln ( \frac{\pi(y^- \mid x)}{\pi\_{ref}(y^- \mid x)} ))
+  \end{align}
+  $$
+
+</details>
 
 ---
 
