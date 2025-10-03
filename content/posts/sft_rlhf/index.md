@@ -144,7 +144,28 @@ editPost:
 
 ### 实现RLHF的方法
 
+#### 人类反馈下的PPO（PPO with Human Feedback）
+
+原始的PPO算法 = Policy Gradient + Off Policy，其优化目标为：
+
+$$
+\max L^{CLIP}(\theta) - \beta KL[\pi_\theta||\pi_{old}]
+$$
+
+其中$L^{CLIP}(\theta) = \mathbb{E}_t \Big[ \min \big( r_t(\theta) \hat{A}_t,\; \text{clip}(r_t(\theta), 1-\epsilon, 1+\epsilon)\hat{A}_t \big) \Big]$，
+
+其中$r_t(\theta) = \frac{\pi_\theta(a_t \mid s_t)}{\pi_{\theta_{\text{old}}}(a_t \mid s_t)}$，
+
 ![rlhf](rlhf.png)
+
+人类反馈下的PPO的优化目标为：
+
+$$
+L^{RLHF}(\theta) = \mathbb{E}_{x \sim D, y \sim \pi} [ r(x,y) ] - \beta D_{KL} \left[ \pi(y|x) \;\|\; \pi_{\text{ref}}(y|x) \right]
+$$
+
+- 在传统的强化学习任务中，我们往往会从离线策略中获得优势函数$\hat{A}_t$，因此优化目标为$\max \mathbb{E}_t [r_t(\theta) \hat{A}_t]$
+- 在LLM基于人类反馈的强化学习任务，我们选择利用奖励模型（Reward model）直接对在线的LLM的输出进行打分，因此无需使用$r_t(\theta)$进行重要性采样修正
 
 #### DPO
 
