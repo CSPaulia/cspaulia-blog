@@ -3,7 +3,6 @@ title: "PaperMod进化论"
 date: 2025-06-07T17:32:03+08:00
 # weight: 1
 # aliases: ["/first"]
-draft: true
 categories: ["建站"]
 tags: ["Hugo", "PaperMod", "建站"]
 author: "CSPaulia"

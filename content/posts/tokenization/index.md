@@ -6,7 +6,6 @@ date: 2025-07-17T10:20:03+08:00
 series:
     main: "Large Language Model"
     subseries: "Tokenization"
-draft: false
 categories: ["Large Language Model", "NLP"]
 tags: ["Tokenization", "LLM"]
 author: "CSPaulia"

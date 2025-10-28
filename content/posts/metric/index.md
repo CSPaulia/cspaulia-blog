@@ -3,7 +3,6 @@ title: "记录100种评价指标"
 date: 2025-07-09T14:05:03+08:00
 # weight: 1
 # aliases: ["/first"]
-draft: false
 categories: ["Deep Learning Skills"]
 tags: ["Metrics"]
 author: "CSPaulia"

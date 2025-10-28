@@ -3,7 +3,6 @@ title: "交叉注意力机制"
 date: 2025-05-21T22:04:00+08:00
 # weight: 1
 # aliases: ["/first"]
-draft: true
 categories: ["Model Blocks"]
 tags: ["Attention"]
 author: "CSPaulia"

@@ -3,7 +3,6 @@ title: "终端多路复用工具Screen的用法"
 date: 2025-05-21T22:15:00+08:00
 # weight: 1
 # aliases: ["/first"]
-draft: false
 categories: ["Tips"]
 tags: ["Server"]
 author: "CSPaulia"

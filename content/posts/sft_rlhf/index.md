@@ -6,7 +6,6 @@ date: 2025-09-29T11:30:03+08:00
 series:
     main: "Large Language Model"
     subseries: "Fine-tuning"
-draft: false
 categories: ["Deep Learning Skills", "Large Language Model", "Reinforce Learning"]
 tags: ["SFT", "Reinforcement Learning", "RLHF"]
 author: "CSPaulia"

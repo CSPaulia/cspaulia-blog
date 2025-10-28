@@ -6,7 +6,6 @@ date: 2025-10-10T8:30:03+08:00
 series:
     main: "Generative Model"
     subseries: "Flow Matching"
-draft: true
 categories: ["AIGC"]
 tags: ["Flow Matching", "Diffusion"]
 author: "CSPaulia"

@@ -3,7 +3,6 @@ title: "CLIP及其改进工作"
 date: 2025-06-03T10:46:03+08:00
 # weight: 1
 # aliases: ["/first"]
-draft: true
 categories: ["Base Model"]
 tags: ["CLIP"]
 author: "CSPaulia"
@@ -15,7 +14,6 @@ hidemeta: false
 comments: false
 description: "CLIP及其改进工作"
 # canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: true
