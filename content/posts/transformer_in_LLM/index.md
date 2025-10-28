@@ -109,3 +109,11 @@ $$
 
 ### 1.4. 激活函数
 
+| Activation | Model |
+| :----------: | :-----: |
+| ReLU | Original transformer, T5, Gopher, Chinchilla, OPT |
+| GeLU | GPT1/2/3, GPTJ, GPT-Neox, BLOOM |
+| GeGLU | T5 v1.1, mT5, LaMDA, Phi3, Gemma 2, Gemma 3 |
+| SwiGLU | LLaMa 1/2/3, PaLM, Mistral, OlMo, most models post 2023 |
+
+激活函数的介绍详见 [Post](../activation/)
