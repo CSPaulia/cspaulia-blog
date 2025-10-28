@@ -18,7 +18,6 @@ hidemeta: false
 comments: false
 description: "Notes for Flow Matching and Diffusion from MIT course."
 # canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: true

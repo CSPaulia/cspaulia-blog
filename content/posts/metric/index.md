@@ -15,7 +15,6 @@ hidemeta: false
 comments: false
 description: "[Epoch  10/100] Updating..."
 # canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: true

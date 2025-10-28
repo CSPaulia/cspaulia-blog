@@ -18,7 +18,6 @@ hidemeta: false
 comments: false
 description: "Introduction of SFT and RLHF."
 # canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: true
