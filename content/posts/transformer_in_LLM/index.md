@@ -17,7 +17,6 @@ hidemeta: false
 comments: false
 description: "关于语言模型架构和超参数的笔记"
 # canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
 disableShare: false
 disableHLJS: false
 hideSummary: true
