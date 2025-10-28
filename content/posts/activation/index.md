@@ -10,7 +10,6 @@ author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: false # show table of contents
-draft: false
 hidemeta: false
 comments: false
 description: "[Epoch  7/NaN] Updating..."

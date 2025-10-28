@@ -13,7 +13,6 @@ author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: true # show table of contents
-draft: false
 hidemeta: false
 comments: false
 description: "关于语言模型架构和超参数的笔记"

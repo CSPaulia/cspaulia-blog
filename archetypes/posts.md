@@ -6,7 +6,6 @@ date: 2020-09-15T11:30:03+08:00
 # series:
 #     main: "Large Language Model"
 #     subseries: "Mainstream Series"
-draft: true
 categories: ["first"]
 tags: ["first"]
 author: "CSPaulia"
