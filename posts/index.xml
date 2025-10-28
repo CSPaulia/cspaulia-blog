@@ -9,10 +9,24 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 03 Oct 2025 22:30:55 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Oct 2025 12:07:47 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LM Architecture and Training</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</guid>
+      <description>关于语言模型架构和超参数的笔记</description>
+    </item>
+    <item>
+      <title>流匹配与扩散模型</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/flow/</link>
+      <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/flow/</guid>
+      <description>Notes for Flow Matching and Diffusion from MIT course.</description>
+    </item>
     <item>
       <title>SFT and RLHF</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/sft_rlhf/</link>
@@ -148,7 +162,7 @@ $$&lt;/p&gt;</description>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/activation/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/activation/</guid>
-      <description>[Epoch  1/NaN] Updating...</description>
+      <description>[Epoch  7/NaN] Updating...</description>
     </item>
     <item>
       <title>收集N个Norm方法</title>

@@ -9,22 +9,29 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 03 Oct 2025 22:30:55 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Oct 2025 12:07:47 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Large Language Model</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>AIGC</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/categories/aigc/</link>
+      <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/categories/aigc/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Deep Learning Skills</title>
       <link>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</link>
       <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Large Language Model</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</link>
-      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/</guid>
       <description></description>
     </item>
     <item>

@@ -9,10 +9,17 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.151.0</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 29 Sep 2025 19:55:35 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 28 Oct 2025 12:07:47 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/llm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LM Architecture and Training</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</guid>
+      <description>关于语言模型架构和超参数的笔记</description>
+    </item>
     <item>
       <title>Tokenization</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/tokenization/</link>
