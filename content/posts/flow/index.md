@@ -103,3 +103,65 @@ $$
 **条件生成**：意味着从条件数据分布中进行采样 $z \sim p_{data}(\cdot | y)$
 
 ---
+
+## 2. Flow and Diffusion Model
+
+### 2.1. Flow Models
+
+<dl class="definition-list">
+  <dt>轨迹（Trajectory）</dt>
+  <dd>
+    <span class="math">$X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
+    </span>
+  </dd>
+</dl>
+
+<img src="Traj.png" alt="Trajectory" width="300"/>
+
+<dl class="definition-list">
+  <dt>向量场（Vector Feild）</dt>
+  <dd>
+    <span class="math">$u: R^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
+    </span>
+    <br>其中 $x$ 表示点的位置，$u_t$ 表示向量方向
+  </dd>
+</dl>
+
+<img src="vector_field.png" alt="Vector Field" width="300"/>
+
+<dl class="definition-list">
+  <dt>常微分方程（Ordinary Differential Equation, ODE）</dt>
+  <dd>
+    初始条件
+    <span class="math">$X_0 = x_0$
+    </span>
+    <br>
+    常微分方程/动力学方程
+    <span class="math">$dX_t/dt = u_t(X_t)$
+    </span>
+  </dd>
+</dl>
+
+<img src="ode.png" alt="ODE" width="300"/>
+
+> $dX_t/dt$ 即为轨迹的切线，可以理解为速度，因此ODE描述了粒子在向量场中的运动
+
+<dl class="definition-list">
+  <dt>流（Flow）</dt>
+  <dd>
+    <span class="math">$\phi: \mathbb{R}^d \times [0, 1] \to \mathbb{R}^d, (t, x) \mapsto \phi_t(x)$
+    </span>
+    <br>其中 $\phi_t(x)$ 表示时间 $t$ 时刻，位置为 $x$ 的粒子沿着ODE轨迹运动到的新位置
+    <br><span class="math">$\phi_0(x_0) = x_0$
+    </span>
+    <br><span class="math">$\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))$
+  </dd>
+</dl>
+
+流本质是针对许多初始条件的常微分方程解的集合
+
+<img src="flow_process.png" alt="Flow Process" width="80%"/>
+
+Flow 可视化：
+
+<img src="flow.gif" alt="Flow" width="300"/>
