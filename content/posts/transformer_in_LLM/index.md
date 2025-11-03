@@ -115,3 +115,337 @@ $$
 | SwiGLU | LLaMa 1/2/3, PaLM, Mistral, OlMo, most models post 2023 |
 
 激活函数的介绍详见 [Post](../activation/)
+
+### 1.5. 位置编码
+
+#### 1.5.1. 余弦位置编码（Sinusoidal Positional Encoding）
+
+**主要思想**：用不同频率的正弦、余弦波来编码不同维度的位置信息
+
+对于序列中第 $pos$ 个位置、向量维度 $i$，编码方式为:
+
+$$
+\begin{aligned}
+PE_{(pos,2i)} = sin(\frac{pos}{10000^{2i/d_{model}}}) \\
+PE_{(pos,2i+1)} = cos(\frac{pos}{10000^{2i/d_{model}}})
+\end{aligned}
+$$
+
+其中：
+- $pos$ 表示位置（从0开始）
+- $i$ 表示维度索引
+- $d_{model}$ 表示模型的隐藏层维度
+- 10000 是一个经验常数，控制频率范围
+
+##### 相对位置的捕捉
+
+假设模型关注两个 token：位置 $pos_1$ 和 $pos_2$ ，那他们的编码分别是：
+
+$$
+\begin{aligned}
+E_1 = [sin(\frac{pos_1}{10000^{0}}), cos(\frac{pos_1}{10000^{0}}), sin(\frac{pos_1}{10000^{2/d_{model}}}), cos(\frac{pos_1}{10000^{2/d_{model}}}), \dots ] \\\\
+E_2 = [sin(\frac{pos_2}{10000^{0}}), cos(\frac{pos_2}{10000^{0}}), sin(\frac{pos_2}{10000^{2/d_{model}}}), cos(\frac{pos_2}{10000^{2/d_{model}}}), \dots ]
+\end{aligned}
+$$
+
+我们在模型内部做如下操作：
+
+$$
+E_1 \cdot E_2 = sin(\frac{pos_1}{10000^{0}})sin(\frac{pos_2}{10000^{0}}) + cos(\frac{pos_1}{10000^{0}})cos(\frac{pos_2}{10000^{0}}) + \dots
+$$
+
+利用和差化积公式：
+
+$$
+\sin a \sin b + \cos a \cos b = \cos(a - b)
+$$
+
+可得到：
+
+$$
+E_1 \cdot E_2 = \cos(\frac{pos_1 - pos_2}{10000^{0}}) + \cos(\frac{pos_1 - pos_2}{10000^{2/d_{model}}}) + \dots
+$$
+
+即可得到两个位置的相对距离
+
+#### 1.5.2. 绝对位置编码（Absolute Positional Encoding）/ 可学习位置编码（Learnable Positional Encoding）
+
+> 我个人认为绝对位置编码是一种概念，它表达将 token 的位置信息直接编码，而不是将 token 之间的相对位置进行编码
+
+可学习式位置嵌入**学习一个嵌入矩阵**：
+
+$$
+P = [u_0, u_1, u_2, \dots, u_{L-1}] \in \mathbb{R}^{L \times d_{model}}
+$$
+
+其中：
+- $L$ 是最大序列长度
+- 每一行的 $u_i$ 是位置 $i$ 的可训练嵌入向量
+
+输入到模型的最终向量：
+
+$$
+Embed(x, i) = v_x + u_i
+$$
+
+其中 $v_x$ 是 token $x$ 的词嵌入向量
+
+#### 1.5.3. 相对位置编码（Relative Positional Encoding）
+
+绝对位置编码的缺点：
+- 泛化差：训练时的序列长度是固定的，比如 512；超出这个长度就无法使用
+- 缺乏相对感知：模型知道第 5 个词、第 10 个词，但不知道它们“相隔 5 个位置”
+
+然而自然语言的顺序关系往往是相对的：
+> “the cat” 和 “the big cat” 的依赖关系中，“cat” 距离 “the” 只有几步之差
+
+因此，相对位置编码的目标是：让模型直接学习 “第 i 个 token 与第 j 个 token 的距离（i−j）” 对注意力的影响
+
+相对位置编码通过在注意力打分中显式地加入位置差信息:
+
+$$
+e_{ij} = \frac{(x_i W_Q)(x_j W_K + a^K_{ij})^T}{\sqrt{d_k}}
+$$
+
+其中 $a_{ij}^K$ 是一个向量，表示 token i 和 token j 之间的相对位置信息
+
+#### 1.5.4. RoPE（Rotary Position Embedding）
+
+我们该如何让 **添加位置编码后的嵌入向量** $x$ 和 $y$ 在完成点积后，只关注它们的相对位置呢？也就是要实现如下目标：
+
+<div id="eq:goal">
+$$
+\langle f(x, i), f(y, j) \rangle = g(x, y, i-j) \tag{1}
+$$
+</div>
+
+其中 $\langle \cdot, \cdot \rangle$ 表示内积运算
+
+- 余弦位置编码：不满足<a href="#eq:goal">（1）</a>式:
+    - 在余弦位置编码中，token 的嵌入可以表征为 $Embed(x, i) = v_x + E_i$，其中 $v_x$ 是 token 的词嵌入向量，$E_i$ 是位置编码;
+    - $\langle Embed(x, i), Embed(y, j) \rangle = \langle v_x + E_i, v_y + E_j \rangle = \langle v_x, v_y \rangle + \langle v_x, E_j \rangle + \langle E_i, v_y \rangle + \langle E_i, E_j \rangle$，有许多内积项依赖于绝对位置 $i$ 和 $j$，而不仅仅是它们的差值 $i-j$
+- 绝对位置编码：不满足<a href="#eq:goal">（1）</a>式
+- 相对位置编码：不满足<a href="#eq:goal">（1）</a>式中的内积形式：
+    - 几何解释消失：原来的点积可以看成两个向量夹角的余弦相似度（几何上可解释），加入 $a_{ij}$ 后，这个解释就失效
+    - 对称性破坏：$e_{ij}$ 与 $e_{ji}$ 不再一致，使模型捕捉方向信息
+    - 注意力的归一化解释变弱：softmax 之前的 logits 不再仅由向量相似度决定，额外偏置可能干扰注意力稳定性
+
+RoPE 的核心思想是：通过复数旋转（或二维平面旋转）把位置嵌入到每个向量维度中
+
+<img src="rope_example.png" alt="rope-example" width="400"/>
+
+$$
+\begin{aligned}
+x_p &= [x_{p,0}, x_{p,1}, \dots, x_{p,d-1}]\\\\
+f_{\{q,k\}}(x_p,p) &= \mathbf{R}^d_{\Theta,p}\,W_{\{q,k\}}\,x_p\\\\
+\mathbf{R}^d_{\Theta,p}
+&=
+\begin{bmatrix}
+\cos(p\theta_0) & -\sin(p\theta_0) & & & \\\\
+\sin(p\theta_0) & \cos(p\theta_0)  & & & \\\\
+& & \cos(p\theta_1) & -\sin(p\theta_1) & \\\\
+& & \sin(p\theta_1) & \cos(p\theta_1)  & \\\\
+& & & & \ddots \\\\
+& & & & & \cos(p\theta_{d/2-1}) & -\sin(p\theta_{d/2-1}) \\\\
+& & & & & \sin(p\theta_{d/2-1}) & \cos(p\theta_{d/2-1})
+\end{bmatrix}
+\end{aligned}
+$$
+
+其中 $\theta_k = 10000^{-2k/d}$
+
+接下来证明RoPE符合<a href="#eq:goal">（1）</a>式：
+
+对于 token $x$ 的两个相邻嵌入维度 $2i$ 和 $2i+1$，有：
+
+$$
+\tilde{x}_{p}^{(k)} = \begin{bmatrix} 
+cos(p\theta_k) & -sin(p\theta_k) \\\\
+sin(p\theta_k) & cos(p\theta_k)
+\end{bmatrix}
+\begin{bmatrix}
+x\_{p,2k} \\\\
+x\_{p,2k+1}
+\end{bmatrix}
+=(x\_{p,2k}+ix\_{p,2k+1})e^{ip\theta\_k}
+$$
+
+因此有：
+
+$$
+\langle \tilde{x}\_{p}^{(k)}, \tilde{y}\_{q}^{(k)} \rangle = \tilde{x}\_{p}^{(k)} \cdot \overline{\tilde{y}}\_{q}^{(k)} = (x\_{p,2k}+ix\_{p,2k+1})(y\_{q,2k}-iy\_{q,2k+1})e^{i(p-q)\theta\_k}
+$$
+
+符合<a href="#eq:goal">（1）</a>式中的要求
+
+## 2. 超参数
+
+### 2.1. 前馈网络中的特征维度
+
+假设 $d\_{ff}$ 是前馈网络的隐藏层维度，$d\_{model}$ 是模型的隐藏层维度
+
+$$
+d\_{ff} = 4d\_{model}
+$$
+
+此时，标准 FFN 的参数量为：
+- 第一层：$d\_{model} \times d\_{ff} = 4d\_{model}^2$
+- 第二层：$d\_{ff} \times d\_{model} = 4d\_{model}^2$
+- 总计：$8d\_{model}^2$
+
+对于**包含GLU类激活函数**的 FFN，参数量为：
+- GLU中的content部分：$d\_{model} \times d'\_{ff}$
+- GLU中的gate部分：$d\_{model} \times d'\_{ff}$
+- 第二层：$d'\_{ff} \times d\_{model}$
+- 总计：$3d\_{model} \times d'\_{ff}$
+
+为了使包含GLU类激活函数的 FFN 与标准 FFN 的参数量相同，我们需要满足：
+
+$$
+3d\_{model} \times d'\_{ff} = 8d\_{model}^2
+$$
+
+即
+
+$$
+d'\_{ff} = \frac{8}{3}d\_{model}
+$$
+
+下表总结了一些流行大模型中前馈网络隐藏层维度与模型隐藏层维度的比值：
+
+| Model          | $( d_{ff} / d_{model} )$ |
+|----------------|--------------------------|
+| PaLM           | 4.00                     |
+| Mistral 7B     | 3.50                     |
+| LLaMA-2 70B    | 3.50                     |
+| LLaMA 70B      | 2.68                     |
+| Qwen 14B       | 2.67                     |
+| DeepSeek 67B   | 2.68                     |
+| Yi 34B         | 2.85                     |
+| T5 v1.1        | 2.50                     |
+
+### 2.2. 注意力头数与每头维度
+
+我们尽量使得 $d\_{head} > d\_{model} * num\_{heads}$
+
+| Model  | Num heads | Head dim | Model dim | Ratio |
+|---------|------------|-----------|------------|--------|
+| GPT3    | 96         | 128       | 12288      | 1      |
+| T5      | 128        | 128       | 1024       | 16     |
+| T5 v1.1 | 64         | 64        | 4096       | 1      |
+| LaMDA   | 128        | 128       | 8192       | 2      |
+| PaLM    | 48         | 258       | 18432      | 1.48   |
+| LLaMA2  | 64         | 128       | 8192       | 1      |
+
+### 2.3. 模型宽高比（aspect ratio）
+
+这里的官高比指的是：
+
+$$
+d\_{model} / num\_{layers}
+$$
+
+| Model | \( d_{model} / n_{layer} \) |
+|--------|------------------------------|
+| BLOOM | 205 |
+| T5 v1.1 | 171 |
+| PaLM (540B) | 156 |
+| GPT3 / OPT / Mistral / Qwen | 128 |
+| LLaMA / LLaMA2 / Chinchila | 102 |
+| T5 (11B) | 43 |
+| GPT2 | 33 |
+
+太深的模型很难并行化，并且具有很高的延迟
+
+<img src="parallel.png" alt="model-parallelism" width="400"/>
+
+### 2.4. 字典大小（vocabulary size）
+
+- 单语言：3-5万个 token
+- 多语言：10-25万个 token
+
+### 2.5 Dropout 和 权重衰减（weight decay）
+
+- 老模型会更多的采用Dropout；
+- 新模型会更多的采用权重衰减，其作用更多的在于与loss的互动（后期更快的loss下降），而非防止过拟合
+
+| Model | Dropout* | Weight decay |
+|--------|-----------|---------------|
+| Original transformer | 0.1 | 0 |
+| GPT2 | 0.1 | 0.1 |
+| T5 | 0.1 | 0 |
+| GPT3 | 0.1 | 0.1 |
+| T5 v1.1 | 0 | 0 |
+| PaLM | 0 | (variable) |
+| OPT | 0.1 | 0.1 |
+| LLaMA | 0 | 0.1 |
+| Qwen 14B | 0.1 | 0.1 |
+
+<img src="weight_decay_effect.png" alt="weight-decay-effect" width="400"/>
+
+## 3. 模型训练稳定性技巧
+
+模型的训练，应当避免出现“尖刺”，如下图蓝色曲线所示：
+
+<img src="stability.png" alt="training-stability-techniques" width="600"/>
+
+### z-loss
+
+<img src="softmax_in_llm.png" alt="softmax_in_llm" width="200"/>
+
+观察出现在 LLM 的最后一层的softmax，softmax 的定义为：
+
+$$
+P(y=i|x) = \frac{e^{z_i}}{\sum_j e^{z_j}} = \frac{e^{z_i}}{Z}
+$$
+
+因此在 Cross-Entropy Loss 中，我们有：
+
+$$
+Loss\_{CE} = -\log P(y=i|x) = -\log \frac{e^{z_i}}{\sum_j e^{z_j}} = -z_i + \log Z
+$$
+
+当 $Z$ 为0时，会导致 $Loss\_{CE}$ 过大，造成训练的不稳定
+
+因此我们想办法，令 $Z$ 趋近于 1，即 $\log Z$ 趋近于 0，我们可以添加一个 z-loss 项：
+
+$$
+Loss\_{z} = ((\log Z)^2 - 0)^2 = (\log Z)^2
+$$
+
+最终有：
+
+$$
+Loss = Loss\_{CE} + \lambda Loss\_{z}
+$$
+
+其中 $\lambda$ 是一个很小的值，一般为 $1e-3$ 或 $1e-4$
+
+## 4. 模型结构优化
+
+### 4.1. KV Cache
+
+<img src="kv_cache.gif" alt="kv-cache" width="600"/>
+
+**常规的注意力计算**：
+
+$$
+Q = X W_Q, \quad K = X W_K, \quad V = X W_V
+$$
+
+假设 $X \in \mathbb{R}^{b \times T \times d}$，$\{Q, K, V\} \in \mathbb{R}^{b \times d \times d}$，其中 $T$ 是序列长度，$d$ 是隐藏层维度，则计算量为 
+- $3 \times 2bTd^2$（KQV计算）
+- $bT^2$（softmax计算） 
+- $2 \times 2bT^2d$（计算$Q \times K$ 和 $K \times V$）
+- $1 \times 2bTd^2$（输出线性层计算）
+- 总计算量 $\approx 8bTd^2 + 4bT^2d$
+
+总存储开销为
+- $bTd$（输入存储）
+- $3 \times bd^2$（KQV存储）
+- $
+- $
+
+
+
+<img src="attention_variant.png" alt="attention-variants" width="600"/>
