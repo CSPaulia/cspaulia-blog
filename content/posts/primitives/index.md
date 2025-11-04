@@ -1013,6 +1013,6 @@ loaded_checkpoint = torch.load("model_checkpoint.pt")
 <div class="zhihu-ref">
   <div class="zhihu-ref-title">参考文献</div>
   <ol>
-    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var%2Ftraces%2Flecture_02.json&step=1660" target="_blank">stanford-cs336 lecture 2</a></li>
+    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var%2Ftraces%2Flecture_02.json" target="_blank">stanford-cs336 lecture 2</a></li>
   </ol>
 </div>

@@ -71,6 +71,8 @@ editPost:
 
 **新！**：Olom 2 仅使用非残差部分的后归一化
 
+---
+
 ### 1.2. LayerNorm vs RMSNorm
 
 原始 Transformer：**LayerNorm** (GPT3/2/1，OPT，GPT-J，BLOOM)
@@ -89,6 +91,8 @@ RMSNorm的优势：运行速度更快，而并不影响精度
 - 更少的 Operations（无需计算均值）
 - 更少的参数（没有偏置项需要存储）
 
+---
+
 ### 1.3. FFN：有偏置 vs 无偏置
 
 原始 Transformer：有偏置
@@ -105,6 +109,8 @@ $$
 
 无偏置的优势：更小的存储开销以及稳定的优化
 
+---
+
 ### 1.4. 激活函数
 
 | Activation | Model |
@@ -115,6 +121,8 @@ $$
 | SwiGLU | LLaMa 1/2/3, PaLM, Mistral, OlMo, most models post 2023 |
 
 激活函数的介绍详见 [Post](../activation/)
+
+---
 
 ### 1.5. 位置编码
 
@@ -168,6 +176,8 @@ $$
 
 即可得到两个位置的相对距离
 
+---
+
 #### 1.5.2. 绝对位置编码（Absolute Positional Encoding）/ 可学习位置编码（Learnable Positional Encoding）
 
 > 我个人认为绝对位置编码是一种概念，它表达将 token 的位置信息直接编码，而不是将 token 之间的相对位置进行编码
@@ -190,6 +200,8 @@ $$
 
 其中 $v_x$ 是 token $x$ 的词嵌入向量
 
+---
+
 #### 1.5.3. 相对位置编码（Relative Positional Encoding）
 
 绝对位置编码的缺点：
@@ -208,6 +220,8 @@ e_{ij} = \frac{(x_i W_Q)(x_j W_K + a^K_{ij})^T}{\sqrt{d_k}}
 $$
 
 其中 $a_{ij}^K$ 是一个向量，表示 token i 和 token j 之间的相对位置信息
+
+---
 
 #### 1.5.4. RoPE（Rotary Position Embedding）
 
@@ -278,6 +292,8 @@ $$
 
 符合<a href="#eq:goal">（1）</a>式中的要求
 
+---
+
 ## 2. 超参数
 
 ### 2.1. 前馈网络中的特征维度
@@ -324,9 +340,11 @@ $$
 | Yi 34B         | 2.85                     |
 | T5 v1.1        | 2.50                     |
 
+---
+
 ### 2.2. 注意力头数与每头维度
 
-我们尽量使得 $d\_{head} > d\_{model} * num\_{heads}$
+我们尽量使得 $d\_{head} > d\_{model} / num\_{heads}$，很多模型选择令 $d\_{head} = d\_{model} / num\_{heads}$
 
 | Model  | Num heads | Head dim | Model dim | Ratio |
 |---------|------------|-----------|------------|--------|
@@ -337,9 +355,11 @@ $$
 | PaLM    | 48         | 258       | 18432      | 1.48   |
 | LLaMA2  | 64         | 128       | 8192       | 1      |
 
+---
+
 ### 2.3. 模型宽高比（aspect ratio）
 
-这里的官高比指的是：
+这里的宽高比指的是：
 
 $$
 d\_{model} / num\_{layers}
@@ -359,10 +379,14 @@ $$
 
 <img src="parallel.png" alt="model-parallelism" width="400"/>
 
+---
+
 ### 2.4. 字典大小（vocabulary size）
 
 - 单语言：3-5万个 token
 - 多语言：10-25万个 token
+
+---
 
 ### 2.5 Dropout 和 权重衰减（weight decay）
 
@@ -382,6 +406,8 @@ $$
 | Qwen 14B | 0.1 | 0.1 |
 
 <img src="weight_decay_effect.png" alt="weight-decay-effect" width="400"/>
+
+---
 
 ## 3. 模型训练稳定性技巧
 
@@ -421,11 +447,15 @@ $$
 
 其中 $\lambda$ 是一个很小的值，一般为 $1e-3$ 或 $1e-4$
 
+---
+
 ## 4. 模型结构优化
 
 ### 4.1. KV Cache
 
 <img src="kv_cache.gif" alt="kv-cache" width="600"/>
+
+图片来源于[网络](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 
 **常规的注意力计算**：
 
@@ -433,19 +463,91 @@ $$
 Q = X W_Q, \quad K = X W_K, \quad V = X W_V
 $$
 
-假设 $X \in \mathbb{R}^{b \times T \times d}$，$\{Q, K, V\} \in \mathbb{R}^{b \times d \times d}$，其中 $T$ 是序列长度，$d$ 是隐藏层维度，则计算量为 
-- $3 \times 2bTd^2$（KQV计算）
-- $bT^2$（softmax计算） 
-- $2 \times 2bT^2d$（计算$Q \times K$ 和 $K \times V$）
-- $1 \times 2bTd^2$（输出线性层计算）
-- 总计算量 $\approx 8bTd^2 + 4bT^2d$
+假设 $X \in \mathbb{R}^{b \times T \times D}$，$W_{\\{Q, K, V\\}} \in \mathbb{R}^{D \times (hd)}$，其中 $T$ 是序列长度，$h$ 为注意力头数，$d$ 是每个注意力头的隐藏层维度，设 $D = hd$，则计算量为
+- 计算KQV：$3 \times 2bTD^2 = 6bT(hd)^2$
+- 计算$Q \times K$：$2bhT^2d$
+- 计算softmax：$n \times bhT^2$（softmax包含 n 次计算操作） 
+- 计算$Output_{softmax} \times V$：$2bhT^2d$
+- 计算输出线性层：$2bTD^2$
+- 总计算量 $\approx 8bTD^2 + 4bhT^2d$（忽略softmax）
 
 总存储开销为
-- $bTd$（输入存储）
-- $3 \times bd^2$（KQV存储）
-- $
-- $
+- 权重参数开销：
+    - $W_{\\{Q, K, V\\}}$ 存储开销：$3 \times D(hd) = 3(hd)^2$
+    - 输出线性层存储开销：$(hd)D = (hd)^2$
+- 中间激活开销：
+    - 输入存储：$bTD$
+    - KQV存储：$3 \times bhTd$
+    - softmax后得到的注意力权重存储：$bhT^2$
+    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
+- 总存储开销 $\approx 4(hd)^2 + bTD + 3bhTd + bhT^2$
 
+**使用 KV Cache 的注意力计算**：
 
+训练时，使用 KV Cache 并不影响计算量，因此训练时往往不使用 KV Cache；
+
+但在推理时，假设输入序列长度为 $t$，则预测下一个 token 时，计算量为 $\approx 8btD^2 + 4bht^2d$，若不使用 KV Cache，则预测下下个 token 的计算量为 $\approx 8b(t+1)D^2 + 4bh(t+1)^2d$，这个计算量会随着序列长度的增加而显著增加；
+
+而使用 KV Cache 后，预测下一个 token 的计算量为：
+- KQV计算：由于无需重新计算$Q_{1:(t-1)}, K_{1:(t-1)}, V_{1:(t-1)}$，只需要计算$Q_{t}, K_{t}, V_{t}$，因此计算量为$3 \times 2bD^2$
+- 计算$Q_{t} \times K_{1:t}$：$2bhtd$
+- 计算softmax：$n \times bht$
+- 计算$Output_{softmax} \times V_{1:t}$：$2bhtd$
+- 计算输出线性层：$2bD^2$
+- 总计算量 $\approx 8bD^2 + 4bhtd$（忽略softmax）
+
+计算量随序列长度的增加轻微增加。
+
+而使用 KV Cache 后，存储开销会稍稍增加。因为在推理阶段不使用 KV Cache，总存储开销仅为权重参数开销 $4(hd)^2$，而使用 KV Cache 后，总存储开销为权重参数开销 $4(hd)^2$ 加上 KV Cache 的存储开销 $2bhtd$，因此总存储开销 $\approx 4(hd)^2 + 2bhtd$。
+
+---
+
+### 4.2. MQA 和 GQA
+
+为了减少 KV Cache 的存储开销，一个简单的思路就是让**注意力头**共享 K 和 V
+- 若 $h$ 个注意力头共享一个 K 和 V，则为 MQA（Multi-query Attention）
+- 若将 $h$ 个注意力头划分为 $g$ 组，每组 $h/g$ 个头共享 K 和 V，则为 GQA（Grouped-query Attention）
+
+如下图所示：
 
 <img src="attention_variant.png" alt="attention-variants" width="600"/>
+
+| 模型 | 训练时结构 | 推理时结构 | 备注 |
+|------|-------------|-------------|------|
+| GPT-3 / GPT-4 | MHA | MHA / GQA（部分优化版） | GPT-4 reportedly uses GQA |
+| PaLM 2 | GQA | GQA | 原生训练结构 |
+| Claude 3 | GQA | GQA | Anthropic 公开结构说明 |
+| LLaMA 2 | MHA | GQA (converted) | Meta 后期转换版 |
+| Mistral | GQA | GQA | 端到端使用 GQA |
+| Falcon | MQA | MQA | 优化长序列推理 |
+| Gemini 1.5 | GQA | GQA | Google 用于多模态大模型 |
+
+MQA 和 GQA 与 MHA 相比，计算复杂度不变，但存储开销减少，假设 $h$ 个注意力头共享 $k$ 个 K 和 V：
+- 权重参数开销：
+    - $W_{\\{Q\\}}$ 存储开销：$D(hd) = (hd)^2$
+    - $W_{\\{K, V\\}}$ 存储开销：$2 \times D(kd) = 2(hd)(kd)$
+    - 输出线性层存储开销：$(hd)D = (hd)^2$
+- 中间激活开销：
+    - 输入存储：$bTD$
+    - Q存储：$bhTd$
+    - KV存储：$2bkdT$
+    - softmax后得到的注意力权重存储：$bhT^2$
+    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
+- 总存储开销 $\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2$
+
+---
+
+### 4.3. 稀疏注意力（Sparse Attention）
+
+稀疏注意力（Sparse Attention）：可以参考[博客](https://newsletter.theaiedge.io/p/understanding-the-sparse-transformers)
+
+<img src="sparse_attention.png" alt="sparse-attention"/>
+
+---
+
+<div class="zhihu-ref">
+  <div class="zhihu-ref-title">参考文献</div>
+  <ol>
+    <li><a href="https://github.com/stanford-cs336/spring2025-lectures/blob/e9cb2488fdb53ea37f0e38924ec3a1701925cef3/nonexecutable/2025%20Lecture%203%20-%20architecture.pdf" target="_blank">stanford-cs336 lecture 3</a></li>
+  </ol>
+</div>

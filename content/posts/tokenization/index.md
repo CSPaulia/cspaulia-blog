@@ -332,3 +332,12 @@ reconstructed_string = tokenizer.decode(indices)  # @inspect reconstructed_strin
    - (257, 32) --> 258 即 （'the', ' '）--> 'the '
 3. 词汇表长度更新至259
 4. 用新词汇表对字符串进行编码
+
+---
+
+<div class="zhihu-ref">
+  <div class="zhihu-ref-title">参考文献</div>
+  <ol>
+    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json" target="_blank">stanford-cs336 lecture 1</a></li>
+  </ol>
+</div>
