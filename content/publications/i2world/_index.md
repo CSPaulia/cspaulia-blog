@@ -4,6 +4,7 @@ date: 2025-10-01
 venue: ICCV 2025
 authors:
     - name: Zhimin Liao
+      home: https://lzzzzzm.github.io/
     - name: Ping Wei
       home: https://gr.xjtu.edu.cn/en/web/pingwei
     - name: Ruijie Zhang
@@ -12,11 +13,8 @@ authors:
     - name: Haoxuan Wang
     - name: Ziyang Ren
 selected: true
-links:
-    - name: Paper
-      url: https://openaccess.thecvf.com/content/ICCV2025/papers/Liao_I2-World_Intra-Inter_Tokenization_for_Efficient_Dynamic_4D_Scene_Forecasting_ICCV_2025_paper.pdf
-    - name: arXiv
-      url: https://arxiv.org/abs/2507.09144
+paper: https://openaccess.thecvf.com/content/ICCV2025/papers/Liao_I2-World_Intra-Inter_Tokenization_for_Efficient_Dynamic_4D_Scene_Forecasting_ICCV_2025_paper.pdf
+arxiv: https://arxiv.org/abs/2507.09144
 summary: An efficient 4D occupancy forecasting framework with dual tokenization achieving 94.8 FPS and 41.8% improvement over SOTA
 cover:
     image: cover.png

@@ -4,6 +4,7 @@ date: 2025-06-01
 venue: CVPR 2025
 authors:
     - name: Zhimin Liao
+      home: https://lzzzzzm.github.io/
     - name: Ping Wei
       home: https://gr.xjtu.edu.cn/en/web/pingwei
     - name: Shuaijia Chen
@@ -11,11 +12,8 @@ authors:
     - name: Haoxuan Wang
     - name: Ziyang Ren
 selected: true
-links:
-    - name: Paper
-      url: https://openaccess.thecvf.com/content/CVPR2025/papers/Liao_STCOcc_Sparse_Spatial-Temporal_Cascade_Renovation_for_3D_Occupancy_and_Scene_CVPR_2025_paper.pdf
-    - name: Code
-      url: https://github.com/lzzzzzm/STCOcc
+Paper: https://openaccess.thecvf.com/content/CVPR2025/papers/Liao_STCOcc_Sparse_Spatial-Temporal_Cascade_Renovation_for_3D_Occupancy_and_Scene_CVPR_2025_paper.pdf
+Code: https://github.com/lzzzzzm/STCOcc
 summary: A sparse spatial-temporal cascade renovation method for 3D occupancy and scene flow prediction with only 8.7 GB GPU memory
 cover:
     image: cover.png

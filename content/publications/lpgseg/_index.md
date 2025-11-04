@@ -9,9 +9,11 @@ authors:
     - name: Shuaijia Chen
       home: https://cspaulia.github.io/cspaulia-blog/
     - name: Zhimin Liao
+      home: https://lzzzzzm.github.io/
     - name: Jialu Qin
 selected: true
 cover:
     image: LPGSeg.png
 summary: A local-to-global perception LiDAR-based point cloud segmentation network
+paper: https://ieeexplore.ieee.org/abstract/document/10687969
 ---

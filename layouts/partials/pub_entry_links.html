@@ -5,7 +5,7 @@
 <a href="{{ .Params.arxiv }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "arxiv" }} arXiv</a>&nbsp;&nbsp;
 {{- end }}
 {{- if .Params.paper }}
-    <a href="{{ .Params.paper | absURL }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "file" }} Paper</a>&nbsp;&nbsp;
+<a href="{{ .Params.paper | absURL }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "file" }} Paper</a>&nbsp;&nbsp;
 {{- end }}
 {{- if .Params.code }}
 <a href="{{ .Params.code }}" target="_blank" rel="noopener noreferrer">{{ partial "icon.html" "github" }} Code</a>&nbsp;&nbsp;
