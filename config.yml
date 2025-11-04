@@ -61,6 +61,7 @@ params:
   extend_head: |
     <link rel="stylesheet" href="{{ "css/extended/alerts.css" | absURL }}">
     <script src="{{ "js/alerts.js" | absURL }}"></script>
+    <link rel="stylesheet" href="{{ "css/extended/profile.css" | absURL }}">
 
   syntax_highlighter: "highlight.js" # 设置代码高亮主题
 
@@ -73,7 +74,10 @@ params:
   profileMode:
     enabled: true # needs to be explicitly set
     title: CSPaulia
-    subtitle: "Welcome to CSPaulia's blog"
+    subtitle: "Welcome to CSPaulia's blog."
+    description: "\U0001F44B My name is **Shuaijia Chen**, and I am currently a PhD student at the
+      Institute of Artificial Intelligence and Robotics, Xi’an Jiaotong University.
+      Research interests: None."
     imageUrl: "images/ly&sj.jpg"
     imageWidth: 120
     imageHeight: 120
@@ -102,6 +106,10 @@ params:
     #   url: "https://stackoverflow.com"
     - name: github
       url: "https://github.com/CSPaulia"
+    - name: googlescholar
+      url: "https://scholar.google.com/citations?user=YOUR_ID&user=FzhDpUcAAAAJ"
+    - name: email
+      url: "shuaijiachen@stu.xjtu.edu.cn"
 
   analytics:
     google:
