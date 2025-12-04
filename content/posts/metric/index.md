@@ -93,6 +93,12 @@ $$
 F1 = \frac{2 × (Precision × Recall)}{(Precision + Recall)}
 $$
 
+#### 多分类变体
+
+- **Macro-F1**：所有类别的 F1 取**算术平均**。
+- **Micro-F1**：基于全局总 TP/FP/FN 计算 F1。
+- **Weighted-F1**：按各类别的**样本数量加权**平均 F1。
+
 ---
 
 ## 排序质量评估指标
