@@ -1,12 +1,12 @@
 ---
-title: "Flow Matching and Diffusion Models"
+title: "Generation Models with SDEs"
 date: 2025-10-10T8:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
 series:
   main: "Generative Models"
   subseries: "Flow Matching"
-categories: ["AIGC"]
+categories: ["Generative Models"]
 tags: ["Flow Matching", "Diffusion Models"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Notes for Flow Matching and Diffusion from MIT course."
+description: "Notes for Flow Matching and Diffusion Lecture 1 from MIT course."
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -28,12 +28,12 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "ode.png" # image path/url
+    alt: "Ordinary Differential Equation Illustration" # alt text
+    caption: "Ordinary Differential Equation (ODE)" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
@@ -110,58 +110,37 @@ We do not know the true probability density in practice.
 
 #### 2.1.1 Preliminaries
 
-<dl class="definition-list">
-  <dt>Trajectory</dt>
-  <dd>
-    <span class="math">$X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
-    </span>
-  </dd>
-</dl>
+**Definition 1 (Trajectory)**: $X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$.
+
+> Intuition: a trajectory describes how a particle’s position changes over time $t \in [0, 1]$. The input is time $t$, and the output is the position $X_t$ at that time.
 
 {{< img src="traj.png" alt="Trajectory" width="300" >}}
 
-<dl class="definition-list">
-  <dt>Vector Field</dt>
-  <dd>
-    <span class="math">$u: R^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
-    </span>
-    <br>where $x$ is the location and $u_t(x)$ is the vector direction
-  </dd>
-</dl>
+**Definition 2 (Vector field)**: $u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$, where $x$ is the location and $u_t(x)$ is the vector direction.
 
 {{< img src="vector_field.png" alt="Vector Field" width="300" >}}
 
-<dl class="definition-list">
-  <dt>Ordinary Differential Equation (ODE)</dt>
-  <dd>
-    Initial condition
-    <span class="math">$X_0 = x_0$
-    </span>
-    <br>
-    Dynamics
-    <span class="math">$dX_t/dt = u_t(X_t)$
-    </span>
-  </dd>
-</dl>
+**Definition 3 (Ordinary Differential Equation, ODE)**: given the initial condition $X_0 = x_0$, the dynamics are
+
+$$
+\frac{dX_t}{dt} = u_t(X_t)
+$$
 
 {{< img src="ode.png" alt="ODE" width="300" >}}
 
-> $dX_t/dt$ is the tangent of the trajectory. You can interpret it as velocity, so the ODE describes how a particle moves in a vector field.
+> $dX_t/dt$ is the tangent vector of the trajectory. You can interpret it as velocity, so an ODE describes how a particle moves in a vector field.
 
 #### 2.1.2 Definition of a flow
 
-<dl class="definition-list">
-  <dt>Flow</dt>
-  <dd>
-    <span class="math">$\phi: \mathbb{R}^d \times [0, 1] \to \mathbb{R}^d, (t, x) \mapsto \phi_t(x)$
-    </span>
-    <br>where $\phi_t(x)$ is the position at time $t$ of a particle that started at $x$ and follows the ODE trajectory
-    <br><span class="math">$\phi_0(x_0) = x_0$
-    </span>
-    <br><span class="math">$\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))$
-    </span>
-  </dd>
-</dl>
+**Definition 4 (Flow)**: $\phi: \mathbb{R}^d \times [0, 1] \to \mathbb{R}^d, (t, x) \mapsto \phi_t(x)$, where $\phi_t(x)$ is the new position at time $t$ of a particle that starts at position $x$ and follows the ODE trajectory. A flow satisfies:
+
+$$
+\phi_0(x_0) = x_0
+$$
+
+$$
+\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))
+$$
 
 Intuitively, a flow is a collection of ODE solutions for many different initial conditions.
 
@@ -211,14 +190,7 @@ Flow visualization:
 
 > $p_{init} \xrightarrow{ODE} p_{data}$
 
-<dl class="definition-list">
-  <dt>Neural network</dt>
-  <dd>
-    <span class="math">$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$
-    </span>
-    <br>where $\theta$ denotes parameters
-  </dd>
-</dl>
+**Definition 5 (Neural vector field)**: $u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$, where $\theta$ denotes parameters.
 
 - Sample an initial point: $X_0 \sim p_{init}$
 - Simulate the ODE driven by $u_t^{\theta}$
@@ -242,50 +214,25 @@ Flow visualization:
 
 ### 2.2 Diffusion models
 
-<dl class="definition-list">
-  <dt>Stochastic process</dt>
-  <dd>
-    Random variables <span class="math">$X_t, 0 \leq t \leq 1$
-    </span>
-    <br> Random trajectory <span class="math">$X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
-  </dd>
-</dl>
+**Definition 6 (Stochastic process)**: random variables $X_t, 0 \le t \le 1$, whose trajectory is $X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$.
 
 {{< img src="stochastic_traj.png" alt="Stochastic Process" width="300" >}}
 
-<dl class="definition-list">
-  <dt>Vector field</dt>
-  <dd>
-    <span class="math">$u: R^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
-    </span>
-  </dd>
-</dl>
+> **Definition 2 (Vector field)**: $u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$.
 
-<dl class="definition-list">
-  <dt>Diffusion coefficient</dt>
-  <dd>
-    <span class="math">$\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$
-    </span>
-  </dd>
-</dl>
+**Definition 7 (Diffusion coefficient)**: $\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$.
 
-<dl class="definition-list">
-  <dt>Stochastic Differential Equation (SDE)</dt>
-  <dd>
-    Initial condition
-    <span class="math">$X_0 = x_0$
-    </span>
-    <br>
-    Dynamics
-    <span class="math">$dX_t = u_t(X_t)dt + \sigma_t dW_t$
-    </span>
-    <br>where $u_t(X_t)dt$ is the deterministic ODE part, $\sigma_t dW_t$ is the stochastic (noise) part, and $W_t$ is standard Brownian motion (Wiener process).
-  </dd>
-</dl>
+**Definition 8 (Stochastic Differential Equation, SDE)**: given $X_0 = x_0$, the dynamics are
+
+$$
+dX_t = u_t(X_t)dt + \sigma_t dW_t.
+$$
+
+Here $u_t(X_t)dt$ is the deterministic ODE part, $\sigma_t dW_t$ is the stochastic (noise) part, and $W_t$ is standard Brownian motion (Wiener process).
 
 #### 2.2.1 Brownian motion
 
-As a stochastic process:
+As a stochastic process $W_t$:
 1. $W_0 = 0$
 2. Gaussian increments: for any $0 \leq s < t \leq 1$, $W_t - W_s \sim \mathcal{N}(0, (t-s)I_d)$
 3. Independent increments: for any $0 \leq t_0 < t_1 < \cdots < t_n \leq 1$, the increments $W_{t_1} - W_{t_0}, W_{t_2} - W_{t_1}, \cdots, W_{t_n} - W_{t_{n-1}}$ are independent
@@ -333,23 +280,16 @@ where $\lim_{h \to 0} \sqrt{\mathbb{E}[\|R_t(h)\|^2]} = 0$. Because Brownian mot
 
 > $p_{init} \xrightarrow{SDE} p_{data}$
 
-<dl class="definition-list">
-  <dt>Neural network</dt>
-  <dd>
-    <span class="math">$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$
-    </span>
-    <br>where $\theta$ denotes parameters
-  </dd>
-</dl>
+> **Definition 5 (Neural network)**: $u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$, where $\theta$ denotes parameters.
 
-<dl class="definition-list">
-  <dt>Diffusion coefficient</dt>
-  <dd>
-    <span class="math">$\sigma_t$
-    </span> (usually fixed)
-  </dd>
-</dl>
+> **Definition 7 (Diffusion coefficient)**: $\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$
 
 - Sample an initial point: $X_0 \sim p_{init}$
 - Simulate the SDE: $dX_t = u_t^{\theta}(X_t)dt + \sigma_t dW_t$
 - Goal: $X_1 \sim p_{data}$
+
+---
+
+## References
+
+[1] GPT中英字幕课程资源, "《流匹配与扩散模型|6.S184 Flow Matching and Diffusion Models》中英字幕（Claude-3.7-s）》," Bilibili, Jul. 29, 2025. [Online video]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.

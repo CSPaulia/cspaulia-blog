@@ -1,10 +1,10 @@
 ---
-title: "收集N个Norm方法"
+title: "收集 100 个 Norm 方法"
 date: 2025-05-21T21:15:00+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Deep Learning Skills"]
-tags: ["Normalization"]
+categories: ["深度学习技巧"]
+tags: ["归一化"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -12,7 +12,7 @@ TocOpen: false # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "[Epoch  1/NaN] Updating..."
+description: "[Epoch 1/100] Updating..."
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -25,15 +25,15 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "norm_cover.png" # image path/url
+    alt: "归一化方法概览" # alt text
+    caption: "归一化方法" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "修改建议" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 

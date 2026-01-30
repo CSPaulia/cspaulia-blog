@@ -1,13 +1,13 @@
 ---
-title: "Tokenization"
+title: "分词（Tokenization）"
 date: 2025-07-17T10:20:03+08:00
 # weight: 1
 # aliases: ["/first"]
 series:
-    main: "Large Language Model"
-    subseries: "Tokenization"
-categories: ["Large Language Model", "NLP"]
-tags: ["Tokenization", "LLM"]
+    main: "大语言模型"
+    subseries: "分词"
+categories: ["大语言模型", "自然语言处理"]
+tags: ["分词", "LLM"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Tokenization in LLM"
+description: "大语言模型中的分词方法：字符/字节/词/BPE"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -29,14 +29,14 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "tokenization_cover.jpg" # image path/url
-    alt: "tokenization" # alt text
-    caption: "tokenization" # display caption under cover
+    alt: "分词（Tokenization）" # alt text
+    caption: "分词（Tokenization）" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
@@ -156,7 +156,7 @@ reconstructed_string = "Hello, 🌍! 你好!"
 
     ```text
     b"a" # one byte
-    b"\xf0\x9f\x8c\x8d"s # multiple bytes
+    b"\xf0\x9f\x8c\x8d" # multiple bytes
     ```
 
 ### 2.1. 编解码

@@ -1,5 +1,5 @@
 ---
-title: "收集N个Norm方法"
+title: "100 Normalization Methods (Work in Progress)"
 date: 2025-05-21T21:15:00+08:00
 # weight: 1
 # aliases: ["/first"]
@@ -12,7 +12,7 @@ TocOpen: false # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "[Epoch  1/NaN] Updating..."
+description: "[Epoch 1/100] Updating..."
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -25,12 +25,12 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "norm_cover.png" # image path/url
+    alt: "Normalization methods overview" # alt text
+    caption: "Normalization methods" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
@@ -40,68 +40,78 @@ editPost:
 ### Layer Normalization
 
 <p align="center">
-  {{< img src="LNvsBN.jpg" alt="LNvsBN" >}}
+  {{< img src="LNvsBN.jpg" alt="LN vs BN" >}}
 </p>
 
-在上图中，$N$表示样本轴，$C$表示通道轴，$F$是每个通道的特征数量。BN如右侧所示，它是取**不同样本的同一个通道**的特征做归一化；LN则是如左侧所示，它取的是**同一个样本的不同通道**做归一化
+In the figure above, $N$ denotes the sample axis, $C$ the channel axis, and $F$ the number of features per channel.
+Batch Normalization (BN, right) normalizes using features from **the same channel across different samples**.
+Layer Normalization (LN, left) normalizes using features from **different channels within the same sample**.
 
-#### 1. BN的问题
+#### 1. Issues with BN
 
-##### 1.1. BN与Batch Size
+##### 1.1 BN and batch size
 
-BN是按照**样本数**计算归一化统计量的，当样本数很少时，比如说只有4个，这四个样本的均值和方差便不能反映全局的统计分布息，所以基于少量样本的BN的效果会变得很差。
+BN computes normalization statistics based on the **number of samples** in a batch.
+When the batch is very small (e.g., only 4 samples), the mean and variance estimated from those samples may not represent the global data distribution well, so BN can perform poorly.
 
-##### 1.2. BN与RNN
+##### 1.2 BN and RNNs
 
 <p align="center">
   {{< img src="RNN.jpg" alt="RNN" >}}
 </p>
 
-在一个batch中，通常各个样本的长度都是不同的，当统计到比较靠后的时间片时，例如上图中$t>4$时，这时只有一个样本还有数据，基于这个样本的统计信息不能反映全局分布，所以这时BN的效果并不好。
+Within a batch, sequence lengths often differ.
+For later time steps (e.g., $t>4$ in the figure), only a small number of sequences may still have valid tokens.
+Statistics computed from so few samples are not representative of the overall distribution, so BN tends to work poorly in this setting.
 
-另外如果在测试时我们遇到了长度大于任何一个训练样本的测试样本，我们无法找到保存的归一化统计量，所以BN无法运行。
+Also, at inference time, if we encounter a test sequence longer than any training sequence, we may not have the corresponding saved normalization statistics for those time steps, which makes BN hard to apply.
 
-#### 2. LN详解
+#### 2. LayerNorm in detail
 
-##### 2.1. MLP中的LN
+##### 2.1 LN in an MLP
 
-先看MLP中的LN。设$H$是一层中隐层节点的数量，$l$是MLP的层数，我们可以计算LN的归一化统计量$\mu$和$\sigma$：
+Consider LN in an MLP.
+Let $H$ be the number of hidden units in a layer, and $l$ be the layer index.
+LN computes the normalization statistics $\mu$ and $\sigma$ as:
 
 $$
 \mu^{l} = \frac{1}{H} \sum_{i=1}^{H} a^l_i ~~~~~~~
 \sigma^{l} = \sqrt{\frac{1}{H} \sum_{i=1}^{H}(a^l_i-\mu^l)^2}
 $$
 
-注意上面统计量的计算是和样本数量没有关系的，它的数量只取决于隐层节点的数量，所以只要隐层节点的数量足够多，我们就能保证LN的归一化统计量足够具有代表性。通过$\mu^{l}$和$\sigma^{l}$
-可以得到归一化后的值：
+Note that these statistics do **not** depend on batch size; they only depend on the number of hidden units.
+If $H$ is sufficiently large, the estimated statistics can still be stable.
+The normalized activation is:
 
 $$
 \hat{a}^l = \frac{a^l-\mu^l}{\sqrt{(\sigma^l)^2+\epsilon}} \tag{1}
 $$
 
-其中$\epsilon$是一个很小的小数，防止除0。
+where $\epsilon$ is a small constant to avoid division by zero.
 
-在LN中我们也需要一组参数来保证归一化操作不会破坏之前的信息，在LN中这组参数叫做增（gain）$g$和偏置（bias）$b$。假设激活函数为$f$，最终LN的输出为：
+LN also uses learnable parameters to preserve representational capacity: gain $g$ and bias $b$.
+With activation function $f$, the LN output is:
 
 $$
 h^l = f(g^l \odot \hat{a}^l + b^l) \tag{2}
 $$
 
-合并公式(1)和(2)并忽略参数$l$，有：
+Combining (1) and (2) and omitting the layer index $l$:
 
 $$
 h=f(\frac{g}{\sqrt{\sigma^2+\epsilon}} \odot (a-\mu) + b)
 $$
 
-##### 2.2. RNN中的LN
+##### 2.2 LN in an RNN
 
-对于RNN时刻$t$时的节点，其输入是$t-1$时刻的隐层状态$h^t$和$t$时刻的输入数据$\text{x}_t$，可以表示为：
+For an RNN at time step $t$, the input is the previous hidden state $h^t$ at time step $t-1$ and the current input $\text{x}_t$.
+It can be written as:
 
 $$
-\text{a}^t = W_{hh}h^{t-1}+W_{xh}\text{x}^{t}
+	ext{a}^t = W_{hh}h^{t-1}+W_{xh}\text{x}^{t}
 $$
 
-接着我们便可以在$\text{a}^t$上采取和1.1节中完全相同的归一化过程：
+Then we can apply the same normalization procedure on $\text{a}^t$ as above:
 
 $$
 h^t=f(\frac{g}{\sqrt{\sigma^2+\epsilon}} \odot (a^t-\mu^t) + b) ~~~~~~

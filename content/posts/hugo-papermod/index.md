@@ -1,5 +1,5 @@
 ---
-title: "PaperMod进化论"
+title: "PaperMod 进化论"
 date: 2025-06-07T17:32:03+08:00
 # weight: 1
 # aliases: ["/first"]
@@ -12,7 +12,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "改进我的PaperMod"
+description: "PaperMod 主题改进记录"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -26,14 +26,14 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "papermod.png" # image path/url
-    alt: "Advanced Papermod" # alt text
-    caption: "Advanced Papermod" # display caption under cover
+    alt: "增强版 PaperMod：主题自定义效果示意" # alt text
+    caption: "增强版 PaperMod" # display caption under cover
     relative: true # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "提交修改建议" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 

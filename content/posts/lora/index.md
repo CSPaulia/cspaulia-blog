@@ -2,10 +2,10 @@
 title: "LoRA: 大模型低秩适配方法详解"
 date: 2025-06-18T10:00:00+08:00
 series:
-    main: "Large Language Model"
-    subseries: "Fine-tuning"
-categories: ["Deep Learning Skills", "Large Language Model"]
-tags: ["LoRA", "fine-tuning", "LLM"]
+  main: "大语言模型"
+  subseries: "微调"
+categories: ["深度学习技巧", "大语言模型"]
+tags: ["LoRA", "微调"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
@@ -16,8 +16,8 @@ description: "详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调�
 UseHugoToc: true
 cover:
     image: "lora-cover.png" 
-    alt: "LoRA Architecture" 
-    caption: "LoRA Architecture" 
+    alt: "LoRA 架构示意图" 
+    caption: "LoRA 架构" 
     relative: false
     hidden: true
 ---

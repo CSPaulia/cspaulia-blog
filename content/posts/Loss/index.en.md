@@ -1,10 +1,10 @@
 ---
-title: "记录100种损失函数（Loss Function）"
+title: "100 Loss Functions (Work in Progress)"
 date: 2025-05-20T12:59:00+08:00
 # weight: 1
 # aliases: ["/first"]
 categories: ["Deep Learning Skills"]
-tags: ["Loss"]
+tags: ["loss", "loss-function"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 math: true
@@ -13,7 +13,7 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: "[Epoch  6/100] Updating..."
+description: "[Epoch 6/100] Updating…"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -26,46 +26,47 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "loss_cover.png" # image path/url
+    alt: "Loss functions overview" # alt text
+    caption: "Loss functions" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://github.com/CSPaulia/cspaulia-blog/tree/main/content/"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 分类任务损失函数
+## Loss functions for classification
 
-### 交叉熵（Cross Entropy）
+### Cross Entropy
 
 $$
 \text{H}_p(q) = \sum_x q(x) \log_2(\frac{1}{p(x)}) = - \sum_x q(x) \log_2(p(x))
 $$
 
-交叉熵为我们提供了一种表达两种概率分布的差异的方法。p和q的分布越不相同，p相对于q的交叉熵将越大于p的熵。
+Cross entropy provides a way to measure the difference between two probability distributions. The more different $p$ and $q$ are, the larger the cross entropy of $p$ with respect to $q$ becomes compared to the entropy of $p$.
 
-在实际计算中，
+In practice:
 
 $$
 \text{L} = - \sum_x q(y|x) \log_2(p(y|x))
 = - \frac{1}{N} \sum_x \sum_c y_{xc} \log_2(p(y_c|x))
 $$
 
-其中，$N$表示样本数量，$x$表示样本，$c$表示类别，$y_{xc}$表示类别为$c$时$x$的预测标签，只有$c$与真实标签的类别$\hat{c}$相同时，$y_{x\hat{c}} = 1$，即$q(y_{\hat{c}}|x)=1/N$，其余类别$y_{xc} = 0$，即$q(y_c|x)=0/N=0$。
+where $N$ is the number of samples, $x$ is a sample, $c$ is the class index, and $y_{xc}$ is the one-hot label for sample $x$.
+Only when $c$ matches the ground-truth class $\hat{c}$ do we have $y_{x\hat{c}} = 1$ (i.e., $q(y_{\hat{c}}|x)=1/N$); otherwise $y_{xc}=0$.
 
-举个例子，
+Example:
 
-| 预测（softmax归一化后） | 真实值 |
-|:----------------------:|:-------:|
+| Prediction (after softmax) | Ground truth |
+|:--------------------------:|:------------:|
 | [0.1, 0.2, 0.7] | [0, 0, 1] |
 | [0.3, 0.4, 0.3] | [0, 1, 0] |
 | [0.1, 0.2, 0.7] | [1, 0, 0] |
 
-计算损失函数值：
+Loss values:
 
 $$
 \text{sample 1 Loss} = - (0 \times \log{0.1} + 0 \times \log{0.2} + 1 \times \log{0.7}) = 0.36
@@ -83,82 +84,84 @@ $$
 \text{L} = \frac{0.36+0.92+2.3}{3} = 1.19
 $$
 
-
-### KL 散度（KL Divergence）
+### KL Divergence
 
 $$
 \text{D}_{\text{KL}}(q \| p) = - \sum_i q(x) \log_2(p(x)) + \sum_x p(x) \log_2(p(x)) = \text{H}_p(q) - \text{H}(p)
 $$
 
-在交叉熵的基础上减去了p的熵，衡量了两个分布之间的距离。
+This subtracts the entropy of $p$ from cross entropy, measuring the distance between two distributions.
 
-在神经网络的训练当中，由于p往往是标签的分布，p的熵值是确定的。所以KL散度和交叉熵是等价的。但是由于交叉熵不惜要计算信息熵，计算更加简单，所以交叉熵使用更加广泛。
+In neural network training, $p$ is often the label distribution and $\text{H}(p)$ is constant, so KL divergence becomes equivalent to cross entropy. Cross entropy is used more widely because it avoids explicitly computing entropy and is simpler.
 
-### 二值交叉熵（Binary Cross Entropy）
+### Binary Cross Entropy
 
-模型预测结果：
+Model prediction:
 
 $$
 P_\theta(y=1)=\theta ~~~~~~~ P_\theta(y=0)=1 - \theta
 $$
 
-合并上面两个式子，得到：
+Combine the two:
 
 $$
 p_\theta(y) = \theta^y(1-\theta)^{(1-y)}
 $$
 
-观测到这些数据点的对数似然为：
+The log-likelihood over $N$ data points:
 
 $$
 l(\theta) = \log \prod^N_{i=1} p_\theta(y_i) = \log \prod^N_{i=1}\theta^y(1-\theta)^{(1-y)} = \sum_{i=1}^N [y_i\log \theta + (1-y_i)\log(1-\theta)]
 $$
 
-这个损失函数就是$y_i$与$\theta$的交叉熵$H_y(\theta)$。
+This is exactly the cross entropy between $y_i$ and $\theta$, i.e., $H_y(\theta)$.
 
-### 平衡交叉熵（Balenced Cross Entropy）
+### Balanced Cross Entropy
 
-为了解决**样本数量不平衡**这个问题，我们可以选择给Cross Entropy添加权重。以二分类问题举例，[Binary Cross Entropy](#二值交叉熵binary-cross-entropy)已经介绍过Binary Cross Entropy：
+To address **class imbalance**, we can add a weight to cross entropy. For binary classification, the BCE loss is:
 
 $$
 \text{L} = - \sum_{i=1}^N [y_i\log p + (1-y_i)\log(1-p)]
 $$
 
-改写一下，
+Rewrite it as:
 
 $$
 \text{L} =
 \begin{cases}
--\log(p) & \text{if}~y=1 \\\\
+-\log(p) & \text{if}~y=1 \\
 -\log(1-p) & \text{otherwise}
 \end{cases}
 $$
 
-再改写一下，
+Define:
 
 $$
 p_t=
 \begin{cases}
-& p & \text{if}~y=1 \\\\
+& p & \text{if}~y=1 \\
 & 1-p & \text{otherwise}
 \end{cases}
 $$
+
+so:
 
 $$
 \text{L} = -\log(p_t)
 $$
 
-添加权重，
+Add a class weight:
 
 $$
 \text{L} = -\alpha_t\log(p_t)
 $$
 
-其中$y=1$时$\alpha_t=\alpha$；$y=0$时$\alpha_t=1-\alpha$。$\frac{\alpha}{1-\alpha}=\frac{n}{m}$，$n$为$y=0$的样本（负样本）个数，$m$为$y=1$的样本（正样本）个数。
+where $\alpha_t=\alpha$ when $y=1$, and $\alpha_t=1-\alpha$ when $y=0$.
+If there are $n$ negative samples ($y=0$) and $m$ positive samples ($y=1$), then $\frac{\alpha}{1-\alpha}=\frac{n}{m}$.
 
-Balenced Cross Entropy确实解决了样本不均衡问题，但并未解决样本难易问题。为解决这个问题，详见[Focal Loss](#focal-loss).
+Balanced cross entropy helps with imbalance, but not with easy vs hard examples. For that, see [Focal Loss](#focal-loss).
 
-![easyhard](easyhard.jpg)
+![easy-vs-hard](easyhard.jpg)
 
 ### Focal Loss
 
@@ -166,51 +169,54 @@ $$
 \text{FL}(p_t) = (1-p_t)^\gamma\log(p_t)
 $$
 
-$p_t$是模型预测的结果的类别概率值。$−\log(p_t)$和交叉熵损失函数一致，因此当前样本类别对应的那个$p_t$如果越小，说明预测越不准确，那么$(1-p_t)^{\gamma}$这一项就会增大，这一项也作为困难样本的系数，预测越不准，Focal Loss越倾向于把这个样本当作困难样本，这个系数也就越大，目的是让困难样本对损失和梯度的贡献更大。
+Here $p_t$ is the predicted probability of the ground-truth class.
+Since $-\log(p_t)$ is the same as cross entropy, a smaller $p_t$ (worse prediction) increases $(1-p_t)^\gamma$, making the loss focus more on hard examples. In other words, focal loss increases the contribution of hard samples to both loss and gradients.
 
-![Focal_exp](Focal_exp.png)
+![focal-loss-effect](Focal_exp.png)
 
-前面的$\alpha_t$是类别权重系数。如果你有一个类别不平衡的数据集，那么你肯定想对数量少的那一类在loss贡献上赋予一个高权重，这个$\alpha_t$就起到这样的作用。因此，$\alpha_t$应该是一个**向量**，向量的长度等于类别的个数，用于存放各个类别的权重。一般来说$\alpha_t$中的值为**每一个类别样本数量的倒数**，相当于平衡样本的数量差距
-
+The earlier $\alpha_t$ term is a class weight. For imbalanced datasets, we usually assign a larger weight to the minority class. In multi-class problems, $\alpha_t$ is typically a **vector** of length equal to the number of classes; a common heuristic is to set it proportional to the inverse frequency of each class.
 
 ### Lovasz Loss
 
-#### Lovasz Loss的推导
+#### Deriving Lovasz Loss
 
-IoU (intersection-over-union，也叫jaccard index)是自然图像分割比赛中常用的一个衡量分割效果的评价指标，所以一个自然的想法就是能否将IoU作为loss function来直接优化。交并比公式：
+IoU (intersection-over-union, also called the Jaccard index) is a common metric in segmentation. A natural question is: can we directly optimize IoU as a loss?
+
+IoU definition:
 
 $$
 J_c(y^\*, \widetilde{y}) = \frac{ | \{ y^\* = c \} \cap \{ \widetilde{y} = c \} | }{ | \{ y^\* = c \} \cup \{ \widetilde{y} = c \} | }
 $$
 
-其中$y^{*}$表示Ground Truth标签，$\widetilde{y}$表示预测标签，$\vert \cdot \vert$表示集合中的元素个数。可以看出上式的值是介于0到1之间的，由此可以设计出损失函数：
+where $y^{*}$ is the ground-truth label, $\widetilde{y}$ is the prediction, and $\vert \cdot \vert$ is set cardinality.
+Because $J_c$ is in $[0,1]$, we can define a discrete loss:
 
 $$
 \Delta_{J_c}(y^{\*},\widetilde{y})=1-J_c(y^{\*},\widetilde{y})
 $$
 
-这个损失函数是离散的，无法直接求导，需要对其做**光滑延拓**。
+But this loss is discrete and not directly differentiable. We need a **continuous extension**.
 
-改写一下$\Delta_{J_c}$,
+Rewrite $\Delta_{J_c}$ as:
 
 $$
 \Delta_{J_c} = 1-J_c(y^{\*},\widetilde{y}) = \frac{\vert M_c \vert}{\vert \{y^{\*}=c\} \cup M_c \vert} \tag{1}
 $$
 
-其中，$M_c(y^{\*},\widetilde{y}) = \{y^{\*}=c,\widetilde{y}\neq c\} \cup \{y^{\*} \neq c,\widetilde{y}=c\}$，$M_c$是损失函数的自变量，它表达网络分割结果与Ground Truth标签不匹配的集合。$M_c$的定义域为$\{0,1\}^p$，即$M_c \in \{0,1\}^p$，$p$表示集合$M_c$中像素的个数。
+where
+$M_c(y^{\*},\widetilde{y}) = \{y^{\*}=c,\widetilde{y}\neq c\} \cup \{y^{\*} \neq c,\widetilde{y}=c\}$
+captures mismatched pixels between prediction and ground truth.
+The domain of $M_c$ is $\{0,1\}^p$ (i.e., $M_c \in \{0,1\}^p$), where $p$ is the number of pixels.
 
-由于(1)是次模（submodular）函数，故可以对其做**光滑延拓**。
+Because (1) is a submodular function, we can apply a smooth extension.
 
-
-**定义1** 若一个集合函数$\Delta:\{0,1\}^p \rightarrow \mathbb{R}$对于所有的集合$A,B \in \{0,1\}^p$满足
+**Definition 1** A set function $\Delta:\{0,1\}^p \rightarrow \mathbb{R}$ is **submodular** if for all sets $A,B \in \{0,1\}^p$:
 
 $$
 \Delta(A) + \Delta(B) \geq \Delta(A \cup B) + \Delta(A \cap B)
 $$
 
-则我们称$\Delta$是**次模函数**。
-
-**定义2** **Lovasz extension** 现存在一集合函数$\Delta:\{0,1\}^p \rightarrow \mathbb{R}$且$\Delta(\pmb{0})=0$，则其Lovasz extension为
+**Definition 2** (**Lovasz extension**) Given a set function $\Delta:\{0,1\}^p \rightarrow \mathbb{R}$ with $\Delta(\pmb{0})=0$, its Lovasz extension is:
 
 $$
 \overline{\Delta} = \sum_{i=1}^p m_i g_i(\pmb{m}) \tag{2}
@@ -220,43 +226,43 @@ $$
 g_i(m) = \Delta(\{\pi_1,\cdots,\pi_i\}) - \Delta(\{\pi_1,\cdots,\pi_{i-1}\})
 $$
 
-$\pi$是一个数组，根据元素$\pmb{m}$降序排序。例如，$x_{\pi_1} \geq x_{\pi_2} \geq \cdots \geq x_{\pi_p}$。
+Here $\pi$ is an index array obtained by sorting the elements of $\pmb{m}$ in descending order (e.g., $x_{\pi_1} \geq x_{\pi_2} \geq \cdots \geq x_{\pi_p}$).
 
-此时$\overline{\Delta}$已经是一个连续、分段线性的函数了，可以直接对误差$m$求导，导数为$g(m)$。
+Now $\overline{\Delta}$ becomes a continuous, piecewise-linear function. We can differentiate it w.r.t. the error vector $m$, and the derivative is $g(m)$.
 
-#### Lovasz Loss在多类分割中的应用
+#### Lovasz Loss for multi-class segmentation
 
-假设$F_i(c)$表示的是模型最后输出的像素$i$预测为类别$c$的非归一化分数，则可以通过softmax函数将$F_i(c)$归一化得到像素$i$预测为类别$c$的概率：
+Let $F_i(c)$ be the unnormalized score (logit) for pixel $i$ being class $c$. After softmax, the probability is:
 
 $$
 f_i(c) = \frac{e^{F_i(c)}}{\sum_{c' \in C} e^{F_i(c')}}
 $$
 
-那么(2)中的$m_i(c)$可以定义为
+Then the $m_i(c)$ in (2) can be defined as:
 
 $$
 m_i(c) = 
 \begin{cases}
-& 1-f_i(c) & \text{if}~c=y_i^{\*} \\\\
+& 1-f_i(c) & \text{if}~c=y_i^{\*} \\
 & f_i(c) & \text{otherwise}
 \end{cases}
 $$
 
-那么损失函数为
+The per-class loss:
 
 $$
 loss(\pmb{f}(c)) = \overline{\Delta_{J_c}}(\pmb{m}(c))
 $$
 
-考虑到类别平均mIoU的计算方式，最终的损失函数为
+And averaging over classes (consistent with mIoU):
 
 $$
 loss(\pmb{f}) = \frac{1}{\vert C \vert} \sum_{c \in C} \overline{\Delta_{J_c}}(\pmb{m}(c))
 $$
 
-#### Lovasz Loss在多类分割中的代码流程
+#### Implementation sketch for multi-class Lovasz Loss
 
-**步骤1** 计算预测结果的误差
+**Step 1** Compute prediction errors
 
 ``` py
 signs = 2. * predictions.float() - 1.
@@ -264,9 +270,9 @@ errors = (1. - logits * Variable(signs))
 errors_sorted, perm = torch.sort(errors, dim=0, descending=True)
 ```
 
-这一步得到公式(2)中的$m_i$。
+This yields $m_i$ in (2).
 
-**步骤2** 计算IoU得分
+**Step 2** Compute IoU (Jaccard) curve
 
 ``` py
 gts = gt_sorted.sum()
@@ -275,20 +281,20 @@ union = gts + (1 - gt_sorted).float().cumsum(0)
 jaccard = 1. - intersection / union
 ```
 
-这一步得到公式(1)的值，即IoU得分。
+This corresponds to (1), i.e., the IoU curve.
 
-**步骤3** 根据IoU得分计算Lovasz extension的梯度
+**Step 3** Convert IoU curve into Lovasz gradient
 
 ``` py
 jaccard[1:p] = jaccard[1:p] - jaccard[0:-1]
 ```
 
-这一步得到公式(2)中的$g_i(\pmb{m})$。
+This yields $g_i(\pmb{m})$ in (2).
 
-**步骤4** 计算Loss
+**Step 4** Compute the final loss
 
 ``` py
 loss = torch.dot(F.relu(errors_sorted), Variable(grad))
 ```
 
-这一步得到公式(2)的值。
+This corresponds to the Lovasz extension value in (2).

@@ -1,5 +1,5 @@
 ---
-title: "流匹配与扩散模型"
+title: "从随机微分方程观察生成模型"
 date: 2025-10-10T8:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "MIT 课程《Flow Matching and Diffusion》笔记"
+description: "MIT 课程《Flow Matching and Diffusion》Lecture 1 笔记"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -28,12 +28,12 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "ode.png" # image path/url
+    alt: "常微分方程示意图" # alt text
+    caption: "常微分方程（ODE）" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "建议修改" # edit text
@@ -110,39 +110,21 @@ $$
 
 #### 2.1.1. 预备知识
 
-<dl class="definition-list">
-  <dt>轨迹（Trajectory）</dt>
-  <dd>
-    <span class="math">$X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
-    </span>
-  </dd>
-</dl>
+**定义一 轨迹（Trajectory）**：$X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
+
+> 解释：轨迹表示粒子在时间 $t \in [0,1]$ 内的位置变化。输入$t$，输出粒子在时间$t$时刻的位置$X_t$。
 
 {{< img src="traj.png" alt="Trajectory" width="300" >}}
 
-<dl class="definition-list">
-  <dt>向量场（Vector Feild）</dt>
-  <dd>
-    <span class="math">$u: R^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
-    </span>
-    <br>其中 $x$ 表示点的位置，$u_t$ 表示向量方向
-  </dd>
-</dl>
+**定义二 向量场（Vector Field）**：$u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$，其中 $x$ 表示点的位置，$u_t$ 表示向量方向
 
 {{< img src="vector_field.png" alt="Vector Field" width="300" >}}
 
-<dl class="definition-list">
-  <dt>常微分方程（Ordinary Differential Equation, ODE）</dt>
-  <dd>
-    初始条件
-    <span class="math">$X_0 = x_0$
-    </span>
-    <br>
-    常微分方程/动力学方程
-    <span class="math">$dX_t/dt = u_t(X_t)$
-    </span>
-  </dd>
-</dl>
+**定义三 常微分方程（Ordinary Differential Equation, ODE）**： 初始条件 $X_0 = x_0$，则常微分方程/动力学方程为
+
+$$
+\frac{dX_t}{dt} = u_t(X_t)
+$$
 
 {{< img src="ode.png" alt="ODE" width="300" >}}
 
@@ -150,20 +132,17 @@ $$
 
 #### 2.1.2. 流的定义
 
-<dl class="definition-list">
-  <dt>流（Flow）</dt>
-  <dd>
-    <span class="math">$\phi: \mathbb{R}^d \times [0, 1] \to \mathbb{R}^d, (t, x) \mapsto \phi_t(x)$
-    </span>
-    <br>其中 $\phi_t(x)$ 表示时间 $t$ 时刻，位置为 $x$ 的粒子沿着ODE轨迹运动到的新位置
-    <br><span class="math">$\phi_0(x_0) = x_0$
-    </span>
-    <br><span class="math">$\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))$
-    </span>
-  </dd>
-</dl>
+**定义四 流（Flow）**：$\phi: \mathbb{R}^d \times [0, 1] \to \mathbb{R}^d, (t, x) \mapsto \phi_t(x)$，其中 $\phi_t(x)$ 表示时间 $t$ 时刻，位置为 $x$ 的粒子沿着ODE轨迹运动到的新位置。流满足条件：
 
-流本质是针对许多初始条件的常微分方程解的集合
+$$
+\phi_0(x_0) = x_0
+$$
+
+$$
+\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))
+$$
+
+流本质是针对许多初始条件的常微分方程解的集合。
 
 {{< img src="flow_process.png" alt="Flow Process" width="80%" >}}
 
@@ -211,14 +190,7 @@ Flow 可视化：
 
 > $p_{init} \xrightarrow{ODE} p_{data}$
 
-<dl class="definition-list">
-  <dt>神经网络</dt>
-  <dd>
-    <span class="math">$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$
-    </span>
-    <br>其中 $\theta$ 代表参数
-  </dd>
-</dl>
+**定义五 神经网络**：$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$，其中 $\theta$ 代表参数。
 
 - 随机初始采样： $X_0 \sim p_{init}$
 - 模拟 ODE： $X_t = u_t^{\theta}(X_t)$
@@ -242,55 +214,30 @@ Flow 可视化：
 
 ### 2.2. 扩散模型
 
-<dl class="definition-list">
-  <dt>随机过程</dt>
-  <dd>
-    随机变量<span class="math"> $X_t, 0 \leq t \leq 1$
-    </span>
-    <br> 随机轨迹<span class="math"> $X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
-  </dd>
-</dl>
+**定义六 随机过程（Stochastic Process）**：随机变量 $X_t, 0 \leq t \leq 1$，其轨迹为 $X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$
 
 {{< img src="stochastic_traj.png" alt="Stochastic Process" width="300" >}}
 
-<dl class="definition-list">
-  <dt>向量场</dt>
-  <dd>
-    <span class="math">$u: R^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
-    </span>
-  </dd>
-</dl>
+> **定义二 向量场** ：$u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$
 
-<dl class="definition-list">
-  <dt>扩散系数</dt>
-  <dd>
-    <span class="math">$\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$
-    </span>
-  </dd>
-</dl>
+**定义七 扩散系数**：$\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$
 
-<dl class="definition-list">
-  <dt>随机微分方程（Stochastic Differential Equation, SDE）</dt>
-  <dd>
-    初始条件
-    <span class="math">$X_0 = x_0$
-    </span>
-    <br>
-    随机微分方程/动力学方程
-    <span class="math">$dX_t = u_t(X_t)dt + \sigma_t dW_t$
-    </span>
-    <br>其中 $u_t(X_t)dt$ 是 ODE，$\sigma_t dW_t$ 是随机性部分(噪声)，$W_t$ 是标准布朗运动（维纳过程）。
-  </dd>
-</dl>
+**定义八 随机微分方程（Stochastic Differential Equation, SDE）**： 初始条件 $X_0 = x_0$，则随机微分方程/动力学方程为 
+
+$$
+dX_t = u_t(X_t)dt + \sigma_t dW_t
+$$
+
+其中 $u_t(X_t)dt$ 是 ODE，$\sigma_t dW_t$ 是随机性部分(噪声)，$W_t$ 是标准布朗运动（维纳过程）。
 
 #### 2.2.1. 布朗运动
 
-随机过程：
+随机过程W_t：
 1. $W_0 = 0$
 2. 高斯增量：对于任意 $0 \leq s < t \leq 1$，$W_t - W_s \sim \mathcal{N}(0, (t-s)I_d)$
 3. 独立增量：对于任意 $0 \leq t_0 < t_1 < \cdots < t_n \leq 1$，增量 $W_{t_1} - W_{t_0}, W_{t_2} - W_{t_1}, \cdots, W_{t_n} - W_{t_{n-1}}$ 相互独立
 
-#### 2.2.2. X_t 的解析
+#### 2.2.2. $X_t$ 的解析
 
 ODE 中的 $X_t$ 可解析为：
 
@@ -333,23 +280,16 @@ $$
 
 > $p_{init} \xrightarrow{SDE} p_{data}$
 
-<dl class="definition-list">
-  <dt>神经网络</dt>
-  <dd>
-    <span class="math">$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$
-    </span>
-    <br>其中 $\theta$ 代表参数
-  </dd>
-</dl>
+> **定义五 神经网络**：$u_t^{\theta}: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d$，其中 $\theta$ 代表参数。
 
-<dl class="definition-list">
-  <dt>扩散系数</dt>
-  <dd>
-    <span class="math">$\sigma_t$
-    </span>（通常是固定的）
-  </dd>
-</dl>
+> **定义七 扩散系数**：$\sigma: [0,1] \to \mathbb{R}, t \mapsto \sigma_t$
 
 - 随机初始采样： $X_0 \sim p_{init}$
 - 模拟 SDE： $dX_t = u_t^{\theta}(X_t)dt + \sigma_t dW_t$
 - 目标： $X_1 \sim p_{data}$
+
+---
+
+## 参考文献
+
+[1] GPT中英字幕课程资源, "《流匹配与扩散模型|6.S184 Flow Matching and Diffusion Models》中英字幕（Claude-3.7-s）》," Bilibili, Jul. 29, 2025. [Online video]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.

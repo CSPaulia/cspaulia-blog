@@ -1,12 +1,12 @@
 ---
-title: "基本原语（primitives）与资源计算"
+title: "基本原语与资源计算"
 date: 2025-07-28T10:00:00+08:00
 series:
-    main: "Large Language Model"
-    subseries: "Training Primitives"
+  main: "大语言模型"
+  subseries: "训练原语"
 draft: false
-categories: ["Large Language Model", "NLP"]
-tags: ["PyTorch", "FLOPs", "Memory", "Training"]
+categories: ["大语言模型", "自然语言处理"]
+tags: ["PyTorch", "FLOPs", "内存", "训练"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
@@ -21,12 +21,12 @@ ShowPostNavLinks: true
 ShowWordCount: true
 UseHugoToc: true
 cover:
-    image: "primitive.jpg"
-    alt: "training primitives"
-    caption: "training primitives"
-    relative: false
-    hidden: true
-    hiddenInList: false
+  image: "primitive.jpg"
+  alt: "训练原语"
+  caption: "训练原语"
+  relative: false
+  hidden: false
+  hiddenInList: false
 ---
 
 ## 深度学习主要资源

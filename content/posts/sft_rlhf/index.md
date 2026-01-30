@@ -1,13 +1,13 @@
 ---
-title: "SFT and RLHF"
+title: "监督微调（SFT）与人类反馈强化学习（RLHF）"
 date: 2025-09-29T11:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
 series:
-    main: "Large Language Model"
-    subseries: "Fine-tuning"
-categories: ["Deep Learning Skills", "Large Language Model", "Reinforce Learning"]
-tags: ["SFT", "Reinforcement Learning", "RLHF"]
+  main: "大语言模型"
+  subseries: "微调"
+categories: ["深度学习技巧", "大语言模型", "强化学习"]
+tags: ["监督微调", "SFT", "RLHF", "强化学习"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Introduction of SFT and RLHF."
+description: "监督微调（SFT）与人类反馈强化学习（RLHF）笔记"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -29,18 +29,18 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "cover.jpg" # image path/url
-    alt: "sft_rlhf" # alt text
-    caption: "SFT and RLHF" # display caption under cover
+    alt: "监督微调（SFT）与人类反馈强化学习（RLHF）封面" # alt text
+    caption: "监督微调（SFT）与人类反馈强化学习（RLHF）" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: False # only hide on current single page
-    hiddenInList: False # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 1. Post Training 三阶段
+## 1. 后训练（Post-Training）三阶段
 
 > 来源于 InstructGPT[[1]](#ref1)
 
@@ -107,7 +107,7 @@ editPost:
 
 ---
 
-### 2.4. 'Midtraining' / 'Two-phase Training'
+### 2.4. Midtraining / 两阶段训练（Two-phase Training）
 
 ![minicpm](./minicpm.png)
 
@@ -117,9 +117,9 @@ editPost:
 
 ---
 
-## 3. RLHF（Reinforcement Learning with Human Feedback）
+## 3. 人类反馈强化学习（Reinforcement Learning with Human Feedback, RLHF）
 
-### 3.1. 从模仿（Imitation）到优化（optimization）
+### 3.1. 从模仿（Imitation）到优化（Optimization）
 
 **模仿（Imitation，即SFT）**：根据一些参考分布 $p^\*(y|x)$ 调整模型的输出分布，使得输出分布 $\hat{p}(y|x) \approx p^\*(y|x)$
 
@@ -158,7 +158,7 @@ editPost:
 
 ### 3.4. 实现RLHF的方法
 
-#### 3.4.1. 人类反馈下的PPO（PPO with Human Feedback）
+#### 3.4.1. 人类反馈下的 PPO（PPO with Human Feedback）
 
 原始的PPO算法 = Policy Gradient + Off Policy，其优化目标为：
 

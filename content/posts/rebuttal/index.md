@@ -1,10 +1,10 @@
 ---
-title: "论文回复方法（Rebuttal Method）"
+title: "论文回复方法"
 date: 2025-05-21T19:41:00+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Paper Writing"]
-tags: ["Rebuttal"]
+categories: ["论文写作"]
+tags: ["回复"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -12,7 +12,7 @@ TocOpen: false
 draft: false
 hidemeta: false
 comments: false
-description: ""
+description: "论文 rebuttal 回复流程与写作要点"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -25,15 +25,15 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "rebuttal_cover.jpg" # image path/url
+    alt: "Rebuttal Cover Image" # alt text
+    caption: "Cover image for the rebuttal post" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
-    URL: "https://github.com/<path_to_repo>/content"
-    Text: "Suggest Changes" # edit text
+    URL: "https://cspaulia.github.io/cspaulia-blog/content/"
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 

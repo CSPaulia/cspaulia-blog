@@ -1,10 +1,10 @@
 ---
-title: "记录100种损失函数（Loss Function）"
+title: "记录 100 种损失函数"
 date: 2025-05-20T12:59:00+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Deep Learning Skills"]
-tags: ["Loss"]
+categories: ["深度学习技巧"]
+tags: ["损失函数"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 math: true
@@ -26,15 +26,15 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "loss_cover.png" # image path/url
+    alt: "损失函数概览" # alt text
+    caption: "损失函数" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://github.com/CSPaulia/cspaulia-blog/tree/main/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "修改建议" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 

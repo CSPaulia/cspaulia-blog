@@ -1,14 +1,14 @@
 ---
-title: "LM Architecture and Training"
+title: "语言模型架构与训练"
 date: 2025-10-10T10:00:03+08:00
 # weight: 1
 # aliases: ["/first"]
 series:
-    main: "Large Language Model"
-    subseries: "Architecture and Training"
+    main: "大语言模型"
+    subseries: "架构与训练"
 draft: false
-categories: ["Large Language Model"]
-tags: ["LLM", "Training"]
+categories: ["大语言模型"]
+tags: ["架构", "训练"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -29,14 +29,14 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "LLMs.jpg" # image path/url
-    alt: "LM Architecture and Training" # alt text
-    caption: "LM Architecture and Training" # display caption under cover
+    alt: "语言模型架构与训练" # alt text
+    caption: "语言模型架构与训练" # display caption under cover
     relative: true # when using page bundles set this to true
     hidden: false # only hide on current single page
     hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
@@ -67,9 +67,9 @@ editPost:
 
 **新！**：左图为前归一化（pre-norm），右图为双归一化（'double' norm，使用者包括 Grok，Gemma 2）
 
-<img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
+<img src="pre-double-norm.png" alt="pre-vs-double" width="300"/>
 
-**新！**：Olom 2 仅使用非残差部分的后归一化
+**新！**：OlMo 2 仅使用非残差部分的后归一化
 
 ---
 

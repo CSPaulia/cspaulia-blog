@@ -8,14 +8,14 @@ series:
     subseries: "Architecture and Training"
 draft: false
 categories: ["Large Language Model"]
-tags: ["LLM", "Training"]
+tags: ["LLM", "Architecture", "Training"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
 TocOpen: true # show table of contents
 hidemeta: false
 comments: false
-description: "关于语言模型架构和超参数的笔记"
+description: "Notes on LLM architecture and training hyperparameters"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -40,78 +40,78 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-一篇非常棒的[博客](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison)，它总结了几种流行的大模型之间的架构差异
+This is an excellent [blog post](https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison) summarizing architectural differences among several popular LLMs.
 
-## 1. 原始Transformer vs 现代变体
+## 1. Original Transformer vs Modern Variants
 
-下表总结了原始Transformer（Vaswani et al., 2017）与现代大语言模型（LLM）中的主流Transformer变体在架构和训练细节上的主要区别：
+The table below summarizes the major architectural and training differences between the original Transformer (Vaswani et al., 2017) and common Transformer variants used in modern LLMs:
 
-| 方面                | 原始Transformer (2017)         | 现代LLM中的变体 |
+| Aspect              | Original Transformer (2017)     | Common Variants in Modern LLMs              |
 |---------------------|---------------------------------|---------------------------------------------|
-| 归一化顺序          | 后归一化（Post-LN）             | 前归一化（Pre-LN）                          |
-| 激活函数            | ReLU                            | SwiGLU（GELU、SiLU、Swish等）                         |
-| Dropout             | 广泛使用                        | 训练大模型时常常减小或去除                  |
-| 归一化类型          | LayerNorm                       | RMSNorm（LayerNorm、ScaleNorm等）             |
-| 线性层              | 添加偏置                        | 不添加偏置                                   |
-| 注意力头            | 多头注意力（固定头数）           | GQA、MQA等           |
-| 位置编码            | 绝对位置编码（sinusoidal）       | RoPE等      |
-| 其它                | -                               | FlashAttention, MoE, 分层并行等              |
+| Normalization order | Post-LN                         | Pre-LN                                      |
+| Activation          | ReLU                            | SwiGLU (GELU/SiLU/Swish variants, etc.)     |
+| Dropout             | Widely used                     | Often reduced or removed for large models   |
+| Normalization type  | LayerNorm                       | RMSNorm (also LayerNorm/ScaleNorm variants) |
+| Linear layers       | With bias                       | Bias-free                                   |
+| Attention heads     | Multi-head attention (fixed)    | GQA / MQA, etc.                             |
+| Positional encoding | Absolute (sinusoidal)           | RoPE, etc.                                  |
+| Other               | -                               | FlashAttention, MoE, hierarchical parallelism, etc. |
 
-### 1.1. 前归一化 vs 后归一化
+### 1.1. Pre-norm vs Post-norm
 
-几乎所有的现代语言模型均采用前归一化（除了BERT），能使训练更加稳定
+Almost all modern language models use pre-norm (except BERT), which tends to make training more stable.
 
-左图为前归一化（pre-norm），右图为后归一化（post-norm）
-
-<img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
-
-**新！**：左图为前归一化（pre-norm），右图为双归一化（'double' norm，使用者包括 Grok，Gemma 2）
+Left: pre-norm. Right: post-norm.
 
 <img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
 
-**新！**：Olom 2 仅使用非残差部分的后归一化
+**New!** Left: pre-norm. Right: “double norm” (used by e.g. Grok, Gemma 2).
+
+<img src="pre-double-norm.png" alt="pre-vs-double" width="300"/>
+
+**New!** OlMo 2 applies post-norm only to the non-residual branch.
 
 ---
 
 ### 1.2. LayerNorm vs RMSNorm
 
-原始 Transformer：**LayerNorm** (GPT3/2/1，OPT，GPT-J，BLOOM)
+Original Transformer: **LayerNorm** (GPT-1/2/3, OPT, GPT-J, BLOOM)
 
 $$
 y = \frac{x - \textbf{E}[x]}{\sqrt{\textbf{Var}[x] + \epsilon}} * \gamma + \beta
 $$
 
-现代语言模型：**RMSNorm**（LLaMA-family，PaLM，T5）
+Modern LMs: **RMSNorm** (LLaMA family, PaLM, T5)
 
 $$
 y = \frac{x}{\sqrt{\lVert x \rVert^2_2 + \epsilon}} * \gamma
 $$
 
-RMSNorm的优势：运行速度更快，而并不影响精度
-- 更少的 Operations（无需计算均值）
-- 更少的参数（没有偏置项需要存储）
+Advantages of RMSNorm: faster in practice without hurting accuracy
+- fewer operations (no mean computation)
+- fewer parameters (no bias term)
 
 ---
 
-### 1.3. FFN：有偏置 vs 无偏置
+### 1.3. FFN: With Bias vs Bias-free
 
-原始 Transformer：有偏置
+Original Transformer: with bias
 
 $$
 \textbf{FFN}(x) = \max(0,xW_1+b_1)W_2+b_2
 $$
 
-现代语言模型：无偏置
+Modern LMs: bias-free
 
 $$
 \textbf{FFN}(x) = \sigma(xW_1)W_2
 $$
 
-无偏置的优势：更小的存储开销以及稳定的优化
+Advantages of bias-free FFNs: smaller memory footprint and more stable optimization.
 
 ---
 
-### 1.4. 激活函数
+### 1.4. Activation Functions
 
 | Activation | Model |
 | :----------: | :-----: |
@@ -120,17 +120,17 @@ $$
 | GeGLU | T5 v1.1, mT5, LaMDA, Phi3, Gemma 2, Gemma 3 |
 | SwiGLU | LLaMa 1/2/3, PaLM, Mistral, OlMo, most models post 2023 |
 
-激活函数的介绍详见 [Post](../activation/)
+For an introduction to activations, see this [post](../activation/).
 
 ---
 
-### 1.5. 位置编码
+### 1.5. Positional Encoding
 
-#### 1.5.1. 余弦位置编码（Sinusoidal Positional Encoding）
+#### 1.5.1. Sinusoidal Positional Encoding
 
-**主要思想**：用不同频率的正弦、余弦波来编码不同维度的位置信息
+**Key idea**: use sine/cosine waves of different frequencies to encode position information across dimensions.
 
-对于序列中第 $pos$ 个位置、向量维度 $i$，编码方式为:
+For position $pos$ in the sequence and dimension index $i$, the encoding is:
 
 $$
 \begin{aligned}
@@ -139,15 +139,15 @@ PE_{(pos,2i+1)} = cos(\frac{pos}{10000^{2i/d_{model}}})
 \end{aligned}
 $$
 
-其中：
-- $pos$ 表示位置（从0开始）
-- $i$ 表示维度索引
-- $d_{model}$ 表示模型的隐藏层维度
-- 10000 是一个经验常数，控制频率范围
+Where:
+- $pos$ is the position index (starting from 0)
+- $i$ is the dimension index
+- $d_{model}$ is the model hidden size
+- 10000 is a heuristic constant that controls the frequency range
 
-##### 相对位置的捕捉
+##### Capturing relative positions
 
-假设模型关注两个 token：位置 $pos_1$ 和 $pos_2$ ，那他们的编码分别是：
+Suppose the model attends to two tokens at positions $pos_1$ and $pos_2$. Their encodings are:
 
 $$
 \begin{aligned}
@@ -156,76 +156,76 @@ E_2 = [sin(\frac{pos_2}{10000^{0}}), cos(\frac{pos_2}{10000^{0}}), sin(\frac{pos
 \end{aligned}
 $$
 
-我们在模型内部做如下操作：
+Inside the model we may take an inner product:
 
 $$
 E_1 \cdot E_2 = sin(\frac{pos_1}{10000^{0}})sin(\frac{pos_2}{10000^{0}}) + cos(\frac{pos_1}{10000^{0}})cos(\frac{pos_2}{10000^{0}}) + \dots
 $$
 
-利用和差化积公式：
+Using the trigonometric identity:
 
 $$
 \sin a \sin b + \cos a \cos b = \cos(a - b)
 $$
 
-可得到：
+We obtain:
 
 $$
 E_1 \cdot E_2 = \cos(\frac{pos_1 - pos_2}{10000^{0}}) + \cos(\frac{pos_1 - pos_2}{10000^{2/d_{model}}}) + \dots
 $$
 
-即可得到两个位置的相对距离
+This shows the dot product depends on the relative distance $pos_1 - pos_2$.
 
 ---
 
-#### 1.5.2. 绝对位置编码（Absolute Positional Encoding）/ 可学习位置编码（Learnable Positional Encoding）
+#### 1.5.2. Absolute Positional Encoding / Learnable Positional Embedding
 
-> 我个人认为绝对位置编码是一种概念，它表达将 token 的位置信息直接编码，而不是将 token 之间的相对位置进行编码
+> My take: “absolute positional encoding” is more of a concept — it encodes a token’s absolute index directly, rather than encoding relative offsets between tokens.
 
-可学习式位置嵌入**学习一个嵌入矩阵**：
+A learnable positional embedding **learns an embedding matrix**:
 
 $$
 P = [u_0, u_1, u_2, \dots, u_{L-1}] \in \mathbb{R}^{L \times d_{model}}
 $$
 
-其中：
-- $L$ 是最大序列长度
-- 每一行的 $u_i$ 是位置 $i$ 的可训练嵌入向量
+Where:
+- $L$ is the maximum sequence length
+- each row $u_i$ is a trainable embedding vector for position $i$
 
-输入到模型的最终向量：
+The final input to the model becomes:
 
 $$
 Embed(x, i) = v_x + u_i
 $$
 
-其中 $v_x$ 是 token $x$ 的词嵌入向量
+where $v_x$ is the token embedding of token $x$.
 
 ---
 
-#### 1.5.3. 相对位置编码（Relative Positional Encoding）
+#### 1.5.3. Relative Positional Encoding
 
-绝对位置编码的缺点：
-- 泛化差：训练时的序列长度是固定的，比如 512；超出这个长度就无法使用
-- 缺乏相对感知：模型知道第 5 个词、第 10 个词，但不知道它们“相隔 5 个位置”
+Limitations of absolute positional encoding:
+- poor length generalization: if trained with a fixed length (e.g., 512), it may not extrapolate beyond that
+- weak relative awareness: the model knows “the 5th word” and “the 10th word” but not explicitly that they are “5 positions apart”
 
-然而自然语言的顺序关系往往是相对的：
-> “the cat” 和 “the big cat” 的依赖关系中，“cat” 距离 “the” 只有几步之差
+However, word order relations in natural language are often relative:
+> In the dependency between “the cat” and “the big cat”, “cat” is only a few steps away from “the”.
 
-因此，相对位置编码的目标是：让模型直接学习 “第 i 个 token 与第 j 个 token 的距离（i−j）” 对注意力的影响
+So the goal of relative positional encoding is to let the model learn how the distance $(i-j)$ between token $i$ and token $j$ affects attention.
 
-相对位置编码通过在注意力打分中显式地加入位置差信息:
+One approach is to inject relative position information directly into the attention logits:
 
 $$
 e_{ij} = \frac{(x_i W_Q)(x_j W_K + a^K_{ij})^T}{\sqrt{d_k}}
 $$
 
-其中 $a_{ij}^K$ 是一个向量，表示 token i 和 token j 之间的相对位置信息
+where $a_{ij}^K$ is a vector representing the relative position between token $i$ and token $j$.
 
 ---
 
-#### 1.5.4. RoPE（Rotary Position Embedding）
+#### 1.5.4. RoPE (Rotary Position Embedding)
 
-我们该如何让 **添加位置编码后的嵌入向量** $x$ 和 $y$ 在完成点积后，只关注它们的相对位置呢？也就是要实现如下目标：
+How can we transform the **position-encoded embeddings** $x$ and $y$ such that their dot product depends only on the relative position? Concretely, we want:
 
 <div id="eq:goal">
 $$
@@ -233,18 +233,18 @@ $$
 $$
 </div>
 
-其中 $\langle \cdot, \cdot \rangle$ 表示内积运算
+where $\langle \cdot, \cdot \rangle$ denotes an inner product.
 
-- 余弦位置编码：不满足<a href="#eq:goal">（1）</a>式:
-    - 在余弦位置编码中，token 的嵌入可以表征为 $Embed(x, i) = v_x + E_i$，其中 $v_x$ 是 token 的词嵌入向量，$E_i$ 是位置编码;
-    - $\langle Embed(x, i), Embed(y, j) \rangle = \langle v_x + E_i, v_y + E_j \rangle = \langle v_x, v_y \rangle + \langle v_x, E_j \rangle + \langle E_i, v_y \rangle + \langle E_i, E_j \rangle$，有许多内积项依赖于绝对位置 $i$ 和 $j$，而不仅仅是它们的差值 $i-j$
-- 绝对位置编码：不满足<a href="#eq:goal">（1）</a>式
-- 相对位置编码：不满足<a href="#eq:goal">（1）</a>式中的内积形式：
-    - 几何解释消失：原来的点积可以看成两个向量夹角的余弦相似度（几何上可解释），加入 $a_{ij}$ 后，这个解释就失效
-    - 对称性破坏：$e_{ij}$ 与 $e_{ji}$ 不再一致，使模型捕捉方向信息
-    - 注意力的归一化解释变弱：softmax 之前的 logits 不再仅由向量相似度决定，额外偏置可能干扰注意力稳定性
+- Sinusoidal encoding does **not** satisfy Eq. <a href="#eq:goal">(1)</a>:
+    - With sinusoidal encoding, the embedding can be written as $Embed(x, i) = v_x + E_i$, where $v_x$ is the token embedding and $E_i$ is the positional encoding.
+    - Then $\langle Embed(x, i), Embed(y, j) \rangle = \langle v_x + E_i, v_y + E_j \rangle = \langle v_x, v_y \rangle + \langle v_x, E_j \rangle + \langle E_i, v_y \rangle + \langle E_i, E_j \rangle$, which contains terms depending on absolute positions $i$ and $j$, not only their difference $(i-j)$.
+- Absolute (learnable) positional embeddings also do **not** satisfy Eq. <a href="#eq:goal">(1)</a>.
+- Relative positional encoding does not preserve the pure inner-product form in Eq. <a href="#eq:goal">(1)</a>:
+    - the geometric interpretation is weakened: the dot product is no longer simply cosine similarity between vectors once the bias term is injected
+    - symmetry is broken: $e_{ij}$ and $e_{ji}$ can differ, enabling directionality
+    - the probabilistic interpretation weakens: logits before softmax are no longer determined only by vector similarity; extra bias can affect stability
 
-RoPE 的核心思想是：通过复数旋转（或二维平面旋转）把位置嵌入到每个向量维度中
+The core idea of RoPE is to embed position into each pair of dimensions via complex rotation (equivalently, a 2D plane rotation).
 
 <img src="rope_example.png" alt="rope-example" width="400"/>
 
@@ -266,11 +266,11 @@ f_{\{q,k\}}(x_p,p) &= \mathbf{R}^d_{\Theta,p}\,W_{\{q,k\}}\,x_p\\\\
 \end{aligned}
 $$
 
-其中 $\theta_k = 10000^{-2k/d}$
+where $\theta_k = 10000^{-2k/d}$.
 
-接下来证明RoPE符合<a href="#eq:goal">（1）</a>式：
+Next, we show why RoPE satisfies Eq. <a href="#eq:goal">(1)</a>.
 
-对于 token $x$ 的两个相邻嵌入维度 $2i$ 和 $2i+1$，有：
+For two adjacent embedding dimensions $2k$ and $2k+1$ of token $x$, we have:
 
 $$
 \tilde{x}_{p}^{(k)} = \begin{bmatrix} 
@@ -284,38 +284,38 @@ x\_{p,2k+1}
 =(x\_{p,2k}+ix\_{p,2k+1})e^{ip\theta\_k}
 $$
 
-因此有：
+Therefore:
 
 $$
 \langle \tilde{x}\_{p}^{(k)}, \tilde{y}\_{q}^{(k)} \rangle = \tilde{x}\_{p}^{(k)} \cdot \overline{\tilde{y}}\_{q}^{(k)} = (x\_{p,2k}+ix\_{p,2k+1})(y\_{q,2k}-iy\_{q,2k+1})e^{i(p-q)\theta\_k}
 $$
 
-符合<a href="#eq:goal">（1）</a>式中的要求
+This depends on $(p-q)$, meeting the requirement in Eq. <a href="#eq:goal">(1)</a>.
 
 ---
 
-## 2. 超参数
+## 2. Hyperparameters
 
-### 2.1. 前馈网络中的特征维度
+### 2.1. FFN hidden size
 
-假设 $d\_{ff}$ 是前馈网络的隐藏层维度，$d\_{model}$ 是模型的隐藏层维度
+Let $d\_{ff}$ be the FFN hidden size and $d\_{model}$ be the model hidden size.
 
 $$
 d\_{ff} = 4d\_{model}
 $$
 
-此时，标准 FFN 的参数量为：
-- 第一层：$d\_{model} \times d\_{ff} = 4d\_{model}^2$
-- 第二层：$d\_{ff} \times d\_{model} = 4d\_{model}^2$
-- 总计：$8d\_{model}^2$
+Then the parameter count of a standard FFN is:
+- first layer: $d\_{model} \times d\_{ff} = 4d\_{model}^2$
+- second layer: $d\_{ff} \times d\_{model} = 4d\_{model}^2$
+- total: $8d\_{model}^2$
 
-对于**包含GLU类激活函数**的 FFN，参数量为：
-- GLU中的content部分：$d\_{model} \times d'\_{ff}$
-- GLU中的gate部分：$d\_{model} \times d'\_{ff}$
-- 第二层：$d'\_{ff} \times d\_{model}$
-- 总计：$3d\_{model} \times d'\_{ff}$
+For an FFN **with a GLU-type activation**, the parameter count is:
+- GLU content projection: $d\_{model} \times d'\_{ff}$
+- GLU gate projection: $d\_{model} \times d'\_{ff}$
+- second layer: $d'\_{ff} \times d\_{model}$
+- total: $3d\_{model} \times d'\_{ff}$
 
-为了使包含GLU类激活函数的 FFN 与标准 FFN 的参数量相同，我们需要满足：
+To match the parameter count of a standard FFN, we need:
 
 $$
 3d\_{model} \times d'\_{ff} = 8d\_{model}^2
@@ -327,7 +327,7 @@ $$
 d'\_{ff} = \frac{8}{3}d\_{model}
 $$
 
-下表总结了一些流行大模型中前馈网络隐藏层维度与模型隐藏层维度的比值：
+The table below lists $d_{ff}/d_{model}$ ratios used by some popular models:
 
 | Model          | $( d_{ff} / d_{model} )$ |
 |----------------|--------------------------|
@@ -342,9 +342,9 @@ $$
 
 ---
 
-### 2.2. 注意力头数与每头维度
+### 2.2. Number of attention heads and head dimension
 
-我们尽量使得 $d\_{head} > d\_{model} / num\_{heads}$，很多模型选择令 $d\_{head} = d\_{model} / num\_{heads}$
+In practice, many models set $d\_{head} = d\_{model} / num\_{heads}$ (and we generally want $d\_{head} \gtrsim d\_{model}/num\_{heads}$).
 
 | Model  | Num heads | Head dim | Model dim | Ratio |
 |---------|------------|-----------|------------|--------|
@@ -357,9 +357,9 @@ $$
 
 ---
 
-### 2.3. 模型宽高比（aspect ratio）
+### 2.3. Model aspect ratio
 
-这里的宽高比指的是：
+Here the “aspect ratio” refers to:
 
 $$
 d\_{model} / num\_{layers}
@@ -375,23 +375,23 @@ $$
 | T5 (11B) | 43 |
 | GPT2 | 33 |
 
-太深的模型很难并行化，并且具有很高的延迟
+Very deep models are harder to parallelize and tend to have higher latency.
 
 <img src="parallel.png" alt="model-parallelism" width="400"/>
 
 ---
 
-### 2.4. 字典大小（vocabulary size）
+### 2.4. Vocabulary size
 
-- 单语言：3-5万个 token
-- 多语言：10-25万个 token
+- Monolingual: 30k–50k tokens
+- Multilingual: 100k–250k tokens
 
 ---
 
-### 2.5 Dropout 和 权重衰减（weight decay）
+### 2.5. Dropout and weight decay
 
-- 老模型会更多的采用Dropout；
-- 新模型会更多的采用权重衰减，其作用更多的在于与loss的互动（后期更快的loss下降），而非防止过拟合
+- Older models tend to use more dropout.
+- Newer models more often rely on weight decay; empirically it interacts with the loss dynamics (e.g., faster loss decrease later in training) rather than merely preventing overfitting.
 
 | Model | Dropout* | Weight decay |
 |--------|-----------|---------------|
@@ -409,9 +409,9 @@ $$
 
 ---
 
-## 3. 模型训练稳定性技巧
+## 3. Training stability tips
 
-模型的训练，应当避免出现“尖刺”，如下图蓝色曲线所示：
+During training, we want to avoid “spikes” (the blue curve below):
 
 <img src="stability.png" alt="training-stability-techniques" width="600"/>
 
@@ -419,134 +419,134 @@ $$
 
 <img src="softmax_in_llm.png" alt="softmax_in_llm" width="200"/>
 
-观察出现在 LLM 的最后一层的softmax，softmax 的定义为：
+Consider the softmax at the final layer of an LLM:
 
 $$
 P(y=i|x) = \frac{e^{z_i}}{\sum_j e^{z_j}} = \frac{e^{z_i}}{Z}
 $$
 
-因此在 Cross-Entropy Loss 中，我们有：
+So for cross-entropy loss we have:
 
 $$
 Loss\_{CE} = -\log P(y=i|x) = -\log \frac{e^{z_i}}{\sum_j e^{z_j}} = -z_i + \log Z
 $$
 
-当 $Z$ 为0时，会导致 $Loss\_{CE}$ 过大，造成训练的不稳定
+If $Z$ becomes too small, $Loss\_{CE}$ can become too large, leading to instability.
 
-因此我们想办法，令 $Z$ 趋近于 1，即 $\log Z$ 趋近于 0，我们可以添加一个 z-loss 项：
+So we try to keep $Z$ close to 1 (equivalently, keep $\log Z$ close to 0) by adding a z-loss term:
 
 $$
 Loss\_{z} = ((\log Z)^2 - 0)^2 = (\log Z)^2
 $$
 
-最终有：
+Finally:
 
 $$
 Loss = Loss\_{CE} + \lambda Loss\_{z}
 $$
 
-其中 $\lambda$ 是一个很小的值，一般为 $1e-3$ 或 $1e-4$
+where $\lambda$ is a small coefficient, typically $1e-3$ or $1e-4$.
 
 ---
 
-## 4. 模型结构优化
+## 4. Architecture optimizations
 
 ### 4.1. KV Cache
 
 <img src="kv_cache.gif" alt="kv-cache" width="600"/>
 
-图片来源于[网络](https://medium.com/@joaolages/kv-caching-explained-276520203249)
+Image source: [link](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 
-**常规的注意力计算**：
+**Standard attention computation**:
 
 $$
 Q = X W_Q, \quad K = X W_K, \quad V = X W_V
 $$
 
-假设 $X \in \mathbb{R}^{b \times T \times D}$，$W_{\\{Q, K, V\\}} \in \mathbb{R}^{D \times (hd)}$，其中 $T$ 是序列长度，$h$ 为注意力头数，$d$ 是每个注意力头的隐藏层维度，设 $D = hd$，则计算量为
-- 计算KQV：$3 \times 2bTD^2 = 6bT(hd)^2$
-- 计算$Q \times K$：$2bhT^2d$
-- 计算softmax：$n \times bhT^2$（softmax包含 n 次计算操作） 
-- 计算$Output_{softmax} \times V$：$2bhT^2d$
-- 计算输出线性层：$2bTD^2$
-- 总计算量 $\approx 8bTD^2 + 4bhT^2d$（忽略softmax）
+Assume $X \in \mathbb{R}^{b \times T \times D}$ and $W_{\\{Q, K, V\\}} \in \mathbb{R}^{D \times (hd)}$, where $T$ is the sequence length, $h$ is the number of attention heads, and $d$ is the per-head dimension. Let $D = hd$. The compute cost is:
+- compute K/Q/V: $3 \times 2bTD^2 = 6bT(hd)^2$
+- compute $Q \times K$: $2bhT^2d$
+- compute softmax: $n \times bhT^2$ (softmax involves $n$ operations)
+- compute $Output_{softmax} \times V$: $2bhT^2d$
+- output projection: $2bTD^2$
+- total $\approx 8bTD^2 + 4bhT^2d$ (ignoring softmax)
 
-总存储开销为
-- 权重参数开销：
-    - $W_{\\{Q, K, V\\}}$ 存储开销：$3 \times D(hd) = 3(hd)^2$
-    - 输出线性层存储开销：$(hd)D = (hd)^2$
-- 中间激活开销：
-    - 输入存储：$bTD$
-    - KQV存储：$3 \times bhTd$
-    - softmax后得到的注意力权重存储：$bhT^2$
-    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
-- 总存储开销 $\approx 4(hd)^2 + bTD + 3bhTd + bhT^2$
+The memory cost is:
+- weight parameters:
+    - $W_{\\{Q, K, V\\}}$: $3 \times D(hd) = 3(hd)^2$
+    - output projection: $(hd)D = (hd)^2$
+- intermediate activations:
+    - input: $bTD$
+    - K/Q/V: $3 \times bhTd$
+    - attention weights (after softmax): $bhT^2$
+    - output: $bTD$ (input to the next layer; often not counted for this layer)
+- total $\approx 4(hd)^2 + bTD + 3bhTd + bhT^2$
 
-**使用 KV Cache 的注意力计算**：
+**Attention with KV cache**:
 
-训练时，使用 KV Cache 并不影响计算量，因此训练时往往不使用 KV Cache；
+During training, KV caching does not reduce compute, so it is often not used.
 
-但在推理时，假设输入序列长度为 $t$，则预测下一个 token 时，计算量为 $\approx 8btD^2 + 4bht^2d$，若不使用 KV Cache，则预测下下个 token 的计算量为 $\approx 8b(t+1)D^2 + 4bh(t+1)^2d$，这个计算量会随着序列长度的增加而显著增加；
+In inference, if the current sequence length is $t$, predicting the next token costs $\approx 8btD^2 + 4bht^2d$. Without KV cache, predicting the *next* token after that would cost $\approx 8b(t+1)D^2 + 4bh(t+1)^2d$, which grows significantly with sequence length.
 
-而使用 KV Cache 后，预测下一个 token 的计算量为：
-- KQV计算：由于无需重新计算$Q_{1:(t-1)}, K_{1:(t-1)}, V_{1:(t-1)}$，只需要计算$Q_{t}, K_{t}, V_{t}$，因此计算量为$3 \times 2bD^2$
-- 计算$Q_{t} \times K_{1:t}$：$2bhtd$
-- 计算softmax：$n \times bht$
-- 计算$Output_{softmax} \times V_{1:t}$：$2bhtd$
-- 计算输出线性层：$2bD^2$
-- 总计算量 $\approx 8bD^2 + 4bhtd$（忽略softmax）
+With KV cache, predicting the next token costs:
+- compute K/Q/V: since we reuse $K_{1:(t-1)}, V_{1:(t-1)}$, we only compute $Q_t, K_t, V_t$, costing $3 \times 2bD^2$
+- compute $Q_t \times K_{1:t}$: $2bhtd$
+- softmax: $n \times bht$
+- compute $Output_{softmax} \times V_{1:t}$: $2bhtd$
+- output projection: $2bD^2$
+- total $\approx 8bD^2 + 4bhtd$ (ignoring softmax)
 
-计算量随序列长度的增加轻微增加。
+The compute now grows only mildly with sequence length.
 
-而使用 KV Cache 后，存储开销会稍稍增加。因为在推理阶段不使用 KV Cache，总存储开销仅为权重参数开销 $4(hd)^2$，而使用 KV Cache 后，总存储开销为权重参数开销 $4(hd)^2$ 加上 KV Cache 的存储开销 $2bhtd$，因此总存储开销 $\approx 4(hd)^2 + 2bhtd$。
+KV cache slightly increases memory in inference. Without KV cache, memory is dominated by weights $4(hd)^2$. With KV cache, we add cache storage $2bhtd$, so total memory is $\approx 4(hd)^2 + 2bhtd$.
 
 ---
 
-### 4.2. MQA 和 GQA
+### 4.2. MQA and GQA
 
-为了减少 KV Cache 的存储开销，一个简单的思路就是让**注意力头**共享 K 和 V
-- 若 $h$ 个注意力头共享一个 K 和 V，则为 MQA（Multi-query Attention）
-- 若将 $h$ 个注意力头划分为 $g$ 组，每组 $h/g$ 个头共享 K 和 V，则为 GQA（Grouped-query Attention）
+To reduce KV-cache memory, a simple idea is to let attention heads **share** $K$ and $V$:
+- if all $h$ heads share a single $K$ and $V$, it is MQA (Multi-query Attention)
+- if we split $h$ heads into $g$ groups and each group shares $K$ and $V$, it is GQA (Grouped-query Attention)
 
-如下图所示：
+Illustration:
 
 <img src="attention_variant.png" alt="attention-variants" width="600"/>
 
-| 模型 | 训练时结构 | 推理时结构 | 备注 |
+| Model | Training-time | Inference-time | Notes |
 |------|-------------|-------------|------|
-| GPT-3 / GPT-4 | MHA | MHA / GQA（部分优化版） | GPT-4 reportedly uses GQA |
-| PaLM 2 | GQA | GQA | 原生训练结构 |
-| Claude 3 | GQA | GQA | Anthropic 公开结构说明 |
-| LLaMA 2 | MHA | GQA (converted) | Meta 后期转换版 |
-| Mistral | GQA | GQA | 端到端使用 GQA |
-| Falcon | MQA | MQA | 优化长序列推理 |
-| Gemini 1.5 | GQA | GQA | Google 用于多模态大模型 |
+| GPT-3 / GPT-4 | MHA | MHA / GQA (partially optimized) | GPT-4 reportedly uses GQA |
+| PaLM 2 | GQA | GQA | native training structure |
+| Claude 3 | GQA | GQA | publicly described by Anthropic |
+| LLaMA 2 | MHA | GQA (converted) | converted later by Meta |
+| Mistral | GQA | GQA | end-to-end GQA |
+| Falcon | MQA | MQA | optimized for long-context inference |
+| Gemini 1.5 | GQA | GQA | used by Google for multimodal LLMs |
 
-MQA 和 GQA 与 MHA 相比，计算复杂度不变，但存储开销减少，假设 $h$ 个注意力头共享 $k$ 个 K 和 V：
-- 权重参数开销：
-    - $W_{\\{Q\\}}$ 存储开销：$D(hd) = (hd)^2$
-    - $W_{\\{K, V\\}}$ 存储开销：$2 \times D(kd) = 2(hd)(kd)$
-    - 输出线性层存储开销：$(hd)D = (hd)^2$
-- 中间激活开销：
-    - 输入存储：$bTD$
-    - Q存储：$bhTd$
-    - KV存储：$2bkdT$
-    - softmax后得到的注意力权重存储：$bhT^2$
-    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
-- 总存储开销 $\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2$
+Compared to MHA, MQA/GQA keep compute complexity roughly unchanged but reduce memory. Suppose $h$ query heads share $k$ key/value heads:
+- weight parameters:
+    - $W_{\\{Q\\}}$: $D(hd) = (hd)^2$
+    - $W_{\\{K, V\\}}$: $2 \times D(kd) = 2(hd)(kd)$
+    - output projection: $(hd)D = (hd)^2$
+- intermediate activations:
+    - input: $bTD$
+    - $Q$: $bhTd$
+    - $KV$: $2bkdT$
+    - attention weights (after softmax): $bhT^2$
+    - output: $bTD$ (input to the next layer; often not counted for this layer)
+- total memory $\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2$
 
 ---
 
-### 4.3. 稀疏注意力（Sparse Attention）
+### 4.3. Sparse Attention
 
-稀疏注意力（Sparse Attention）：可以参考[博客](https://newsletter.theaiedge.io/p/understanding-the-sparse-transformers)
+Sparse attention: see this [blog post](https://newsletter.theaiedge.io/p/understanding-the-sparse-transformers).
 
 <img src="sparse_attention.png" alt="sparse-attention"/>
 
 ---
 
 <div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
+    <div class="zhihu-ref-title">References</div>
   <ol>
     <li><a href="https://github.com/stanford-cs336/spring2025-lectures/blob/e9cb2488fdb53ea37f0e38924ec3a1701925cef3/nonexecutable/2025%20Lecture%203%20-%20architecture.pdf" target="_blank">stanford-cs336 lecture 3</a></li>
   </ol>

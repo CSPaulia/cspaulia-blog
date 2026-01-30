@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Tokenization in LLM"
+description: "Tokenization in LLMs"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -30,7 +30,7 @@ UseHugoToc: true
 cover:
     image: "tokenization_cover.jpg" # image path/url
     alt: "tokenization" # alt text
-    caption: "tokenization" # display caption under cover
+    caption: "Tokenization" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
@@ -40,26 +40,26 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-👉 在线体验地址：[Tokenization 可视化工具](https://tiktokenizer.vercel.app)
+👉 Try it online: [Tokenization Visualization Tool](https://tiktokenizer.vercel.app)
 
 ---
 
-原始的文本统一表征为 Unicode 字符串
+We represent raw text as a Unicode string.
 
 ```python
 string = "Hello, 🌍! 你好!"
 ```
 
-语言模型会对一系列token（通常用整数索引表示）上的可能性进行建模，构成一个概率分布
+Language models operate on a sequence of tokens (usually represented by integer IDs) and model a probability distribution over them.
 
 ```python
 indices = [15496, 11, 995, 0]
 ```
 
-我们需要：
+We need:
 
-- ✅ 一个方法：**将字符串编码为 token**
-- ✅ 一个方法：**将 token 解码回字符串**
+- ✅ A method to **encode a string into tokens**
+- ✅ A method to **decode tokens back into a string**
 
 ```python
 class Tokenizer:
@@ -69,23 +69,23 @@ class Tokenizer:
         ...
 ```
 
-- `vocab_size`: 词表大小，即可能出现的 token（整数 ID）总数。
+- `vocab_size`: the vocabulary size, i.e., the total number of possible token IDs.
 
 ---
 
 ## 1. Character-based tokenization
 
-### 1.1. Unicode 概述
+### 1.1. Unicode overview
 
-- 统一全球字符编码的标准（约 150,000 个字符）
-- `ord(char)`：获取字符的十进制编码
+- A universal standard for character encoding (around 150,000 characters)
+- `ord(char)`: get the decimal code point of a character
 
 ```python
 ord("h")     # 104
 ord("😊")    # 128522
 ```
 
-### 1.2. 编解码
+### 1.2. Encoding and decoding
 
 ```python
 class CharacterTokenizer(Tokenizer):
@@ -96,7 +96,7 @@ class CharacterTokenizer(Tokenizer):
         return "".join(map(chr, indices))
 ```
 
-**示例**：
+**Example**:
 
 ```python
 tokenizer = CharacterTokenizer()
@@ -105,7 +105,7 @@ indices = tokenizer.encode(string)  # @inspect indices
 reconstructed_string = tokenizer.decode(indices)  # @inspect reconstructed_string
 ```
 
-**输出**：
+**Output**:
 
 ```text
 string = "Hello, 🌍! 你好!"
@@ -113,14 +113,14 @@ indices = [72, 101, 108, 108, 111, 44, 32, 127757, 33, 32, 20320, 22909, 33]
 reconstructed_string = "Hello, 🌍! 你好!"
 ```
 
-### 1.3. 存在的问题
+### 1.3. Limitations
 
-- 问题一：这会是一个相当大的词汇表（vocabulary）
-- 问题二：很多字符出现几率很低（例如🌍），对词汇表的使用并不高效
+- Issue 1: the vocabulary can become very large.
+- Issue 2: many characters occur very rarely (e.g., 🌍), which is inefficient for vocabulary usage.
 
     ```python
     def get_compression_ratio(string: str, indices: list[int]) -> float:
-        """Given `string` that has been tokenized into `indices`, ."""
+        """Return the number of UTF-8 bytes per token for a tokenized string."""
         num_bytes = len(bytes(string, encoding="utf-8"))  # @inspect num_bytes
         num_tokens = len(indices)                       # @inspect num_tokens
         return num_bytes / num_tokens
@@ -129,7 +129,7 @@ reconstructed_string = "Hello, 🌍! 你好!"
     compression_ratio = get_compression_ratio(string, indices)  # @inspect compression_ratio
     ```
 
-    **输出**：
+    **Output**:
 
     ```text
     vocabulary_size = 127758
@@ -142,24 +142,24 @@ reconstructed_string = "Hello, 🌍! 你好!"
 
 ## 2. Byte-based tokenization
 
-- Unicode 字符串（String）可以表示为一串字节（Byte），其中字节（即八位二进制）可以表示为0到255的数字
-- 最常见的 Unicode 编码是 UTF-8
+- A Unicode string can be represented as a sequence of bytes. Each byte (8 bits) is a number from 0 to 255.
+- The most common Unicode encoding is UTF-8.
 
-    **输入**：
+    **Input**:
 
     ```python
     bytes("a", encoding="utf-8")
     bytes("🌍", encoding="utf-8")
     ```
 
-    **输出**：
+    **Output**:
 
     ```text
     b"a" # one byte
-    b"\xf0\x9f\x8c\x8d"s # multiple bytes
+    b"\xf0\x9f\x8c\x8d" # multiple bytes
     ```
 
-### 2.1. 编解码
+### 2.1. Encoding and decoding
 
 ```python
 class ByteTokenizer(Tokenizer):
@@ -174,7 +174,7 @@ class ByteTokenizer(Tokenizer):
         return string
 ```
 
-**示例**：
+**Example**:
 
 ```python
 tokenizer = ByteTokenizer()
@@ -183,7 +183,7 @@ indices = tokenizer.encode(string)  # @inspect indices
 reconstructed_string = tokenizer.decode(indices)  # @inspect reconstructed_string
 ```
 
-**输出**：
+**Output**:
 
 ```text
 string = "Hello, 🌍! 你好!"
@@ -192,16 +192,16 @@ indices = [72, 101, 108, 108, 111, 44, 32, 240, 159, 140, 141, 33, 32, 228, 189,
 reconstructed_string = "Hello, 🌍! 你好!"
 ```
 
-### 2.2. 存在的问题
+### 2.2. Limitations
 
-- 问题一：虽然词汇表很小（仅为256），但这也导致序列很长。而在 Transformer 中，计算复杂度是随着序列长度**二次增长**的
+- Issue 1: although the vocabulary is tiny (only 256), sequences become much longer. In Transformers, compute scales **quadratically** with sequence length.
 
     ```python
     vocabulary_size = 256  # This is a lower bound @inspect vocabulary_size
     compression_ratio = get_compression_ratio(string, indices)  # @inspect compression_ratio
     ```
 
-    **输出**：
+    **Output**:
 
     ```text
     num_bytes = 20
@@ -213,41 +213,41 @@ reconstructed_string = "Hello, 🌍! 你好!"
 
 ## 3. Word-based tokenization
 
-使用类似于传统NLP分词方法分离字符串，**输入**：
+Split a string using a traditional NLP-style word segmentation. **Input**:
 
 ```python
 string = "I'll say supercalifragilisticexpialidocious!"
 segments = regex.findall(r"\w+|.", string)  # @inspect segments
 ```
 
-**输出**：
+**Output**:
 
 ```text
 segments = ["I", "ll", "say", "supercalifragilisticexpialidocious", "!"]
 ```
 
-### 3.1. 编解码
+### 3.1. Encoding and decoding
 
-- 要将其转换为一个`tokenizer`，我们需要将这些片段映射为整数
-- 构建一个从每个片段到整数的映射
+- To turn this into a `Tokenizer`, we need to map each segment to an integer ID.
+- Build a mapping from each segment to an integer.
 
-### 3.2. 存在的问题
+### 3.2. Limitations
 
-- 词的数量是非常庞大的
-- 很多词很少出现，模型不会从这些词中学习到很多内容
-- 它无法提供一个固定长度的词典
+- The number of words is enormous.
+- Many words are rare, so the model learns very little from them.
+- It does not naturally provide a fixed-size vocabulary.
 
 ---
 
-## 4. Byte Pair Encoding（BPE）
+## 4. Byte Pair Encoding (BPE)
 
-**主要思想**：在原始文本上训练`tokenizer`，自发的生成词汇表
+**Core idea**: train a `tokenizer` on raw text and automatically build a vocabulary.
 
-**意图**：对于常见的字符序列，可以仅用一个token表示；对于不常见的字符序列，则用多个token表示
+**Motivation**: represent frequent character/byte sequences with a single token, and represent rare sequences with multiple tokens.
 
-**算法简述**：首先将每一个**byte**看作是一个token，随后逐渐合并常出现的相邻token为一个新token
+**High-level algorithm**: treat each **byte** as a token first, then repeatedly merge the most frequent adjacent token pair into a new token.
 
-### 4.1. 算法流程
+### 4.1. Merge procedure
 
 ```python
 def merge(indices: list[int], pair: tuple[int, int], new_index: int) -> list[int]:  # @inspect indices, @inspect pair, @inspect new_index
@@ -264,7 +264,7 @@ def merge(indices: list[int], pair: tuple[int, int], new_index: int) -> list[int
     return new_indices
 ```
 
-### 4.2. BPE 编码器
+### 4.2. A BPE tokenizer
 
 ```python
 class BPETokenizer(Tokenizer):
@@ -283,7 +283,7 @@ class BPETokenizer(Tokenizer):
         return string
 ```
 
-### 4.3. 训练 BPE
+### 4.3. Training BPE
 
 ```python
 def train_bpe(string: str, num_merges: int) -> BPETokenizerParams:  # @inspect string, @inspect num_merges
@@ -311,7 +311,7 @@ def train_bpe(string: str, num_merges: int) -> BPETokenizerParams:  # @inspect s
     return BPETokenizerParams(vocab=vocab, merges=merges)
 ```
 
-**示例**:
+**Example**:
 
 ```python
 text = "the cat in the hat"  # @inspect string
@@ -323,20 +323,20 @@ indices = tokenizer.encode(string)  # @inspect indices
 reconstructed_string = tokenizer.decode(indices)  # @inspect reconstructed_string
 ```
 
-代码逻辑为：
+What the code is doing:
 
-1. 初始化词汇表，用0-255表征byte
-2. 依次寻找最多次出现的相邻byte
-   - (116, 104) --> 256 即 ('t', 'h') --> 'th'
-   - (256, 101) --> 257 即 ('th', 'e') --> 'the'
-   - (257, 32) --> 258 即 （'the', ' '）--> 'the '
-3. 词汇表长度更新至259
-4. 用新词汇表对字符串进行编码
+1. Initialize the vocabulary with IDs 0–255 for bytes.
+2. Repeatedly find the most frequent adjacent byte pair.
+    - (116, 104) → 256, i.e., ('t', 'h') → 'th'
+    - (256, 101) → 257, i.e., ('th', 'e') → 'the'
+    - (257, 32) → 258, i.e., ('the', ' ') → 'the '
+3. The vocabulary size becomes 259.
+4. Encode strings using the learned merges/vocabulary.
 
 ---
 
 <div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
+    <div class="zhihu-ref-title">References</div>
   <ol>
     <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json" target="_blank">stanford-cs336 lecture 1</a></li>
   </ol>

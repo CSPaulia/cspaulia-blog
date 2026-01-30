@@ -4,7 +4,7 @@ date: 2025-05-21T22:04:00+08:00
 # weight: 1
 # aliases: ["/first"]
 draft: false
-categories: ["深度学习组件"]
+categories: ["深度学习技巧"]
 tags: ["激活函数"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors

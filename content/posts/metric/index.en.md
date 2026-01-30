@@ -1,10 +1,10 @@
 ---
-title: "记录100种评价指标"
+title: "100 Evaluation Metrics (Work in Progress)"
 date: 2025-07-09T14:05:03+08:00
 # weight: 1
 # aliases: ["/first"]
 categories: ["Deep Learning Skills"]
-tags: ["Metrics"]
+tags: ["Metrics", "Evaluation"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -25,39 +25,39 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "metric_cover.png" # image path/url
+    alt: "Evaluation metrics overview" # alt text
+    caption: "Evaluation metrics" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 分类评估指标
+## Classification metrics
 
-> TP / TN / FP / FN 基本概念
+> Core concepts: TP / TN / FP / FN
 >
-> 假设我们做的是“检测是否生病”的任务，模型预测结果 vs 实际情况如下表：
+> Suppose the task is “detect whether someone is sick”. The model prediction vs. reality can be summarized as:
 >
-> | 实际情况\预测结果   | 预测为阳性（生病） | 预测为阴性（没病） |
-> |------------------|------------------|------------------|
-> | 实际是阳性（生病） | ✅ TP（真正）       | ❌ FN（假负）       |
-> | 实际是阴性（没病） | ❌ FP（假正）       | ✅ TN（真负）       |
+> | Reality \ Prediction | Predicted positive (sick) | Predicted negative (not sick) |
+> |---|---|---|
+> | Actually positive (sick) | ✅ TP (true positive) | ❌ FN (false negative) |
+> | Actually negative (not sick) | ❌ FP (false positive) | ✅ TN (true negative) |
 >
-> - **TP (True Positive)**：预测“有病”，实际也“有病” → 判断正确  
-> - **TN (True Negative)**：预测“没病”，实际也“没病” → 判断正确  
-> - **FP (False Positive)**：预测“有病”，实际却“没病” → 误报  
-> - **FN (False Negative)**：预测“没病”，实际却“有病” → 漏报（更严重）
+> - **TP (True Positive)**: predict “sick”, actually “sick” → correct
+> - **TN (True Negative)**: predict “not sick”, actually “not sick” → correct
+> - **FP (False Positive)**: predict “sick”, actually “not sick” → false alarm
+> - **FN (False Negative)**: predict “not sick”, actually “sick” → miss (often more severe)
 
 ---
 
-### 准确率（Accuracy）
+### Accuracy
 
-- 模型判断正确的总体比例
+- Overall fraction of correct predictions
 
 $$
 Accuracy = \frac{(TP + TN)}{(TP + TN + FP + FN)}
@@ -65,9 +65,9 @@ $$
 
 ---
 
-### 召回率（Recall）
+### Recall
 
-- 在所有真正例中，模型识别出来的比例（不漏掉）
+- Among all true positives, the fraction that the model successfully identifies (don’t miss)
 
 $$
 Recall = \frac{TP}{(TP + FN)}
@@ -75,9 +75,9 @@ $$
 
 ---
 
-### 精确率（Precision）
+### Precision
 
-- 模型预测为正中，确实为正的比例（不冤枉）
+- Among all predicted positives, the fraction that are truly positive (don’t accuse)
 
 $$
 Precision = \frac{TP}{(TP + FP)}
@@ -87,65 +87,63 @@ $$
 
 ### F1-score
 
-- 精确率和召回率的调和平均
+- Harmonic mean of precision and recall
 
 $$
-F1 = \frac{2 × (Precision × Recall)}{(Precision + Recall)}
+F1 = \frac{2 \times (Precision \times Recall)}{(Precision + Recall)}
 $$
 
-#### 多分类变体
+#### Multi-class variants
 
-- **Macro-F1**：所有类别的 F1 取**算术平均**。
-- **Micro-F1**：基于全局总 TP/FP/FN 计算 F1。
-- **Weighted-F1**：按各类别的**样本数量加权**平均 F1。
+- **Macro-F1**: arithmetic mean of per-class F1.
+- **Micro-F1**: compute global TP/FP/FN then F1.
+- **Weighted-F1**: weighted average of per-class F1 by class frequency.
 
 ---
 
-## 排序质量评估指标
+## Ranking quality metrics
 
-### 平均准确率（Average Precision，AP）
+### Average Precision (AP)
 
-**一句话解释：一个类别的平均“精确率”**，以某一类别的目标检测为例：
+**One sentence:** AP is the average precision for a single class (commonly explained via object detection).
 
-#### 1. 对预测框按置信分数从高到低排序
+#### 1) Sort predicted boxes by confidence (high → low)
 
-每个预测结果都有：
+Each prediction has:
 
-- 位置框（bounding box）
-- 分数（confidence）
-- 预测标签
+- bounding box
+- confidence score
+- predicted label
 
-按预测分数从高到低排序
+Sort by confidence descending.
 
-#### 2. 判断每个预测是 TP 还是 FP
+#### 2) Mark each prediction as TP or FP
 
-依次遍历预测框：
+Iterate predictions in that order:
 
-- 如果与某个**尚未匹配的真实框** IoU ≥ 阈值（如 0.5），则为 TP
-- 否则为 FP
+- If it matches an **unmatched** ground-truth box with IoU ≥ a threshold (e.g., 0.5), mark as TP.
+- Otherwise mark as FP.
 
-记录每个预测的 TP/FP 标记
+#### 3) Compute cumulative precision & recall
 
-#### 3. 计算累计 Precision & Recall
+As you traverse predictions, keep cumulative counts:
 
-遍历每个预测点，从第一个开始，每预测一个都更新：
+- cumulative TP count: $TP_i$
+- cumulative FP count: $FP_i$
 
-- 累积 TP 数（TP_i）
-- 累积 FP 数（FP_i）
-
-然后算：
+Then:
 
 ```python
 precision_i = TP_i / (TP_i + FP_i)
-recall_i = TP_i / GT_total  # GT_total 为总的真实框数量
+recall_i = TP_i / GT_total  # GT_total = number of ground-truth boxes
 ```
 
-#### 4. 画 PR 曲线 & 计算面积
+#### 4) Plot the PR curve & compute area
 
-逐步积分:
+Approximate the integral:
 
 ```python
-# Recall, Precision 已按 recall 升序排列
+# Recall, Precision are sorted by recall ascending
 AP = 0
 for i in range(1, len(recall)):
     AP += precision[i] * (recall[i] - recall[i-1])
@@ -153,9 +151,9 @@ for i in range(1, len(recall)):
 
 ---
 
-### mAP（mean Average Precision）
+### mAP (mean Average Precision)
 
-所有类别的 AP 平均值
+Mean of AP over classes:
 
 $$
 mAP = \sum_i AP_i
@@ -163,67 +161,67 @@ $$
 
 ---
 
-### mAP\@IoU=0.5（mAP\@0.5）
+### mAP\@IoU=0.5 (mAP\@0.5)
 
-- 预测的框和真实框的 IoU（交并比）≥ 0.5 时，才算正确（TP）
-- 然后计算每个类的 AP，再平均，就是 mAP\@0.5
+- A prediction is counted as TP only when IoU ≥ 0.5.
+- Compute AP per class, then average → mAP\@0.5.
 
 ---
 
 ### mAP\@0.5:0.95
 
-- IoU 从 0.5 到 0.95，每隔 0.05 计算一次（共 10 个 IoU 阈值）
-- 平均这 10 个 AP → 得到最终 mAP
+- Sweep IoU thresholds from 0.5 to 0.95 with step 0.05 (10 thresholds).
+- Average the AP across these thresholds.
 
 ---
 
 ### mAP\@k
 
-常用于 **图像检索 / 推荐系统 / 多标签排序**：
+Common in **image retrieval / recommendation / multi-label ranking**:
 
-> 表示在每次检索的前 **k 个结果** 中，计算 AP，然后对所有查询求平均
+> For each query, compute AP using only the top-$k$ retrieved results, then average across queries.
 
-#### 举例
+#### Example
 
-你搜索“狗”，模型返回前10张图片：
+If you search “dog” and the system returns top 10 images:
 
-- 有6张是狗，4张不是，且狗分布在第1、2、3、6、7、9位
-- 你计算这些位置上的 Precision，再求平均 → 得到 AP@10
-- 对所有用户查询求平均 → 得到 mAP@10
+- 6 are dogs, 4 are not, and dogs appear at ranks 1, 2, 3, 6, 7, 9
+- Compute precision at those dog positions and average → AP@10
+- Average AP@10 across all queries → mAP@10
 
 ---
 
-## Caption任务指标
+## Metrics for image captioning
 
 ### SPICE
 
-#### 为什么需要 SPICE？
+#### Why SPICE?
 
-传统指标如：
+Traditional metrics:
 
-- **BLEU**：关注 n-gram 匹配（像机器翻译）
-- **ROUGE**：关注召回率（适合摘要）
-- **CIDEr**：考虑 TF-IDF 加权的 n-gram 匹配
+- **BLEU**: focuses on n-gram overlap (like machine translation)
+- **ROUGE**: emphasizes recall (often used for summarization)
+- **CIDEr**: TF-IDF weighted n-gram similarity
 
-它们都看的是“词”和“短语”重不重复，却忽略了语义结构是否对。
+They largely measure word/phrase overlap, but may miss whether the **semantic structure** is correct.
 
-而 SPICE 的理念是：
+SPICE is motivated by:
 
-> “人类评价图像描述时，看的是你有没有说出对的对象、属性和关系。”
+> “When humans judge captions, they care whether you mention the right objects, attributes, and relations.”
 
-#### SPICE 计算方法
+#### How SPICE works
 
-> **核心思想：** 把句子转换为一个语义图（scene graph）：对象 + 属性 + 关系，然后比较机器描述和参考描述的语义图有多相似
+> **Key idea:** parse sentences into a semantic graph (scene graph): objects + attributes + relations, then compare candidate vs. references.
 
-##### 语义图结构定义
+##### Scene graph structure
 
-一句话被表示为一组三元组（triples）：
+A sentence is represented as a set of triples:
 
 ```
 G = {object, attribute, relation}
 ```
 
-例如：
+Example:
 
 ```
 Sentence: "A red car is parked beside a white house"
@@ -236,56 +234,52 @@ G = {
 }
 ```
 
-##### 数学公式定义
+##### Mathematical definition
 
-**输入：**
+**Inputs:**
 
-- $G$: 生成句子的语义三元组集合（Graph of candidate）
-- $R$: 所有参考句子的语义三元组集合（Graph of references）
+- $G$: semantic triples from the generated sentence (candidate graph)
+- $R$: semantic triples from all reference sentences (reference graph)
 
-**目标：**
+**Goal:**
 
-- 计算 $F_1$ score between $G$ and $R$
+- Compute the $F_1$ score between $G$ and $R$
 
-**匹配集合：**
+**Set matching:**
 
 - Precision:
 
 $$
 P = \frac{|\mathcal{G} \cap \mathcal{R}|}{|\mathcal{G}|}
 $$
-​
- 
+
 - Recall:
 
 $$
 R = \frac{|\mathcal{G} \cap \mathcal{R}|}{|\mathcal{R}|}
 $$
- 
+
 - F1-score:
 
 $$
 F_1 = \frac{2PR}{P + R}
 $$
- 
-即：$\text{SPICE} = F_1(G, R)$
 
-分别统计：
+So: $\text{SPICE} = F_1(G, R)$
 
-- 对象匹配（object F1）
+SPICE can be computed for sub-categories, such as:
 
-- 属性匹配（attribute F1）
+- object matching (object F1)
+- attribute matching (attribute F1)
+- relation matching (relation F1)
+- finer types like color, count, size, etc.
 
-- 关系匹配（relation F1）
-
-- 甚至是颜色、数量、大小等细分类别
-
-最终 SPICE 得分是它们的加权平均：
+The final SPICE score is a weighted average:
 
 $$
-\text{SPICE}=\sum_i w_i \cdot F_1^i
+	ext{SPICE}=\sum_i w_i \cdot F_1^i
 $$
- 
-其中 $F_1^i$ 是每种语义类别（对象、属性等）的 F1，$w_i$ 是每类的权重
+
+where $F_1^i$ is the F1 for a semantic category and $w_i$ is its weight.
 
 ---

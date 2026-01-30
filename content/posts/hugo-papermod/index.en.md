@@ -1,10 +1,10 @@
 ---
-title: "PaperMod进化论"
+title: "The Evolution of PaperMod"
 date: 2025-06-07T17:32:03+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["建站"]
-tags: ["Hugo", "PaperMod", "建站"]
+categories: ["Web Development"]
+tags: ["Hugo", "PaperMod", "Website"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -12,7 +12,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "改进我的PaperMod"
+description: "My PaperMod customization notes"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -26,8 +26,8 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "papermod.png" # image path/url
-    alt: "Advanced Papermod" # alt text
-    caption: "Advanced Papermod" # display caption under cover
+    alt: "Advanced PaperMod theme customization" # alt text
+    caption: "Advanced PaperMod" # display caption under cover
     relative: true # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
@@ -37,11 +37,11 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 自定义post_meta显示
+## Customize `post_meta` display
 
-- **最后编辑(Lastmod)**
+- **Last edited time (`Lastmod`)**
 
-    在`config.yaml`中添加：
+    Add this to `config.yaml`:
 
     ```yaml
     frontmatter:
@@ -57,14 +57,14 @@ editPost:
             - publishDate
     ```
 
-    最后编辑时间會根據frontmatter中的順序取值
-    - `:git`：會去抓git提交紀錄的日期，且必須於config.yml中啟用enableGitInfo = true(沒試成功)
-    - `:fileModTime`：根據本機的文件最後修改紀錄
-    - `lastmod`：可以在文章的frontmatter區塊中直接設定
-    - `date`：可以在文章的frontmatter區塊中直接設定
-    - `publishDate`：文章發布的日期
+    The last modified time is resolved in the order listed in `frontmatter.lastmod`:
+    - `:git`: uses git commit time; requires `enableGitInfo = true` in `config.yml` (I didn’t get this working)
+    - `:fileModTime`: uses the local file’s last modified time
+    - `lastmod`: set directly in the page front matter
+    - `date`: set directly in the page front matter
+    - `publishDate`: the publish time
 
-- **修改 post_meta.html 文件**
+- **Edit `post_meta.html`**
 
     ```html
     <!-- layouts/partials/post_meta.html -->
@@ -95,7 +95,7 @@ editPost:
     {{ end }}
     ```
 
-- **添加 CSS 样式来调整图标的显示效果**
+- **Add CSS to align icons**
 
     ```css
     /* assests/css/extended/blank.css */
@@ -110,97 +110,97 @@ editPost:
     }
     ```
 
-- **列表页面隐藏** （可选）
+- **Hide on list pages (optional)**
 
-    若不希望列表页出现`ReadingTime`，则复制一份`layouts/partials/post_meta.html`，命名为`post_meta_list.html`，将`post_meta_list.html`中的如下代码删去
+    If you don’t want `ReadingTime` to show on list pages, copy `layouts/partials/post_meta.html` to `layouts/partials/post_meta_list.html` and remove the following block from `post_meta_list.html`:
 
     ```html
     <!-- layouts/partials/post_meta_list.html -->
-    <!-- 删掉 -->
+    <!-- remove -->
     {{ if (.Param "ShowReadingTime") }}
         ...
     {{ end }}
     ```
 
-    并在`layouts/_default/list.html`中将：
+    Then in `layouts/_default/list.html`, change:
 
     ```html
     <!-- layouts/_default/list.html -->
     {{- partial "post_meta.html" . -}}
     ```
 
-    修改为
+    to:
 
     ```html
     <!-- layouts/_default/list.html -->
     {{- partial "post_meta_list.html" . -}}
     ```
 
-## 代码块改进
+## Code block improvements
 
-### 代码块缩进设置
+### Code block indentation
 
-在 `blank.css` 中添加以下代码：
+Add the following to `blank.css`:
 
 ```css
 /* assets/css/extended/blank.css */
-.post-content pre { /* 代码块缩进样式 */
-    margin-left: 2em;  /* 缩进距离 */
+.post-content pre { /* code block indentation */
+    margin-left: 2em;  /* indentation */
 }
-.post-content li pre {  /* 列表中的代码块额外缩进 */
-    margin-left: 4em;  /* 列表中的代码块缩进更多 */
+.post-content li pre {  /* extra indentation for code blocks inside lists */
+    margin-left: 4em;
 }
 ```
 
-### PaperMod 主题的语法高亮设置
+### Syntax highlighting settings in PaperMod
 
-- `config.yaml`中设置正确的语法高亮：
+- Configure syntax highlighting correctly in `config.yaml`:
 
     ```yaml
     params:
     # ...existing code...
     assets:
-        disableHLJS: false  # 启用 highlight.js
+        disableHLJS: false  # enable highlight.js
 
-    # 设置代码高亮主题
+    # Set syntax highlighting engine
     syntax_highlighter: "highlight.js"
     ```
 
-- 高亮代码语法如下：
+- Example fenced code block with highlighted lines:
 
     ```python {hl_lines=[3]}
-    print("第一行")
-    print("第二行")
-    print("**这一行会高亮**")
-    print("第四行")
+    print("Line 1")
+    print("Line 2")
+    print("**This line will be highlighted**")
+    print("Line 4")
     ```
 
-### 限制代码块长度
+### Limit code block height
 
-- **限制代码块长度，超出部分滚动**
+- **Limit height and enable scrolling**
 
     ```css
     /* assets/css/extended/blank.css */
-    .post-content pre {  /* 代码块缩进样式 */
-        max-height: 400px;      /* 最大高度，可自定义 */
-        overflow: auto;         /* 超出部分滚动 */
+    .post-content pre {
+        max-height: 400px;      /* max height */
+        overflow: auto;         /* scroll when overflow */
     }
     ```
 
-- **设置滚动条大小**
+- **Scrollbar size**
 
     ```css
     .post-content pre::-webkit-scrollbar {
-        width: 10px;   /* 更细的滚动条 */
+        width: 10px;
         height: 10px;
     }
     ```
 
-## 博客文章封面图片缩小并移到侧边
+## Shrink post cover images and move them to the side
 
-- **复制`list.html`**
-    
-    从`themes/PaperMod/layouts/_default/list.html`中复制一份`list.html`放置于`layouts/_default/list.html`，并将
+- **Copy `list.html`**
+
+    Copy `themes/PaperMod/layouts/_default/list.html` to `layouts/_default/list.html`, and replace:
 
     ```html
     <!-- layouts/_default/list.html -->
@@ -234,7 +234,7 @@ editPost:
     </article>
     ```
 
-    修改为
+    with:
 
     ```html
     <!-- layouts/_default/list.html -->
@@ -264,8 +264,8 @@ editPost:
     </article>
     ```
 
-- **添加自定义样式**
-    
+- **Add custom styles**
+
     ```css
     /* assets/css/extended/blank.css */
     .post-entry {
@@ -279,7 +279,7 @@ editPost:
         height: 100%;
         width: 50%;
         margin-bottom: unset;
-        border-radius: 12px; /* 你可以根据需要调整圆角大小 */
+        border-radius: 12px;
     }
     .entry-cover img {
         border-radius: 12px;
@@ -291,7 +291,7 @@ editPost:
     }
     ```
 
-- **侧边首图放大动画**
+- **Hover zoom animation for side cover**
 
     ```css
     /* assets/css/extended/blank.css */
@@ -305,15 +305,15 @@ editPost:
     }
     ```
 
-## 自定义 Post Footer
+## Custom Post Footer
 
-- **复制`single.html`**
+- **Copy `single.html`**
 
-在路径`themes/PaperMod/layouts/_default`找到`single.html`这个文件，复制到`layouts/_default/single.html`这个位置
+    Find `single.html` under `themes/PaperMod/layouts/_default` and copy it to `layouts/_default/single.html`.
 
-- **修改`post-footer`段落**
+- **Modify the `post-footer` section**
 
-找到
+Find:
 
 ```html
 <!-- layouts/_default/single.html -->
@@ -322,20 +322,20 @@ editPost:
 </footer>
 ```
 
-修改为
+Replace it with:
 
 ```html
 <!-- layouts/_default/single.html -->
 <footer class="post-footer">
   {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
-  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">tags:</p>
+  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">Tags:</p>
   <ul class="post-tags">
     {{- range ($.GetTerms $tags) }}
     <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
     {{- end }}
   </ul>
   {{- $categories := .Language.Params.Taxonomies.categories | default "categories" }}
-  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">categories:</p>
+  <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">Categories:</p>
   <ul class="post-tags">
     {{- range ($.GetTerms $categories) }}
     <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
@@ -350,19 +350,19 @@ editPost:
 </footer>
 ```
 
-- **效果**
+- **Result**
 
 <p align="center">
     {{< img src="post_footer.png" alt="post_footer" width="80%" >}}
 </p>
 
-## 博客末尾放参考链接
+## Add reference links at the end of posts
 
-- 在`blank.css`里加一点样式
+- Add a bit of style in `blank.css`
 
     ```css
     /* assets/css/extended/blank.css */
-    /* 浅色模式 */
+    /* light mode */
     .zhihu-ref {
         background: #f6f7fa;
         border-radius: 8px;
@@ -385,7 +385,7 @@ editPost:
     .zhihu-ref a:hover {
         color: #0084ff;
     }
-    /* 深色模式（PaperMod主题深色class为 .dark） */
+    /* dark mode (PaperMod uses .dark) */
     .dark .zhihu-ref {
         background: #23272e;
         border-left: 4px solid #3ea6ff;
@@ -399,29 +399,29 @@ editPost:
     }
     ```
 
-- markdown中语法如下
+- Markdown usage:
 
     ```md
     <hr>
     <div class="references">
-    <h3>参考资料</h3>
+    <h3>References</h3>
     <ol>
-        <li><a href="https://gohugo.io/documentation/" target="_blank">Hugo 官方文档</a></li>
-        <li><a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">PaperMod 主题</a></li>
+        <li><a href="https://gohugo.io/documentation/" target="_blank">Hugo Documentation</a></li>
+        <li><a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">PaperMod Theme</a></li>
         <li><a href="https://www.markdownguide.org/" target="_blank">Markdown Guide</a></li>
     </ol>
     </div>
     ```
 
-- 效果如下
+- Result:
 
 <p align="center">
     {{< img src="zhihu-ref.png" alt="zhihu-ref" width="80%" >}}
 </p>
 
-## 侧边目录设置
+## Side Table of Contents (TOC)
 
-- 在`layouts/partials`文件夹下创建`toc.html`，添加如下代码：
+- Create `toc.html` under `layouts/partials` and add:
 
     ```html
     <!-- layouts/partials/toc.html -->
@@ -460,7 +460,7 @@ editPost:
                             {{/* get id="xyz" */}}
                             {{- $id := index (findRE "(id=\"(.*?)\")" $header 9) 0 }}
 
-                            {{- /* strip id="" to leave xyz, no way to get regex capturing groups in hugo */ -}}
+                            {{- /* strip id=\"\" to leave xyz, no way to get regex capturing groups in hugo */ -}}
                             {{- $cleanedID := replace (replace $id "id=\"" "") "\"" "" }}
                             {{- $header := replaceRE "<h[1-6].*?>((.|\n])+?)</h[1-6]>" "$1" $header -}}
 
@@ -494,12 +494,14 @@ editPost:
                         {{- end -}}
                         {{- end -}}
                         {{- end -}}
+                        {{- end -}}
                         {{- end }}
                         <li>
                             <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
                             {{- else }}
                         <li>
                             <a href="#{{- $cleanedID -}}" aria-label="{{- $header | plainify -}}">{{- $header | safeHTML -}}</a>
+                            {{- end -}}
                             {{- end -}}
                             {{- end -}}
                             <!-- {{- $firstHeaderLevel := len (seq (index (findRE "[1-6]" (index $headers 0) 1) 0)) -}} -->
@@ -581,7 +583,7 @@ editPost:
     {{- end }}
     ```
 
-- 修改css:
+- Update CSS:
 
     ```css
     /* assets/css/extended/blank.css */
@@ -651,11 +653,11 @@ editPost:
     }
     ```
 
-## 按照LastMod参数进行文章排序
+## Sort posts by `LastMod`
 
-### Posts界面
+### Posts page
 
-- 修改`layouts/_default/list.html`如下
+- Update `layouts/_default/list.html`:
 
     ```html {hl_lines=[7]}
     <!-- layouts/_default/list.html -->
@@ -664,14 +666,14 @@ editPost:
     {{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
     {{- end }}
 
-    {{- $pages := $pages.ByLastmod.Reverse }} <!-- 添加这行代码 -->
+    {{- $pages := $pages.ByLastmod.Reverse }} <!-- add this line -->
 
     {{- $paginator := .Paginate $pages }}
     ```
 
-### archives界面
+### Archives page
 
-- 复制`themes/PaperMod/layouts/_default/archives.html`至`layouts/_default`，将
+- Copy `themes/PaperMod/layouts/_default/archives.html` to `layouts/_default`, and change:
 
     ```html
     <!-- layouts/_default/archives.html -->
@@ -688,7 +690,7 @@ editPost:
     {{- end }}
     ```
 
-    修改为
+    to:
 
     ```html {hl_lines=[2, 4, 6]}
     <!-- layouts/_default/archives.html -->
@@ -708,7 +710,7 @@ editPost:
 ---
 
 <div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
+  <div class="zhihu-ref-title">References</div>
   <ol>
     <li><a href="https://www.lilmp.com/categories/小m平部落格整形手術/" target="_blank">小M平碎碎念-小M平部落格整形手術</a></li>
     <li><a href="https://blog.csdn.net/Xuyiming564445/article/details/122011603" target="_blank">CSDN-Hugo博客PaperMod主题目录放在侧边</a></li>

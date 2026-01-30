@@ -1,10 +1,10 @@
 ---
-title: "记录100种评价指标"
+title: "记录 100 种评价指标"
 date: 2025-07-09T14:05:03+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Deep Learning Skills"]
-tags: ["Metrics"]
+categories: ["深度学习技巧"]
+tags: ["评价指标"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -25,15 +25,15 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "metric_cover.png" # image path/url
+    alt: "评价指标概览" # alt text
+    caption: "评价指标" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "修改建议" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
