@@ -1,0 +1,17 @@
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "img shortcode: missing required param 'src' on page %q" .Page.File.Path -}}
+{{- end -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $width := .Get "width" -}}
+{{- $height := .Get "height" -}}
+{{- $class := .Get "class" -}}
+{{- $loading := .Get "loading" | default "lazy" -}}
+
+{{- $res := .Page.Resources.GetMatch $src -}}
+{{- $url := $src -}}
+{{- if $res -}}
+  {{- $url = $res.RelPermalink -}}
+{{- end -}}
+
+<img src="{{ $url }}" alt="{{ $alt }}"{{ with $width }} width="{{ . }}"{{ end }}{{ with $height }} height="{{ . }}"{{ end }}{{ with $class }} class="{{ . }}"{{ end }}{{ with $loading }} loading="{{ . }}"{{ end }} />

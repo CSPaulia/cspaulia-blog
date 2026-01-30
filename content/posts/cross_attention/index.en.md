@@ -1,10 +1,10 @@
 ---
-title: "交叉注意力机制"
+title: "Cross-Attention Mechanism"
 date: 2025-05-21T22:04:00+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["神经网络模块"]
-tags: ["注意力机制"]
+categories: ["Neural Network Modules"]
+tags: ["Attention"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -33,36 +33,38 @@ cover:
     hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "建议修改"
+    Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 交叉注意力（Cross Attention）
+## Cross-Attention
 
-### 简介
+### Overview
 
-交叉注意力是：
+Cross-attention is an attention mechanism that fuses two embedding sequences:
 
-- 融合两种不同嵌入序列的注意力机制
-- 两个序列必须包含**相同的维度**
-- 两个序列可以来自不同的模态（例如文本、图像、声音）
-- 其中一个序列作为**查询（Query，Q）的输入**，决定输出序列的长度
-- 另一个序列作为**键（Key，K）和值（Value，V）的输入**
+- The two sequences must have the **same embedding dimension**.
+- They can come from different modalities (e.g., text, images, audio).
+- One sequence provides the **queries (Q)** and determines the **output length**.
+- The other sequence provides the **keys (K)** and **values (V)**.
 
-### 交叉注意力 vs 自注意力（Self-attention）
+### Cross-attention vs. self-attention
 
-交叉注意力与自注意力的主要区别在于输入：交叉注意力接收两个维度相同的嵌入序列；自注意力只接收一个嵌入序列，且 Q/K/V 都由该序列生成。
+The key difference is the input:
+
+- **Self-attention** uses a single sequence to produce Q/K/V.
+- **Cross-attention** uses two sequences: one for Q and the other for K/V.
 
 ![cross attention](cross_attention.png)
 
-### 交叉注意力算法
+### Cross-attention algorithm
 
-- 有两个序列 $S_1$、$S_2$
-- 计算 $S_1$ 的 $K$、$V$
-- 计算 $S_2$ 的 $Q$
-- 根据 $K$ 和 $Q$ 计算注意力矩阵
-- 将 $V$ 应用于注意力矩阵
-- 输出序列长度与 $S_2$ 一致
+- Given two sequences $S_1$ and $S_2$
+- Compute $K$ and $V$ from $S_1$
+- Compute $Q$ from $S_2$
+- Compute the attention matrix from $Q$ and $K$
+- Apply attention to $V$
+- The output sequence length matches $S_2$
 
 $$
 \pmb{\text{softmax}}((W_Q S_2)(W_K S_1)^\mathrm{T})W_V S_1

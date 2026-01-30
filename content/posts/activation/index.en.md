@@ -1,11 +1,11 @@
 ---
-title: "收集N个激活函数"
+title: "A Collection of Activation Functions"
 date: 2025-05-21T22:04:00+08:00
 # weight: 1
 # aliases: ["/first"]
 draft: false
-categories: ["深度学习组件"]
-tags: ["激活函数"]
+categories: ["Deep Learning Components"]
+tags: ["Activation"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -33,7 +33,7 @@ cover:
     hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "建议修改" # edit text
+    Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
@@ -47,25 +47,25 @@ $$
 
 ---
 
-### GELU(Gaussian Error Linear Unit)
+### GELU (Gaussian Error Linear Unit)
 
 $$
 \text{GELU}(x) = x \cdot \Phi(x)
 $$
 
-其中$\Phi(x)$是标准正态分布的累积分布函数（CDF）：
+$\Phi(x)$ is the cumulative distribution function (CDF) of the standard normal distribution:
 
 $$
 \Phi(x) = \frac{1}{2}[1+\text{erf}(\frac{x}{\sqrt{2}})]
 $$
 
-其中$\text{erf}$是高斯误差函数（error function），因此GELU可写为
+$\text{erf}$ is the Gauss error function. Therefore, GELU can be written as
 
 $$
 \text{GELU}(x) = \frac{x}{2}[1+\text{erf}(\frac{x}{\sqrt{2}})]
 $$
 
-可近似为
+It is commonly approximated by
 
 $$
 \text{GELU}(x) = 0.5x(1+\tanh(\sqrt{\frac{2}{\pi}}(x+0.044715x^3)))
@@ -73,23 +73,23 @@ $$
 
 ![GELU_Derivative](activation_gelu.png)
 
-#### 直觉理解
+#### Intuition
 
-GELU 的思想是：
-> 不再像 ReLU 一样“硬地”把负数截为 0，而是用一个概率加权的方式，让输出平滑地过渡。
+GELU can be understood as:
+> Instead of “hard-clipping” negative inputs to 0 like ReLU, it uses a probability-weighted gate so the output transitions smoothly.
 
-也就是说，它让输入 $x$ 通过一个“高斯门控”：
-- 当 $x$ 很大时，$\Phi(x) \approx 1$，输出 $\approx x$ 
-- 当 $x$ 很小时，$\Phi(x) \approx 0$，输出 $\approx 0$ 
-- $x$ 接近 0 时，$\Phi(x)$ 在 0 和 1 之间平滑变化
+In other words, it passes the input $x$ through a “Gaussian gate”:
+- When $x$ is large, $\Phi(x) \approx 1$, so the output is $\approx x$
+- When $x$ is very negative, $\Phi(x) \approx 0$, so the output is $\approx 0$
+- Near $x=0$, $\Phi(x)$ smoothly transitions between 0 and 1
 
-→ 所以 GELU 比 ReLU 更“柔和”，能保留一些负数输入的信息
+So GELU is “softer” than ReLU and can retain some information from negative inputs.
 
-#### 优点
+#### Advantages
 
-1. **具有更光滑的导数**：GELU函数的导数是连续的，这使得在训练深度神经网络时可以更容易地传播梯度，避免了ReLU函数在$x=0$处的导数不连续的问题，从而减少了训练过程中出现的梯度消失问题
-2. **可以提高模型的性能**：在实际任务中，使用GELU函数的模型通常比使用ReLU函数的模型表现更好，尤其是在自然语言处理和计算机视觉任务中
-3. **可以加速收敛**：GELU函数在激活函数的非线性变换中引入了类似于sigmoid函数的变换，这使得GELU函数的输出可以落在一个更广的范围内，有助于加速模型的收敛速度
+1. **Smooth derivative**: the derivative of GELU is continuous, which often helps gradient flow and avoids the non-differentiability of ReLU at $x=0$.
+2. **Strong empirical performance**: GELU is widely used in NLP and vision models and often improves results compared to ReLU.
+3. **Potentially faster convergence**: the smooth nonlinearity can make optimization more stable.
 
 ---
 
@@ -99,11 +99,11 @@ $$
 \text{Swish}(x) = x \cdot \sigma(x) = \frac{x}{1 + e^{-x}}
 $$
 
-导数平滑，类似于门控
+The derivative is smooth and behaves like a gate.
 
 ![Swish](activation_swish.png)
 
-Swish可以通过参数$\beta$进行平滑调整
+Swish can be adjusted with a smoothing parameter $\beta$:
 
 $$
 \text{Swish}(x) = x \cdot \sigma(\beta x) = \frac{x}{1 + e^{-\beta x}}
@@ -120,36 +120,36 @@ $$
 \end{align}
 $$
 
-其中：
-- 输入$x$经线性映射（或卷积）被拆分成两个部分 $x_1, x_2$；
-- $\sigma$ 是 Sigmoid 函数，作为“门控函数”；
-- $\odot$ 表示逐元素相乘（Hadamard product）；
-- 第一部分 $x_1$ 是“信息流（content）”，第二部分 $x_2$ 是“控制流（gate）”
+Where:
+- The input $x$ is projected (or convolved) and split into two parts $x_1, x_2$.
+- $\sigma$ is the sigmoid function, acting as a gate.
+- $\odot$ denotes element-wise multiplication (Hadamard product).
+- $x_1$ is the content stream and $x_2$ is the control/gating stream.
 
-#### 直觉理解：信息流 + 控制流
+#### Intuition: content stream + control stream
 
-普通的线性层输出：
+For a plain linear layer:
 
 $$
 y=xW+b
 $$
 
-所有输入都被同等处理
+All inputs are treated uniformly.
 
-而在 GLU 中，我们为信息流加了一个**动态调节门**：
+In GLU, we add a **learnable gate** to dynamically modulate the content stream:
 
 $$
 y=content \times gate
 $$
 
-- 当 $\sigma(x_2)$ 接近 1 → 内容 $x_1$ 完全通过；
-- 当 $\sigma(x_2)$ 接近 0 → 内容 $x_1$ 被抑制；
-- 当 $\sigma(x_2)$ 在中间值 → 内容部分通过
+- If $\sigma(x_2)$ is close to 1, the content $x_1$ passes through.
+- If $\sigma(x_2)$ is close to 0, the content $x_1$ is suppressed.
+- For intermediate values, the content is partially passed.
 
-可以理解为：
-> GLU 给神经网络每个神经元加上了一个“可学习的开关”，让模型能控制信息在不同路径上的流动强弱
+You can think of it as:
+> GLU adds a learnable “switch” that controls how strongly information flows.
 
-#### 代码
+#### Code
 
 ```python
 import torch
@@ -160,11 +160,11 @@ def GLU(x):
     return x1 * torch.sigmoid(x2)
 ```
 
-#### 优点
+#### Advantages
 
-1. 选择性信息传递：门可以学习“该让哪些特征通过、哪些被压制”，这提高了模型的表达灵活性
-2. 缓解梯度消失 / 饱和：Sigmoid 的导数非零，使得梯度能在负区间流动
-3. 模型可解释性更强：门值（通常介于 0~1 之间）可以理解为“注意力权重”，可视化后能显示模型关注哪些通道或特征
+1. Selective information flow: the gate learns which features should pass.
+2. Better gradient behavior: sigmoid has non-zero derivative in many regions.
+3. Improved interpretability: gate values (often in $[0,1]$) can be visualized as importance weights.
 
 ---
 
@@ -174,7 +174,7 @@ $$
 \text{ReGLU}(x) = x_1 \odot \text{ReLU}(x_2)
 $$
 
-使得门控具备稀疏性，计算更便宜
+This makes the gating sparse and can be cheaper to compute.
 
 ```python
 import torch 
@@ -202,7 +202,7 @@ $$
 \text{GEGLU}(x) = x_1 \odot \text{GELU}(x_2)
 $$
 
-兼顾稀疏与平滑
+This keeps the gating smooth while preserving the GLU structure.
 
 ```python
 import torch 
@@ -230,7 +230,7 @@ $$
 $$
 
 ```python
-import troch
+import torch
 from torch import nn
 
 class SwiGLU(nn.Module):

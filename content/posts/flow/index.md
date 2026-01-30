@@ -6,7 +6,7 @@ date: 2025-10-10T8:30:03+08:00
 series:
     main: "生成模型"
     subseries: "流匹配"
-categories: ["AIGC"]
+categories: ["生成模型"]
 tags: ["流匹配", "扩散模型"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Notes for Flow Matching and Diffusion from MIT course."
+description: "MIT 课程《Flow Matching and Diffusion》笔记"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -36,7 +36,7 @@ cover:
     hiddenInList: true # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
@@ -88,7 +88,7 @@ $$
 
 **生成**：意味着从数据分布中进行采样 $z \sim p_{data}$，采样 $z$ 如下：
 
-<img src="Bao.jpg" alt="Baobao" width="300"/>
+{{< img src="Bao.jpg" alt="Baobao" width="300" >}}
 
 ---
 
@@ -118,7 +118,7 @@ $$
   </dd>
 </dl>
 
-<img src="Traj.png" alt="Trajectory" width="300"/>
+{{< img src="traj.png" alt="Trajectory" width="300" >}}
 
 <dl class="definition-list">
   <dt>向量场（Vector Feild）</dt>
@@ -129,7 +129,7 @@ $$
   </dd>
 </dl>
 
-<img src="vector_field.png" alt="Vector Field" width="300"/>
+{{< img src="vector_field.png" alt="Vector Field" width="300" >}}
 
 <dl class="definition-list">
   <dt>常微分方程（Ordinary Differential Equation, ODE）</dt>
@@ -144,7 +144,7 @@ $$
   </dd>
 </dl>
 
-<img src="ode.png" alt="ODE" width="300"/>
+{{< img src="ode.png" alt="ODE" width="300" >}}
 
 > $dX_t/dt$ 即为轨迹的切线，可以理解为速度，因此ODE描述了粒子在向量场中的运动
 
@@ -159,16 +159,17 @@ $$
     <br><span class="math">$\phi_0(x_0) = x_0$
     </span>
     <br><span class="math">$\frac{d}{dt}\phi_t(x_0) = u_t(\phi_t(x_0))$
+    </span>
   </dd>
 </dl>
 
 流本质是针对许多初始条件的常微分方程解的集合
 
-<img src="flow_process.png" alt="Flow Process" width="80%"/>
+{{< img src="flow_process.png" alt="Flow Process" width="80%" >}}
 
 Flow 可视化：
 
-<img src="flow.gif" alt="Flow" width="300"/>
+{{< img src="flow.gif" alt="Flow" width="300" >}}
 
 > **线性 ODE：**
 > 
@@ -192,7 +193,7 @@ Flow 可视化：
 > $$ \phi_0(x) = e^{C(x)} e^{0} = e^{C(x)} = x \Rightarrow e^{C(x)} = x $$
 > $$ \frac{d}{dt} \phi_t(x) = \frac{d}{dt} (x e^{-\theta t}) = -\theta x e^{-\theta t} = -\theta \phi_t(x) $$
 >
-> <img src="linear_ode_trajectories.png" alt="Linear ODE Trajectories" width=80%/>
+> {{< img src="linear_ode_trajectories.png" alt="Linear ODE Trajectories" width="80%" >}}
 
 | **算法 1** 利用欧拉方法求解 ODE |
 |-------------------------------|
@@ -223,7 +224,7 @@ Flow 可视化：
 - 模拟 ODE： $X_t = u_t^{\theta}(X_t)$
 - 目标： $X_1 \sim p_{data}$
 
-<img src="flow_distribution.gif" alt="Flow Distribution" width="300"/>
+{{< img src="flow_distribution.gif" alt="Flow Distribution" width="300" >}}
 
 | **算法 1** 利用欧拉方法从流模型中采样 |
 |-------------------------------|
@@ -250,7 +251,7 @@ Flow 可视化：
   </dd>
 </dl>
 
-<img src="stochastic_traj.png" alt="Stochastic Process" width="300"/>
+{{< img src="stochastic_traj.png" alt="Stochastic Process" width="300" >}}
 
 <dl class="definition-list">
   <dt>向量场</dt>
@@ -326,7 +327,7 @@ $$
 | 8: **end for** |
 | **输出**: $X_0, X_h, X_{2h}, \cdots, X_1$ |
 
-<img src="linear_sde_euler_trajectories.png" alt="Linear SDE Trajectories" width=80%/>
+{{< img src="linear_sde_euler_trajectories.png" alt="Linear SDE Trajectories" width="80%" >}}
 
 #### 2.2.3. 扩散模型的定义
 

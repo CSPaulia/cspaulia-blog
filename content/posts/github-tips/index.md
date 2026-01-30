@@ -1,10 +1,10 @@
 ---
-title: "如何上传本地文件到Github库"
+title: "如何使用 git 上传本地文件到 Github 库"
 date: 2025-05-21T22:07:00+09:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Tips"]
-tags: ["Github"]
+categories: ["命令行工具"]
+tags: ["Git"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -25,15 +25,15 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "git_github.png" # image path/url
+    alt: "Git and GitHub" # alt text
+    caption: "如何使用 git 上传本地文件到 Github 库" # display caption under cover
     relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改"
     appendFilePath: true # to append file path to Edit link
 ---
 

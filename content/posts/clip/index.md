@@ -1,9 +1,9 @@
 ---
-title: "CLIP及其改进工作"
+title: "CLIP 及其改进工作"
 date: 2025-06-03T10:46:03+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["Base Model"]
+categories: ["基础模型"]
 tags: ["CLIP"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
@@ -12,7 +12,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "CLIP及其改进工作"
+description: "CLIP 及其改进工作"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -26,22 +26,22 @@ ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
     image: "clip_cover.png" # image path/url
-    alt: "clip with advanced methods" # alt text
-    caption: "clip with advanced methods" # display caption under cover
+    alt: "CLIP 及其改进工作封面" # alt text
+    caption: "CLIP 及其改进工作" # display caption under cover
     relative: false # when using page bundles set this to true
     hidden: true # only hide on current single page
     hiddenInList: false # hide on list pages and home
     # class: "post-cover"
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "Suggest Changes" # edit text
+    Text: "建议修改" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
 ## I. CLIP
 
 <p align="center">
-  <img src="clip.png" alt="clip" />
+  {{< img src="clip.png" alt="clip" >}}
 </p>
 
 1. 对比预训练：
@@ -69,7 +69,7 @@ editPost:
 ### 2.1 LSeg
 
 <p align="center">
-  <img src="lseg.png" alt="lseg" />
+  {{< img src="lseg.png" alt="lseg" >}}
 </p>
 
 1. 与CLIP的关系：
@@ -91,7 +91,7 @@ editPost:
 ### 2.2 GroupViT
 
 <p align="center">
-  <img src="groupvit_overview.png" alt="groupvit_overview" width="50%" />
+  {{< img src="groupvit_overview.png" alt="groupvit_overview" width="50%" >}}
 </p>
 
 1. 与CLIP和LSeg的关系：
@@ -108,7 +108,7 @@ editPost:
 2. 架构细节：
 
 <p align="center">
-  <img src="groupvit.png" alt="groupvit" />
+  {{< img src="groupvit.png" alt="groupvit" >}}
 </p>
 
 - 模型输入：`图像Patchs` + `可学习Group Tokens`
@@ -120,7 +120,7 @@ editPost:
 ### 3.1 ViLD
 
 <p align="center">
-  <img src="vild_compare.png" alt="vild_compare" />
+  {{< img src="vild_compare.png" alt="vild_compare" >}}
 </p>
 
 - `Vanilla Detector` = `Head` + `Classifier` + 交叉熵有监督
@@ -140,7 +140,7 @@ editPost:
 ### 4.1 GLIP
 
 <p align="center">
-  <img src="glip.png" alt="glip" />
+  {{< img src="glip.png" alt="glip" >}}
 </p>
 
 - 本质为有监督训练；
@@ -154,7 +154,7 @@ editPost:
 ### 5.1 CLIPasso
 
 <p align="center">
-  <img src="clipasso.png" alt="clipasso" />
+  {{< img src="clipasso.png" alt="clipasso" >}}
 </p>
 
 #### 工作出发点
@@ -181,7 +181,7 @@ editPost:
 #### 工作出发点
 
 <p align="center">
-  <img src="clip4clip.png" alt="clip4clip" />
+  {{< img src="clip4clip.png" alt="clip4clip" >}}
 </p>
 
 - CLIP是为图像-文本对设计的模型。对于视频检索任务来说，其本质上是一段文本和多张图像（视频帧）进行匹配，找到最相关的视频帧
@@ -193,11 +193,11 @@ editPost:
 ### 6.2 ActionCLIP
 
 <p align="center">
-  <img src="actionclip_overview.png" alt="actionclip_overview" width=50% />
+  {{< img src="actionclip_overview.png" alt="actionclip_overview" width="50%" >}}
 </p>
 
 <p align="center">
-  <img src="actionclip.png" alt="actionclip" />
+  {{< img src="actionclip.png" alt="actionclip" >}}
 </p>
 
 与CLIP4Clip类似
@@ -207,7 +207,7 @@ editPost:
 ### 7.1 AudioCLIP
 
 <p align="center">
-  <img src="audioclip.png" alt="audioclip"/>
+  {{< img src="audioclip.png" alt="audioclip" >}}
 </p>
 
 添加音频编码器，仿照CLIP架构构造`音频-图像对比学习`和`音频-文本对比学习`
@@ -217,7 +217,7 @@ editPost:
 ### 8.1 PointCLIP
 
 <p align="center">
-  <img src="pointclip.png" alt="pointclip"/>
+  {{< img src="pointclip.png" alt="pointclip" >}}
 </p>
 
 1. 将点云映射到二维空间；
@@ -228,7 +228,7 @@ editPost:
 ### 9.1 DepthCLIP
 
 <p align="center">
-  <img src="depthclip.png" alt="depthclip"/>
+  {{< img src="depthclip.png" alt="depthclip" >}}
 </p>
 
 - 构建七类文本Prompt："This object is [distance class]"，[distance class]：

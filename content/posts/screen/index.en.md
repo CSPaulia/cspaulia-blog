@@ -1,10 +1,10 @@
 ---
-title: "终端多路复用工具 Screen 的用法"
+title: "Using `screen` to Manage Terminal Sessions"
 date: 2025-05-21T22:15:00+08:00
 # weight: 1
 # aliases: ["/first"]
-categories: ["命令行工具"]
-tags: ["服务器"]
+categories: ["Command Line Tools"]
+tags: ["Server"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -33,46 +33,52 @@ cover:
     hiddenInList: true # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
-    Text: "修改建议" # edit text
+    Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
 
-## screen基本命令
+## Basic `screen` commands
 
-- 新建一个screen会话
-```
-screen -S <名字>
+- Start a new `screen` session:
+
+```bash
+screen -S <name>
 ```
 
-- 查看所有screen会话
-```
+- List all `screen` sessions:
+
+```bash
 screen -ls
 ```
 
-- 恢复之前分离的会话
-```
-screen -r <会话ID>
+- Reattach a detached session:
+
+```bash
+screen -r <session-id>
 ```
 
-- 退出当前screen会话
-```
-键盘点击ctrl+a , 然后按d
-```
+- Detach (leave the session running in background):
 
-- 查看当前所在会话(id.name)
-```
+Press `Ctrl+a`, then press `d`.
+
+- Show the current session name (id.name):
+
+```bash
 echo $STY
 ```
 
-- 关闭会话
-如果在会话之中，输入exit或者Ctrl+d来终止这个会话。成功终止后，如果有其他处于Attached状态的screen界面，他就会跳到那个界面中，如果没有，他就会跳到默认界面上。
+- Close the current session:
 
-- 删除会话
-```
-screen -X -S session_name quit
+Run `exit` (or press `Ctrl+d`) inside the session.
+
+- Kill a session from outside:
+
+```bash
+screen -X -S <session_name> quit
 ```
 
-- 清理会话
-```
-screen -wipe #清理那些dead的会话
+- Clean up dead sessions:
+
+```bash
+screen -wipe
 ```

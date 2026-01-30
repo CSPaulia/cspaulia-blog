@@ -17,6 +17,88 @@ minify:
   disableXML: true
   minifyOutput: true
 
+defaultContentLanguage: zh
+defaultContentLanguageInSubdir: false
+hasCJKLanguage: true
+
+languages:
+  zh:
+    languageName: 中文
+    languageCode: zh-CN
+    weight: 1
+    params:
+      languageAltTitle: 中文
+      label:
+        text: "首页"
+    menu:
+      main:
+        - identifier: publications
+          name: 出版物
+          url: publications/
+          weight: 10
+        - identifier: posts
+          name: 文章
+          url: posts/
+          weight: 20
+        - identifier: series
+          name: 系列
+          url: series/
+          weight: 30
+        - identifier: categories
+          name: 分类
+          url: categories/
+          weight: 40
+        - identifier: tags
+          name: 标签
+          url: tags/
+          weight: 50
+        - identifier: archives
+          name: 归档
+          url: archives/
+          weight: 60
+        - identifier: search
+          name: 搜索
+          url: search/
+          weight: 70
+  en:
+    languageName: English
+    languageCode: en-US
+    weight: 2
+    params:
+      languageAltTitle: English
+      label:
+        text: "Home"
+    menu:
+      main:
+        - identifier: publications
+          name: Publications
+          url: publications/
+          weight: 10
+        - identifier: posts
+          name: Posts
+          url: posts/
+          weight: 20
+        - identifier: series
+          name: Series
+          url: series/
+          weight: 30
+        - identifier: categories
+          name: Categories
+          url: categories/
+          weight: 40
+        - identifier: tags
+          name: Tags
+          url: tags/
+          weight: 50
+        - identifier: archives
+          name: Archives
+          url: archives/
+          weight: 60
+        - identifier: search
+          name: Search
+          url: search/
+          weight: 70
+
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: ExampleSite
@@ -29,6 +111,8 @@ params:
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
+
+  displayFullLangName: true # display full language name in the theme toggle
 
   showLastMod: true # show last modified date in single pages
   showDate: true # show date in list pages
@@ -148,40 +232,7 @@ params:
 
   showCopyright: true
 
-menu:
-  main:
-    - identifier: publications
-      name: publications
-      url: /publications/
-      weight: 10
-    - identifier: posts
-      name: posts
-      url: /posts/
-      weight: 20
-    - identifier: series
-      name: series
-      url: /series/
-      weight: 30
-    - identifier: categories
-      name: categories
-      url: /categories/
-      weight: 40
-    - identifier: tags
-      name: tags
-      url: /tags/
-      weight: 50
-    - identifier: archives
-      name: archives
-      url: /archives/
-      weight: 60
-    - identifier: search
-      name: search
-      url: /search/
-      weight: 70
-    # - identifier: example
-    #   name: example.org
-    #   url: https://example.org
-    #   weight: 50
+# menu moved under languages.*.menu for multilingual support
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:

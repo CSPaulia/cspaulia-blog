@@ -2,10 +2,10 @@
 title: "GPT系列"
 date: 2025-06-18T20:00:00+08:00
 series:
-    main: "Large Language Model"
-    subseries: "Mainstream Series"
-categories: ["Large Language Model"]
-tags: ["GPT", "Pre-training", "LLM"]
+  main: "大语言模型"
+  subseries: "主流系列"
+categories: ["大语言模型"]
+tags: ["GPT", "预训练", "大语言模型"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
@@ -15,11 +15,13 @@ comments: false
 description: "详解 GPT系列 预训练语言模型"
 UseHugoToc: true
 cover:
-    image: "gpt-cover.png" 
-    alt: "GPT Architecture" 
-    caption: "GPT Architecture" 
-    relative: false
-    hidden: true
+  image: "gpt-cover.png" # image path/url
+  alt: "GPT 架构" # alt text
+  caption: "GPT 架构" # display caption under cover
+  relative: false # when using page bundles set this to true
+  hidden: true # only hide on current single page
+  hiddenInList: false # hide on list pages and home
+  # class: "post-cover"
 ---
 
 ## GPT-1
@@ -48,9 +50,10 @@ cover:
 
     由于GPT使用的是非监督预训练方法，在给定一段文本中的 k 个token时，就是要让模型顺利的预测出第 i 个token。因此将每个token的预测概率 $P(u_i | u_{i-k}, \cdots, u_{i-1}; \Theta)$ 求和并最大化，就是该模型的优化目标，该目标适用于任何任务。（解决出发点问题）
 
+
 - **模型架构：**
 
-    multi-layer Transformer decoder
+    多层 Transformer 解码器（Transformer Decoder）
 
     $$
     \begin{aligned}
@@ -60,16 +63,15 @@ cover:
     \end{aligned}
     $$
 
-    - We is the token embedding matrix
-
-    - Wp is the position embedding matrix
+    - $W_e$ 是 token embedding 矩阵
+    - $W_p$ 是 position embedding 矩阵
 
 ####  2. 基于监督的微调（Supervised fine-tuning）
 
 假设有一标注过的数据集，其包含：
 
-- a sequence of input tokens, $x1, \cdots , xm$
-- label $y$
+- 一段输入 token 序列 $x^1, \cdots , x^m$
+- 标签 $y$
 
 获得最后一层Transformer块的激活层输出$h^m_l$
 
@@ -92,7 +94,7 @@ $$
 #### 3. 不同任务的输入构造（Task-specific input transformations）
 
 <p align="center">
-  <img src="gpt-tasks.png" alt="gpt-tasks" />
+  {{< img src="gpt-tasks.png" alt="gpt-tasks" >}}
 </p>
 
 简单讲讲相似度任务。由于GPT是单向的模型（Transformer是一个词一个词的生成的），所以在处理相似度任务时，Text 1 和 Text 2 的先后顺序很重要，可以按照不同的排列顺序排放，利用GPT计算相似度取平均相似度。
@@ -101,16 +103,16 @@ $$
 
 ### 出发点
 
-创建Machine Learning系统的主要方法是收集一个用于训练的数据集，在某一特定领域使用某一特定数据集是导致模型缺乏泛化性能的主要原因。
+创建机器学习系统的主要方法是收集一个用于训练的数据集；但在某一特定领域使用某一特定数据集，往往会导致模型缺乏泛化能力。
 
 ### 方法
 
-- Multitask learning 多任务学习 --> 语言模型可以在zero-shot设置中执行下游任务，在没有任何参数或架构修改的情况下
-- pre-training + supervised finetuning
-- 模型的优化目标为 p(output|input, task)，具体可以描述为 {task(视作prompt), input, output}：
+- 多任务学习：语言模型可以在 zero-shot（零样本）设置下执行下游任务，而无需做任何参数或架构修改
+- 预训练 + 有监督微调
+- 模型的优化目标为 $p(\text{output}|\text{input}, \text{task})$，具体可表示为：{task（可视作 prompt）, input, output}：
     
-    - 例1：a translation training example can be written as the sequence (translate to french, english text, french text)
-    - 例2：reading comprehension training example can be written as (answer the question, document, question, answer)
+    - 例1：翻译任务可写成序列（翻译成法语，英文文本，法语文本）
+    - 例2：阅读理解可写成（回答问题，文章，问题，答案）
 
 #### 训练数据
 
@@ -140,17 +142,17 @@ in-context learning：在后续过程中，即使已知一些训练样本，也�
 - few-shot
 
 <p align="center">
-  <img src="gpt-3-tasks.png" alt="gpt-3-tasks" />
+  {{< img src="gpt-3-tasks.png" alt="gpt-3-tasks" >}}
 </p>
 
 #### 模型及其架构
 
 - 使用与GPT-2相同的模型和架​​构
-- Sparse Transformer
+- 稀疏 Transformer（Sparse Transformer）
 - 8种不同尺寸
 
 <p align="center">
-  <img src="gpt-3-models.png" alt="gpt-3-models" />
+  {{< img src="gpt-3-models.png" alt="gpt-3-models" >}}
 </p>
 
 ---
