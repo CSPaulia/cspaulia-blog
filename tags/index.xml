@@ -11,20 +11,20 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>LLM</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/llm/</link>
+      <title>架构</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E6%9E%B6%E6%9E%84/</link>
       <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/llm/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E6%9E%B6%E6%9E%84/</guid>
       <description></description>
     </item>
     <item>
-      <title>Training</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/training/</link>
+      <title>训练</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</link>
       <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/training/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</guid>
       <description></description>
     </item>
     <item>
@@ -42,13 +42,6 @@
       <description></description>
     </item>
     <item>
-      <title>Reinforcement Learning</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/reinforcement-learning/</link>
-      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/reinforcement-learning/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>RLHF</title>
       <link>https://cspaulia.github.io/cspaulia-blog/tags/rlhf/</link>
       <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
@@ -63,17 +56,24 @@
       <description></description>
     </item>
     <item>
+      <title>监督微调</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E7%9B%91%E7%9D%A3%E5%BE%AE%E8%B0%83/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>强化学习</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>FLOPs</title>
       <link>https://cspaulia.github.io/cspaulia-blog/tags/flops/</link>
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/tags/flops/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Memory</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/memory/</link>
-      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/memory/</guid>
       <description></description>
     </item>
     <item>
@@ -84,17 +84,31 @@
       <description></description>
     </item>
     <item>
-      <title>Tokenization</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/tokenization/</link>
-      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/tokenization/</guid>
+      <title>内存</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%86%85%E5%AD%98/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%86%85%E5%AD%98/</guid>
       <description></description>
     </item>
     <item>
-      <title>Metrics</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/metrics/</link>
+      <title>LLM</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/llm/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>分词</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%88%86%E8%AF%8D/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%88%86%E8%AF%8D/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>评价指标</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</link>
       <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/metrics/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</guid>
       <description></description>
     </item>
     <item>
@@ -119,17 +133,17 @@
       <description></description>
     </item>
     <item>
-      <title>Fine-Tuning</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/fine-tuning/</link>
-      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/fine-tuning/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>LoRA</title>
       <link>https://cspaulia.github.io/cspaulia-blog/tags/lora/</link>
       <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/tags/lora/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>微调</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BE%AE%E8%B0%83/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BE%AE%E8%B0%83/</guid>
       <description></description>
     </item>
     <item>
@@ -182,10 +196,10 @@
       <description></description>
     </item>
     <item>
-      <title>Normalization</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/normalization/</link>
+      <title>归一化</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BD%92%E4%B8%80%E5%8C%96/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/normalization/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%BD%92%E4%B8%80%E5%8C%96/</guid>
       <description></description>
     </item>
     <item>
@@ -196,17 +210,17 @@
       <description></description>
     </item>
     <item>
-      <title>Rebuttal</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/</link>
+      <title>回复</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%9B%9E%E5%A4%8D/</link>
       <pubDate>Wed, 21 May 2025 19:41:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/rebuttal/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%9B%9E%E5%A4%8D/</guid>
       <description></description>
     </item>
     <item>
-      <title>Loss</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/loss/</link>
+      <title>损失函数</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/loss/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/</guid>
       <description></description>
     </item>
   </channel>

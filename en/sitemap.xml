@@ -2,8 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/architecture/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -16,7 +19,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -29,20 +32,10 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/large-language-model/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/large-language-model/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/large-language-model/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/llm/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -55,7 +48,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -68,7 +61,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -81,39 +74,29 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/training/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/training/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/training/"
-                />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/aigc/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/diffusion-models/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/flow-matching/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/flow/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/generation_with_sdes/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/posts/flow/"
+                href="https://cspaulia.github.io/cspaulia-blog/posts/generation_with_sdes/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/posts/flow/"
+                href="https://cspaulia.github.io/cspaulia-blog/en/posts/generation_with_sdes/"
                 />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/generative-models/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/publications/i2world/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
@@ -129,46 +112,16 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-skills/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/deep-learning-skills/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-skills/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/reinforce-learning/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/reinforce-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/reinforce-learning/"
-                />
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/reinforcement-learning/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/reinforcement-learning/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/reinforcement-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/reinforcement-learning/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/rlhf/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -181,7 +134,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/sft/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -194,7 +147,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/sft_rlhf/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -207,7 +160,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/flops/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -220,33 +173,13 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/memory/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/memory/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/memory/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/nlp/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/nlp/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/nlp/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/pytorch/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -259,7 +192,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -272,7 +205,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -285,33 +218,10 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/tokenization/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/tokenization/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/tokenization/"
-                />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/metrics/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/metrics/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/metrics/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -322,6 +232,12 @@
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/metric/"
                 />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/evaluation/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/metrics/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/gpt/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
@@ -353,20 +269,10 @@
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/fine-tuning/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/fine-tuning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/fine-tuning/"
-                />
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/lora/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -379,7 +285,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -392,7 +298,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/hugo/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -405,7 +311,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/papermod/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -418,7 +324,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/hugo-papermod/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -430,31 +336,11 @@
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/hugo-papermod/"
                 />
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/%E5%BB%BA%E7%AB%99/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/%E5%BB%BA%E7%AB%99/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/%E5%BB%BA%E7%AB%99/"
-                />
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/web-development/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/%E5%BB%BA%E7%AB%99/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/%E5%BB%BA%E7%AB%99/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/%E5%BB%BA%E7%AB%99/"
-                />
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/website/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/base-model/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
@@ -499,13 +385,13 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/command-line-tools/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/server/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/screen/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -518,7 +404,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/activation/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -531,7 +417,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/activation/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/attention/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
@@ -549,27 +435,11 @@
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/cross_attention/"
                 />
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-components/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/neural-network-modules/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/normalization/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/normalization/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/normalization/"
-                />
-  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -580,6 +450,9 @@
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/norm/"
                 />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/normalization/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/git/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>
@@ -607,21 +480,27 @@
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/github-tips/"
                 />
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/loss/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/paper-writing/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/rebuttal/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/rebuttal/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/loss/"
+                href="https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/loss/"
+                href="https://cspaulia.github.io/cspaulia-blog/en/posts/rebuttal/"
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -632,6 +511,12 @@
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/loss/"
                 />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/loss/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/loss-function/</loc>
+    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/publications/lpgseg/</loc>
     <lastmod>2026-01-30T13:44:37+08:00</lastmod>

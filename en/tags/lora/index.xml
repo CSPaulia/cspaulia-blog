@@ -11,14 +11,14 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/lora/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>LoRA: 大模型低秩适配方法详解</title>
+      <title>LoRA: Low-Rank Adaptation for LLM Fine-tuning</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</link>
       <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</guid>
-      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
+      <description>A detailed walkthrough of LoRA (Low-Rank Adaptation) for parameter-efficient LLM fine-tuning</description>
     </item>
   </channel>
 </rss>

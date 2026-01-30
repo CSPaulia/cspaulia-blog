@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-skills/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>SFT and RLHF</title>
@@ -21,32 +21,39 @@
       <description>Introduction of SFT and RLHF.</description>
     </item>
     <item>
-      <title>记录100种评价指标</title>
+      <title>100 Evaluation Metrics (Work in Progress)</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</link>
       <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</guid>
       <description>[Epoch  10/100] Updating...</description>
     </item>
     <item>
-      <title>LoRA: 大模型低秩适配方法详解</title>
+      <title>LoRA: Low-Rank Adaptation for LLM Fine-tuning</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</link>
       <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</guid>
-      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
+      <description>A detailed walkthrough of LoRA (Low-Rank Adaptation) for parameter-efficient LLM fine-tuning</description>
     </item>
     <item>
-      <title>收集N个Norm方法</title>
+      <title>A Collection of Activation Functions</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/activation/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/activation/</guid>
+      <description>[Epoch  7/NaN] Updating...</description>
+    </item>
+    <item>
+      <title>100 Normalization Methods (Work in Progress)</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</guid>
-      <description>[Epoch  1/NaN] Updating...</description>
+      <description>[Epoch 1/100] Updating...</description>
     </item>
     <item>
-      <title>记录100种损失函数（Loss Function）</title>
+      <title>100 Loss Functions (Work in Progress)</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</guid>
-      <description>[Epoch  6/100] Updating...</description>
+      <description>[Epoch 6/100] Updating…</description>
     </item>
   </channel>
 </rss>

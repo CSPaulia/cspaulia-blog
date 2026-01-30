@@ -11,14 +11,14 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 04 Nov 2025 17:58:25 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/sft/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>SFT and RLHF</title>
+      <title>监督微调（SFT）与人类反馈强化学习（RLHF）</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/sft_rlhf/</link>
       <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/sft_rlhf/</guid>
-      <description>Introduction of SFT and RLHF.</description>
+      <description>监督微调（SFT）与人类反馈强化学习（RLHF）笔记</description>
     </item>
   </channel>
 </rss>

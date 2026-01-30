@@ -11,21 +11,21 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/llm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LM Architecture and Training</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</link>
       <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</guid>
-      <description>关于语言模型架构和超参数的笔记</description>
+      <description>Notes on LLM architecture and training hyperparameters</description>
     </item>
     <item>
       <title>Tokenization</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</link>
       <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</guid>
-      <description>Tokenization in LLM</description>
+      <description>Tokenization in LLMs</description>
     </item>
     <item>
       <title>GPT Series</title>
@@ -33,13 +33,6 @@
       <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/gpt/</guid>
       <description>A deep dive into the GPT family of pretrained language models.</description>
-    </item>
-    <item>
-      <title>LoRA: 大模型低秩适配方法详解</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</link>
-      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</guid>
-      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
     </item>
   </channel>
 </rss>

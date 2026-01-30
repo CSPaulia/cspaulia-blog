@@ -11,21 +11,21 @@
     </image>
     <generator>Hugo -- 0.155.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/training/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LM Architecture and Training</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</link>
       <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</guid>
-      <description>关于语言模型架构和超参数的笔记</description>
+      <description>Notes on LLM architecture and training hyperparameters</description>
     </item>
     <item>
-      <title>基本原语（primitives）与资源计算</title>
+      <title>Training Primitives and Resource Accounting</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</link>
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</guid>
-      <description>深度学习训练中的基本原语与资源计算总结</description>
+      <description>A summary of training primitives and resource accounting in deep learning.</description>
     </item>
   </channel>
 </rss>

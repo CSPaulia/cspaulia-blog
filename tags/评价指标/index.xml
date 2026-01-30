@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>评价指标 on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/</link>
+    <description>Recent content in 评价指标 on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>记录 100 种评价指标</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/metric/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/metric/</guid>
+      <description>[Epoch  10/100] Updating...</description>
+    </item>
+  </channel>
+</rss>
