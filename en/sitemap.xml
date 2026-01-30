@@ -6,7 +6,7 @@
     <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -16,19 +16,6 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/categories/"
-                />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/"
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/large-language-model/</loc>
@@ -61,7 +48,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -99,7 +86,7 @@
     <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/publications/i2world/</loc>
-    <lastmod>2026-01-30T13:44:37+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -481,13 +468,13 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/paper-writing/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/rebuttal/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/rebuttal/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-CN"
@@ -542,6 +529,19 @@
                 rel="alternate"
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/archives/"
+                />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/</loc>
+    <lastmod>2026-01-30T18:35:15+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/"
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/</loc>
