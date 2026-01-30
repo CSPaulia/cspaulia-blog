@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on cspaulia-blog</title>
+    <title>文章 on cspaulia-blog</title>
     <link>https://cspaulia.github.io/cspaulia-blog/posts/</link>
-    <description>Recent content in Posts on cspaulia-blog</description>
+    <description>Recent content in 文章 on cspaulia-blog</description>
     <image>
       <title>cspaulia-blog</title>
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.155.0</generator>
-    <language>en</language>
-    <lastBuildDate>Thu, 29 Jan 2026 15:01:43 +0800</lastBuildDate>
+    <language>zh-CN</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LM Architecture and Training</title>
@@ -25,7 +24,7 @@
       <link>https://cspaulia.github.io/cspaulia-blog/posts/flow/</link>
       <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/flow/</guid>
-      <description>Notes for Flow Matching and Diffusion from MIT course.</description>
+      <description>MIT 课程《Flow Matching and Diffusion》笔记</description>
     </item>
     <item>
       <title>SFT and RLHF</title>
@@ -77,14 +76,14 @@
       <description>改进我的PaperMod</description>
     </item>
     <item>
-      <title>CLIP及其改进工作</title>
+      <title>CLIP 及其改进工作</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/clip/</link>
       <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/clip/</guid>
-      <description>CLIP及其改进工作</description>
+      <description>CLIP 及其改进工作</description>
     </item>
     <item>
-      <title>终端多路复用工具Screen的用法</title>
+      <title>终端多路复用工具 Screen 的用法</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/screen/</link>
       <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/screen/</guid>
@@ -112,50 +111,25 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;关闭会话
-如果在会话之中，输入exit或者Ctrl+d来终止这个会话。成功终止后，如果有其他处于Attached状态的screen界面，他就会跳到那个界面中，如果没有，他就会跳到默认界面上。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;删除会话&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;screen -X -S session_name quit
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;清理会话&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;screen -wipe #清理那些dead的会话
-&lt;/code&gt;&lt;/pre&gt;</description>
+如果在会话之中，输入exit或者Ctrl+d来终止这个会话。成功终止后，如果有其他处于Attached状态的screen界面，他就会跳到那个界面中，如果没有，他就会跳到默认界面上。&lt;/p&gt;</description>
     </item>
     <item>
       <title>交叉注意力机制</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</guid>
-      <description>&lt;h2 id=&#34;cross-attention&#34;&gt;Cross Attention&lt;/h2&gt;
-&lt;p&gt;来自&lt;a href=&#34;https://vaclavkosar.com/ml/cross-attention-in-transformer-architecture&#34;&gt;博客&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;h2 id=&#34;交叉注意力cross-attention&#34;&gt;交叉注意力（Cross Attention）&lt;/h2&gt;
 &lt;h3 id=&#34;简介&#34;&gt;简介&lt;/h3&gt;
-&lt;p&gt;Cross Attention是：&lt;/p&gt;
+&lt;p&gt;交叉注意力是：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;融合两种不同的嵌入序列的注意力机制&lt;/li&gt;
+&lt;li&gt;融合两种不同嵌入序列的注意力机制&lt;/li&gt;
 &lt;li&gt;两个序列必须包含&lt;strong&gt;相同的维度&lt;/strong&gt;&lt;/li&gt;
 &lt;li&gt;两个序列可以来自不同的模态（例如文本、图像、声音）&lt;/li&gt;
-&lt;li&gt;其中一个序列作为&lt;strong&gt;Query的输入&lt;/strong&gt;，决定了输出的长度&lt;/li&gt;
-&lt;li&gt;另一个序列作为&lt;strong&gt;Key和Value的输入&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;其中一个序列作为&lt;strong&gt;查询（Query，Q）的输入&lt;/strong&gt;，决定输出序列的长度&lt;/li&gt;
+&lt;li&gt;另一个序列作为&lt;strong&gt;键（Key，K）和值（Value，V）的输入&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;cross-attention-vs-self-attention&#34;&gt;Cross Attention vs Self-attention&lt;/h3&gt;
-&lt;p&gt;Cross Attention与Self-attention只有输入不同。Cross Attention输入为两个维度相同的嵌入序列；Self-attention输入为一个嵌入序列，其KQV均由该序列生成。&lt;/p&gt;
-&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;cross-attention算法&#34;&gt;Cross Attention算法&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;拥有两个序列S1、S2&lt;/li&gt;
-&lt;li&gt;计算S1的K、V&lt;/li&gt;
-&lt;li&gt;计算S2的Q&lt;/li&gt;
-&lt;li&gt;根据K和Q计算注意力矩阵&lt;/li&gt;
-&lt;li&gt;将V应用于注意力矩阵&lt;/li&gt;
-&lt;li&gt;输出的序列长度与S2一致&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;$$
-\pmb{\text{softmax}}((W_Q S_2)(W_K S_1)^\mathrm{T})W_v S_1
-$$&lt;/p&gt;</description>
+&lt;h3 id=&#34;交叉注意力-vs-自注意力self-attention&#34;&gt;交叉注意力 vs 自注意力（Self-attention）&lt;/h3&gt;
+&lt;p&gt;交叉注意力与自注意力的主要区别在于输入：交叉注意力接收两个维度相同的嵌入序列；自注意力只接收一个嵌入序列，且 Q/K/V 都由该序列生成。&lt;/p&gt;</description>
     </item>
     <item>
       <title>收集N个激活函数</title>
@@ -172,7 +146,7 @@ $$&lt;/p&gt;</description>
       <description>[Epoch  1/NaN] Updating...</description>
     </item>
     <item>
-      <title>如何上传本地文件到Github库</title>
+      <title>如何使用 git 上传本地文件到 Github 库</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</link>
       <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/github-tips/</guid>
@@ -188,36 +162,7 @@ $$&lt;/p&gt;</description>
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;这里的 &amp;ldquo;Your Name&amp;rdquo; 和 &amp;ldquo;&lt;a href=&#34;mailto:your_email@example.com&#34;&gt;your_email@example.com&lt;/a&gt;&amp;rdquo; 分别为你的用户名和邮箱地址&lt;/p&gt;
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;
-&lt;p&gt;检查 Git 是否已经配置用户名和邮箱：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; git config --global user.name
- git config --global user.email
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3 id=&#34;3-上传文件到github本地仓库远程仓库&#34;&gt;3. 上传文件到Github（本地仓库–&amp;gt;远程仓库）&lt;/h3&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;初始化 Git 仓库, 执行以下命令：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; git init
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;将 csj_project 项目文件夹添加到本地仓库中，执行以下命令：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; git add csj_project/
- #或者输入
- git add .
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;将当前工作目录中的更改保存到本地代码仓库中，执行以下命令：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt; git commit -m &amp;quot;Initial commit&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;在 GitHub 上创建一个新的远程仓库，获取复制该仓库的 SSH 或 HTTPS 链接&lt;/p&gt;</description>
+&lt;p&gt;这里的 &amp;ldquo;Your Name&amp;rdquo; 和 &amp;ldquo;&lt;a href=&#34;mailto:your_email@example.com&#34;&gt;your_email@example.com&lt;/a&gt;&amp;rdquo; 分别为你的用户名和邮箱地址&lt;/p&gt;</description>
     </item>
     <item>
       <title>论文回复方法（Rebuttal Method）</title>
@@ -236,44 +181,7 @@ $$&lt;/p&gt;</description>
 &lt;p&gt;&lt;strong&gt;整理所有需要补充的实验&lt;/strong&gt;，估计大概要用到多少的&lt;strong&gt;算力资源&lt;/strong&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;写rebuttal文档&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;论据准备&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;理论论证：给出详细的推导过程，把过程给师兄、老师看&lt;/li&gt;
-&lt;li&gt;实验论证：多次检查实验结果&lt;/li&gt;
-&lt;li&gt;引用论证：明确给出论据的位置（把arXiv的链接贴出来）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;表达要求&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用第二人称称呼审稿人（拉近距离）&lt;/li&gt;
-&lt;li&gt;态度诚恳、有理有据、逻辑清晰、有人情味的表达&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;撰写流程&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;先写中文回答&lt;/li&gt;
-&lt;li&gt;DeepL翻译&lt;/li&gt;
-&lt;li&gt;再GPT润色&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;写完之后，&lt;strong&gt;给老师、师兄过目&lt;/strong&gt;！！！！再统一进行回复。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;如果审稿人继续回复，则继续讨论：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;包括继续和师兄、老师进行一对一的交流&lt;/li&gt;
-&lt;li&gt;更新rebuttal文档&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</description>
+&lt;p&gt;写rebuttal文档&lt;/p&gt;</description>
     </item>
     <item>
       <title>记录100种损失函数（Loss Function）</title>

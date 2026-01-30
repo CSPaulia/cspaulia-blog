@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>NLP on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/en/categories/nlp/</link>
+    <description>Recent content in NLP on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/categories/nlp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>基本原语（primitives）与资源计算</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</guid>
+      <description>深度学习训练中的基本原语与资源计算总结</description>
+    </item>
+    <item>
+      <title>Tokenization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</guid>
+      <description>Tokenization in LLM</description>
+    </item>
+  </channel>
+</rss>

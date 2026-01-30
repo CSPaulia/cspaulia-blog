@@ -10,15 +10,15 @@
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
     <generator>Hugo -- 0.155.0</generator>
-    <language>en</language>
-    <lastBuildDate>Thu, 29 Jan 2026 15:01:43 +0800</lastBuildDate>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E6%B5%81%E5%8C%B9%E9%85%8D/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>流匹配与扩散模型</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/flow/</link>
       <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/flow/</guid>
-      <description>Notes for Flow Matching and Diffusion from MIT course.</description>
+      <description>MIT 课程《Flow Matching and Diffusion》笔记</description>
     </item>
   </channel>
 </rss>

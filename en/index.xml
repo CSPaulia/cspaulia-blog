@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/en/</link>
+    <description>Recent content on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LM Architecture and Training</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/</guid>
+      <description>关于语言模型架构和超参数的笔记</description>
+    </item>
+    <item>
+      <title>Flow Matching and Diffusion Models</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/flow/</link>
+      <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/flow/</guid>
+      <description>Notes for Flow Matching and Diffusion from MIT course.</description>
+    </item>
+    <item>
+      <title>SFT and RLHF</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/sft_rlhf/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/sft_rlhf/</guid>
+      <description>Introduction of SFT and RLHF.</description>
+    </item>
+    <item>
+      <title>基本原语（primitives）与资源计算</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/primitives/</guid>
+      <description>深度学习训练中的基本原语与资源计算总结</description>
+    </item>
+    <item>
+      <title>Tokenization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/tokenization/</guid>
+      <description>Tokenization in LLM</description>
+    </item>
+    <item>
+      <title>记录100种评价指标</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</guid>
+      <description>[Epoch  10/100] Updating...</description>
+    </item>
+    <item>
+      <title>GPT Series</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/gpt/</link>
+      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/gpt/</guid>
+      <description>A deep dive into the GPT family of pretrained language models.</description>
+    </item>
+    <item>
+      <title>LoRA: 大模型低秩适配方法详解</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</guid>
+      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
+    </item>
+    <item>
+      <title>PaperMod进化论</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/hugo-papermod/</link>
+      <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/hugo-papermod/</guid>
+      <description>改进我的PaperMod</description>
+    </item>
+    <item>
+      <title>CLIP and Its Follow-up Works</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/clip/</link>
+      <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/clip/</guid>
+      <description>CLIP and its follow-up works</description>
+    </item>
+    <item>
+      <title>Using `screen` to Manage Terminal Sessions</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/screen/</link>
+      <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/screen/</guid>
+      <description>&lt;h2 id=&#34;basic-screen-commands&#34;&gt;Basic &lt;code&gt;screen&lt;/code&gt; commands&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Start a new &lt;code&gt;screen&lt;/code&gt; session:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;screen -S &amp;lt;name&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;List all &lt;code&gt;screen&lt;/code&gt; sessions:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;screen -ls
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Reattach a detached session:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;screen -r &amp;lt;session-id&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Detach (leave the session running in background):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Press &lt;code&gt;Ctrl+a&lt;/code&gt;, then press &lt;code&gt;d&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Show the current session name (id.name):&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$STY&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Close the current session:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Run &lt;code&gt;exit&lt;/code&gt; (or press &lt;code&gt;Ctrl+d&lt;/code&gt;) inside the session.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Kill a session from outside:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;screen -X -S &amp;lt;session_name&amp;gt; quit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Clean up dead sessions:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;screen -wipe
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+    </item>
+    <item>
+      <title>A Collection of Activation Functions</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/activation/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/activation/</guid>
+      <description>[Epoch  7/NaN] Updating...</description>
+    </item>
+    <item>
+      <title>Cross-Attention Mechanism</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/cross_attention/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/cross_attention/</guid>
+      <description>&lt;h2 id=&#34;cross-attention&#34;&gt;Cross-Attention&lt;/h2&gt;
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;Cross-attention is an attention mechanism that fuses two embedding sequences:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The two sequences must have the &lt;strong&gt;same embedding dimension&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;They can come from different modalities (e.g., text, images, audio).&lt;/li&gt;
+&lt;li&gt;One sequence provides the &lt;strong&gt;queries (Q)&lt;/strong&gt; and determines the &lt;strong&gt;output length&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;The other sequence provides the &lt;strong&gt;keys (K)&lt;/strong&gt; and &lt;strong&gt;values (V)&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;cross-attention-vs-self-attention&#34;&gt;Cross-attention vs. self-attention&lt;/h3&gt;
+&lt;p&gt;The key difference is the input:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Self-attention&lt;/strong&gt; uses a single sequence to produce Q/K/V.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-attention&lt;/strong&gt; uses two sequences: one for Q and the other for K/V.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>收集N个Norm方法</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</link>
+      <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</guid>
+      <description>[Epoch  1/NaN] Updating...</description>
+    </item>
+    <item>
+      <title>How to Use Git to Push Local Files to a GitHub Repository</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/github-tips/</link>
+      <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/github-tips/</guid>
+      <description>&lt;h2 id=&#34;push-local-files-to-github&#34;&gt;Push local files to GitHub&lt;/h2&gt;
+&lt;h3 id=&#34;1-create-a-repository-on-github-remote&#34;&gt;1. Create a repository on GitHub (remote)&lt;/h3&gt;
+&lt;p&gt;Create a new repository on GitHub.&lt;/p&gt;
+&lt;h3 id=&#34;2-install--configure-git&#34;&gt;2. Install / configure Git&lt;/h3&gt;
+&lt;p&gt;Configure your username and email:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.name &lt;span class=&#34;s2&#34;&gt;&amp;#34;Your Name&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.email &lt;span class=&#34;s2&#34;&gt;&amp;#34;your_email@example.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Verify the current config:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.name
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git config --global user.email
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;3-push-files-local---remote&#34;&gt;3. Push files (local -&amp;gt; remote)&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Initialize a Git repo:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git init
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;Add files:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# add a folder&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add csj_project/
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# or add everything&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git add .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;Commit:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git commit -m &lt;span class=&#34;s2&#34;&gt;&amp;#34;Initial commit&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;Copy the repository URL (SSH or HTTPS) from GitHub.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>记录100种损失函数（Loss Function）</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</link>
+      <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</guid>
+      <description>[Epoch  6/100] Updating...</description>
+    </item>
+    <item>
+      <title>Series</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/series/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/series/</guid>
+      <description>series</description>
+    </item>
+  </channel>
+</rss>

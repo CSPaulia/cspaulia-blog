@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Tags on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/en/tags/</link>
+    <description>Recent content in Tags on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/llm/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/llm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Training</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/training/</link>
+      <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/training/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Diffusion Models</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/diffusion-models/</link>
+      <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/diffusion-models/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Flow Matching</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/flow-matching/</link>
+      <pubDate>Fri, 10 Oct 2025 08:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/flow-matching/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/reinforcement-learning/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/reinforcement-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RLHF</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/rlhf/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/rlhf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>SFT</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/sft/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/sft/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>FLOPs</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/flops/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/flops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Memory</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/memory/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/memory/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PyTorch</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/pytorch/</link>
+      <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/pytorch/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Tokenization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/tokenization/</link>
+      <pubDate>Thu, 17 Jul 2025 10:20:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/tokenization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Metrics</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/metrics/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/metrics/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GPT</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/gpt/</link>
+      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/gpt/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Pre-Training</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/pre-training/</link>
+      <pubDate>Wed, 18 Jun 2025 20:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/pre-training/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Fine-Tuning</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/fine-tuning/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/fine-tuning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>LoRA</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/lora/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/lora/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Hugo</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/hugo/</link>
+      <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/hugo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PaperMod</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/papermod/</link>
+      <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/papermod/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>建站</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/%E5%BB%BA%E7%AB%99/</link>
+      <pubDate>Sat, 07 Jun 2025 17:32:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/%E5%BB%BA%E7%AB%99/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CLIP</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/clip/</link>
+      <pubDate>Tue, 03 Jun 2025 10:46:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/clip/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Server</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/server/</link>
+      <pubDate>Wed, 21 May 2025 22:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/server/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Activation</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/activation/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/activation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Attention</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/attention/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/attention/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Normalization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/normalization/</link>
+      <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/normalization/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Git</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/git/</link>
+      <pubDate>Wed, 21 May 2025 22:07:00 +0900</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/git/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Loss</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/tags/loss/</link>
+      <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/tags/loss/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

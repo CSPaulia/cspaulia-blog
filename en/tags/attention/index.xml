@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Attention on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/en/tags/attention/</link>
+    <description>Recent content in Attention on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/attention/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cross-Attention Mechanism</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/cross_attention/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/cross_attention/</guid>
+      <description>&lt;h2 id=&#34;cross-attention&#34;&gt;Cross-Attention&lt;/h2&gt;
+&lt;h3 id=&#34;overview&#34;&gt;Overview&lt;/h3&gt;
+&lt;p&gt;Cross-attention is an attention mechanism that fuses two embedding sequences:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The two sequences must have the &lt;strong&gt;same embedding dimension&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;They can come from different modalities (e.g., text, images, audio).&lt;/li&gt;
+&lt;li&gt;One sequence provides the &lt;strong&gt;queries (Q)&lt;/strong&gt; and determines the &lt;strong&gt;output length&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;The other sequence provides the &lt;strong&gt;keys (K)&lt;/strong&gt; and &lt;strong&gt;values (V)&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;cross-attention-vs-self-attention&#34;&gt;Cross-attention vs. self-attention&lt;/h3&gt;
+&lt;p&gt;The key difference is the input:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Self-attention&lt;/strong&gt; uses a single sequence to produce Q/K/V.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cross-attention&lt;/strong&gt; uses two sequences: one for Q and the other for K/V.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;cross attention&#34; loading=&#34;lazy&#34; src=&#34;https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/cross_attention.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

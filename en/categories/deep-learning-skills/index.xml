@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Deep Learning Skills on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-skills/</link>
+    <description>Recent content in Deep Learning Skills on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/categories/deep-learning-skills/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SFT and RLHF</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/sft_rlhf/</link>
+      <pubDate>Mon, 29 Sep 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/sft_rlhf/</guid>
+      <description>Introduction of SFT and RLHF.</description>
+    </item>
+    <item>
+      <title>记录100种评价指标</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</link>
+      <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/metric/</guid>
+      <description>[Epoch  10/100] Updating...</description>
+    </item>
+    <item>
+      <title>LoRA: 大模型低秩适配方法详解</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</link>
+      <pubDate>Wed, 18 Jun 2025 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/lora/</guid>
+      <description>详细解读 LoRA (Low-Rank Adaptation) 方法在大模型微调中的应用</description>
+    </item>
+    <item>
+      <title>收集N个Norm方法</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</link>
+      <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/norm/</guid>
+      <description>[Epoch  1/NaN] Updating...</description>
+    </item>
+    <item>
+      <title>记录100种损失函数（Loss Function）</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</link>
+      <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/loss/</guid>
+      <description>[Epoch  6/100] Updating...</description>
+    </item>
+  </channel>
+</rss>

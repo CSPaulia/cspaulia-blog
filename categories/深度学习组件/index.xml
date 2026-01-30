@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>深度学习组件 on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BB%84%E4%BB%B6/</link>
+    <description>Recent content in 深度学习组件 on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%BB%84%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>收集N个激活函数</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/activation/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/activation/</guid>
+      <description>[Epoch  7/NaN] Updating...</description>
+    </item>
+  </channel>
+</rss>

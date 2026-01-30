@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>神经网络模块 on cspaulia-blog</title>
+    <link>https://cspaulia.github.io/cspaulia-blog/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9D%97/</link>
+    <description>Recent content in 神经网络模块 on cspaulia-blog</description>
+    <image>
+      <title>cspaulia-blog</title>
+      <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.155.0</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Jan 2026 13:44:37 +0800</lastBuildDate>
+    <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9D%97/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>交叉注意力机制</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</link>
+      <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/cross_attention/</guid>
+      <description>&lt;h2 id=&#34;交叉注意力cross-attention&#34;&gt;交叉注意力（Cross Attention）&lt;/h2&gt;
+&lt;h3 id=&#34;简介&#34;&gt;简介&lt;/h3&gt;
+&lt;p&gt;交叉注意力是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;融合两种不同嵌入序列的注意力机制&lt;/li&gt;
+&lt;li&gt;两个序列必须包含&lt;strong&gt;相同的维度&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;两个序列可以来自不同的模态（例如文本、图像、声音）&lt;/li&gt;
+&lt;li&gt;其中一个序列作为&lt;strong&gt;查询（Query，Q）的输入&lt;/strong&gt;，决定输出序列的长度&lt;/li&gt;
+&lt;li&gt;另一个序列作为&lt;strong&gt;键（Key，K）和值（Value，V）的输入&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;交叉注意力-vs-自注意力self-attention&#34;&gt;交叉注意力 vs 自注意力（Self-attention）&lt;/h3&gt;
+&lt;p&gt;交叉注意力与自注意力的主要区别在于输入：交叉注意力接收两个维度相同的嵌入序列；自注意力只接收一个嵌入序列，且 Q/K/V 都由该序列生成。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
