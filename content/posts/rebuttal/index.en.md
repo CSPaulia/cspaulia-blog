@@ -47,19 +47,17 @@ editPost:
 
 4. Write the rebuttal document.
 
-        - Evidence preparation
-            - Theoretical justification: provide detailed derivations; show the full process to senior students and your advisor.
-            - Experimental justification: double-check (and re-check) experimental results.
-            - Citation justification: clearly point to where the evidence is (e.g., paste the arXiv link).
-
-        - Writing style requirements
-            - Address reviewers in the second person (to reduce distance).
-            - Be sincere, well-reasoned, logically clear, and human.
-
-        - Drafting process
-            - Write the Chinese responses first.
-            - Translate with DeepL.
-            - Polish with GPT.
+    - Evidence preparation
+        - Theoretical justification: provide detailed derivations; show the full process to senior students and your advisor.
+        - Experimental justification: double-check (and re-check) experimental results.
+        - Citation justification: clearly point to where the evidence is (e.g., paste the arXiv link).
+    - Writing style requirements
+        - Address reviewers in the second person (to reduce distance).
+        - Be sincere, well-reasoned, logically clear, and human.
+    - Drafting process
+        - Write the Chinese responses first.
+        - Translate with DeepL.
+        - Polish with GPT.
 
 5. After finishing, **ask your advisor and senior students to review** it, then submit a unified response.
 

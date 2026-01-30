@@ -15,6 +15,7 @@ authors:
 selected: true
 paper: https://openaccess.thecvf.com/content/ICCV2025/papers/Liao_I2-World_Intra-Inter_Tokenization_for_Efficient_Dynamic_4D_Scene_Forecasting_ICCV_2025_paper.pdf
 arxiv: https://arxiv.org/abs/2507.09144
+code: https://github.com/lzzzzzm/II-World
 summary: An efficient 4D occupancy forecasting framework with dual tokenization achieving 94.8 FPS and 41.8% improvement over SOTA
 cover:
     image: cover.png

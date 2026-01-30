@@ -30,6 +30,34 @@ languages:
       languageAltTitle: 中文
       label:
         text: "首页"
+      # profile-mode (ZH)
+      profileMode:
+        enabled: true
+        title: CSPaulia
+        subtitle: "欢迎来到 CSPaulia 的博客。"
+        description: "
+          \U0001F44B 我叫 **陈帅嘉**，目前是西安交通大学人工智能与机器人研究所博士生。
+          研究兴趣：暂无。"
+        imageUrl: "images/ly&sj.jpg"
+        imageWidth: 120
+        imageHeight: 120
+        imageTitle: my image
+        buttons:
+          - name: 出版物
+            url: publications
+          - name: 文章
+            url: posts
+          - name: 标签
+            url: tags
+          - name: 分类
+            url: categories
+          - name: 系列
+            url: series
+
+      # home-info mode (ZH)
+      homeInfoParams:
+        Title: "你好 \U0001F44B"
+        Content: 欢迎来到 CSPaulia 的博客
     menu:
       main:
         - identifier: publications
@@ -68,6 +96,35 @@ languages:
       languageAltTitle: English
       label:
         text: "Home"
+      # profile-mode (EN)
+      profileMode:
+        enabled: true
+        title: CSPaulia
+        subtitle: "Welcome to CSPaulia's blog."
+        description: "
+          \U0001F44B My name is **Shuaijia Chen**, and I am currently a PhD student at the
+          Institute of Artificial Intelligence and Robotics, Xi’an Jiaotong University.
+          Research interests: None."
+        imageUrl: "images/ly&sj.jpg"
+        imageWidth: 120
+        imageHeight: 120
+        imageTitle: my image
+        buttons:
+          - name: Publications
+            url: publications
+          - name: Posts
+            url: posts
+          - name: Tags
+            url: tags
+          - name: Categories
+            url: categories
+          - name: Series
+            url: series
+
+      # home-info mode (EN)
+      homeInfoParams:
+        Title: "Hi there \U0001F44B"
+        Content: Welcome to CSPaulia's blog
     menu:
       main:
         - identifier: publications
@@ -155,33 +212,7 @@ params:
     iconHeight: 35
 
   # profile-mode
-  profileMode:
-    enabled: true # needs to be explicitly set
-    title: CSPaulia
-    subtitle: "Welcome to CSPaulia's blog."
-    description: "\U0001F44B My name is **Shuaijia Chen**, and I am currently a PhD student at the
-      Institute of Artificial Intelligence and Robotics, Xi’an Jiaotong University.
-      Research interests: None."
-    imageUrl: "images/ly&sj.jpg"
-    imageWidth: 120
-    imageHeight: 120
-    imageTitle: my image
-    buttons:
-      - name: Publications
-        url: publications
-      - name: Posts
-        url: posts
-      - name: Tags
-        url: tags
-      - name: Categories
-        url: categories
-      - name: Series
-        url: series
-
-  # home-info mode
-  homeInfoParams:
-    Title: "Hi there \U0001F44B"
-    Content: Welcome to CSPaulia's blog
+  # profileMode/homeInfoParams are defined under languages.*.params for multilingual home.
 
   socialIcons:
     # - name: x
