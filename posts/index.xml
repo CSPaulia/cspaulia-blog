@@ -9,9 +9,16 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.155.0</generator>
+    <generator>Hugo -- 0.157.0</generator>
     <language>zh-CN</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为生成模型构建训练目标</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/generation_targets/</link>
+      <pubDate>Tue, 03 Feb 2026 11:10:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/generation_targets/</guid>
+      <description>MIT 课程《Flow Matching and Diffusion》Lecture 2 笔记</description>
+    </item>
     <item>
       <title>语言模型架构与训练</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</link>
