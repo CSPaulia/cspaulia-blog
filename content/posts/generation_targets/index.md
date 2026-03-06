@@ -141,4 +141,41 @@ $$
 > u_t^{target}(x|z) = \left(\dot{\alpha}_t - \frac{\dot{\sigma}_t}{\sigma_t}\alpha_t \right) z + \frac{\dot{\sigma}_t}{\sigma_t} x
 > $$
 >
+> 其中 $\dot{\alpha}_t$ 和 $\dot{\sigma}_t$ 分别为 $\alpha_t$ 和 $\sigma_t$ 关于 $t$ 的导数。
+>
 > <img src="conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
+
+**定理一 边缘化技巧**/**定义五 边缘向量场**（Marginal Vector Field）：如果 $u_t^{target}(x|z)$ 是条件向量场，那么边缘向量场为：
+
+$$
+u_t^{target}(x) = \int u_t^{target}(x|z) P_{data}(z|x) dz \\\\
+u_t^{target}(x) = \int u_t^{target}(x|z) \frac{P_t(x|z) P_{data}(z)}{P_t(x)} dz
+$$
+
+可推出 $X_t$ 满足边缘概率路径：
+
+$$
+X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t^{target}(X_t) \Longrightarrow X_t \sim P_t, t \in [0,1]
+$$
+
+> 根据条件期望的定义：
+>
+> $$
+> \mathbb{E}[Y|X_t = x] = \int Y(z) p(z|x) dz
+> $$
+>
+> 令 Y(z) = $u_t^{target}(x|z)$，则有：
+>
+> $$
+> u_t^{target}(x) = \mathbb{E}[u_t^{target}(x|z)|X_t = x] = \int u_t^{target}(x|z) p(z|x) dz
+> $$
+>
+> 即得到了定理一中的第一个等式。
+
+> 说人话就是：如果我们令 ODE（$X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t^{target}(X_t)$） 中的向量场为条件向量场，则 $X_t$ 满足条件概率路径；如果我们令 ODE 中的向量场为边缘向量场，则 $X_t$ 满足边缘概率路径:
+> 1. 条件概率路径的终点为狄拉克测度（$P_1(\cdot|z) = \delta_z$），因此 $X_1 = z$；
+> 2. 边缘概率路径的终点为数据分布（$P_1 = P_{data}$），因此 $X_1 \sim P_{data}$。
+> 
+> 这便是条件向量场和边缘向量场的核心差别。为什么导致了这样的差别呢？因为条件向量场是针对每个数据点 $z$ 定义的，而边缘向量场则是对所有数据点进行平均（边缘化）后（$P_t(x) = \int P_t(x|z) P_{data}(z) dz$）的结果。
+
+<img src="cvf_mvf_visualization.png" alt="Conditional and Marginal Vector Fields" width="100%" />
