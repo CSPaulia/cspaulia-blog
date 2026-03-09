@@ -155,7 +155,7 @@ $$
 可推出 $X_t$ 满足边缘概率路径：
 
 $$
-X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t^{target}(X_t) \Longrightarrow X_t \sim P_t, t \in [0,1]
+X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t^{target}(X_t) \Longrightarrow X_t \sim P_t, t \in [0,1] \Longrightarrow X_1 \sim P_{data}
 $$
 
 > 根据条件期望的定义：
@@ -178,4 +178,75 @@ $$
 > 
 > 这便是条件向量场和边缘向量场的核心差别。为什么导致了这样的差别呢？因为条件向量场是针对每个数据点 $z$ 定义的，而边缘向量场则是对所有数据点进行平均（边缘化）后（$P_t(x) = \int P_t(x|z) P_{data}(z) dz$）的结果。
 
-<img src="cvf_mvf_visualization.png" alt="Conditional and Marginal Vector Fields" width="100%" />
+**定理 连续性方程**（来自流体力学）：给定任意初始化的 ODE：$X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t(X_t)$，则 $p_t$ 满足以下偏微分方程：
+
+$$
+\partial_t p_t(x) = - \text{div}(p_t u_t)(x) \Longleftrightarrow X_t \sim P_t, t \in [0,1]
+$$
+
+这其中，$\text{div}$ 表示散度（divergence），定义为 $\text{div}(f)(x) = \sum_{i=1}^d \frac{\partial f_i(x)}{\partial x_i}$。而 $p_t(x)u_t(x)$ 是一个向量场，叫做**概率流**或**通量**：
+- $p_t(x)$ 是概率密度，表示单位体积内的概率质量；
+- $u_t(x)$ 是速度向量，表示单位时间内概率质量的流动方向和速率。
+
+所以 $\text{div}(p_t u_t)(x)$ 表示在点 $x$ 处概率流的散度，即单位时间内流入或流出点 $x$ 的概率质量的净变化量。
+
+> 当净流出大，局部密度就会下降；
+> 当净流出小，局部密度就会上升。
+>
+> 这就是为什么散度 $\text{div}(p_t u_t)(x)$ 前面带有负号。
+>
+> 该公式的证明在此省略（因为我没学过流体力学，看不懂推导）。
+
+## 4. 条件/边缘向量场评分函数
+
+**定义六 条件分数**（Conditional Score）：$\nabla_x \log p_t(x|z)$。
+
+**定义七 边缘分数**（Marginal Score）：$\nabla_x \log p_t(x)$。
+
+> 从**条件分数**中推导出**边缘分数**：
+>
+> $$
+> \nabla_x \log p_t(x) = \frac{\nabla_x p_t(x)}{p_t(x)} = \frac{\int \nabla_x(x|z) p_{data}(z) dz}{p_t(x)} = \int \nabla_x \log p_t(x|z) \frac{p_t(x|z) p_{data}(z)}{p_t(x)} dz \\\\
+= \int s_t^{target}(x|z) p(z|x) dz = \nabla_x \log p_t(x)
+> $$
+
+> **高斯分数**（Gaussian Score）：
+>
+> $$
+> \nabla_x \log p_t(x|z) = \nabla_x \log \mathcal{N}(\alpha_t z, \sigma_t^2 I_d) = -\frac{1}{\sigma_t^2}(x - \alpha_t z)
+> $$
+
+## 5. SDE 扩展定理与 Fokker-Planck 方程
+
+**定理二 SDE 扩展定理**（SDE Extension Trick）：令 $u_t^{target}(x) = \int u_t^{target}(x|z) p_{data}(z|x) dz$，则对于任意 $\sigma_t \geq 0$：
+
+$$
+X_0 \sim P_{init}, dX_t = [u_t^{target}(X_t) + \frac{\sigma_t^2}{2} \nabla_x \log p_t(X_t)] dt + \sigma_t dW_t \Longrightarrow X_t \sim P_t, t \in [0,1] \\\\
+\Longrightarrow X_1 \sim P_{data}
+$$
+
+**定理三 Fokker-Planck 方程**（Fokker-Planck Equation）：给定任意的 SDE：$X_0 \sim P_{init}, dX_t = u_t(X_t) dt + \sigma_t dW_t$，则 $p_t$ 满足以下偏微分方程：
+
+$$
+\partial_t p_t(x) = - \text{div}(p_t u_t)(x) + \frac{1}{2} \sigma_t^2 \Delta p_t(x) \Longleftrightarrow X_t \sim P_t, t \in [0,1]
+$$
+
+其中 $- \text{div}(p_t u_t)(x)$ 为连续性方程，而 $\frac{1}{2} \sigma_t^2 \Delta p_t(x)$ 则表示热度方程（热扩散项）。
+
+## 6. 条件/边缘路径、向量场与分数函数总结
+
+条件概率路径、条件向量场与条件分数：
+
+| 对象 | 记号 | 核心性质 | 高斯例子 |
+| --- | --- | --- | --- |
+| 条件概率路径 | $p_t(\cdot \mid z)$ | 在 $p_{init}$ 和数据点 $z$ 之间插值 | $\mathcal{N}(\alpha_t z, \beta_t^2 I_d)$ |
+| 条件向量场 | $u_t^{target}(x \mid z)$ | 对应的 ODE 沿条件路径演化 | $\left(\dot{\alpha}_t - \frac{\dot{\beta}_t}{\beta_t}\alpha_t\right) z + \frac{\dot{\beta}_t}{\beta_t} x$ |
+| 条件分数函数 | $\nabla_x \log p_t(x \mid z)$ | 对数似然关于 $x$ 的梯度 | $-\frac{x - \alpha_t z}{\beta_t^2}$ |
+
+边缘概率路径、边缘向量场与边缘分数：
+
+| 对象 | 记号 | 核心性质 | 公式 |
+| --- | --- | --- | --- |
+| 边缘概率路径 | $p_t(x)$ | 在 $p_{init}$ 和 $p_{data}$ 之间插值 | $p_t(x) = \int p_t(x \mid z) p_{data}(z) \, dz$ |
+| 边缘向量场 | $u_t^{target}(x)$ | 对应的 ODE 沿边缘路径演化 | $u_t^{target}(x) = \int u_t^{target}(x \mid z) \frac{p_t(x \mid z) p_{data}(z)}{p_t(x)} \, dz$ |
+| 边缘分数函数 | $\nabla_x \log p_t(x)$ | 可用于将 ODE 目标转换为 SDE 目标 | $\nabla_x \log p_t(x) = \int \nabla_x \log p_t(x \mid z) \frac{p_t(x \mid z) p_{data}(z)}{p_t(x)} \, dz$ |
