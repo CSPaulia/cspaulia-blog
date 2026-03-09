@@ -28,12 +28,12 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
+    image: "cover.png" # image path/url
+    alt: "cover" # alt text
+    caption: "cover" # display caption under cover
     relative: true # when using page bundles set this to true
-    hidden: true # only hide on current single page
-    hiddenInList: true # hide on list pages and home
+    hidden: false # only hide on current single page
+    hiddenInList: false # hide on list pages and home
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes" # edit text
@@ -250,3 +250,9 @@ $$
 | 边缘概率路径 | $p_t(x)$ | 在 $p_{init}$ 和 $p_{data}$ 之间插值 | $p_t(x) = \int p_t(x \mid z) p_{data}(z) \, dz$ |
 | 边缘向量场 | $u_t^{target}(x)$ | 对应的 ODE 沿边缘路径演化 | $u_t^{target}(x) = \int u_t^{target}(x \mid z) \frac{p_t(x \mid z) p_{data}(z)}{p_t(x)} \, dz$ |
 | 边缘分数函数 | $\nabla_x \log p_t(x)$ | 可用于将 ODE 目标转换为 SDE 目标 | $\nabla_x \log p_t(x) = \int \nabla_x \log p_t(x \mid z) \frac{p_t(x \mid z) p_{data}(z)}{p_t(x)} \, dz$ |
+
+---
+
+## 参考文献
+
+[1] GPT中英字幕课程资源, "《流匹配与扩散模型|6.S184 Flow Matching and Diffusion Models》中英字幕（Claude-3.7-s）》," Bilibili, Jul. 29, 2025. [Online video]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.
