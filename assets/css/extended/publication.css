@@ -20,6 +20,16 @@
     color:midnightblue;
 }
 
+.pub-entry .author-highlight {
+    color: var(--primary);
+    font-weight: 800;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+    padding: 0 2px;
+    display: inline-block;
+    line-height: 1.4;
+}
+
 @media screen and (max-width: 600px) {
     .pub-entry .entry-cover {
         margin: auto 5% auto 0;

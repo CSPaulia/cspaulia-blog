@@ -6,7 +6,7 @@ authors:
     - name: Haoxuan Wang
     - name: Ping Wei
       home: https://gr.xjtu.edu.cn/en/web/pingwei
-    - name: Shuaijia Chen
+    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
       home: https://cspaulia.github.io/cspaulia-blog/
     - name: Zhimin Liao
       home: https://lzzzzzm.github.io/

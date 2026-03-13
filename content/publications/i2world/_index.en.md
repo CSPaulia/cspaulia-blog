@@ -8,7 +8,7 @@ authors:
     - name: Ping Wei
       home: https://gr.xjtu.edu.cn/en/web/pingwei
     - name: Ruijie Zhang
-    - name: Shuaijia Chen
+    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
       home: https://cspaulia.github.io/cspaulia-blog/
     - name: Haoxuan Wang
     - name: Ziyang Ren
