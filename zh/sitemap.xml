@@ -2,21 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/publications/wavcamonet/</loc>
-    <lastmod>2026-03-13T18:32:35+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/publications/wavcamonet/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/publications/wavcamonet/"
-                />
-  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/</loc>
-    <lastmod>2026-03-09T11:11:44+08:00</lastmod>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
@@ -29,7 +16,7 @@
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/</loc>
-    <lastmod>2026-03-09T11:11:44+08:00</lastmod>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
@@ -39,6 +26,31 @@
                 rel="alternate"
                 hreflang="zh-CN"
                 href="https://cspaulia.github.io/cspaulia-blog/tags/"
+                />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/</loc>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/%E5%86%99%E4%BD%9C%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/tags/%E5%AD%A6%E6%9C%AF%E8%AE%BA%E6%96%87/</loc>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/posts/paper_writing_tips/</loc>
+    <lastmod>2026-04-16T17:17:21+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/publications/wavcamonet/</loc>
+    <lastmod>2026-03-13T18:32:35+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/publications/wavcamonet/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/publications/wavcamonet/"
                 />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/%E6%89%A9%E6%95%A3%E6%A8%A1%E5%9E%8B/</loc>
@@ -511,9 +523,6 @@
                 hreflang="zh-CN"
                 href="https://cspaulia.github.io/cspaulia-blog/posts/rebuttal/"
                 />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/categories/%E8%AE%BA%E6%96%87%E5%86%99%E4%BD%9C/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/loss/</loc>
     <lastmod>2026-01-30T16:43:57+08:00</lastmod>

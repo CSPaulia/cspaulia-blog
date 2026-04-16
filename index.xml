@@ -9,9 +9,16 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.157.0</generator>
+    <generator>Hugo -- 0.160.1</generator>
     <language>zh-CN</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>学术论文撰写技巧</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/paper_writing_tips/</link>
+      <pubDate>Thu, 16 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/paper_writing_tips/</guid>
+      <description>本文分享了一些学术论文撰写的实用技巧，帮助研究者提升论文质量和发表成功率。在这里仅分享“以不变应万变”的写作内容，“可自由发挥”的内容不在本文范围内。</description>
+    </item>
     <item>
       <title>为生成模型构建训练目标</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/generation_targets/</link>
