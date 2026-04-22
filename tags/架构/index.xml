@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- 0.160.1</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 22 Apr 2026 11:48:24 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>混合专家（Mixture of Experts，MoE）</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/mixture-of-experts/</link>
+      <pubDate>Wed, 22 Apr 2026 10:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/mixture-of-experts/</guid>
+      <description>关于混合专家（Mixture of Experts，MoE）的介绍和相关内容。</description>
+    </item>
     <item>
       <title>语言模型架构与训练</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</link>
