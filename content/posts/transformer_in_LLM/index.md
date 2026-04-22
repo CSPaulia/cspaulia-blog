@@ -415,7 +415,7 @@ $$
 
 <img src="stability.png" alt="training-stability-techniques" width="600"/>
 
-### z-loss
+### 3.1. z-loss
 
 <img src="softmax_in_llm.png" alt="softmax_in_llm" width="200"/>
 
