@@ -1,13 +1,13 @@
 ---
-title: "My 1st post"
-date: 2020-09-15T11:30:03+08:00
+title: "大语言模型中的注意力机制及其变体"
+date: 2025-04-23T11:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
-# series:
-#     main: "Large Language Model"
-#     subseries: "Mainstream Series"
-categories: ["first"]
-tags: ["first"]
+series:
+    main: "大语言模型"
+    subseries: "架构与训练"
+categories: ["大语言模型"]
+tags: ["架构", "训练"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Desc Text."
+description: "注意力到底有几种呢？"
 # canonicalURL: "https://canonical.url/to/page"
 disableHLJS: false # to disable highlightjs
 disableShare: false
