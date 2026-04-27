@@ -201,10 +201,17 @@
     </item>
     <item>
       <title>大语言模型中的注意力机制及其变体</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention/</link>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</link>
       <pubDate>Wed, 23 Apr 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention/</guid>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</guid>
       <description>注意力到底有几种呢？</description>
+    </item>
+    <item>
+      <title>Mamba: 选择性状态空间模型</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</link>
+      <pubDate>Wed, 15 Jan 2025 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</guid>
+      <description>李宏毅课程笔记：Mamba 选择性状态空间模型</description>
     </item>
     <item>
       <title>系列</title>
