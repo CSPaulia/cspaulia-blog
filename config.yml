@@ -4,6 +4,20 @@ pagination:
   pagerSize: 5
 theme: PaperMod
 
+related:
+  includeNewer: true
+  indices:
+    - name: tags
+      weight: 80
+    - name: categories
+      weight: 60
+    - name: keywords
+      weight: 50
+    - name: date
+      weight: 10
+  threshold: 80
+  toLower: true
+
 enableEmoji: true
 enableRobotsTXT: true
 enableGitInfo: true
@@ -277,6 +291,14 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - ['\[', '\]']
+          inline:
+            - ['\(', '\)']
   math:
     enable: true
   tableOfContents:
