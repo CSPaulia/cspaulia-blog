@@ -7,3 +7,42 @@
 .post-meta-item svg {
     stroke: var(--secondary);
 }
+
+.related-posts {
+    margin: 2rem 0;
+    padding: 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--entry);
+}
+
+.related-posts h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.related-posts ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.related-posts li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--border);
+}
+
+.related-posts li:last-child {
+    border-bottom: none;
+}
+
+.related-post-date {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    color: var(--secondary);
+    font-size: 0.85rem;
+}

@@ -66,6 +66,21 @@
     {{- partial "share_icons.html" . -}}
     {{- end }}
   </footer> -->
+  {{- $related := .Site.RegularPages.Related . | first 5 }}
+  {{- with $related }}
+  <div class="related-posts">
+    <h3>{{- if eq $.Lang "zh" }}相关文章{{ else }}Related Posts{{ end }}</h3>
+    <ul>
+      {{- range . }}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <span class="related-post-date"><time>{{ .Date.Format "2006-01-02" }}</time></span>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+  {{- end }}
+
   <br>
   <div>
     {{- partial "post_copyright.html" . -}}
