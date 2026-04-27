@@ -11,8 +11,15 @@
     </image>
     <generator>Hugo -- 0.160.1</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:38:12 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:42:13 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大语言模型中的注意力机制及其变体</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</link>
+      <pubDate>Thu, 23 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</guid>
+      <description>注意力到底有几种呢？</description>
+    </item>
     <item>
       <title>混合专家（Mixture of Experts，MoE）</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/mixture-of-experts/</link>
@@ -33,13 +40,6 @@
       <pubDate>Mon, 28 Jul 2025 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/primitives/</guid>
       <description>深度学习训练中的基本原语与资源计算总结</description>
-    </item>
-    <item>
-      <title>大语言模型中的注意力机制及其变体</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</link>
-      <pubDate>Wed, 23 Apr 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</guid>
-      <description>注意力到底有几种呢？</description>
     </item>
   </channel>
 </rss>

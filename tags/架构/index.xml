@@ -11,8 +11,22 @@
     </image>
     <generator>Hugo -- 0.160.1</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:38:12 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:42:13 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mamba: 选择性状态空间模型</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</link>
+      <pubDate>Mon, 27 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</guid>
+      <description>李宏毅课程笔记：Mamba 选择性状态空间模型</description>
+    </item>
+    <item>
+      <title>大语言模型中的注意力机制及其变体</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</link>
+      <pubDate>Thu, 23 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</guid>
+      <description>注意力到底有几种呢？</description>
+    </item>
     <item>
       <title>混合专家（Mixture of Experts，MoE）</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/mixture-of-experts/</link>
@@ -26,20 +40,6 @@
       <pubDate>Fri, 10 Oct 2025 10:00:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/transformer_in_llm/</guid>
       <description>关于语言模型架构和超参数的笔记</description>
-    </item>
-    <item>
-      <title>大语言模型中的注意力机制及其变体</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</link>
-      <pubDate>Wed, 23 Apr 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/posts/attention_in_llm/</guid>
-      <description>注意力到底有几种呢？</description>
-    </item>
-    <item>
-      <title>Mamba: 选择性状态空间模型</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</link>
-      <pubDate>Wed, 15 Jan 2025 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</guid>
-      <description>李宏毅课程笔记：Mamba 选择性状态空间模型</description>
     </item>
   </channel>
 </rss>
