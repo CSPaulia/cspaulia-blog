@@ -46,3 +46,10 @@
     color: var(--secondary);
     font-size: 0.85rem;
 }
+
+.toc .inner a {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

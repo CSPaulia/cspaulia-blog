@@ -40,7 +40,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 稀疏注意力
+## 稀疏注意力（Sparse Attention）
 
 {{< figure src="sparse_attentions.png" alt="稀疏注意力掩码示例" caption="稀疏注意力掩码示例" >}}
 
@@ -109,6 +109,47 @@ editPost:
 复杂度：\(O(N^2/l)\)，当 \(l\) 与 \(\sqrt{N}\) 同阶时约为 \(O(N\sqrt{N})\)。
 
 **特点**：Strided Attention 以稀疏采样的方式实现了跨块的信息交互。其代价是局部细节可能因为步长间隔而丢失——两个相邻 token 如果下标差不满足取模条件，在 Strided 层中完全无法关注彼此。
+
+### DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA）
+
+假设模型正在处理一个 128K token 的长上下文，当前最后一句问题是：
+
+```text
+“请根据前文第 3 份合同里的违约条款回答……”
+```
+
+普通 attention：
+
+```text
+当前 token 直接和前面 128K 个 token 全部算 attention
+```
+
+DSA：
+
+```text
+1. 轻量化索引器（lighting Indexer）快速阅读历史 token
+2. 给每一个历史 token 计算一个相关性分数
+3. 选取 top-k 相关 token 作为当前 token 的注意力范围
+4. 主注意力模块对这 top-k token 进行全注意力计算
+```
+
+DSA 的主要思想与上文中所有稀疏注意力相同，都是缩小当前查询 token 的交互 token 数量。对于长度为 $N$ 的查询序列，其交互 token 数量从 $N$ 降至 $k$，复杂度从 $O(N^2)$ 降至 $O(Nk)$。
+
+#### 轻量化索引器（Lightweight Indexer）
+
+轻量化索引器的核心是计算当前查询 token $\mathbf{h}_t \in \mathbb{R}^d$ 与历史 token $\mathbf{h}_s \in \mathbb{R}^d$ 的相关性分数。在 [DeepSeek V3.2](https://arxiv.org/pdf/2512.02556) 中，索引器被定义为：
+
+$$
+I_{t,s}=\sum_{j=1}^{H^I} w^I_{t,j} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,j} \cdot \mathbf{k}^I_{s}\right).
+$$
+
+其中 $H^I$ 是索引器的头（head）数。$w^I_{t,j}$ 是第 $j$ 个头的权重，来自于当前查询 token $\mathbf{h}\_t$。$\mathbf{q}^I_{t,j}$ 和 $\mathbf{k}^I_{s}$ 分别是查询 token 和历史 token 在索引器中的查询向量和键向量。
+
+根据 \(I_{t,s}\) 的值，模型选取 top-k 相关的历史 token 进行后续的全注意力计算。当前查询 token \(\mathbf{h}_t\) 的交互目标从原来的 KV 序列中的所有 token $C$ 变为选取的 top-k token 集合 \(\{\mathbf{c}_s\}\)，即：
+
+\[
+\mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h_t},C\right) \Longrightarrow \mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h}_t, \{\mathbf{c}_s \mid I_{t,s} \in \text{Top-k}(I_{t,:})\}\right).
+\]
 
 ---
 
