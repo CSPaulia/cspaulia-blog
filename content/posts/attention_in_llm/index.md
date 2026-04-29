@@ -40,7 +40,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 稀疏注意力（Sparse Attention）
+## 稀疏注意力（Sparse Attention） {#sparse-attention}
 
 {{< figure src="sparse_attentions.png" alt="稀疏注意力掩码示例" caption="稀疏注意力掩码示例" >}}
 
@@ -64,7 +64,7 @@ editPost:
 
 ---
 
-### 滑动窗口注意力 (Sliding Window)
+### 滑动窗口注意力 (Sliding Window) {#sliding-window}
 
 **定义**：每个位置只与前后固定窗口内的邻居交互。给定窗口大小 \(w\)，位置 \(i\) 的注意力范围为：
 
@@ -80,7 +80,7 @@ editPost:
 
 ---
 
-### 分块注意力 (Block，即 Sparse Transformer 的 "Fixed")
+### 分块注意力 (Block，即 Sparse Transformer 的 "Fixed") {#block-attention}
 
 与滑动窗口不同，分块注意力将序列按固定大小切分为若干个**互不重叠的块（block）**，每个位置只与同一块内的所有 token 交互，不同块之间完全隔离。设块大小为 \(b\)，位置 \(i\) 所属的块索引为 \(\lfloor i/b \rfloor\)，则注意力范围为：
 
@@ -96,7 +96,7 @@ editPost:
 
 ---
 
-### 跨步注意力 (Strided)
+### 跨步注意力 (Strided) {#strided-attention}
 
 **定义**：Block Attention 局限于同一块内，Strided Attention 则以均匀间隔覆盖全局，使得同一个块内的不同 token 各自连接不同块的 token。给定步长 \(l\)，位置 \(i\) 的注意力范围为：
 
@@ -110,7 +110,7 @@ editPost:
 
 **特点**：Strided Attention 以稀疏采样的方式实现了跨块的信息交互。其代价是局部细节可能因为步长间隔而丢失——两个相邻 token 如果下标差不满足取模条件，在 Strided 层中完全无法关注彼此。
 
-### DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA）
+### DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA） {#dsa}
 
 假设模型正在处理一个 128K token 的长上下文，当前最后一句问题是：
 
@@ -169,7 +169,7 @@ $$
 
 [线性注意力和 Mamba（Linear Attention and Mamba)](../mamba/index.md)
 
-## Flash Attention
+## Flash Attention {#flash-attention}
 
 ### 问题：注意力不是计算瓶颈，是显存带宽瓶颈
 
