@@ -9,10 +9,24 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.160.1</generator>
+    <generator>Hugo -- 0.161.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Apr 2026 20:20:42 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 29 Apr 2026 18:03:00 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>残差连接及其变体</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/residual/</link>
+      <pubDate>Wed, 29 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/residual/</guid>
+      <description>残差连接及其变体</description>
+    </item>
+    <item>
+      <title>LLM 架构图谱 (2024–2026)</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</link>
+      <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</guid>
+      <description>2024–2026 年主流开源 LLM 架构一览，含注意力机制、MoE、SSM 等维度对比。</description>
+    </item>
     <item>
       <title>Mamba: 选择性状态空间模型</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/mamba/</link>
