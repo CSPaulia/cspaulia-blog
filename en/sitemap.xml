@@ -2,6 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/architecture/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/categories/"
+                />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/large-language-models/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/residual/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/posts/residual/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/posts/residual/"
+                />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/tags/"
+                />
+  </url><url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/training/</loc>
+    <lastmod>2026-05-01T15:08:03+08:00</lastmod>
+  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/publications/wavcamonet/</loc>
     <lastmod>2026-03-13T18:32:35+08:00</lastmod>
     <xhtml:link
@@ -15,19 +63,6 @@
                 href="https://cspaulia.github.io/cspaulia-blog/en/publications/wavcamonet/"
                 />
   </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/</loc>
-    <lastmod>2026-03-09T11:11:44+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/categories/"
-                />
-  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/diffusion-models/</loc>
     <lastmod>2026-03-09T11:11:44+08:00</lastmod>
   </url><url>
@@ -36,19 +71,6 @@
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/generative-models/</loc>
     <lastmod>2026-03-09T11:11:44+08:00</lastmod>
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/</loc>
-    <lastmod>2026-03-09T11:11:44+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://cspaulia.github.io/cspaulia-blog/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-US"
-                href="https://cspaulia.github.io/cspaulia-blog/en/tags/"
-                />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/generation_targets/</loc>
     <lastmod>2026-03-09T11:11:44+08:00</lastmod>
@@ -62,9 +84,6 @@
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/generation_targets/"
                 />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/architecture/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/categories/large-language-model/</loc>
     <lastmod>2026-01-30T16:43:57+08:00</lastmod>
@@ -94,9 +113,6 @@
                 hreflang="en-US"
                 href="https://cspaulia.github.io/cspaulia-blog/en/posts/transformer_in_llm/"
                 />
-  </url><url>
-    <loc>https://cspaulia.github.io/cspaulia-blog/en/tags/training/</loc>
-    <lastmod>2026-01-30T16:43:57+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/en/posts/generation_with_sdes/</loc>
     <lastmod>2026-01-30T16:43:57+08:00</lastmod>

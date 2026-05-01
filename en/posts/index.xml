@@ -9,9 +9,16 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.161.0</generator>
+    <generator>Hugo -- 0.161.1</generator>
     <language>en-US</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Residual Connections and Their Variants</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/residual/</link>
+      <pubDate>Wed, 29 Apr 2026 11:30:03 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/residual/</guid>
+      <description>Residual Connections and Their Variants</description>
+    </item>
     <item>
       <title>Training Targets for Generative Models</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/generation_targets/</link>
