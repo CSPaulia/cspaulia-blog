@@ -457,83 +457,130 @@ $$
 
 图片来源于[网络](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 
-**常规的注意力计算**：
+自回归推理时，每生成一个新 token 都要重新算全序列的 \(QKV\) 投影和注意力——上一个 token 的 \(K, V\) 在上一步就已经算过了，白白浪费。
 
-$$
-Q = X W_Q, \quad K = X W_K, \quad V = X W_V
-$$
+**KV Cache 的核心思想**：把已经算过的 \(K, V\) 存下来。生成下一个 token 时只对新 token 算投影，注意力只让新 Query 去查累积的 Keys，避免了每个 step 都重复 \(O(T)\) 的投影开销。代价是需要多一份显存来存历史 K 和 V。
 
-假设 $X \in \mathbb{R}^{b \times T \times D}$，$W_{\\{Q, K, V\\}} \in \mathbb{R}^{D \times (hd)}$，其中 $T$ 是序列长度，$h$ 为注意力头数，$d$ 是每个注意力头的隐藏层维度，设 $D = hd$，则计算量为
-- 计算KQV：$3 \times 2bTD^2 = 6bT(hd)^2$
-- 计算$Q \times K$：$2bhT^2d$
-- 计算softmax：$n \times bhT^2$（softmax包含 n 次计算操作） 
-- 计算$Output_{softmax} \times V$：$2bhT^2d$
-- 计算输出线性层：$2bTD^2$
-- 总计算量 $\approx 8bTD^2 + 4bhT^2d$（忽略softmax）
+<details>
+<summary>计算量与存储开销的详细推导</summary>
 
-总存储开销为
-- 权重参数开销：
-    - $W_{\\{Q, K, V\\}}$ 存储开销：$3 \times D(hd) = 3(hd)^2$
-    - 输出线性层存储开销：$(hd)D = (hd)^2$
-- 中间激活开销：
-    - 输入存储：$bTD$
-    - KQV存储：$3 \times bhTd$
-    - softmax后得到的注意力权重存储：$bhT^2$
-    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
-- 总存储开销 $\approx 4(hd)^2 + bTD + 3bhTd + bhT^2$
+**常规注意力计算**。设 \(X \in \mathbb{R}^{b \times T \times D}\)，\(W_{Q,K,V} \in \mathbb{R}^{D \times (hd)}\)，其中 \(T\) 是序列长度，\(h\) 为注意力头数，\(d\) 是每个注意力头的隐藏层维度，设 \(D = hd\)。
 
-**使用 KV Cache 的注意力计算**：
+计算量：
+- KQV 投影：\(3 \times 2bTD^2 = 6bT(hd)^2\)
+- \(Q \times K\)：\(2bhT^2d\)
+- softmax：\(n \times bhT^2\)（softmax 包含 \(n\) 次计算操作）
+- \(\mathrm{Output_{softmax}} \times V\)：\(2bhT^2d\)
+- 输出线性层：\(2bTD^2\)
+- **总计算量** \(\approx 8bTD^2 + 4bhT^2d\)（忽略 softmax）
 
-训练时，使用 KV Cache 并不影响计算量，因此训练时往往不使用 KV Cache；
-
-但在推理时，假设输入序列长度为 $t$，则预测下一个 token 时，计算量为 $\approx 8btD^2 + 4bht^2d$，若不使用 KV Cache，则预测下下个 token 的计算量为 $\approx 8b(t+1)D^2 + 4bh(t+1)^2d$，这个计算量会随着序列长度的增加而显著增加；
-
-而使用 KV Cache 后，预测下一个 token 的计算量为：
-- KQV计算：由于无需重新计算$Q_{1:(t-1)}, K_{1:(t-1)}, V_{1:(t-1)}$，只需要计算$Q_{t}, K_{t}, V_{t}$，因此计算量为$3 \times 2bD^2$
-- 计算$Q_{t} \times K_{1:t}$：$2bhtd$
-- 计算softmax：$n \times bht$
-- 计算$Output_{softmax} \times V_{1:t}$：$2bhtd$
-- 计算输出线性层：$2bD^2$
-- 总计算量 $\approx 8bD^2 + 4bhtd$（忽略softmax）
-
-计算量随序列长度的增加轻微增加。
-
-而使用 KV Cache 后，存储开销会稍稍增加。因为在推理阶段不使用 KV Cache，总存储开销仅为权重参数开销 $4(hd)^2$，而使用 KV Cache 后，总存储开销为权重参数开销 $4(hd)^2$ 加上 KV Cache 的存储开销 $2bhtd$，因此总存储开销 $\approx 4(hd)^2 + 2bhtd$。
+存储开销：
+- 权重参数：\(W_{Q,K,V}\) 占 \(3(hd)^2\)，输出层占 \((hd)^2\)，小计 \(4(hd)^2\)
+- 中间激活：输入 \(bTD\)，KQV 占 \(3bhTd\)，注意力权重 \(bhT^2\)，输出 \(bTD\)（下一层输入，不计入本层）
+- **总存储** \(\approx 4(hd)^2 + bTD + 3bhTd + bhT^2\)
 
 ---
 
-### 4.2. MQA 和 GQA
+**推理时无 KV Cache**。第 \(t\) 步需重算 \(Q_{1:t}, K_{1:t}, V_{1:t}\)，计算量 \(\approx 8btD^2 + 4bht^2d\)，随序列长度平方增长。第 \(t+1\) 步计算量 \(\approx 8b(t+1)D^2 + 4bh(t+1)^2d\)，每一轮都比上一轮更慢。
 
-为了减少 KV Cache 的存储开销，一个简单的思路就是让**注意力头**共享 K 和 V
-- 若 $h$ 个注意力头共享一个 K 和 V，则为 MQA（Multi-query Attention）
-- 若将 $h$ 个注意力头划分为 $g$ 组，每组 $h/g$ 个头共享 K 和 V，则为 GQA（Grouped-query Attention）
+---
 
-如下图所示：
+**推理时有 KV Cache**。仅计算当前 token 的 \(Q_t, K_t, V_t\)，无需重算历史 token 的投影。
+
+计算量：
+- KQV 投影：仅 \(Q_t, K_t, V_t\)，\(3 \times 2bD^2 = 6bD^2\)
+- \(Q_t \times K_{1:t}\)：\(2bhtd\)
+- softmax：\(n \times bht\)
+- \(\mathrm{Output_{softmax}} \times V_{1:t}\)：\(2bhtd\)
+- 输出线性层：\(2bD^2\)
+- **总计算量** \(\approx 8bD^2 + 4bhtd\)（忽略 softmax）
+
+计算量从与 \(T\) 的平方相关降为与 \(t\) 线性相关，每一步的代价几乎恒定。
+
+存储开销：权重 \(4(hd)^2\) + KV Cache \(2bhtd\)，**总存储** \(\approx 4(hd)^2 + 2bhtd\)。
+
+**O(·) 形式对比**（忽略 softmax 及常系数，\(D = hd\)）：
+
+| 场景 | 计算量 | 显存 |
+|------|--------|------|
+| 无 KV Cache | \(O(TD^2 + hT^2d)\) | \(O(D^2 + hT^2)\) |
+| 有 KV Cache | \(O(D^2 + hTd)\)（每步） | \(O(D^2 + hTd)\) |
+
+无 Cache 时每步计算量随 \(T\) 平方增长，有 Cache 后降为线性——自回归解码从不可用变为可用。
+
+</details>
+
+---
+
+### 4.2. MQA 和 GQA {#mqa-gqa}
+
+KV Cache 的显存瓶颈来自 \(K, V\) 需要**每个头各存一份**。自然的优化方向是让头之间共享：减少 KV 的份数就直接等比缩减缓存。
+
+- **MQA（Multi-Query Attention）**：所有 \(h\) 个头共享一组 \(K, V\) — 缓存压缩最极致，但表达能力损失大
+- **GQA（Grouped-Query Attention）**：将 \(h\) 个头分为 \(g\) 组，每组共享一组 \(K, V\) — MQA 与 MHA 之间的折中
 
 <img src="attention_variant.png" alt="attention-variants" width="600"/>
 
-| 模型 | 训练时结构 | 推理时结构 | 备注 |
-|------|-------------|-------------|------|
-| GPT-3 / GPT-4 | MHA | MHA / GQA（部分优化版） | GPT-4 reportedly uses GQA |
-| PaLM 2 | GQA | GQA | 原生训练结构 |
-| Claude 3 | GQA | GQA | Anthropic 公开结构说明 |
-| LLaMA 2 | MHA | GQA (converted) | Meta 后期转换版 |
-| Mistral | GQA | GQA | 端到端使用 GQA |
-| Falcon | MQA | MQA | 优化长序列推理 |
-| Gemini 1.5 | GQA | GQA | Google 用于多模态大模型 |
+| 机制 | KV 份数 | KV 缓存倍数 |
+|------|--------|------------|
+| MHA | \(h\) | 1× |
+| GQA | \(g\) | \(g/h\) |
+| MQA | 1 | \(1/h\) |
 
-MQA 和 GQA 与 MHA 相比，计算复杂度不变，但存储开销减少，假设 $h$ 个注意力头共享 $k$ 个 K 和 V：
-- 权重参数开销：
-    - $W_{\\{Q\\}}$ 存储开销：$D(hd) = (hd)^2$
-    - $W_{\\{K, V\\}}$ 存储开销：$2 \times D(kd) = 2(hd)(kd)$
-    - 输出线性层存储开销：$(hd)D = (hd)^2$
-- 中间激活开销：
-    - 输入存储：$bTD$
-    - Q存储：$bhTd$
-    - KV存储：$2bkdT$
-    - softmax后得到的注意力权重存储：$bhT^2$
-    - 输出存储：$bTD$ （即下一层的输入，不计入本层开销）
-- 总存储开销 $\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2$
+**典型模型选用**：
+
+| 模型 | 注意力 | 备注 |
+|------|--------|------|
+| GPT-3 / GPT-4 | MHA / GQA | GPT-4 reportedly uses GQA |
+| LLaMA 2 | MHA → GQA | 后训练转换 |
+| LLaMA 3 | GQA | 原生训练 |
+| Mistral 7B | GQA + Sliding Window | 结合局部窗口 |
+| Falcon | MQA | 极限压缩 |
+| DeepSeek-V2/V3 | MLA | 低秩压缩，比 MQA 更优 |
+
+<details>
+<summary>存储开销的详细推导</summary>
+
+MQA 和 GQA 与 MHA 相比，计算复杂度不变，但存储开销减少。设 \(h\) 个注意力头共享 \(k\) 组 K 和 V（MQA 时 \(k=1\)，GQA 时 \(k=g\)，MHA 时 \(k=h\)）。
+
+**权重参数**：
+
+| 参数 | 维度 | 存储量 |
+|------|------|--------|
+| \(W_Q\) | \(D \times (hd)\) | \((hd)^2\) |
+| \(W_K, W_V\) | \(D \times (kd)\)，各一份 | \(2 \times D(kd) = 2hkd^2\) |
+| 输出线性层 | \((hd) \times D\) | \((hd)^2\) |
+| **小计** | | \(\approx 2(hd)^2 + 2hkd^2\) |
+
+**中间激活**（训练时）：
+
+| 激活 | 维度 | 存储量 |
+|------|------|--------|
+| 输入 | \(b \times T \times D\) | \(bTD\) |
+| Q | \(b \times T \times h \times d\) | \(bhTd\) |
+| K, V | \(b \times T \times k \times d\) | \(2bkdT\) |
+| 注意力权重 | \(b \times h \times T \times T\) | \(bhT^2\) |
+| 输出 | \(b \times T \times D\) | \(bTD\)（不计入本层） |
+| **小计** | | \(bTD + bhTd + 2bkdT + bhT^2\) |
+
+**总存储开销** \(\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2\)。
+
+**O(·) 形式对比**（忽略常系数，仅关注随 \(T\) 和 \(h\) 缩放的关键项）：
+
+| 开销项 | MHA（\(k=h\)） | GQA（\(k=g\)） | MQA（\(k=1\)） |
+|--------|---------------|---------------|---------------|
+| 计算量 | \(O(TD^2 + hT^2d)\) | 同 MHA | 同 MHA |
+| 权重 | \(O(D^2)\) | 同 MHA | 同 MHA |
+| 中间激活 | \(O(TD + hTd + hT^2)\) | \(O(TD + hTd + gTd + hT^2)\) | \(O(TD + hTd + hT^2)\) |
+| **KV Cache** | \(O(hTd)\) | \(O(gTd)\) | \(O(Td)\) |
+
+计算量三者完全相同。差异全在 KV 相关存储：\(h \to g \to 1\)，KV Cache 从 \(O(hTd)\) 降为 \(O(Td)\)，直接缩放 \(h\) 倍。
+
+</details>
+
+推理时，KV Cache 额外占 \(2bktd\)（序列当前长 \(t\)）。当 \(k=1\)（MQA）时 KV Cache 最小，仅为 MHA 的 \(1/h\)。
+
+</details>
 
 ---
 

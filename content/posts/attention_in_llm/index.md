@@ -40,6 +40,10 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
+## 分组查询注意力（Grouped Query Attention，GQA）和多查询注意力（Multi-Query Attention，MQA）
+
+见[博客](../transformer_in_LLM/index.md#mqa-gqa)。
+
 ## 稀疏注意力（Sparse Attention） {#sparse-attention}
 
 {{< figure src="sparse_attentions.png" alt="稀疏注意力掩码示例" caption="稀疏注意力掩码示例" >}}
@@ -110,6 +114,8 @@ editPost:
 
 **特点**：Strided Attention 以稀疏采样的方式实现了跨块的信息交互。其代价是局部细节可能因为步长间隔而丢失——两个相邻 token 如果下标差不满足取模条件，在 Strided 层中完全无法关注彼此。
 
+---
+
 ### DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA） {#dsa}
 
 假设模型正在处理一个 128K token 的长上下文，当前最后一句问题是：
@@ -162,6 +168,91 @@ $$
 | 跨步 (Strided) | \(\{j : (i-j) \bmod l = 0\}\) | \(O(N^2/l)\) | Sparse Transformer |
 
 目前滑动窗口注意力比较常见，通常和全局注意力结合使用（例如 GEMMA 系列采用 5 滑动窗口（local）+ 1 Group Query Attention（global））。
+
+---
+
+## 多头潜在注意力（Multi-Head Latent Attention，MLA） {#mla}
+
+MLA 是 [DeepSeek-V2](https://arxiv.org/abs/2405.04434) 提出的注意力机制，核心动机与 GQA 相同——降低推理时的 KV 缓存开销。但 GQA 只是减少 KV 头的数量，MLA 则直奔本质：**把 KV 压缩到低秩潜在空间，只存压缩后的向量，用的时候再解压。**
+
+### 从 MHA 到 MLA
+
+标准 MHA 中，输入 \( \mathbf{h}_t \in \mathbb{R}^d \) 经三组投影得到 Q、K、V：
+
+\[
+\mathbf{q}_t = W^Q \mathbf{h}_t,\quad \mathbf{k}_t = W^K \mathbf{h}_t,\quad \mathbf{v}_t = W^V \mathbf{h}_t
+\]
+
+推理时，每个 token 的 \( \mathbf{k}_t, \mathbf{v}_t \) 都要存进 KV 缓存。\( H \) 个头、每头维度 \( d_h \)，单个 token 的 KV 占 \( 2H d_h \) 个元素。
+
+MLA 的做法：**不直接投影到 K 和 V，先投影到一个低维压缩向量 \( \mathbf{c}^{KV}_t \)，再从这里展开。**
+
+\[
+\mathbf{c}^{KV}_t = W^{DKV} \mathbf{h}_t \in \mathbb{R}^{d_c}
+\]
+
+\[
+\mathbf{k}_t^C = W^{UK} \mathbf{c}^{KV}_t \in \mathbb{R}^{H d_h},\quad
+\mathbf{v}_t^C = W^{UV} \mathbf{c}^{KV}_t \in \mathbb{R}^{H d_h}
+\]
+
+其中 \( d_c \ll H d_h \)。在 DeepSeek-V2/V3 中，\( d_c = 512 \)，而 \( H d_h = 128 \times 128 = 16384 \)，仅 KV 缓存即从 16384 降至 512。
+
+### RoPE 的解耦处理
+
+低秩压缩与 RoPE 天然冲突：压缩向量 \( \mathbf{c}^{KV}_t \) 内信息混合了所有头，无法按头独立旋转。MLA 的方案是**将位置编码从压缩分支中解耦出来**：额外引入一个不经过压缩的轻量 RoPE 通道。
+
+K 侧的 RoPE 分量 \( \mathbf{k}^R_t \) 由输入直接线性投影得到，**所有头共享同一份**（仅需缓存一份，节省缓存开销）：
+
+\[
+\mathbf{k}^R_t = \text{RoPE}(W^{KR} \mathbf{h}_t) \in \mathbb{R}^{d_r}
+\]
+
+Q 侧的 RoPE 分量 **每个头独立**（无需缓存，保证不同头之间的查询特征多样性）：
+
+\[
+\mathbf{q}^R_{t,i} = \text{RoPE}(W^{QR}_i \mathbf{h}_t) \in \mathbb{R}^{d_r}
+\]
+
+\(i\) 表示属于第 \(i\) 个头。最终每头的 K 和 Q 由压缩分支和 RoPE 分支拼接：
+
+\[
+\mathbf{k}_{t,i} = [\mathbf{k}^C_{t,i}; \mathbf{k}^R_t],\quad
+\mathbf{q}_{t,i} = [\mathbf{q}^C_{t,i}; \mathbf{q}^R_{t,i}]
+\]
+
+其中 \( \mathbf{k}^C_{t,i}, \mathbf{q}^C_{t,i} \) 来自解压后的低秩分支，不施加 RoPE；\( \mathbf{k}^R_t, \mathbf{q}^R_{t,i} \) 分别施加 RoPE 旋转后参与点积。**\( \mathbf{k}^R_t \) 跨头共享是 MLA 控制缓存大小的关键**——否则 K 的 RoPE 部分也要存 \( H \times d_r \) 个元素，缓存优势打折。
+
+缓存内容：\( \mathbf{c}^{KV}_t \)（512 维）+ \( \mathbf{k}^R_t \)（\( d_r = 64 \) 维）= 576 维。
+
+### Q 的压缩：减少训练时中间激活存储
+
+MLA 对 Q 同样做低秩压缩：
+
+\[
+\mathbf{c}^{Q}_t = W^{DQ} \mathbf{h}_t \in \mathbb{R}^{d'_c},\quad
+\mathbf{q}^C_t = W^{UQ} \mathbf{c}^{Q}_t
+\]
+
+训练时，前向传播的中间激活需要保留给反向传播。不压缩 Q 时需存储 \( \mathbf{q}_t \in \mathbb{R}^{H d_h} \)；压缩后仅存 \( \mathbf{c}^{Q}_t \in \mathbb{R}^{d'_c} \)（\( d'_c \) 通常为 1536），反向时解压重算 \( \mathbf{q}_t \)。这与 Flash Attention 的思路一致——用少量重计算换显存。Q 压缩不影响推理，因为推理无需存激活。
+
+### 注意力计算
+
+\[
+    \mathbf{o}_{t,i} = \sum_{j=1}^t \text{Softmax}_j \left(\frac{\mathbf{q}_{t,i}^\top \cdot \mathbf{k}_{j,i}}{\sqrt{d_h + d_r}}\right) \mathbf{v}^C_{j,i}, \\
+    \mathbf{u}_t = W^O [\mathbf{o}_{t,1}; \dots; \mathbf{o}_{t,n_h}]
+\]
+
+### 复杂度对比
+
+| 机制 | KV 缓存（每 token） | 压缩策略 |
+|------|-------------------|---------|
+| MHA | \(2 H d_h\) | 无 |
+| GQA | \(2 G d_h\)（\(G < H\)） | 减少 KV 头数 |
+| MQA | \(2 d_h\) | KV 全共享 |
+| **MLA** | \(d_c + d_r\) | 低秩压缩 |
+
+MLA 将 KV 缓存的压缩从"减少头数"推进到"减少秩"，是当前推理效率最优的注意力设计之一。
 
 ---
 
