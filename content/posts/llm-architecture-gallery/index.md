@@ -93,6 +93,8 @@ editPost:
 | Sarvam 105B | Sarvam | 105B | [MoE](../mixture-of-experts/) | MLA + KV LayerNorm | RMSNorm, pre | NoPE + RoPE | 128K |
 | Sarvam 30B | Sarvam | 30B | [MoE](../mixture-of-experts/) | [GQA](../attention_in_llm/) + QK-Norm | RMSNorm, pre | RoPE | 128K |
 | Nemotron 3 Super 120B-A12B | NVIDIA | 120B/12B | H | 主 [Mamba-2](../mamba/) + 少量 [GQA](../attention_in_llm/) | RMSNorm, pre | RoPE | 128K |
+| DeepSeek V4 Flash | DeepSeek | 284B/13B | [MoE](../mixture-of-experts/) | [CSA](../attention_in_llm/index.md#csa) + [HCA](../attention_in_llm/index.md#hca) | RMSNorm, pre | RoPE | 128K |
+| DeepSeek V4 Pro | DeepSeek | 1.6T/49B | [MoE](../mixture-of-experts/) | MLA + [DSA](../attention_in_llm/index.md#dsa) + [HCA](../attention_in_llm/index.md#hca) | RMSNorm, pre | RoPE | 128K |
 
 ## 架构选型趋势
 
