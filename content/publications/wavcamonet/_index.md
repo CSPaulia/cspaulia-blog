@@ -1,7 +1,7 @@
 ---
 title: "Multi-scale Frequency-Space Fusion Camouflaged Object Detection"
 date: 2026-03-13
-summary: 一种基于多尺度频域-空间融合的伪装目标检测方法
+summary: A camouflaged object detection method based on multi-scale frequency-space fusion.
 authors:
     - name: Linyu Zhang
     - name: Ping Wei
