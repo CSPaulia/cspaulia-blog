@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cspaulia.github.io/cspaulia-blog/publications/cylinderfusion/</loc>
+    <lastmod>2026-05-03T13:52:25+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/publications/cylinderfusion/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/publications/cylinderfusion/"
+                />
+  </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/categories/</loc>
     <lastmod>2026-05-02T17:13:53+08:00</lastmod>
     <xhtml:link
@@ -84,7 +97,7 @@
     <lastmod>2026-04-16T17:17:21+08:00</lastmod>
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/publications/wavcamonet/</loc>
-    <lastmod>2026-03-13T18:32:35+08:00</lastmod>
+    <lastmod>2026-05-03T13:52:25+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-US"
