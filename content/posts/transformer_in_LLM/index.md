@@ -248,25 +248,27 @@ RoPE 的核心思想是：通过复数旋转（或二维平面旋转）把位置
 
 <img src="rope_example.png" alt="rope-example" width="400"/>
 
+对于第 p 个 token 的嵌入向量 $x_p$，我们对其进行旋转：
+
 $$
 \begin{aligned}
 x_p &= [x_{p,0}, x_{p,1}, \dots, x_{p,d-1}]\\\\
-f_{\{q,k\}}(x_p,p) &= \mathbf{R}^d_{\Theta,p}\,W_{\{q,k\}}\,x_p\\\\
+f_{\{q,k\}}(x_p,p) &= \mathbf{R}^d_{\Theta,p}x_p\\\\
 \mathbf{R}^d_{\Theta,p}
 &=
 \begin{bmatrix}
-\cos(p\theta_0) & -\sin(p\theta_0) & & & \\\\
-\sin(p\theta_0) & \cos(p\theta_0)  & & & \\\\
-& & \cos(p\theta_1) & -\sin(p\theta_1) & \\\\
-& & \sin(p\theta_1) & \cos(p\theta_1)  & \\\\
+\cos(p \cdot \theta_0) & -\sin(p \cdot \theta_0) & & & \\\\
+\sin(p \cdot \theta_0) & \cos(p \cdot \theta_0)  & & & \\\\
+& & \cos(p \cdot \theta_1) & -\sin(p \cdot \theta_1) & \\\\
+& & \sin(p \cdot \theta_1) & \cos(p \cdot \theta_1)  & \\\\
 & & & & \ddots \\\\
-& & & & & \cos(p\theta_{d/2-1}) & -\sin(p\theta_{d/2-1}) \\\\
-& & & & & \sin(p\theta_{d/2-1}) & \cos(p\theta_{d/2-1})
+& & & & & \cos(p \cdot \theta_{d/2-1}) & -\sin(p \cdot \theta_{d/2-1}) \\\\
+& & & & & \sin(p \cdot \theta_{d/2-1}) & \cos(p \cdot \theta_{d/2-1})
 \end{bmatrix}
 \end{aligned}
 $$
 
-其中 $\theta_k = 10000^{-2k/d}$
+其中 $\theta_k = \frac{1}{\Theta^{2k/d}} = 10000^{-2k/d}$
 
 接下来证明RoPE符合<a href="#eq:goal">（1）</a>式：
 
@@ -274,8 +276,8 @@ $$
 
 $$
 \tilde{x}_{p}^{(k)} = \begin{bmatrix} 
-cos(p\theta_k) & -sin(p\theta_k) \\\\
-sin(p\theta_k) & cos(p\theta_k)
+cos(p \cdot \theta_k) & -sin(p \cdot \theta_k) \\\\
+sin(p \cdot \theta_k) & cos(p \cdot \theta_k)
 \end{bmatrix}
 \begin{bmatrix}
 x\_{p,2k} \\\\

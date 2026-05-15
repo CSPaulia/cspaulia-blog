@@ -457,83 +457,128 @@ where $\lambda$ is a small coefficient, typically $1e-3$ or $1e-4$.
 
 Image source: [link](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 
-**Standard attention computation**:
+During autoregressive inference, each new token forces recomputation of the \(QKV\) projections and attention over the entire sequence — the \(K, V\) of the previous token were already computed one step earlier and thrown away.
 
-$$
-Q = X W_Q, \quad K = X W_K, \quad V = X W_V
-$$
+**Core idea of KV Cache**: keep already-computed \(K, V\) in memory. When generating the next token, only project the new token and let the new Query attend to the accumulated Keys. This avoids the repeated \(O(T)\) projection cost at every step. The trade-off is extra memory to store past K and V.
 
-Assume $X \in \mathbb{R}^{b \times T \times D}$ and $W_{\\{Q, K, V\\}} \in \mathbb{R}^{D \times (hd)}$, where $T$ is the sequence length, $h$ is the number of attention heads, and $d$ is the per-head dimension. Let $D = hd$. The compute cost is:
-- compute K/Q/V: $3 \times 2bTD^2 = 6bT(hd)^2$
-- compute $Q \times K$: $2bhT^2d$
-- compute softmax: $n \times bhT^2$ (softmax involves $n$ operations)
-- compute $Output_{softmax} \times V$: $2bhT^2d$
-- output projection: $2bTD^2$
-- total $\approx 8bTD^2 + 4bhT^2d$ (ignoring softmax)
+<details>
+<summary>Detailed derivation of compute and memory</summary>
 
-The memory cost is:
-- weight parameters:
-    - $W_{\\{Q, K, V\\}}$: $3 \times D(hd) = 3(hd)^2$
-    - output projection: $(hd)D = (hd)^2$
-- intermediate activations:
-    - input: $bTD$
-    - K/Q/V: $3 \times bhTd$
-    - attention weights (after softmax): $bhT^2$
-    - output: $bTD$ (input to the next layer; often not counted for this layer)
-- total $\approx 4(hd)^2 + bTD + 3bhTd + bhT^2$
+**Standard attention.** Let \(X \in \mathbb{R}^{b \times T \times D}\) and \(W_{Q,K,V} \in \mathbb{R}^{D \times (hd)}\), where \(T\) is the sequence length, \(h\) the number of heads, \(d\) the per-head dimension, and \(D = hd\).
 
-**Attention with KV cache**:
+Compute:
+- KQV projections: \(3 \times 2bTD^2 = 6bT(hd)^2\)
+- \(Q \times K\): \(2bhT^2d\)
+- softmax: \(n \times bhT^2\) (softmax involves \(n\) operations)
+- \(\mathrm{Output_{softmax}} \times V\): \(2bhT^2d\)
+- output projection: \(2bTD^2\)
+- **total compute** \(\approx 8bTD^2 + 4bhT^2d\) (ignoring softmax)
 
-During training, KV caching does not reduce compute, so it is often not used.
-
-In inference, if the current sequence length is $t$, predicting the next token costs $\approx 8btD^2 + 4bht^2d$. Without KV cache, predicting the *next* token after that would cost $\approx 8b(t+1)D^2 + 4bh(t+1)^2d$, which grows significantly with sequence length.
-
-With KV cache, predicting the next token costs:
-- compute K/Q/V: since we reuse $K_{1:(t-1)}, V_{1:(t-1)}$, we only compute $Q_t, K_t, V_t$, costing $3 \times 2bD^2$
-- compute $Q_t \times K_{1:t}$: $2bhtd$
-- softmax: $n \times bht$
-- compute $Output_{softmax} \times V_{1:t}$: $2bhtd$
-- output projection: $2bD^2$
-- total $\approx 8bD^2 + 4bhtd$ (ignoring softmax)
-
-The compute now grows only mildly with sequence length.
-
-KV cache slightly increases memory in inference. Without KV cache, memory is dominated by weights $4(hd)^2$. With KV cache, we add cache storage $2bhtd$, so total memory is $\approx 4(hd)^2 + 2bhtd$.
+Memory:
+- weights: \(W_{Q,K,V}\) \(3(hd)^2\) + output projection \((hd)^2\) → \(4(hd)^2\)
+- activations: input \(bTD\), K/Q/V \(3bhTd\), attention weights \(bhT^2\), output \(bTD\) (next layer's input, not counted here)
+- **total memory** \(\approx 4(hd)^2 + bTD + 3bhTd + bhT^2\)
 
 ---
 
-### 4.2. MQA and GQA
+**Inference without KV Cache.** At step \(t\) we recompute \(Q_{1:t}, K_{1:t}, V_{1:t}\); compute \(\approx 8btD^2 + 4bht^2d\), growing quadratically with sequence length. Step \(t+1\) costs \(\approx 8b(t+1)D^2 + 4bh(t+1)^2d\) — each round slower than the previous.
 
-To reduce KV-cache memory, a simple idea is to let attention heads **share** $K$ and $V$:
-- if all $h$ heads share a single $K$ and $V$, it is MQA (Multi-query Attention)
-- if we split $h$ heads into $g$ groups and each group shares $K$ and $V$, it is GQA (Grouped-query Attention)
+---
 
-Illustration:
+**Inference with KV Cache.** Only compute the current token's \(Q_t, K_t, V_t\), no recomputation of historical projections.
+
+Compute:
+- K/Q/V projections: only \(Q_t, K_t, V_t\), \(3 \times 2bD^2 = 6bD^2\)
+- \(Q_t \times K_{1:t}\): \(2bhtd\)
+- softmax: \(n \times bht\)
+- \(\mathrm{Output_{softmax}} \times V_{1:t}\): \(2bhtd\)
+- output projection: \(2bD^2\)
+- **total compute** \(\approx 8bD^2 + 4bhtd\) (ignoring softmax)
+
+Compute grows only linearly with \(t\) — each step costs roughly the same.
+
+Memory: weights \(4(hd)^2\) + KV Cache \(2bhtd\), **total** \(\approx 4(hd)^2 + 2bhtd\).
+
+**O(·) comparison** (ignoring softmax and constant factors, \(D = hd\)):
+
+| Scenario | Compute | Memory |
+|----------|---------|--------|
+| Without KV Cache | \(O(TD^2 + hT^2d)\) | \(O(D^2 + hT^2)\) |
+| With KV Cache | \(O(D^2 + hTd)\) per step | \(O(D^2 + hTd)\) |
+
+Without caching, per-step compute grows quadratically in \(T\); with caching it becomes linear — making autoregressive decoding feasible.
+
+</details>
+
+---
+
+### 4.2. MQA and GQA {#mqa-gqa}
+
+The KV Cache bottleneck comes from storing \(K, V\) **for every head separately**. The natural optimization is to share KV across heads: fewer KV copies directly scale down the cache.
+
+- **MQA (Multi-Query Attention)**: all \(h\) heads share one set of \(K, V\) — maximal compression, but the largest expressive loss
+- **GQA (Grouped-Query Attention)**: split \(h\) heads into \(g\) groups, each group shares one set of \(K, V\) — the middle ground between MHA and MQA
 
 <img src="attention_variant.png" alt="attention-variants" width="600"/>
 
-| Model | Training-time | Inference-time | Notes |
-|------|-------------|-------------|------|
-| GPT-3 / GPT-4 | MHA | MHA / GQA (partially optimized) | GPT-4 reportedly uses GQA |
-| PaLM 2 | GQA | GQA | native training structure |
-| Claude 3 | GQA | GQA | publicly described by Anthropic |
-| LLaMA 2 | MHA | GQA (converted) | converted later by Meta |
-| Mistral | GQA | GQA | end-to-end GQA |
-| Falcon | MQA | MQA | optimized for long-context inference |
-| Gemini 1.5 | GQA | GQA | used by Google for multimodal LLMs |
+| Mechanism | KV copies | KV cache size |
+|-----------|-----------|---------------|
+| MHA | \(h\) | 1× |
+| GQA | \(g\) | \(g/h\) |
+| MQA | 1 | \(1/h\) |
 
-Compared to MHA, MQA/GQA keep compute complexity roughly unchanged but reduce memory. Suppose $h$ query heads share $k$ key/value heads:
-- weight parameters:
-    - $W_{\\{Q\\}}$: $D(hd) = (hd)^2$
-    - $W_{\\{K, V\\}}$: $2 \times D(kd) = 2(hd)(kd)$
-    - output projection: $(hd)D = (hd)^2$
-- intermediate activations:
-    - input: $bTD$
-    - $Q$: $bhTd$
-    - $KV$: $2bkdT$
-    - attention weights (after softmax): $bhT^2$
-    - output: $bTD$ (input to the next layer; often not counted for this layer)
-- total memory $\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2$
+**Model adoption**:
+
+| Model | Attention | Notes |
+|------|-----------|-------|
+| GPT-3 / GPT-4 | MHA / GQA | GPT-4 reportedly uses GQA |
+| LLaMA 2 | MHA → GQA | post-training conversion |
+| LLaMA 3 | GQA | native training |
+| Mistral 7B | GQA + Sliding Window | combined with local window |
+| Falcon | MQA | extreme compression |
+| DeepSeek-V2/V3 | MLA | low-rank compression, better than MQA |
+
+<details>
+<summary>Detailed memory derivation</summary>
+
+MQA and GQA keep compute complexity unchanged vs. MHA but reduce memory. Let \(h\) query heads share \(k\) key/value groups (\(k=1\) for MQA, \(k=g\) for GQA, \(k=h\) for MHA).
+
+**Weight parameters**:
+
+| Parameter | Shape | Memory |
+|-----------|-------|--------|
+| \(W_Q\) | \(D \times (hd)\) | \((hd)^2\) |
+| \(W_K, W_V\) | \(D \times (kd)\) each | \(2 \times D(kd) = 2hkd^2\) |
+| output projection | \((hd) \times D\) | \((hd)^2\) |
+| **subtotal** | | \(\approx 2(hd)^2 + 2hkd^2\) |
+
+**Intermediate activations** (training):
+
+| Activation | Shape | Memory |
+|------------|-------|--------|
+| input | \(b \times T \times D\) | \(bTD\) |
+| Q | \(b \times T \times h \times d\) | \(bhTd\) |
+| K, V | \(b \times T \times k \times d\) | \(2bkdT\) |
+| attention weights | \(b \times h \times T \times T\) | \(bhT^2\) |
+| output | \(b \times T \times D\) | \(bTD\) (not counted for this layer) |
+| **subtotal** | | \(bTD + bhTd + 2bkdT + bhT^2\) |
+
+**Total memory** \(\approx 2(hd)^2 + 2hkd^2 + 2bTD + 2bkdT + bhT^2\).
+
+**O(·) comparison** (ignoring constants, focusing on scaling with \(T\) and \(h\)):
+
+| Item | MHA (\(k=h\)) | GQA (\(k=g\)) | MQA (\(k=1\)) |
+|------|--------------|--------------|--------------|
+| Compute | \(O(TD^2 + hT^2d)\) | same as MHA | same as MHA |
+| Weights | \(O(D^2)\) | same as MHA | same as MHA |
+| Activations | \(O(TD + hTd + hT^2)\) | \(O(TD + hTd + gTd + hT^2)\) | \(O(TD + hTd + hT^2)\) |
+| **KV Cache** | \(O(hTd)\) | \(O(gTd)\) | \(O(Td)\) |
+
+Compute is identical across all three. The difference is entirely in KV-related storage: \(h \to g \to 1\) scales the KV Cache from \(O(hTd)\) down to \(O(Td)\), a factor of \(h\).
+
+At inference, KV Cache adds \(2bktd\) (with current sequence length \(t\)). When \(k=1\) (MQA), the cache is only \(1/h\) of MHA's.
+
+</details>
 
 ---
 

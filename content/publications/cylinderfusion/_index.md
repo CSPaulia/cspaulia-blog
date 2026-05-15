@@ -15,7 +15,7 @@ authors:
 selected: true
 paper: https://ieeexplore.ieee.org/document/11461037
 code: https://github.com/CSPaulia/cylinderfusion
-summary: A robust radar–camera fusion network for waterway point cloud segmentation
+summary: A robust radar–camera fusion network for waterway point cloud segmentation.
 cover:
     image: cover.png
 ---
