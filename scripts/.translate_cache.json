@@ -1,0 +1,97 @@
+{
+  "content\\archives.md": {
+    "zh_hash": "01b48eca8ebbbf428ad786f8b29725fa4a30ddbb949b2ea0caabec7186adff0a"
+  },
+  "content\\search.md": {
+    "zh_hash": "1b3b73e3ba796784dc917c6682a0ac8a9ee3fbae49f39c134b4f8acc86c82f1f"
+  },
+  "content\\series.md": {
+    "zh_hash": "23f9734ca1feb4c9943c3202e4f860f05521cff06c7dfd3b72ed06e261efdbf7"
+  },
+  "content\\_index.md": {
+    "zh_hash": "6475d209684baa8f207b39f49661c39960bd049594bc087d41413f4e5363b63b"
+  },
+  "content\\posts\\_index.md": {
+    "zh_hash": "e2a5fa33fc70da775ccba19ff808b7eb591e6dc0fadbee33eedafad3fcae734f"
+  },
+  "content\\publications\\_index.md": {
+    "zh_hash": "c8e51e4e22cdd41c4b7254e263765471146cbecd1c5d5d7e84a6c5e225cd5191"
+  },
+  "content\\posts\\activation\\index.md": {
+    "zh_hash": "2f4c3f5ece3a7189110d337be81e29df52ea09719f828255766f8f6497dad52e"
+  },
+  "content\\posts\\attention_in_llm\\index.md": {
+    "zh_hash": "ba588e63a402c4288b06e6b45170c642b4b2a2f50a085675a61ba2a11f7b5783",
+    "en_hash": "bd17027a49f457ec429444f84595b05cb67e613218b470baea968f8bc93c4263"
+  },
+  "content\\posts\\clip\\index.md": {
+    "zh_hash": "1778bd78e2d9ef3cac9c3fa1aea275c5d2bece50e9d20aea25a5d6ca11a8fc04"
+  },
+  "content\\posts\\cross_attention\\index.md": {
+    "zh_hash": "c0173eea6fe214ed8f72deca60054b148327b398d361cb2578c364e300098116"
+  },
+  "content\\posts\\generation_targets\\index.md": {
+    "zh_hash": "e28942597dc5aa9d6bf9af8704711fdf7a09b080389a29012ebc0dd8c482d422"
+  },
+  "content\\posts\\generation_with_sdes\\index.md": {
+    "zh_hash": "6769af6ada2780e8b11b1022338e1501622a5ea207e716605077d2dc12fe77f4"
+  },
+  "content\\posts\\github-tips\\index.md": {
+    "zh_hash": "cd11ae968a5c85d277e30e721fe37f31aed219437a17e491da7d4ceb97421503"
+  },
+  "content\\posts\\GPT\\index.md": {
+    "zh_hash": "887feabf21c12947c2dba4dda3291c54b4b2ebb49ec9f229e484eaa7f8e8906d"
+  },
+  "content\\posts\\hugo-papermod\\index.md": {
+    "zh_hash": "b1facac73bb1b064d33dfd1ee0a1c532f7b5398b5333b54fabf8c4e111162748"
+  },
+  "content\\posts\\llm-architecture-gallery\\index.md": {
+    "zh_hash": "82e1a0c1fb77cd3580e50e4c9c267426c38919558dd7fa1c6f4590d4b93661da",
+    "en_hash": "b1744dfd3a32cfc137e4ddf0fb6228493a31b457f71175375ac44024462e5543"
+  },
+  "content\\posts\\lora\\index.md": {
+    "zh_hash": "d9921548ffaacd42583569e97bbd0f6c7a117a5cbea272e7354589414795aeab"
+  },
+  "content\\posts\\loss\\index.md": {
+    "zh_hash": "c9fe60ed7cc2e62c65ea3f1f3cad9fddf703a261c67c316456c947be515955a5"
+  },
+  "content\\posts\\mamba\\index.md": {
+    "zh_hash": "f520009d2710064d9cbbc693541dbeee5f7327ff8f496302c232b1222867daa5",
+    "en_hash": "a4057cd862bd146fd6df90f10948345a0be091396fcc3655f9583b6b905f9c59"
+  },
+  "content\\posts\\metric\\index.md": {
+    "zh_hash": "a3b403a1e5b3de2f48c8f225cf4d92ba773b9512e29b6049d70e41036d1dde34"
+  },
+  "content\\posts\\mixture-of-experts\\index.md": {
+    "zh_hash": "575967e2d0a57a49501b8418ef31a912d139cba69c714c1fe6aeaecd60570b26",
+    "en_hash": "6015435b8c6210250dd94ca7ecf20b91b1321542286ac6ce5819a3c197b6212b"
+  },
+  "content\\posts\\norm\\index.md": {
+    "zh_hash": "fdfd9a8648124000072a1ec3477eec00b86283af1fdd940661bfabe2ee74b9b0"
+  },
+  "content\\posts\\paper_writing_tips\\index.md": {
+    "zh_hash": "d491579773ae29c1b7671a58cadffdad0ea174b0967b36cb335746b34a28a022",
+    "en_hash": "d25d6a2c47268b6984bd4a5b091df526aa664e6587cfac003cdf1b681a26b512"
+  },
+  "content\\posts\\primitives\\index.md": {
+    "zh_hash": "3971e5fbbaa76aebb0dc125989d039b833e5d236f71fd77041c97a97e77c4d1e"
+  },
+  "content\\posts\\rebuttal\\index.md": {
+    "zh_hash": "ea815c4867d875d07a8b2cf61e838dccd54ae9f8468f69ec43c0e8293b3b3efc"
+  },
+  "content\\posts\\residual\\index.md": {
+    "zh_hash": "9f252c891f73664f3ae22c166059c9f60dc021e7f603cf684c7f4811039ac988"
+  },
+  "content\\posts\\screen\\index.md": {
+    "zh_hash": "f9d3d4f47ba5effab4b135ad28ba1d1e68fb94a3ad999a0a8a2150c0e897a38d"
+  },
+  "content\\posts\\sft_rlhf\\index.md": {
+    "zh_hash": "e4158f7bf7ee86a516e33730825d46c14a647afb8256be9c800b9285173dd081"
+  },
+  "content\\posts\\tokenization\\index.md": {
+    "zh_hash": "6c4898d0b8293877aea8c6ba735bd4e4307e1fa95fe96cf59690026e8f491279"
+  },
+  "content\\posts\\transformer_in_LLM\\index.md": {
+    "zh_hash": "2d87ea8d678e2f62387066d5c7f5fa451ecf898112d41450c0b8d9d07f807068"
+  }
+}
