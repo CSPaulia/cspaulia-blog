@@ -93,7 +93,7 @@ GELU 的思想是：
 
 ---
 
-### Swish
+### Swish/SiLU (Sigmoid Linear Unit)
 
 $$
 \text{Swish}(x) = x \cdot \sigma(x) = \frac{x}{1 + e^{-x}}
