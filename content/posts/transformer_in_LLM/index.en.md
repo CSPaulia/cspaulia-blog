@@ -61,11 +61,11 @@ The table below summarizes the major architectural and training differences betw
 
 Almost all modern language models use pre-norm (except BERT), which tends to make training more stable.
 
-Left: pre-norm. Right: post-norm.
+Left: post-norm. Right: pre-norm.
 
 <img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
 
-**New!** Left: pre-norm. Right: “double norm” (used by e.g. Grok, Gemma 2).
+**New!** Left: post-norm. Right: “double norm” (used by e.g. Grok, Gemma 2).
 
 <img src="pre-double-norm.png" alt="pre-vs-double" width="300"/>
 

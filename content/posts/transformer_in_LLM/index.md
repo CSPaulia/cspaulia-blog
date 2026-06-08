@@ -61,11 +61,11 @@ editPost:
 
 几乎所有的现代语言模型均采用前归一化（除了BERT），能使训练更加稳定
 
-左图为前归一化（pre-norm），右图为后归一化（post-norm）
+右图为前归一化（pre-norm），左图为后归一化（post-norm）
 
 <img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
 
-**新！**：左图为前归一化（pre-norm），右图为双归一化（'double' norm，使用者包括 Grok，Gemma 2）
+**新！**：左图为后归一化（post-norm），右图为双归一化（'double' norm，使用者包括 Grok，Gemma 2）
 
 <img src="pre-double-norm.png" alt="pre-vs-double" width="300"/>
 
