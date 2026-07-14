@@ -93,5 +93,13 @@
   },
   "content\\posts\\transformer_in_LLM\\index.md": {
     "zh_hash": "2d87ea8d678e2f62387066d5c7f5fa451ecf898112d41450c0b8d9d07f807068"
+  },
+  "content\\posts\\triton\\index.md": {
+    "zh_hash": "4a19332da11c0889affbf06b4cdc923f3d867551812d545a4776b6ced67a4644",
+    "en_hash": "7e951a1d04dec94c78bf7e5f7312576803f78a98db4f5d876f4541a1039e9a03"
+  },
+  "content\\posts\\gpus\\index.md": {
+    "zh_hash": "804b61af7561ced0494b24353a474c7e4b04b9c69fe7d8a038781129bb297e93",
+    "en_hash": "7cf2147cd17cb1ac58f6e1c2a003d00ca09d3805e4aacd8fa8933c1fa4d51520"
   }
 }
