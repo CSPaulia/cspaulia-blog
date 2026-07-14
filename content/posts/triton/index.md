@@ -24,7 +24,7 @@ disableShare: false
 searchHidden: false
 ShowRssButtonInSectionTermList: true
 cover:
-    image: "<image path/url>"
+    image: "cover.png"
     alt: "Triton cover"
     caption: "Triton"
     relative: true
