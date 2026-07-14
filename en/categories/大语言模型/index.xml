@@ -9,10 +9,24 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.163.1</generator>
+    <generator>Hugo -- 0.164.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 21 May 2026 19:58:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 15:28:26 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/categories/%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction to Triton</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/triton/</link>
+      <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/triton/</guid>
+      <description>CS336 Lecture 6 Study Notes.</description>
+    </item>
+    <item>
+      <title>GPU Architecture and Machine Learning Optimization</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/gpus/</link>
+      <pubDate>Wed, 10 Jun 2026 11:17:05 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/gpus/</guid>
+      <description>CS336 Lecture 5 Study Notes.</description>
+    </item>
     <item>
       <title>LLM Architecture Landscape (2024–2026)</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</link>

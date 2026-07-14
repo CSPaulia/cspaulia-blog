@@ -9,10 +9,17 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.163.1</generator>
+    <generator>Hugo -- 0.164.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 13 Jun 2026 22:06:14 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 14:28:37 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Triton 入门</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/triton/</link>
+      <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/triton/</guid>
+      <description>CS336 Lecture 6 学习笔记。</description>
+    </item>
     <item>
       <title>GPU 架构与机器学习优化</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/gpus/</link>
