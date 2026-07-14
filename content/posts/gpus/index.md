@@ -20,6 +20,20 @@ ShowBreadCrumbs: true
 ShowPostNavLinks: true
 ShowWordCount: true
 UseHugoToc: true
+disableShare: false
+searchHidden: false
+ShowRssButtonInSectionTermList: true
+cover:
+    image: "gpu-vs-cpu.png"
+    alt: "GPU vs CPU"
+    caption: "CPU 和 GPU 的结构对比"
+    relative: true
+    hidden: false
+    hiddenInList: false
+editPost:
+    URL: "https://cspaulia.github.io/cspaulia-blog/content/"
+    Text: "Suggest Changes"
+    appendFilePath: true
 ---
 
 ## 1. GPU 的架构
@@ -90,7 +104,23 @@ GPU 的内存越靠近 **SM**，访问速度越快：
 - **L2 cache**：服务整颗 GPU，让不同 SM 访问 global memory 前先经过一个共享缓存；
 - **Global memory**：服务整个 GPU，存放模型参数、输入输出、激活值等大数据。
 
-#### 1.2.3 板卡组成
+以下列出 A100、H100 和 B200 三代 GPU 的关键硬件规格，可以更直观地看到不同代际之间的演进：
+
+| Accelerator                        | A100      | H100      | B200      |
+|------------------------------------|-----------|-----------|-----------|
+| # SMs                              |       108 |       132 |       148 |
+| Register size (per SM)             |    256 KB |    256 KB |    256 KB |
+| L1 cache + shared memory (per SM)  |    192 KB |    256 KB |    256 KB |
+| L2 cache size                      |     40 MB |     50 MB | 96-126 MB |
+| HBM size                           |     80 GB |     80 GB |    192 GB |
+| Register bandwidth                 | ~116 TB/s | ~401 TB/s | ~447 TB/s |
+| L1 cache + shared memory bandwidth |  ~19 TB/s |  ~33 TB/s |  ~19 TB/s |
+| L2 cache bandwidth                 | ~5-8 TB/s |  ~12 TB/s |   ~9 TB/s |
+| HBM bandwidth                      |    2 TB/s | 3.35 TB/s |    8 TB/s |
+
+（B200 还在 Tensor Core 和寄存器 / shared memory 之间引入了 **tensor memory（TMEM）**，对程序员不可见，但可以进一步提升 Tensor Core 的效率。）
+
+### 1.2.3 板卡组成
 
 <figure>
   <img src="gpu-board-vram.png" alt="GPU 板卡结构图">
@@ -125,6 +155,29 @@ GPU 的执行模型中有三个重要概念：
 - **Warp**：SM 内部实际调度的单位；
 - **Thread**：warp 里的单个逻辑执行流，最终由 SM 内部计算单元执行。
 
+具体来说，当你启动一个 CUDA kernel（例如 `my_kernel<<<gridDim, blockDim>>>(args)` 或 Triton 中的 `my_kernel[(grid,)](args)`）时，GPU 的执行流程如下：
+
+1. **划分 Grid**：整个计算任务被包装成一个 **grid**。grid 的维度由启动参数决定——比如 `gridDim` 为 `(M, N)` 表示有 M × N 个 block。grid 的划分是你**显式指定**的，你需要自己决定"把任务切成多少个 block"；
+
+2. **分配 Block 到 SM**：硬件把 grid 中的 block **逐个分配**到有空闲资源的 SM 上。一个 SM 可以同时容纳多个 block（取决于 shared memory 和寄存器容量），分配完的 block 就驻留在 SM 上直到执行完成；
+
+3. **Block 内部分组为 Warp**：每个 block 进入 SM 后，硬件会按 thread ID 顺序，每 32 个连续 thread 分成一个 **warp**。这个过程是**硬件自动完成**的——你只需指定 block 大小，不需要手动管理 warp；
+
+4. **Warp Scheduler 调度**：SM 内部的 **warp scheduler** 在每个时钟周期选择一个"就绪"的 warp，向其中的 32 个 thread **同时发出同一条指令**。这 32 个 thread 各自在不同的数据上执行相同的指令，这就是 **SIMT（Single Instruction, Multiple Threads）**；
+
+5. **零开销切换**：当某个 warp 因为等待 HBM 读写而阻塞时，warp scheduler 直接切换到另一个就绪的 warp，切换本身不消耗额外时钟周期。一个 SM 上通常同时驻留多个 warp，靠这种频繁切换来隐藏内存延迟。
+
+所以，从代码到硬件的映射链路是：
+
+```
+kernel 启动参数 → Grid（block 数量由你指定）
+                   → Block（分配到各个 SM）
+                       → Warp（硬件自动按 32 个 thread 分组）
+                           → Thread（执行计算的逻辑个体）
+```
+
+简单记：**你决定 grid 和 block 的大小，硬件负责把 block 内的 thread 编成 warp 并调度执行**。
+
 #### 1.2.5 内存访问范围
 
 <figure>
@@ -139,6 +192,52 @@ CUDA 程序中的内存访问范围可以这样理解：
 - **整个 grid** 可以访问 **global memory**，不同 block 之间交换数据通常需要通过 global memory；
 - **constant memory** 是整个 grid 可读的只读内存；
 - **host code** 可以在 CPU 侧和 GPU 的 global / constant memory 之间传输数据。
+
+#### 1.2.6 Warp Occupancy（寄存器压力与占用率）
+
+每个 thread 可以使用 0 到 255 个寄存器。thread 使用的寄存器越多，SM 上能同时容纳的 thread 就越少，**occupancy**（**占用率**）就越低。
+
+用一个具体例子来理解：假设每个 thread block 有 128 个 thread，每个 thread 使用 160 个寄存器，SM 最多有 65536 个寄存器、最多支持 64 个并发 warp：
+
+```
+num_threads_per_block = 128
+num_registers_per_thread = 160
+
+max_registers = 65536  # SM 上的寄存器总数
+max_warps = 64         # SM 最多支持的并发 warp 数
+
+num_registers_per_block = 128 × 160 = 20480
+num_blocks = 65536 // 20480 = 3      # 受寄存器数量限制，最多放 3 个 block
+num_warps = 3 × 128 / 32 = 12       # 实际运行的 warp 数
+occupancy = 12 / 64 = 18.75%        # 占用率不到 20%
+```
+
+occupancy 低不一定是坏事——如果每个 thread 在做更多工作（例如 **thread coarsening**，一个 thread 处理多个元素），低 occupancy 也可能是合理的。关键不是 occupancy 本身，而是 SM 的计算资源是否被高效利用。
+
+#### 1.2.7 Bank Conflicts（共享内存的 Bank 冲突）
+
+Shared memory 被划分成 **32 个 bank**，每个 bank 宽度为 4 字节。排列方式如下：
+
+```
+B00 B01 B02 B03 B04 B05 B06 B07 B08 B09 B10 B11 B12 B13 B14 B15 ...
+... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
+```
+
+每个时钟周期内，每个 bank 只能被一个 thread 访问（除非访问的是完全相同的地址，此时会触发广播）。如果多个 thread 同时访问同一个 bank 的不同地址，访问会被**串行化**，这就是 **bank conflict**。
+
+最坏情况的例子：一个矩阵的每一行横跨所有 bank。如果 32 个 thread 同时访问第一列，它们会全部命中不同的 row 但相同的 column offset——即全部命中 bank 0——导致 32 路 bank conflict。
+
+在矩阵乘法 `A @ B` 中，bank conflict 一定程度不可避免：需要同时访问 A 的行和 B 的列。
+
+一个常用的缓解手段是 **swizzling**：对 shared memory 的地址做某种变换（如行和列的 XOR），打散 bank 的分配，从而减少冲突。
+
+#### 1.2.8 Block Occupancy（Block 级占用率）
+
+Thread block 会被分批调度到 SM 上执行。如果 SM 数量不能整除 thread block 数量，最后一波（wave）的 block 数会少于 SM 数量，造成部分 SM 空闲（wave quantization 问题）。
+
+以 B200 为例：它有 148 个 SM。如果启动 160 个 thread block，第一波 148 个 block 全部跑满，第二波只剩 12 个 block，其余 136 个 SM 空闲。
+
+解决思路很简单：**让 thread block 数量能被 SM 数量整除**，避免最后一波出现"吃不饱"的情况。
 
 ### 1.3 TPU 简单对比
 
