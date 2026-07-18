@@ -93,10 +93,8 @@ In words:
 
 ---
 
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">References</div>
-  <ol>
-    <li><a href="https://arxiv.org/abs/2106.09685" target="_blank">LoRA: Low-Rank Adaptation of Large Language Models</a></li>
-    <li><a href="https://zhuanlan.zhihu.com/p/646791309" target="_blank">LORA微调系列(一)：LORA和它的基本原理</a></li>
-  </ol>
-</div>
+## References
+
+[1] *LoRA: Low-Rank Adaptation of Large Language Models*. [Online]. Available: https://arxiv.org/abs/2106.09685.
+
+[2] LORA微调系列（一）：LORA和它的基本原理. [Online]. Available: https://zhuanlan.zhihu.com/p/646791309.

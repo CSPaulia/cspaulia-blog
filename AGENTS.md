@@ -32,15 +32,12 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Be careful with bold text next to Chinese punctuation. If Markdown emphasis fails in Hugo, use `<strong>...</strong>`.
 - Avoid patterns like `**中文（English） **的`; remove extra spaces or use HTML `<strong>`.
 - Run `hugo --enableGitInfo=false` after meaningful Markdown or asset changes when feasible.
-- For references, follow the blog's existing reference style, often:
+- For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`:
 
-```html
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
-  <ol>
-    <li><a href="..." target="_blank">Title</a></li>
-  </ol>
-</div>
+```markdown
+## 参考文献
+
+[1] Title. [Online]. Available: https://...
 ```
 
 ## Image Assets

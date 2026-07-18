@@ -164,43 +164,6 @@ body {
     transform:scale(1.1,1.1);
 }
 
-/* 参考文献样式 */
-/* 浅色模式 */
-.zhihu-ref {
-    background: #f6f7fa;
-    border-radius: 8px;
-    padding: 1.2em 1.5em 1.2em 1.5em;
-    margin-top: 2em;
-    font-size: 1em;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    border-left: 4px solid #0084ff;
-    transition: background 0.3s, border-color 0.3s;
-}
-.zhihu-ref-title {
-    font-weight: bold;
-    color: #175199;
-    margin-bottom: 0.5em;
-    font-size: 1.1em;
-}
-.zhihu-ref a {
-    color: #175199;
-}
-.zhihu-ref a:hover {
-    color: #0084ff;
-}
-/* 深色模式（PaperMod主题深色class为 .dark） */
-.dark .zhihu-ref {
-    background: #23272e;
-    border-left: 4px solid #3ea6ff;
-}
-.dark .zhihu-ref-title,
-.dark .zhihu-ref a {
-    color: #3ea6ff;
-}
-.dark .zhihu-ref a:hover {
-    color: #8cc8ff;
-}
-
 /* 目录风格 */
 :root {
     --nav-width: 1380px;

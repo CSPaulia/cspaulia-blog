@@ -335,9 +335,6 @@ What the code is doing:
 
 ---
 
-<div class="zhihu-ref">
-    <div class="zhihu-ref-title">References</div>
-  <ol>
-    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json" target="_blank">stanford-cs336 lecture 1</a></li>
-  </ol>
-</div>
+## References
+
+[1] Stanford CS336, "Lecture 1." [Online]. Available: https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json.

@@ -590,9 +590,6 @@ Sparse attention: see this [blog post](https://newsletter.theaiedge.io/p/underst
 
 ---
 
-<div class="zhihu-ref">
-    <div class="zhihu-ref-title">References</div>
-  <ol>
-    <li><a href="https://github.com/stanford-cs336/spring2025-lectures/blob/e9cb2488fdb53ea37f0e38924ec3a1701925cef3/nonexecutable/2025%20Lecture%203%20-%20architecture.pdf" target="_blank">stanford-cs336 lecture 3</a></li>
-  </ol>
-</div>
+## References
+
+[1] Stanford CS336, "Lecture 3." [Online]. Available: https://github.com/stanford-cs336/spring2025-lectures/blob/e9cb2488fdb53ea37f0e38924ec3a1701925cef3/nonexecutable/2025%20Lecture%203%20-%20architecture.pdf.

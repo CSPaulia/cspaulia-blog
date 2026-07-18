@@ -335,9 +335,6 @@ reconstructed_string = tokenizer.decode(indices)  # @inspect reconstructed_strin
 
 ---
 
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
-  <ol>
-    <li><a href="https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json" target="_blank">stanford-cs336 lecture 1</a></li>
-  </ol>
-</div>
+## 参考文献
+
+[1] Stanford CS336, "Lecture 1." [Online]. Available: https://stanford-cs336.github.io/spring2025-lectures/?trace=var/traces/lecture_01.json.

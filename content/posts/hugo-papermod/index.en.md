@@ -356,69 +356,6 @@ Replace it with:
     {{< img src="post_footer.png" alt="post_footer" width="80%" >}}
 </p>
 
-## Add reference links at the end of posts
-
-- Add a bit of style in `blank.css`
-
-    ```css
-    /* assets/css/extended/blank.css */
-    /* light mode */
-    .zhihu-ref {
-        background: #f6f7fa;
-        border-radius: 8px;
-        padding: 1.2em 1.5em 1.2em 1.5em;
-        margin-top: 2em;
-        font-size: 1em;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        border-left: 4px solid #0084ff;
-        transition: background 0.3s, border-color 0.3s;
-    }
-    .zhihu-ref-title {
-        font-weight: bold;
-        color: #175199;
-        margin-bottom: 0.5em;
-        font-size: 1.1em;
-    }
-    .zhihu-ref a {
-        color: #175199;
-    }
-    .zhihu-ref a:hover {
-        color: #0084ff;
-    }
-    /* dark mode (PaperMod uses .dark) */
-    .dark .zhihu-ref {
-        background: #23272e;
-        border-left: 4px solid #3ea6ff;
-    }
-    .dark .zhihu-ref-title,
-    .dark .zhihu-ref a {
-        color: #3ea6ff;
-    }
-    .dark .zhihu-ref a:hover {
-        color: #8cc8ff;
-    }
-    ```
-
-- Markdown usage:
-
-    ```md
-    <hr>
-    <div class="references">
-    <h3>References</h3>
-    <ol>
-        <li><a href="https://gohugo.io/documentation/" target="_blank">Hugo Documentation</a></li>
-        <li><a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">PaperMod Theme</a></li>
-        <li><a href="https://www.markdownguide.org/" target="_blank">Markdown Guide</a></li>
-    </ol>
-    </div>
-    ```
-
-- Result:
-
-<p align="center">
-    {{< img src="zhihu-ref.png" alt="zhihu-ref" width="80%" >}}
-</p>
-
 ## Side Table of Contents (TOC)
 
 - Create `toc.html` under `layouts/partials` and add:
@@ -709,10 +646,8 @@ Replace it with:
 
 ---
 
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">References</div>
-  <ol>
-    <li><a href="https://www.lilmp.com/categories/小m平部落格整形手術/" target="_blank">小M平碎碎念-小M平部落格整形手術</a></li>
-    <li><a href="https://blog.csdn.net/Xuyiming564445/article/details/122011603" target="_blank">CSDN-Hugo博客PaperMod主题目录放在侧边</a></li>
-  </ol>
-</div>
+## References
+
+[1] 小M平碎碎念：小M平部落格整形手術. [Online]. Available: https://www.lilmp.com/categories/小m平部落格整形手術/.
+
+[2] CSDN：Hugo 博客 PaperMod 主题目录放在侧边. [Online]. Available: https://blog.csdn.net/Xuyiming564445/article/details/122011603.

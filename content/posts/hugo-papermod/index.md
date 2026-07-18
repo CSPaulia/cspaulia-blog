@@ -356,69 +356,6 @@ editPost:
     {{< img src="post_footer.png" alt="post_footer" width="80%" >}}
 </p>
 
-## 博客末尾放参考链接
-
-- 在`blank.css`里加一点样式
-
-    ```css
-    /* assets/css/extended/blank.css */
-    /* 浅色模式 */
-    .zhihu-ref {
-        background: #f6f7fa;
-        border-radius: 8px;
-        padding: 1.2em 1.5em 1.2em 1.5em;
-        margin-top: 2em;
-        font-size: 1em;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-        border-left: 4px solid #0084ff;
-        transition: background 0.3s, border-color 0.3s;
-    }
-    .zhihu-ref-title {
-        font-weight: bold;
-        color: #175199;
-        margin-bottom: 0.5em;
-        font-size: 1.1em;
-    }
-    .zhihu-ref a {
-        color: #175199;
-    }
-    .zhihu-ref a:hover {
-        color: #0084ff;
-    }
-    /* 深色模式（PaperMod主题深色class为 .dark） */
-    .dark .zhihu-ref {
-        background: #23272e;
-        border-left: 4px solid #3ea6ff;
-    }
-    .dark .zhihu-ref-title,
-    .dark .zhihu-ref a {
-        color: #3ea6ff;
-    }
-    .dark .zhihu-ref a:hover {
-        color: #8cc8ff;
-    }
-    ```
-
-- markdown中语法如下
-
-    ```md
-    <hr>
-    <div class="references">
-    <h3>参考资料</h3>
-    <ol>
-        <li><a href="https://gohugo.io/documentation/" target="_blank">Hugo 官方文档</a></li>
-        <li><a href="https://github.com/adityatelange/hugo-PaperMod" target="_blank">PaperMod 主题</a></li>
-        <li><a href="https://www.markdownguide.org/" target="_blank">Markdown Guide</a></li>
-    </ol>
-    </div>
-    ```
-
-- 效果如下
-
-<p align="center">
-    {{< img src="zhihu-ref.png" alt="zhihu-ref" width="80%" >}}
-</p>
-
 ## 侧边目录设置
 
 - 在`layouts/partials`文件夹下创建`toc.html`，添加如下代码：
@@ -707,10 +644,8 @@ editPost:
 
 ---
 
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">参考文献</div>
-  <ol>
-    <li><a href="https://www.lilmp.com/categories/小m平部落格整形手術/" target="_blank">小M平碎碎念-小M平部落格整形手術</a></li>
-    <li><a href="https://blog.csdn.net/Xuyiming564445/article/details/122011603" target="_blank">CSDN-Hugo博客PaperMod主题目录放在侧边</a></li>
-  </ol>
-</div>
+## 参考文献
+
+[1] 小M平碎碎念：小M平部落格整形手術. [Online]. Available: https://www.lilmp.com/categories/小m平部落格整形手術/.
+
+[2] CSDN：Hugo 博客 PaperMod 主题目录放在侧边. [Online]. Available: https://blog.csdn.net/Xuyiming564445/article/details/122011603.

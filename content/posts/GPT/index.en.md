@@ -155,12 +155,12 @@ Even when tasks are unknown in advance, most language models still require task-
 
 ---
 
-<div class="zhihu-ref">
-  <div class="zhihu-ref-title">References</div>
-  <ol>
-    <li><a href="https://www.bilibili.com/video/BV1AF411b7xQ?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8" target="_blank">GPT, GPT-2, GPT-3 paper walkthrough (Bilibili)</a></li>
-    <li><a href="https://www.mikecaptain.com/resources/pdf/GPT-1.pdf" target="_blank">Improving language understanding by generative pre-training</a></li>
-    <li><a href="https://storage.prod.researchhub.com/uploads/papers/2020/06/01/language-models.pdf" target="_blank">Language models are unsupervised multitask learners</a></li>
-    <li><a href="https://www.mikecaptain.com/resources/pdf/GPT-3.pdf" target="_blank">Language Models are Few-Shot Learners</a></li>
-  </ol>
-</div>
+## References
+
+[1] GPT, GPT-2, GPT-3 paper walkthrough (Bilibili). [Online video]. Available: https://www.bilibili.com/video/BV1AF411b7xQ?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8.
+
+[2] *Improving language understanding by generative pre-training*. [Online]. Available: https://www.mikecaptain.com/resources/pdf/GPT-1.pdf.
+
+[3] *Language models are unsupervised multitask learners*. [Online]. Available: https://storage.prod.researchhub.com/uploads/papers/2020/06/01/language-models.pdf.
+
+[4] *Language Models are Few-Shot Learners*. [Online]. Available: https://www.mikecaptain.com/resources/pdf/GPT-3.pdf.
