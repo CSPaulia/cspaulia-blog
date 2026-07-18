@@ -13,6 +13,13 @@
     <language>zh-CN</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>并行化</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/posts/parallelization/</link>
+      <pubDate>Sat, 18 Jul 2026 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/posts/parallelization/</guid>
+      <description>CS336 Lecture 7 &amp;amp; 8 学习笔记。</description>
+    </item>
+    <item>
       <title>Triton 入门</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/triton/</link>
       <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>

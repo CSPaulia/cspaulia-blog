@@ -11,20 +11,34 @@
     </image>
     <generator>Hugo -- 0.164.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 14 Jul 2026 17:18:26 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 18:26:39 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CUDA</title>
       <link>https://cspaulia.github.io/cspaulia-blog/tags/cuda/</link>
-      <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
+      <pubDate>Sat, 18 Jul 2026 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/tags/cuda/</guid>
       <description></description>
     </item>
     <item>
       <title>GPU</title>
       <link>https://cspaulia.github.io/cspaulia-blog/tags/gpu/</link>
-      <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
+      <pubDate>Sat, 18 Jul 2026 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/tags/gpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>并行计算</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</link>
+      <pubDate>Sat, 18 Jul 2026 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>训练</title>
+      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</link>
+      <pubDate>Sat, 18 Jul 2026 10:00:00 +0800</pubDate>
+      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</guid>
       <description></description>
     </item>
     <item>
@@ -39,20 +53,6 @@
       <link>https://cspaulia.github.io/cspaulia-blog/tags/triton/</link>
       <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/tags/triton/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>并行计算</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</link>
-      <pubDate>Tue, 14 Jul 2026 10:00:00 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>训练</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</link>
-      <pubDate>Wed, 10 Jun 2026 11:17:05 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/tags/%E8%AE%AD%E7%BB%83/</guid>
       <description></description>
     </item>
     <item>

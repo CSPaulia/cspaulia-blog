@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.164.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 08 Jun 2026 09:26:25 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 18:26:39 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%8A%80%E5%B7%A7/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>监督微调（SFT）与人类反馈强化学习（RLHF）</title>
