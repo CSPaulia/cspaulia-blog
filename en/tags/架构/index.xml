@@ -14,13 +14,6 @@
     <lastBuildDate>Thu, 21 May 2026 19:58:23 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>LLM Architecture Landscape (2024–2026)</title>
-      <link>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</link>
-      <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
-      <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</guid>
-      <description>An overview of mainstream open-source LLM architectures from 2024–2026, including comparisons of attention mechanisms, MoE, SSM, and other dimensions.</description>
-    </item>
-    <item>
       <title>Mamba: Selective State Space Model</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/mamba/</link>
       <pubDate>Mon, 27 Apr 2026 11:30:03 +0800</pubDate>

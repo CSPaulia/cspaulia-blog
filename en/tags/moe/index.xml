@@ -11,14 +11,14 @@
     </image>
     <generator>Hugo -- 0.164.0</generator>
     <language>en-US</language>
-    <lastBuildDate>Thu, 21 May 2026 19:58:23 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 11:30:33 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/en/tags/moe/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>LLM Architecture Landscape (2024–2026)</title>
+      <title>LLM Architecture Gallery</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</link>
       <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</guid>
-      <description>An overview of mainstream open-source LLM architectures from 2024–2026, including comparisons of attention mechanisms, MoE, SSM, and other dimensions.</description>
+      <description>A comparison of open/open-weight LLM architectures, attention mechanisms, context windows, and publicly documented training parallelism.</description>
     </item>
   </channel>
 </rss>

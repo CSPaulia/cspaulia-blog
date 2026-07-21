@@ -41,11 +41,11 @@
       <description>Residual Connections and Their Variants</description>
     </item>
     <item>
-      <title>LLM Architecture Landscape (2024–2026)</title>
+      <title>LLM Architecture Gallery</title>
       <link>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</link>
       <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/en/posts/llm-architecture-gallery/</guid>
-      <description>An overview of mainstream open-source LLM architectures from 2024–2026, including comparisons of attention mechanisms, MoE, SSM, and other dimensions.</description>
+      <description>A comparison of open/open-weight LLM architectures, attention mechanisms, context windows, and publicly documented training parallelism.</description>
     </item>
     <item>
       <title>Mamba: Selective State Space Model</title>

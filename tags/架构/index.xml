@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- 0.164.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 18 Jul 2026 18:26:39 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 11:30:33 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E6%9E%B6%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>残差连接及其变体</title>
@@ -21,11 +21,11 @@
       <description>残差连接及其变体</description>
     </item>
     <item>
-      <title>LLM 架构图谱 (2024–2026)</title>
+      <title>LLM 架构图谱</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</link>
       <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</guid>
-      <description>2024–2026 年主流开源 LLM 架构一览，含注意力机制、MoE、SSM 等维度对比。</description>
+      <description>开源／开放权重大语言模型的架构、注意力、上下文与公开训练并行配置对照。</description>
     </item>
     <item>
       <title>Mamba: 选择性状态空间模型</title>
