@@ -24,7 +24,7 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "<image path/url>"
+    image: "cover.png"
     alt: "cover"
     caption: "cover"
     relative: true
