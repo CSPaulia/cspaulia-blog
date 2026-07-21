@@ -56,6 +56,16 @@
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/posts/parallelization/</loc>
     <lastmod>2026-07-21T10:42:38+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://cspaulia.github.io/cspaulia-blog/posts/parallelization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-US"
+                href="https://cspaulia.github.io/cspaulia-blog/en/posts/parallelization/"
+                />
   </url><url>
     <loc>https://cspaulia.github.io/cspaulia-blog/tags/%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97/</loc>
     <lastmod>2026-07-21T10:42:38+08:00</lastmod>
