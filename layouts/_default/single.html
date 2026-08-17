@@ -56,7 +56,7 @@
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
     {{- if (.Param "ShowPostNavLinks") }}
@@ -91,14 +91,14 @@
     <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">categories</p>
     <ul class="post-tags">
       {{- range ($.GetTerms $categories) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
     {{- $tags := .Language.Params.Taxonomies.tag | default "tags" }}
     <p style="font-size: medium; margin-bottom: 5px; font-weight: bold;">tags</p>
     <ul class="post-tags">
       {{- range ($.GetTerms $tags) }}
-      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
     </ul>
     {{- if (.Param "ShowPostNavLinks") }}

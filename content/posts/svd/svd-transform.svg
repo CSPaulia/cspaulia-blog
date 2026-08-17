@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 470" role="img" aria-labelledby="title desc">
+  <title id="title">SVD 的三个线性变换步骤</title>
+  <desc id="desc">输入向量依次经过 V 转置的坐标变换、Sigma 的分方向缩放和 U 的输出坐标变换。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1400" height="470" rx="28" fill="#f8fafc"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" text-anchor="middle">
+    <g transform="translate(40 115)">
+      <rect width="250" height="220" rx="22" fill="#e0f2fe" stroke="#0284c7" stroke-width="3"/>
+      <text x="125" y="82" font-size="38" font-weight="700" fill="#0f172a">x</text>
+      <text x="125" y="138" font-size="25" fill="#334155">输入向量</text>
+    </g>
+    <path d="M300 225 H380" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+    <text x="340" y="195" font-size="34" fill="#0f172a">Vᵀ</text>
+    <g transform="translate(395 115)">
+      <rect width="250" height="220" rx="22" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+      <text x="125" y="82" font-size="32" font-weight="700" fill="#0f172a">Vᵀx</text>
+      <text x="125" y="132" font-size="24" fill="#334155">换到右奇异向量</text>
+      <text x="125" y="168" font-size="24" fill="#334155">组成的坐标系</text>
+    </g>
+    <path d="M655 225 H735" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+    <text x="695" y="195" font-size="34" fill="#0f172a">Σ</text>
+    <g transform="translate(750 115)">
+      <rect width="250" height="220" rx="22" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+      <text x="125" y="82" font-size="31" font-weight="700" fill="#0f172a">ΣVᵀx</text>
+      <text x="125" y="132" font-size="24" fill="#334155">按照奇异值</text>
+      <text x="125" y="168" font-size="24" fill="#334155">分别缩放各方向</text>
+    </g>
+    <path d="M1010 225 H1090" stroke="#64748b" stroke-width="5" marker-end="url(#arrow)"/>
+    <text x="1050" y="195" font-size="34" fill="#0f172a">U</text>
+    <g transform="translate(1105 115)">
+      <rect width="250" height="220" rx="22" fill="#ffedd5" stroke="#ea580c" stroke-width="3"/>
+      <text x="125" y="82" font-size="31" font-weight="700" fill="#0f172a">Ax</text>
+      <text x="125" y="132" font-size="24" fill="#334155">换到左奇异向量</text>
+      <text x="125" y="168" font-size="24" fill="#334155">组成的输出空间</text>
+    </g>
+  </g>
+</svg>
+

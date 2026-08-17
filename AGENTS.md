@@ -9,6 +9,17 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Do not over-summarize the author's notes. When整理笔记, mainly preserve and list the user's original notes, only removing unclear or overly minor details.
 - When adding explanations, use a simple logical flow: first the intuition, then the mechanism, then the limitation or takeaway.
 - Avoid large decorative rewrites unless explicitly requested.
+- In article正文, avoid source-oriented phrases such as “PPT 中”“课件中” or “第几页提到”. State the fact or conclusion directly and objectively; keep source attribution in figure captions or references when needed.
+
+## Blog Structure And Headings
+
+- This is primarily a Chinese blog. Write headings in Chinese; when a heading introduces a specific English technical term, use `中文（English）` instead of an English-only heading.
+- Make every heading understandable on its own in the table of contents. State the subject being discussed instead of relying on the preceding paragraph for context.
+- Avoid vague headings such as “完整曲线”“为什么会出现幂律” or “相关内容”. Name the object explicitly, for example “数据—性能曲线的三个区间” or “数据—性能曲线为什么会呈现幂律”.
+- Let headings describe the actual relationship, boundary, or conclusion of the section. Do not use an author name alone when the reader is really looking for a concept or result.
+- Keep the hierarchy logical. Distinguish a basic law, its theoretical intuition, its limitations, and its applications rather than presenting them as unrelated topics.
+- When writing incrementally from slides, preserve the slide order and do not create large future sections before the user asks for them.
+- Put the main conclusion in the visible text first. Place long derivations, supporting experiments, secondary paper examples, or implementation details in a `<details>` block when they would interrupt the main argument.
 
 ## English Terms
 
@@ -31,6 +42,10 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 
 - Be careful with bold text next to Chinese punctuation. If Markdown emphasis fails in Hugo, use `<strong>...</strong>`.
 - Avoid patterns like `**中文（English） **的`; remove extra spaces or use HTML `<strong>`.
+- Write inline formulas with `\(` and `\)`, not ordinary parentheses or `$...$` delimiters. Write display formulas with `\[` and `\]`, not `$$` delimiters.
+- Inside display formulas, never put a bare `=` on its own source line. Hugo's Markdown parser can treat it as a Setext heading and break the formula. Keep `=` beside an expression or use `\begin{aligned}` with `&=`.
+- Do not add slide-location prose such as “CS336 Lecture 9，第 14 页” to the article body. Preserve source attribution through figure captions and the references section instead.
+- Clearly distinguish empirical observations, modeling assumptions, theoretical intuition, and proven theorems. Do not present an empirical Scaling Law as a universal theorem.
 - Run `hugo --enableGitInfo=false` after meaningful Markdown or asset changes when feasible.
 - For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`:
 
