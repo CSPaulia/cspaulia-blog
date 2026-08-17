@@ -775,7 +775,9 @@ C_{\min}(C)
 
 当 \(B\ll B_{\mathrm{crit}}\) 时，训练接近计算高效；当 \(B\gg B_{\mathrm{crit}}\) 时，继续增大批量主要消耗额外计算，而难以减少串行训练时间。上面的系数和指数来自特定的 WebText2 实验，其他任务需要重新测量。
 
-### 4.6 最大更新参数化（μP）：跨模型宽度迁移学习率
+### 4.6 最大更新参数化（μP）：跨模型宽度与深度迁移超参数
+
+#### 宽度 μP：在模型变宽时迁移基础超参数
 
 如果只保持原来的初始化方式和学习率，然后直接增加模型宽度，最优学习率通常会随宽度发生漂移。此时，在小模型上调出的学习率不能直接用于大模型。[17]
 
@@ -784,7 +786,12 @@ C_{\min}(C)
   <figcaption>左：标准参数化下，训练损失最低点会随模型宽度移动。右：使用最大更新参数化后，不同宽度的最低点大致对齐。图源：Yang et al., 2022。</figcaption>
 </figure>
 
-最大更新参数化（Maximal Update Parametrization，\(\mu\mathrm{P}\)）的目标，是让模型变宽后，各层参数更新对表示产生的影响仍保持在相近的数量级。这样可以先在较小的代理模型上调节基础学习率，再把它迁移到更宽的目标模型；这种方法称为 \(\mu\mathrm{P}\) 超参数迁移（\(\mu\)Transfer）。
+最大更新参数化（Maximal Update Parametrization，\(\mu\mathrm{P}\)）的目标，是让模型变宽后，各层参数更新对表示产生的影响仍保持在相近的数量级。这样可以先在较小的代理模型上调节基础超参数，再把它们迁移到更宽的目标模型；这种方法称为 \(\mu\mathrm{P}\) 超参数迁移（\(\mu\)Transfer）。
+
+\(\mu\mathrm{P}\) 不只是一个学习率缩放公式。它同时规定初始化尺度、不同类型参数的学习率和输出乘数如何随模型宽度变化。它也不会直接算出“最优学习率是多少”，而是把超参数分为两层：
+
+- <strong>基础超参数</strong>：在小模型上通过实验搜索得到，例如基础学习率、初始化尺度和输出乘数；
+- <strong>实际超参数</strong>：根据参数类型以及目标模型相对基准模型的宽度比例，由 \(\mu\mathrm{P}\) 规则换算得到。
 
 不过，\(\mu\mathrm{P}\) 并不是对所有参数使用同一个缩放系数。假设目标模型 \(M'\) 的宽度是基准模型 \(M\) 的 \(r\) 倍，不同类型的参数需要采用不同规则。[18]
 
@@ -804,7 +811,78 @@ C_{\min}(C)
 
 </details>
 
-这一方法减少了在最大模型上反复搜索学习率的成本，但它主要处理由<strong>宽度变化</strong>引起的训练动力学变化。深度、数据规模、正则化方法或优化器发生改变时，其他超参数仍可能需要重新验证。
+#### Depth-μP：把超参数迁移扩展到模型深度
+
+宽度 \(\mu\mathrm{P}\) 研究隐藏维度增加时如何保持训练动力学稳定。深度最大更新参数化（Depth Maximal Update Parametrization，Depth-\(\mu\mathrm{P}\)）则研究残差层数 \(L\) 增加时，怎样让较浅模型上的超参数继续适用于较深模型。[26]
+
+对于每个残差块只包含一层变换的残差网络，Depth-\(\mu\mathrm{P}\) 把第 \(l\) 个残差块写成：
+
+\[
+x_l
+=x_{l-1}
++\frac{a}{\sqrt{L}}\,
+g_l(x_{l-1};W_l).
+\]
+
+各符号的含义是：
+
+- \(x_{l-1}\) 是进入第 \(l\) 个残差块的隐藏状态，也是跳跃连接直接保留的部分；
+- \(g_l(x_{l-1};W_l)\) 是第 \(l\) 个残差分支执行的变换，\(W_l\) 表示该分支中的可训练参数；
+- \(x_l\) 是把残差分支输出加回主干状态后得到的下一层表示。
+
+在单层残差网络的理论模型中，\(g_l\) 可以是一次线性变换与非线性函数的组合，例如：
+
+\[
+g_l(x;W_l)=\phi(W_lx).
+\]
+
+在 Transformer 中，可以把注意力子层或前馈网络子层直观地看作残差分支 \(g_l\)，但它们通常包含多层内部变换，因此不能直接套用单层残差块的完整理论结论。
+
+Depth-\(\mu\mathrm{P}\) 随深度调整两部分内容。
+
+<strong>第一部分：残差分支的系数。</strong>
+
+设 \(a\) 是在较浅模型上搜索得到、与目标深度无关的基础残差系数。对于包含 \(L\) 个残差块的目标网络，实际残差系数为：
+
+\[
+a_L=\frac{a}{\sqrt{L}}.
+\]
+
+网络越深，每个残差分支对主干状态的单次改动越小。在近似随机游走的直觉下，\(L\) 个大小为 \(1/\sqrt{L}\) 的增量累积后仍保持在 \(O(1)\) 量级，从而避免残差更新随层数增加而无限放大。
+
+<strong>第二部分：残差块参数的学习率。</strong>
+
+设 \(\eta\) 是在较浅模型上搜索得到的基础学习率。实际学习率如何随 \(L\) 变化，取决于优化器：
+
+\[
+\eta_L=
+\begin{cases}
+\eta, & \text{SGD},\\
+\dfrac{\eta}{\sqrt{L}}, & \text{Adam}.
+\end{cases}
+\]
+
+- 使用随机梯度下降（Stochastic Gradient Descent，SGD）时，残差系数已经使 \(W_l\) 的梯度随 \(1/\sqrt{L}\) 缩小，因此基础学习率 \(\eta\) 可以保持不变；
+- 使用自适应矩估计（Adaptive Moment Estimation，Adam）时，优化器会归一化梯度幅度，抵消前面的梯度缩放，因此需要再把实际学习率调整为 \(\eta/\sqrt{L}\)。
+
+残差系数控制的是<strong>前向传播中每层写入主干状态的幅度</strong>，学习率控制的是<strong>训练时每层参数更新的幅度</strong>。Depth-\(\mu\mathrm{P}\) 同时缩放这两部分，目标是在浅网络上搜索基础残差系数 \(a\) 和基础学习率 \(\eta\)，再将它们换算到更深网络，而不是为每一种层数重新调参。
+
+<details>
+<summary>Depth-μP 对 Transformer 有什么限制？</summary>
+
+Depth-\(\mu\mathrm{P}\) 的完整理论结论主要针对<strong>每个残差块只有一层变换</strong>的残差网络。现代 Transformer 的残差块通常包含注意力、前馈网络和多层内部变换。Tensor Programs VI 的理论与实验都发现，当残差块内部具有两层或更多变换时，简单的 \(1/\sqrt{L}\) 规则可能使块内特征学习趋于线性化，最优超参数也会随深度漂移。[26]
+
+MiniCPM 使用了完整的宽度 \(\mu\mathrm{P}\) 规则，同时把每层残差增量缩放为：
+
+\[
+\frac{\text{scale\_depth}}{\sqrt{L}}.
+\]
+
+作者在小模型上搜索得到 \(\text{scale\_depth}=1.4\)，并观察到基础学习率在其实验范围内较为稳定。不过，论文列出的规则没有包含 Adam 学习率随 \(1/\sqrt{L}\) 缩放。因此，更准确的说法是：<strong>MiniCPM 使用宽度 \(\mu\mathrm{P}\)，并加入受 Depth-\(\mu\mathrm{P}\) 启发的深度相关残差缩放</strong>，而不是完整满足理论上的 Depth-\(\mu\mathrm{P}\)。[27]
+
+</details>
+
+\(\mu\mathrm{P}\) 和 Depth-\(\mu\mathrm{P}\) 主要处理模型宽度与深度变化造成的参数化问题。批大小、训练数据量、学习率调度、权重衰减和数据—模型配比仍然需要单独拟合或验证；它们不会由 \(\mu\mathrm{P}\) 自动确定。
 
 ### 4.7 预训练指标与下游指标的扩展规律并不一致
 
@@ -1217,3 +1295,7 @@ Sardana 等人把推理成本正式加入 Chinchilla 的优化目标。他们发
 [24] N. Sardana, J. Portes, S. Doubov, and J. Frankle. Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws. 2024. [Online]. Available: https://proceedings.mlr.press/v235/sardana24a.html
 
 [25] I. Gulrajani and T. B. Hashimoto. Likelihood-Based Diffusion Language Models. 2023. [Online]. Available: https://arxiv.org/abs/2305.18619
+
+[26] G. Yang, D. Yu, C. Zhu, and S. Hayou. Tensor Programs VI: Feature Learning in Infinite-Depth Neural Networks. 2023. [Online]. Available: https://arxiv.org/abs/2310.02244
+
+[27] S. Hu et al. MiniCPM: Unveiling the Potential of Small Language Models with Scalable Training Strategies. 2024. [Online]. Available: https://arxiv.org/abs/2404.06395

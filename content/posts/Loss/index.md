@@ -1,6 +1,9 @@
 ---
-title: "记录 100 种损失函数"
+title: "收集 N 种损失函数"
 date: 2025-05-20T12:59:00+08:00
+series:
+    main: "深度学习基础"
+    subseries: "损失函数"
 # weight: 1
 # aliases: ["/first"]
 categories: ["深度学习技巧"]

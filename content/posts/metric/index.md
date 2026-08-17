@@ -1,6 +1,9 @@
 ---
-title: "记录 100 种评价指标"
+title: "收集 N 种评价指标"
 date: 2025-07-09T14:05:03+08:00
+series:
+    main: "深度学习基础"
+    subseries: "评价指标"
 # weight: 1
 # aliases: ["/first"]
 categories: ["深度学习技巧"]

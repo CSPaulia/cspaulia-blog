@@ -5,14 +5,14 @@ series:
     main: "大语言模型"
     subseries: "架构与训练"
 categories: ["大语言模型"]
-tags: ["架构", "注意力", "MoE"]
+tags: ["架构", "注意力", "MoE", "优化器"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
 draft: false
 hidemeta: false
 comments: false
-description: "开源／开放权重大语言模型的架构、注意力、上下文与公开训练并行配置对照。"
+description: "开源／开放权重大语言模型的架构、注意力、上下文、优化器与公开训练并行配置对照。"
 disableHLJS: false
 disableShare: false
 hideSummary: true
@@ -40,11 +40,13 @@ editPost:
 
 > **图例**：D = 密集（Dense），M = 稀疏混合专家（Sparse Mixture of Experts，MoE），H = 混合架构（Hybrid），R = 循环架构（Recurrent）。参数量为总参数／单 token 激活参数；`未披露` 表示查阅模型报告、发布页或训练配方后，仍未找到具体训练并行信息。
 >
+> **优化器字段**：记录基础模型预训练阶段明确披露的优化器。若只知道基座模型或后训练阶段的配置，会在单元格内注明；`未披露` 表示公开资料没有给出可靠信息。
+>
 > **训练字段**：`原始` 为发布方披露的训练配置；`复现` 为同一公开架构的公开训练配方，不等同原始集群；`策略` 仅公开并行方法、未公开各维度度数。
 >
 > **并行缩写**：张量并行（Tensor Parallelism，TP）、序列并行（Sequence Parallelism，SP）、专家并行（Expert Parallelism，EP）、流水线并行（Pipeline Parallelism，PP）与上下文并行（Context Parallelism，CP）。ZeRO-1 是零冗余优化器（Zero Redundancy Optimizer）的第一阶段分片。
 
-术语跳转：[注意力机制](../attention_in_llm/)（多头注意力 MHA、分组查询注意力 GQA、多查询注意力 MQA、多头潜在注意力 MLA、滑动窗口与 DSA／CSA／HCA） · [Transformer 组件](../transformer_in_LLM/)（RoPE、RMSNorm、SwiGLU） · [MoE](../mixture-of-experts/) · [Mamba／线性注意力](../mamba/) · [分布式训练并行](../parallelization/)。
+术语跳转：[注意力机制](../attention_in_llm/)（多头注意力 MHA、分组查询注意力 GQA、多查询注意力 MQA、多头潜在注意力 MLA、滑动窗口与 DSA／CSA／HCA） · [Transformer 组件](../transformer_in_LLM/)（RoPE、RMSNorm、SwiGLU） · [MoE](../mixture-of-experts/) · [Mamba／线性注意力](../mamba/) · [优化器](../optimizers/) · [分布式训练并行](../parallelization/)。
 
 ## 模型对照
 
@@ -58,6 +60,7 @@ editPost:
         <th>架构</th>
         <th>注意力／序列模块</th>
         <th>上下文</th>
+        <th>优化器</th>
         <th>训练并行</th>
       </tr>
     </thead>
@@ -69,6 +72,7 @@ editPost:
   <td>D</td>
   <td>MHA with learned absolute positional embeddings</td>
   <td>1,024</td>
+  <td><a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">Adam</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -78,6 +82,7 @@ editPost:
   <td>D</td>
   <td>GQA with RoPE</td>
   <td>8,192</td>
+  <td><a href="https://arxiv.org/abs/2407.21783">AdamW</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -88,6 +93,7 @@ editPost:
   <td>GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2024-09-25</td>
@@ -97,6 +103,7 @@ editPost:
   <td>GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2024-11-25</td>
@@ -105,6 +112,7 @@ editPost:
   <td>D</td>
   <td>MHA with QK-Norm</td>
   <td>4,096</td>
+  <td><a href="https://arxiv.org/abs/2501.00656">AdamW</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -115,6 +123,7 @@ editPost:
   <td>GQA with RoPE</td>
   <td>16,384</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2024-12-26</td>
@@ -123,6 +132,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2412.19437">AdamW</a></td>
   <td><a href="https://arxiv.org/abs/2412.19437">原始</a>：ZeRO-1 · PP16 · EP64（8 节点；DualPipe）</td>
 </tr>
 <tr>
@@ -132,6 +142,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2501.12948">AdamW（V3 基座；R1 后训练未披露）</a></td>
   <td><a href="https://arxiv.org/abs/2501.12948">策略</a>：基座为 V3；R1 后训练并行度未披露</td>
 </tr>
 <tr>
@@ -142,6 +153,7 @@ editPost:
   <td>GQA with QK-Norm and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-03-17</td>
@@ -150,6 +162,7 @@ editPost:
   <td>R</td>
   <td>No self-attention; mLSTM recurrent layers with matrix memory</td>
   <td>No explicit limit</td>
+  <td><a href="https://arxiv.org/abs/2503.13427">AdamW</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -160,6 +173,7 @@ editPost:
   <td>Standard GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-04-05</td>
@@ -169,6 +183,7 @@ editPost:
   <td>GQA</td>
   <td>1,000,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-04-28</td>
@@ -177,6 +192,7 @@ editPost:
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -186,6 +202,7 @@ editPost:
   <td>D</td>
   <td>GQA</td>
   <td>32,768</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -195,6 +212,7 @@ editPost:
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -204,6 +222,7 @@ editPost:
   <td>M</td>
   <td>GQA</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -213,6 +232,7 @@ editPost:
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -222,6 +242,7 @@ editPost:
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>32,768</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3 生产预训练使用 Tessera 的 PP／MoE 通信重叠；该尺寸度数未披露</td>
 </tr>
 <tr>
@@ -231,6 +252,7 @@ editPost:
   <td>D</td>
   <td>GQA with periodic NoPE layers</td>
   <td>131,072</td>
+  <td><a href="https://huggingface.co/blog/smollm3">AdamW</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -240,6 +262,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip</a></td>
   <td><a href="https://arxiv.org/abs/2507.20534">原始</a>：ZeRO-1 · PP16（VPP）· EP16；EP 通信与 1F1B 重叠</td>
 </tr>
 <tr>
@@ -250,6 +273,7 @@ editPost:
   <td>GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-07-28</td>
@@ -258,6 +282,7 @@ editPost:
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -268,6 +293,7 @@ editPost:
   <td>GQA</td>
   <td>256,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-08-04</td>
@@ -276,6 +302,7 @@ editPost:
   <td>M</td>
   <td>GQA with alternating sliding-window and global layers</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -286,6 +313,7 @@ editPost:
   <td>GQA with alternating sliding-window and global layers</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-08-14</td>
@@ -294,6 +322,7 @@ editPost:
   <td>D</td>
   <td>Multi-query attention with QK-Norm and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -304,6 +333,7 @@ editPost:
   <td>GQA</td>
   <td>131,072</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-09-09</td>
@@ -312,6 +342,7 @@ editPost:
   <td>H+M</td>
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
+  <td>未披露</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">策略</a>：Qwen3-Next 生产预训练使用 Tessera 的 PP／MoE 通信重叠；度数未披露</td>
 </tr>
 <tr>
@@ -322,6 +353,7 @@ editPost:
   <td>GQA with QK-Norm and partial RoPE</td>
   <td>196,608</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-10-30</td>
@@ -330,6 +362,7 @@ editPost:
   <td>H+M</td>
   <td>3:1 Kimi Delta Attention and MLA</td>
   <td>1,000,000</td>
+  <td><a href="https://arxiv.org/abs/2510.26692">MuonClip</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -340,6 +373,7 @@ editPost:
   <td>GQA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>65,536</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-11-20</td>
@@ -349,6 +383,7 @@ editPost:
   <td>MHA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>65,536</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-11-26</td>
@@ -357,6 +392,7 @@ editPost:
   <td>M</td>
   <td>GQA</td>
   <td>128,000</td>
+  <td><a href="https://storage.googleapis.com/intellect-3-paper/INTELLECT_3_Technical_Report.pdf">Muon（SFT／后训练）</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -366,6 +402,7 @@ editPost:
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2512.02556">AdamW（V3 基座；续训阶段未披露）</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -376,6 +413,7 @@ editPost:
   <td>MLA</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-12-04</td>
@@ -384,6 +422,7 @@ editPost:
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/nano3/pretrain.html">AdamW</a></td>
   <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/nano3/pretrain.html">原始</a>：主训 TP8+SP · EP8 · PP1 · CP1；长上下文 TP8+SP · EP8 · PP4 · CP8</td>
 </tr>
 <tr>
@@ -394,6 +433,7 @@ editPost:
   <td>5:1 sliding-window/global attention</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2025-12-22</td>
@@ -403,6 +443,7 @@ editPost:
   <td>GQA with QK-Norm</td>
   <td>202,752</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-01-27</td>
@@ -411,6 +452,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2602.02276">MuonClip</a></td>
   <td><a href="https://www.kimi.com/blog/kimi-k2-5">策略</a>：在 K2 上继续预训练；本阶段并行度未披露</td>
 </tr>
 <tr>
@@ -420,6 +462,7 @@ editPost:
   <td>M</td>
   <td>GQA with gated attention and 3:1 sliding-window/global attention</td>
   <td>512,000</td>
+  <td>未披露</td>
   <td><a href="https://arxiv.org/abs/2602.17004">原始</a>：HSDP／FSDP + EP；各维度未披露</td>
 </tr>
 <tr>
@@ -430,6 +473,7 @@ editPost:
   <td>MLA with RoPE + NoPE</td>
   <td>256,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-02-01</td>
@@ -438,6 +482,7 @@ editPost:
   <td>M</td>
   <td>GQA with 3:1 sliding-window attention</td>
   <td>262,144</td>
+  <td><a href="https://arxiv.org/abs/2602.10604">Muon</a></td>
   <td><a href="https://arxiv.org/abs/2602.10604">原始</a>：ZeRO-1 · PP8（VPP）· EP8；注意力／MoE 解耦并行</td>
 </tr>
 <tr>
@@ -448,6 +493,7 @@ editPost:
   <td>GQA</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-02-11</td>
@@ -456,6 +502,7 @@ editPost:
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>202,752</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -466,6 +513,7 @@ editPost:
   <td>GQA with QK-Norm</td>
   <td>196,608</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-02-13</td>
@@ -474,6 +522,7 @@ editPost:
   <td>D</td>
   <td>GQA with 3:1 sliding-window attention</td>
   <td>8,192</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -484,6 +533,7 @@ editPost:
   <td>Lightning Attention plus MLA</td>
   <td>256,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-02-16</td>
@@ -493,6 +543,7 @@ editPost:
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-03-03</td>
@@ -501,6 +552,7 @@ editPost:
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>131,072</td>
+  <td>未披露</td>
   <td><a href="https://www.nvidia.com/en-us/case-studies/sarvam-sovereign-ai/">策略</a>：Megatron-LM 6D 并行、4,096+ H100；各维度未披露</td>
 </tr>
 <tr>
@@ -510,6 +562,7 @@ editPost:
   <td>M</td>
   <td>MLA with KV LayerNorm and NoPE + RoPE</td>
   <td>131,072</td>
+  <td>未披露</td>
   <td><a href="https://www.nvidia.com/en-us/case-studies/sarvam-sovereign-ai/">策略</a>：Megatron-LM 6D 并行、4,096+ H100；各维度未披露</td>
 </tr>
 <tr>
@@ -519,6 +572,7 @@ editPost:
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/super3/pretrain.html">AdamW</a></td>
   <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/super3/pretrain.html">原始</a>：主训 TP4+SP · EP8 · PP1 · CP1；长上下文 TP2+SP · EP64 · CP64</td>
 </tr>
 <tr>
@@ -529,6 +583,7 @@ editPost:
   <td>MLA</td>
   <td>256,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-03-16</td>
@@ -537,6 +592,7 @@ editPost:
   <td>H</td>
   <td>GQA with only 4 attention layers</td>
   <td>262,144</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -547,6 +603,7 @@ editPost:
   <td>GQA with QK-Norm</td>
   <td>196,608</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-02</td>
@@ -555,6 +612,7 @@ editPost:
   <td>D</td>
   <td>Multi-query attention with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 4:1 sliding-window/global attention</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -565,6 +623,7 @@ editPost:
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>256,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-02</td>
@@ -573,6 +632,7 @@ editPost:
   <td>D</td>
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>256,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -583,6 +643,7 @@ editPost:
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-07</td>
@@ -591,6 +652,7 @@ editPost:
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>202,752</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -601,6 +663,7 @@ editPost:
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-20</td>
@@ -609,6 +672,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip（K2 基座；本阶段未披露）</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -619,6 +683,7 @@ editPost:
   <td>5:1 sliding-window/global attention</td>
   <td>1,048,576</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-22</td>
@@ -627,6 +692,7 @@ editPost:
   <td>H</td>
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -637,6 +703,7 @@ editPost:
   <td>GQA with 6:1 sliding-window/global attention</td>
   <td>1,048,576</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-23</td>
@@ -645,6 +712,7 @@ editPost:
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>262,144</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -655,6 +723,7 @@ editPost:
   <td>Lightning Attention plus MLA</td>
   <td>262,144</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-24</td>
@@ -663,6 +732,7 @@ editPost:
   <td>M</td>
   <td>MLA-style CSA/HCA with mHC</td>
   <td>1,048,576</td>
+  <td>未披露</td>
   <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/DeepSeek_V4.pdf">策略</a>：CP 用于长上下文；EP 通信与 DualPipe 1F1B 重叠；度数未披露</td>
 </tr>
 <tr>
@@ -672,6 +742,7 @@ editPost:
   <td>M</td>
   <td>MLA-style CSA/HCA with mHC</td>
   <td>1,048,576</td>
+  <td>未披露</td>
   <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/DeepSeek_V4.pdf">策略</a>：CP 用于长上下文；EP 通信与 DualPipe 1F1B 重叠；度数未披露</td>
 </tr>
 <tr>
@@ -682,6 +753,7 @@ editPost:
   <td>Gated GQA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>131,072</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-04-29</td>
@@ -690,6 +762,7 @@ editPost:
   <td>D</td>
   <td>GQA with RoPE</td>
   <td>131,072</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -700,6 +773,7 @@ editPost:
   <td>CCA with 4:1 GQA, RoPE, and Q/K L2 norm</td>
   <td>131,072</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-05-20</td>
@@ -708,6 +782,7 @@ editPost:
   <td>M</td>
   <td>16:1 GQA with 3:1 sliding-window/global attention</td>
   <td>128K input, 64K output</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -718,6 +793,7 @@ editPost:
   <td>LIV convolution blocks plus GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-05-28</td>
@@ -726,6 +802,7 @@ editPost:
   <td>H+M</td>
   <td>LIV convolution blocks plus GQA and MoE</td>
   <td>128,000</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -736,6 +813,7 @@ editPost:
   <td>LIV convolution blocks plus GQA</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-06-01</td>
@@ -744,6 +822,7 @@ editPost:
   <td>M</td>
   <td>GQA with 3:1 sliding-window/full attention</td>
   <td>131,072</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -754,6 +833,7 @@ editPost:
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-06-04</td>
@@ -762,6 +842,7 @@ editPost:
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td>未披露</td>
   <td><a href="https://docs.nvidia.com/nemotron/nightly/nemotron/ultra3/pretrain.html">原始</a>：TP2 · PP12 · EP32 · CP1（ETP1）</td>
 </tr>
 <tr>
@@ -772,6 +853,7 @@ editPost:
   <td>8:1 GQA with 3:1 sliding-window/global attention</td>
   <td>256K input, 64K output</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-06-12</td>
@@ -780,6 +862,7 @@ editPost:
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip（K2 基座；本阶段未披露）</a></td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -789,6 +872,7 @@ editPost:
   <td>M</td>
   <td>GQA with QK-Norm and MiniMax Sparse Attention</td>
   <td>1,048,576</td>
+  <td>未披露</td>
   <td><a href="https://docs.nvidia.com/nemo/megatron-bridge/nightly/models/minimax/minimax-m3.html">复现</a>：Megatron Bridge 基线 TP2 · PP4 · EP32（非原始集群）</td>
 </tr>
 <tr>
@@ -799,6 +883,7 @@ editPost:
   <td>8:1 GQA with RoPE</td>
   <td>131,072</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-06-17</td>
@@ -807,6 +892,7 @@ editPost:
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention and IndexShare</td>
   <td>1,048,576</td>
+  <td>未披露</td>
   <td>未披露</td>
 </tr>
 <tr>
@@ -817,6 +903,7 @@ editPost:
   <td>Mostly Mamba-2 with 6 GQA layers and no positional embeddings (NoPE)</td>
   <td>1,048,576</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
 <tr>
   <td>2026-07-15</td>
@@ -826,6 +913,7 @@ editPost:
   <td>GQA with QK-Norm and learned relative-position bias in a 5:1 sliding-window/global pattern</td>
   <td>1,048,576</td>
   <td>未披露</td>
+  <td>未披露</td>
 </tr>
     </tbody>
   </table>
@@ -834,6 +922,7 @@ editPost:
 
 ## 观察
 
+- 已公开预训练配方的模型仍以 AdamW 为主；Muon／MuonClip 开始出现在 Kimi K2、Step 3.5 Flash 等较新的大规模训练中。大量模型没有披露优化器，因此不能把家族惯例或常见默认值当作事实。
 - 扩展参数量时，MoE 仍是主流；长上下文模型同时采用局部／全局、稀疏或混合序列模块以降低注意力成本。
 - KV 缓存优化并未收敛为单一方案：GQA／MQA 减少 KV 头，MLA 进行低秩压缩，DSA／CSA／HCA 则进一步稀疏或压缩长上下文计算。
 - Mamba、DeltaNet、Lightning Attention 和卷积模块已进入部分模型，但不是 GQA／MLA 的直接、统一替代；应按模型报告中的层间比例理解。

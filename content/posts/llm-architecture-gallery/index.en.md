@@ -5,14 +5,14 @@ series:
     main: "Large Language Model"
     subseries: "Architecture and Training"
 categories: ["大语言模型"]
-tags: ["architecture", "attention", "MoE"]
+tags: ["architecture", "attention", "MoE", "optimizer"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
 draft: false
 hidemeta: false
 comments: false
-description: "A comparison of open/open-weight LLM architectures, attention mechanisms, context windows, and publicly documented training parallelism."
+description: "A comparison of open/open-weight LLM architectures, attention mechanisms, context windows, optimizers, and publicly documented training parallelism."
 disableHLJS: false
 disableShare: false
 hideSummary: true
@@ -40,6 +40,8 @@ This page is based on Sebastian Raschka's [LLM Architecture Gallery](https://seb
 
 > **Legend**: D = Dense, M = Sparse Mixture of Experts (MoE), H = Hybrid, and R = Recurrent. Parameters are total / active per token; `Undisclosed` means no specific training-parallelism information was found after checking model reports, release posts, and training recipes.
 >
+> **Optimizer field**: records the optimizer explicitly disclosed for base-model pretraining. If only the base model or a post-training stage is documented, the cell says so; `Undisclosed` means the public materials do not provide reliable information.
+>
 > **Training field**: `Original` is a configuration disclosed by the model publisher; `Recipe` is a public recipe for the same open architecture, not the original cluster; `Strategy` discloses a parallelism method but not its degrees.
 >
 > **Parallelism**: Tensor Parallelism (TP), Sequence Parallelism (SP), Expert Parallelism (EP), Pipeline Parallelism (PP), and Context Parallelism (CP). ZeRO-1 is stage 1 of the Zero Redundancy Optimizer.
@@ -58,6 +60,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
         <th>Architecture</th>
         <th>Attention / sequence module</th>
         <th>Context</th>
+        <th>Optimizer</th>
         <th>Training parallelism</th>
       </tr>
     </thead>
@@ -69,6 +72,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>MHA with learned absolute positional embeddings</td>
   <td>1,024</td>
+  <td><a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf">Adam</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -78,6 +82,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with RoPE</td>
   <td>8,192</td>
+  <td><a href="https://arxiv.org/abs/2407.21783">AdamW</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -88,6 +93,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2024-09-25</td>
@@ -97,6 +103,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2024-11-25</td>
@@ -105,6 +112,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>MHA with QK-Norm</td>
   <td>4,096</td>
+  <td><a href="https://arxiv.org/abs/2501.00656">AdamW</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -115,6 +123,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with RoPE</td>
   <td>16,384</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2024-12-26</td>
@@ -123,6 +132,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2412.19437">AdamW</a></td>
   <td><a href="https://arxiv.org/abs/2412.19437">Original</a>: ZeRO-1 · PP16 · EP64 (8 nodes; DualPipe)</td>
 </tr>
 <tr>
@@ -132,6 +142,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2501.12948">AdamW (V3 base; R1 post-training undisclosed)</a></td>
   <td><a href="https://arxiv.org/abs/2501.12948">Strategy</a>: based on V3; R1 post-training degrees undisclosed</td>
 </tr>
 <tr>
@@ -142,6 +153,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-03-17</td>
@@ -150,6 +162,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>R</td>
   <td>No self-attention; mLSTM recurrent layers with matrix memory</td>
   <td>No explicit limit</td>
+  <td><a href="https://arxiv.org/abs/2503.13427">AdamW</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -160,6 +173,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Standard GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-04-05</td>
@@ -169,6 +183,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>1,000,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-04-28</td>
@@ -177,6 +192,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -186,6 +202,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA</td>
   <td>32,768</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -195,6 +212,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -204,6 +222,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -213,6 +232,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -222,6 +242,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with QK-Norm</td>
   <td>32,768</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3 production pretraining uses Tessera PP/MoE communication overlap; degrees for this size undisclosed</td>
 </tr>
 <tr>
@@ -231,6 +252,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with periodic NoPE layers</td>
   <td>131,072</td>
+  <td><a href="https://huggingface.co/blog/smollm3">AdamW</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -240,6 +262,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip</a></td>
   <td><a href="https://arxiv.org/abs/2507.20534">Original</a>: ZeRO-1 · PP16 (VPP) · EP16; EP communication overlaps with 1F1B</td>
 </tr>
 <tr>
@@ -250,6 +273,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-07-28</td>
@@ -258,6 +282,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -268,6 +293,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>256,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-08-04</td>
@@ -276,6 +302,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with alternating sliding-window and global layers</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -286,6 +313,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with alternating sliding-window and global layers</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-08-14</td>
@@ -294,6 +322,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>Multi-query attention with QK-Norm and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -304,6 +333,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>131,072</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-09-09</td>
@@ -312,6 +342,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.usenix.org/conference/osdi26/presentation/hu-weifang">Strategy</a>: Qwen3-Next production pretraining uses Tessera PP/MoE communication overlap; degrees undisclosed</td>
 </tr>
 <tr>
@@ -322,6 +353,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm and partial RoPE</td>
   <td>196,608</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-10-30</td>
@@ -330,6 +362,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>3:1 Kimi Delta Attention and MLA</td>
   <td>1,000,000</td>
+  <td><a href="https://arxiv.org/abs/2510.26692">MuonClip</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -340,6 +373,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>65,536</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-11-20</td>
@@ -349,6 +383,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>MHA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>65,536</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-11-26</td>
@@ -357,6 +392,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA</td>
   <td>128,000</td>
+  <td><a href="https://storage.googleapis.com/intellect-3-paper/INTELLECT_3_Technical_Report.pdf">Muon (SFT / post-training)</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -366,6 +402,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>128,000</td>
+  <td><a href="https://arxiv.org/abs/2512.02556">AdamW (V3 base; continued pretraining undisclosed)</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -376,6 +413,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>MLA</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-12-04</td>
@@ -384,6 +422,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/nano3/pretrain.html">AdamW</a></td>
   <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/nano3/pretrain.html">Original</a>: main TP8+SP · EP8 · PP1 · CP1; long-context TP8+SP · EP8 · PP4 · CP8</td>
 </tr>
 <tr>
@@ -394,6 +433,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>5:1 sliding-window/global attention</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2025-12-22</td>
@@ -403,6 +443,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm</td>
   <td>202,752</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-01-27</td>
@@ -411,6 +452,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2602.02276">MuonClip</a></td>
   <td><a href="https://www.kimi.com/blog/kimi-k2-5">Strategy</a>: continued pretraining from K2; degrees for this phase undisclosed</td>
 </tr>
 <tr>
@@ -420,6 +462,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with gated attention and 3:1 sliding-window/global attention</td>
   <td>512,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://arxiv.org/abs/2602.17004">Original</a>: HSDP/FSDP + EP; degrees undisclosed</td>
 </tr>
 <tr>
@@ -430,6 +473,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>MLA with RoPE + NoPE</td>
   <td>256,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-02-01</td>
@@ -438,6 +482,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with 3:1 sliding-window attention</td>
   <td>262,144</td>
+  <td><a href="https://arxiv.org/abs/2602.10604">Muon</a></td>
   <td><a href="https://arxiv.org/abs/2602.10604">Original</a>: ZeRO-1 · PP8 (VPP) · EP8; decoupled attention/MoE parallelism</td>
 </tr>
 <tr>
@@ -448,6 +493,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-02-11</td>
@@ -456,6 +502,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>202,752</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -466,6 +513,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm</td>
   <td>196,608</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-02-13</td>
@@ -474,6 +522,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with 3:1 sliding-window attention</td>
   <td>8,192</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -484,6 +533,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Lightning Attention plus MLA</td>
   <td>256,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-02-16</td>
@@ -493,6 +543,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-03-03</td>
@@ -501,6 +552,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>131,072</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.nvidia.com/en-us/case-studies/sarvam-sovereign-ai/">Strategy</a>: Megatron-LM 6D parallelism on 4,096+ H100s; degrees undisclosed</td>
 </tr>
 <tr>
@@ -510,6 +562,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA with KV LayerNorm and NoPE + RoPE</td>
   <td>131,072</td>
+  <td>Undisclosed</td>
   <td><a href="https://www.nvidia.com/en-us/case-studies/sarvam-sovereign-ai/">Strategy</a>: Megatron-LM 6D parallelism on 4,096+ H100s; degrees undisclosed</td>
 </tr>
 <tr>
@@ -519,6 +572,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/super3/pretrain.html">AdamW</a></td>
   <td><a href="https://docs.nvidia.com/nemotron/latest/nemotron/super3/pretrain.html">Original</a>: main TP4+SP · EP8 · PP1 · CP1; long-context TP2+SP · EP64 · CP64</td>
 </tr>
 <tr>
@@ -529,6 +583,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>MLA</td>
   <td>256,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-03-16</td>
@@ -537,6 +592,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H</td>
   <td>GQA with only 4 attention layers</td>
   <td>262,144</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -547,6 +603,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm</td>
   <td>196,608</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-02</td>
@@ -555,6 +612,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>Multi-query attention with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 4:1 sliding-window/global attention</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -565,6 +623,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>256,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-02</td>
@@ -573,6 +632,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>256,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -583,6 +643,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-07</td>
@@ -591,6 +652,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention</td>
   <td>202,752</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -601,6 +663,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-20</td>
@@ -609,6 +672,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip (K2 base; this stage undisclosed)</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -619,6 +683,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>5:1 sliding-window/global attention</td>
   <td>1,048,576</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-22</td>
@@ -627,6 +692,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H</td>
   <td>3:1 Gated DeltaNet and Gated Attention</td>
   <td>262,144</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -637,6 +703,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with 6:1 sliding-window/global attention</td>
   <td>1,048,576</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-23</td>
@@ -645,6 +712,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with QK-Norm</td>
   <td>262,144</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -655,6 +723,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Lightning Attention plus MLA</td>
   <td>262,144</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-24</td>
@@ -663,6 +732,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA-style CSA/HCA with mHC</td>
   <td>1,048,576</td>
+  <td>Undisclosed</td>
   <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/DeepSeek_V4.pdf">Strategy</a>: CP for long context; EP communication overlaps with DualPipe 1F1B; degrees undisclosed</td>
 </tr>
 <tr>
@@ -672,6 +742,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA-style CSA/HCA with mHC</td>
   <td>1,048,576</td>
+  <td>Undisclosed</td>
   <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/DeepSeek_V4.pdf">Strategy</a>: CP for long context; EP communication overlaps with DualPipe 1F1B; degrees undisclosed</td>
 </tr>
 <tr>
@@ -682,6 +753,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Gated GQA with QK-Norm and 3:1 sliding-window/global attention</td>
   <td>131,072</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-04-29</td>
@@ -690,6 +762,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>D</td>
   <td>GQA with RoPE</td>
   <td>131,072</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -700,6 +773,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>CCA with 4:1 GQA, RoPE, and Q/K L2 norm</td>
   <td>131,072</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-05-20</td>
@@ -708,6 +782,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>16:1 GQA with 3:1 sliding-window/global attention</td>
   <td>128K input, 64K output</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -718,6 +793,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>LIV convolution blocks plus GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-05-28</td>
@@ -726,6 +802,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>LIV convolution blocks plus GQA and MoE</td>
   <td>128,000</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -736,6 +813,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>LIV convolution blocks plus GQA</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-06-01</td>
@@ -744,6 +822,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with 3:1 sliding-window/full attention</td>
   <td>131,072</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -754,6 +833,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm, unified K/V on global layers, p-RoPE on global layers, and 5:1 sliding-window/global attention</td>
   <td>128,000</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-06-04</td>
@@ -762,6 +842,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>H+M</td>
   <td>Mostly Mamba-2 with a few GQA layers</td>
   <td>1,000,000</td>
+  <td>Undisclosed</td>
   <td><a href="https://docs.nvidia.com/nemotron/nightly/nemotron/ultra3/pretrain.html">Original</a>: TP2 · PP12 · EP32 · CP1 (ETP1)</td>
 </tr>
 <tr>
@@ -772,6 +853,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>8:1 GQA with 3:1 sliding-window/global attention</td>
   <td>256K input, 64K output</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-06-12</td>
@@ -780,6 +862,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA</td>
   <td>256,000</td>
+  <td><a href="https://arxiv.org/abs/2507.20534">MuonClip (K2 base; this stage undisclosed)</a></td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -789,6 +872,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>GQA with QK-Norm and MiniMax Sparse Attention</td>
   <td>1,048,576</td>
+  <td>Undisclosed</td>
   <td><a href="https://docs.nvidia.com/nemo/megatron-bridge/nightly/models/minimax/minimax-m3.html">Recipe</a>: Megatron Bridge baseline TP2 · PP4 · EP32 (not the original cluster)</td>
 </tr>
 <tr>
@@ -799,6 +883,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>8:1 GQA with RoPE</td>
   <td>131,072</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-06-17</td>
@@ -807,6 +892,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>M</td>
   <td>MLA with DeepSeek Sparse Attention and IndexShare</td>
   <td>1,048,576</td>
+  <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
 <tr>
@@ -817,6 +903,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Mostly Mamba-2 with 6 GQA layers and no positional embeddings (NoPE)</td>
   <td>1,048,576</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
 <tr>
   <td>2026-07-15</td>
@@ -826,6 +913,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>GQA with QK-Norm and learned relative-position bias in a 5:1 sliding-window/global pattern</td>
   <td>1,048,576</td>
   <td>Undisclosed</td>
+  <td>Undisclosed</td>
 </tr>
     </tbody>
   </table>
@@ -834,6 +922,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
 
 ## Observations
 
+- AdamW remains the most common choice among models with a public pretraining recipe. Muon or MuonClip appears in newer large-scale runs such as Kimi K2 and Step 3.5 Flash. Because many publishers do not disclose their optimizer, family conventions and common defaults should not be treated as facts.
 - MoE remains the common path for parameter scaling. Long-context models also combine local/global, sparse, or hybrid sequence modules to reduce attention cost.
 - KV-cache optimization has not converged on one method: GQA/MQA reduce KV heads, MLA uses low-rank compression, and DSA/CSA/HCA further sparsify or compress long-context computation.
 - Mamba, DeltaNet, Lightning Attention, and convolution modules appear in a subset of models. They should be understood through the layer ratios in each report, not as a single replacement for GQA or MLA.

@@ -1,6 +1,9 @@
 ---
-title: "收集 100 个 Norm 方法"
+title: "收集 N 种归一化方法"
 date: 2025-05-21T21:15:00+08:00
+series:
+    main: "深度学习基础"
+    subseries: "归一化方法"
 # weight: 1
 # aliases: ["/first"]
 categories: ["深度学习技巧"]
@@ -108,5 +111,3 @@ h^t=f(\frac{g}{\sqrt{\sigma^2+\epsilon}} \odot (a^t-\mu^t) + b) ~~~~~~
 \mu^{t} = \frac{1}{H} \sum_{i=1}^{H} a^t_i ~~~~~~~
 \sigma^{l} = \sqrt{\frac{1}{H} \sum_{i=1}^{H}(a^t_i-\mu^t)^2}
 $$
-
-

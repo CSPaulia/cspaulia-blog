@@ -1,6 +1,9 @@
 ---
-title: "收集N个激活函数"
+title: "收集 N 种激活函数"
 date: 2025-05-21T22:04:00+08:00
+series:
+    main: "深度学习基础"
+    subseries: "激活函数"
 # weight: 1
 # aliases: ["/first"]
 draft: false
