@@ -9,7 +9,7 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.164.0</generator>
+    <generator>Hugo -- 0.165.0</generator>
     <language>zh-CN</language>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -52,7 +52,7 @@
       <link>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</link>
       <pubDate>Tue, 28 Apr 2026 11:30:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/llm-architecture-gallery/</guid>
-      <description>开源／开放权重大语言模型的架构、注意力、上下文与公开训练并行配置对照。</description>
+      <description>开源／开放权重大语言模型的架构、注意力、上下文、优化器与公开训练并行配置对照。</description>
     </item>
     <item>
       <title>Mamba: 选择性状态空间模型</title>
@@ -125,7 +125,7 @@
       <description>大语言模型中的分词方法：字符/字节/词/BPE</description>
     </item>
     <item>
-      <title>记录 100 种评价指标</title>
+      <title>收集 N 种评价指标</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/metric/</link>
       <pubDate>Wed, 09 Jul 2025 14:05:03 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/metric/</guid>
@@ -209,14 +209,14 @@
 &lt;p&gt;交叉注意力与自注意力的主要区别在于输入：交叉注意力接收两个维度相同的嵌入序列；自注意力只接收一个嵌入序列，且 Q/K/V 都由该序列生成。&lt;/p&gt;</description>
     </item>
     <item>
-      <title>收集N个激活函数</title>
+      <title>收集 N 种激活函数</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/activation/</link>
       <pubDate>Wed, 21 May 2025 22:04:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/activation/</guid>
       <description>[Epoch  7/NaN] Updating...</description>
     </item>
     <item>
-      <title>收集 100 个 Norm 方法</title>
+      <title>收集 N 种归一化方法</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/norm/</link>
       <pubDate>Wed, 21 May 2025 21:15:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/norm/</guid>
@@ -249,7 +249,7 @@
       <description>论文 rebuttal 回复流程与写作要点</description>
     </item>
     <item>
-      <title>记录 100 种损失函数</title>
+      <title>收集 N 种损失函数</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/loss/</guid>

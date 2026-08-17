@@ -9,12 +9,12 @@
       <url>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://cspaulia.github.io/cspaulia-blog/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.164.0</generator>
+    <generator>Hugo -- 0.165.0</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 30 Jan 2026 16:43:57 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 17 Aug 2026 15:58:38 +0800</lastBuildDate>
     <atom:link href="https://cspaulia.github.io/cspaulia-blog/tags/%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>记录 100 种损失函数</title>
+      <title>收集 N 种损失函数</title>
       <link>https://cspaulia.github.io/cspaulia-blog/posts/loss/</link>
       <pubDate>Tue, 20 May 2025 12:59:00 +0800</pubDate>
       <guid>https://cspaulia.github.io/cspaulia-blog/posts/loss/</guid>
