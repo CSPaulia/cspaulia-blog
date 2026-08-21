@@ -14,6 +14,8 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 ## Blog Structure And Headings
 
 - This is primarily a Chinese blog. Write headings in Chinese; when a heading introduces a specific English technical term, use `中文（English）` instead of an English-only heading.
+- Number the main `##` chapters and their `###` subsections when the article follows a chapter structure. Use unnumbered `####` headings for smaller topic blocks; avoid deep numeric headings such as `1.1.1`.
+- When a heading needs to foreground its conclusion, prefer the form `主题：核心结论`, for example `量化：通过降低数值精度减少访存`.
 - Make every heading understandable on its own in the table of contents. State the subject being discussed instead of relying on the preceding paragraph for context.
 - Avoid vague headings such as “完整曲线”“为什么会出现幂律” or “相关内容”. Name the object explicitly, for example “数据—性能曲线的三个区间” or “数据—性能曲线为什么会呈现幂律”.
 - Let headings describe the actual relationship, boundary, or conclusion of the section. Do not use an author name alone when the reader is really looking for a concept or result.
@@ -21,12 +23,20 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - When writing incrementally from slides, preserve the slide order and do not create large future sections before the user asks for them.
 - Put the main conclusion in the visible text first. Place long derivations, supporting experiments, secondary paper examples, or implementation details in a `<details>` block when they would interrupt the main argument.
 
+## Readability And Presentation
+
+- Turn a dense comparison paragraph into a compact table when the compared objects share the same dimensions and the table remains narrow.
+- Prefer a numbered or bulleted list for parallel stages, trade-offs, procedures, or paired cases such as prefill versus generation. If a table would become too wide, use a list with bold labels instead.
+- Use a blockquote for a short supplementary explanation or paper-specific aside when it should remain visually secondary to the main argument.
+- Emphasize the central takeaway sparingly with bold text; do not bold entire long paragraphs.
+
 ## English Terms
 
 - For an English technical term that appears for the first time, write it as `中文（English Full Name，ABBR）` when an abbreviation exists.
 - If there is no common abbreviation, write it as `中文（English Full Name）`.
 - After the first definition, abbreviations or English terms may be used naturally.
 - Put a space between Chinese and English words when they appear side by side.
+- Keep the term `Transformer` in English; do not translate it as “变换器”.
 
 ## PDF And Slide Processing
 
@@ -46,6 +56,8 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Inside display formulas, never put a bare `=` on its own source line. Hugo's Markdown parser can treat it as a Setext heading and break the formula. Keep `=` beside an expression or use `\begin{aligned}` with `&=`.
 - Do not add slide-location prose such as “CS336 Lecture 9，第 14 页” to the article body. Preserve source attribution through figure captions and the references section instead.
 - Clearly distinguish empirical observations, modeling assumptions, theoretical intuition, and proven theorems. Do not present an empirical Scaling Law as a universal theorem.
+- Put citations next to the claims or methods they support. A references section alone is not a substitute for in-text citations.
+- After editing formulas, emphasis, tables, or citations, check the rendered result for broken LaTeX or Markdown rather than relying only on the source text.
 - Run `hugo --enableGitInfo=false` after meaningful Markdown or asset changes when feasible.
 - For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`:
 
@@ -59,6 +71,7 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 
 - Keep images in the same post folder when they belong to a post.
 - Remove unused images only after checking that the post no longer references them.
+- Before finishing a post, compare its asset files with all body and front-matter references, remove only genuinely unused images, and select a representative existing image as the cover when appropriate.
 - Do not delete unrelated assets outside the requested post folder.
 
 ## Git And Local Work
