@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "artificial-analysis.png"
+    alt: "Artificial Analysis 模型能力排行榜"
+    caption: "Artificial Analysis 模型能力排行榜。"
+    relative: true
+    hidden: false
+    hiddenInList: false
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes"
