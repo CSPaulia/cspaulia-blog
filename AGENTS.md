@@ -27,7 +27,9 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 
 - Turn a dense comparison paragraph into a compact table when the compared objects share the same dimensions and the table remains narrow.
 - Prefer a numbered or bulleted list for parallel stages, trade-offs, procedures, or paired cases such as prefill versus generation. If a table would become too wide, use a list with bold labels instead.
+- When source notes or slides present parallel points as a list—especially warnings, summaries, procedures, or takeaways—preserve that list structure in the article. Do not expand those points into long paragraphs; keep each item concise and self-contained.
 - Use a blockquote for a short supplementary explanation or paper-specific aside when it should remain visually secondary to the main argument.
+- Treat paper-specific experiment details—such as exact scores, dataset-specific improvements, ablations, or setup details—as secondary evidence rather than the main method narrative. Put a short result in a blockquote with its citation; use a `<details>` block when the evidence or explanation is longer.
 - Emphasize the central takeaway sparingly with bold text; do not bold entire long paragraphs.
 
 ## English Terms
@@ -57,14 +59,15 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Do not add slide-location prose such as “CS336 Lecture 9，第 14 页” to the article body. Preserve source attribution through figure captions and the references section instead.
 - Clearly distinguish empirical observations, modeling assumptions, theoretical intuition, and proven theorems. Do not present an empirical Scaling Law as a universal theorem.
 - Put citations next to the claims or methods they support. A references section alone is not a substitute for in-text citations.
+- Cite papers, webpages, and related blog sections with descriptive inline Markdown links in the form `[link text](URL)`. Do not leave a bare URL in the article body when a meaningful link label can be provided.
 - After editing formulas, emphasis, tables, or citations, check the rendered result for broken LaTeX or Markdown rather than relying only on the source text.
 - Run `hugo --enableGitInfo=false` after meaningful Markdown or asset changes when feasible.
-- For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`:
+- For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`. Format each reference as an academic bibliographic entry with an author or organization, quoted title, publication or medium, year when available, resource type, and URL. Inline citations may use descriptive Markdown links, but the final references section should retain this fuller bibliographic form:
 
 ```markdown
 ## 参考文献
 
-[1] Title. [Online]. Available: https://...
+[1] Author or Organization, "Title," Publication or Medium, year. [Online]. Available: https://...
 ```
 
 ## Image Assets
@@ -79,3 +82,6 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Do not revert user changes unless explicitly requested.
 - The worktree may be dirty; ignore unrelated changes.
 - Use `apply_patch` for manual file edits.
+- Before committing or pushing changes to a Chinese post (`index.md`), translate the corresponding changes and add them to that post's English version (`index.en.md`). If the English version does not yet exist, create it before pushing.
+- Keep the Chinese and English versions aligned in front matter, heading structure, body content, formulas, figures, captions, and references. Do not push a substantive Chinese post update while its English counterpart is outdated unless the user explicitly requests a Chinese-only change.
+- Treat `series.main` and `series.subseries` as controlled vocabulary. Reuse the exact spelling, capitalization, plurality, and conjunction style already used by other posts in the same language; check the generated Chinese and English Series pages before pushing.

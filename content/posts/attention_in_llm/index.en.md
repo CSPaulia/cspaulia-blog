@@ -4,7 +4,7 @@ date: 2026-04-23T11:30:03+08:00
 # weight: 1
 # aliases: ["/first"]
 series:
-    main: "Large language model"
+    main: "Large Language Model"
     subseries: "Architecture and Training"
 categories: ["大语言模型"]
 tags: ["架构", "训练"]

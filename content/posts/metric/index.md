@@ -40,6 +40,47 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
+## 语言模型评估指标
+
+### 困惑度（Perplexity，PPL）
+
+给定 token 序列 \(x_1,\ldots,x_T\)，自回归语言模型会为每个目标 token 分配条件概率 \(p_\theta(x_t\mid x_{1:t-1})\)。先计算每个 token 的平均负对数似然：
+
+\[
+\mathcal{L}=-\frac{1}{T}\sum_{t=1}^{T}\log p_\theta(x_t\mid x_{1:t-1}).
+\]
+
+困惑度是平均负对数似然的指数：
+
+\[
+\begin{aligned}
+\operatorname{PPL}(x_{1:T})
+&=\exp(\mathcal{L})\\
+&=\left(\prod_{t=1}^{T}p_\theta(x_t\mid x_{1:t-1})\right)^{-\frac{1}{T}}.
+\end{aligned}
+\]
+
+计算包含多个样本的数据集时，应先累加所有有效 token 的负对数似然，再除以有效 token 总数 \(N\)：
+
+\[
+\operatorname{PPL}(D)=\exp\left(-\frac{1}{N}\sum_{s}\sum_{t}\log p_\theta(x_t^{(s)}\mid x_{1:t-1}^{(s)})\right).
+\]
+
+实际计算可以分为四步：
+
+1. 使用教师强制（teacher forcing）计算每个目标 token 的对数概率；
+2. 排除 padding、无需预测的起始 token，以及其他被 mask 的位置；
+3. 累加剩余 token 的负对数似然，并除以有效 token 数；
+4. 对平均值取指数。如果交叉熵使用以 2 为底的对数，则计算 \(2^{\mathcal{L}}\)。
+
+例如，模型为三个目标 token 分配的概率依次为 \(0.5\)、\(0.25\) 和 \(0.125\)，则
+
+\[
+\operatorname{PPL}=\left(0.5\times0.25\times0.125\right)^{-\frac{1}{3}}=4.
+\]
+
+PPL 越低，表示模型为真实序列分配的概率越高。它可以直观理解为模型在每一步面临的“有效候选数”，但只有在数据集、tokenizer 和预处理方式相同时才适合直接比较。
+
 ## 分类评估指标
 
 > TP / TN / FP / FN 基本概念

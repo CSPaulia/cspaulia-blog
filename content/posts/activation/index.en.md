@@ -1,6 +1,9 @@
 ---
-title: "A Collection of Activation Functions"
+title: "A Collection of N Activation Functions"
 date: 2025-05-21T22:04:00+08:00
+series:
+    main: "Deep Learning Foundations"
+    subseries: "Activation Functions"
 # weight: 1
 # aliases: ["/first"]
 draft: false

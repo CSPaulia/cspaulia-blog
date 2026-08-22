@@ -3,7 +3,7 @@ title: "Introduction to Triton"
 date: 2026-07-14T10:00:00+08:00
 series:
   main: "Large Language Model"
-  subseries: "System and Hardware"
+  subseries: "Systems and Hardware"
 draft: false
 categories: ["大语言模型", "系统"]
 tags: ["Triton", "GPU", "CUDA", "并行计算", "Kernel"]
@@ -312,7 +312,154 @@ def triton_gelu_kernel(x_ptr, y_ptr, num_elements, BLOCK_SIZE: tl.constexpr):
     start = pid * BLOCK_SIZE                      # 本 block 的起始位置
     offsets = start + tl.arange(0, BLOCK_SIZE)    # 本 block 内每个 thread 的偏移
 
-    mask = offsets __HTMLTAG_1__ torch.Tensor:
+    mask = offsets < num_elements                 # The final block may be incomplete
+
+    # ===== 2. Load: read data from HBM =====
+    x = tl.load(x_ptr + offsets, mask=mask)
+
+    # ===== 3. Compute: tanh approximation of GeLU in registers =====
+    # GELU(x) ≈ 0.5 * x * (1 + tanh(√(2/π) * (x + 0.044715 * x³)))
+    a = 0.79788456 * (x + 0.044715 * x * x * x)
+    exp = tl.exp(2 * a)
+    tanh = (exp - 1) / (exp + 1)
+    y = 0.5 * x * (1 + tanh)
+
+    # ===== 4. Store: write the result back to HBM =====
+    tl.store(y_ptr + offsets, y, mask=mask)
+```
+
+Key points:
+
+- **`tl.program_id(axis=0)`** identifies the current block along axis 0. Every block runs the same logic; `pid` selects the segment it processes;
+- **`tl.arange(0, BLOCK_SIZE)`** returns `[0, 1, ..., 1023]`, the relative offsets handled by the block. Triton manages the underlying threads;
+- **`mask`** prevents out-of-bounds reads and writes when the final block contains fewer than `BLOCK_SIZE` elements;
+- **`tl.constexpr`** marks `BLOCK_SIZE` as a compile-time constant so the compiler can specialize the kernel.
+
+#### Compiled Output: PTX
+
+Triton compiles the kernel to Parallel Thread Execution (PTX), NVIDIA's GPU assembly language. Inspecting PTX reveals how the compiler implements the program:
+
+```text
+ld.global.*   ...    # Read from global memory
+st.global.*   ...    # Write to global memory
+%ctaid.x      ...    # Block index, corresponding to tl.program_id
+%tid.x        ...    # Thread index
+%f*           ...    # Floating-point registers
+%r*           ...    # Integer registers
+```
+
+For this GeLU kernel, Triton automatically performs **thread coarsening**, allowing one thread to process eight elements and reducing instruction overhead. The compiler applies this optimization without requiring manual code.
+
+### 3.3 Triton: Softmax Example (Intra-Block Reduction)
+
+![Triton Softmax](triton-softmax.png)
+
+GeLU is element-wise, so each thread works independently. Softmax instead performs reductions over an entire row—computing a maximum and a sum—so threads must cooperate.
+
+For example, applying Softmax row by row gives
+
+```text
+[0 0 0]      →   [1/3 1/3 1/3]
+[1 1 -inf]   →   [1/2 1/2   0]
+```
+
+#### Memory Traffic of Naive PyTorch
+
+Consider a naive PyTorch implementation:
+
+```python
+def naive_softmax(x: torch.Tensor):
+    M, N = x.shape
+    x_max = x.max(dim=1)[0]              # MN reads,  M writes
+    x = x - x_max[:, None]               # MN reads,  MN writes
+    numerator = torch.exp(x)             # MN reads,  MN writes
+    denominator = numerator.sum(dim=1)   # MN reads,  M writes
+    y = numerator / denominator[:, None] # MN reads,  MN writes
+    return y
+# Total: 5MN + M reads, 3MN + 2M writes
+```
+
+In principle, Softmax requires only \(MN\) reads and \(MN\) writes. In the naive version, each step launches a separate kernel, so intermediate values repeatedly travel through HBM, creating roughly four times as much redundant memory traffic.
+
+#### Triton Kernel: One Row per Block
+
+When a complete row fits in one block (`num_cols <= BLOCK_SIZE`), each block can process one row and Triton can handle communication among its threads:
+
+```python
+@triton.jit
+def triton_softmax_kernel(x_ptr, y_ptr, x_row_stride, y_row_stride,
+                           num_cols, BLOCK_SIZE: tl.constexpr):
+    assert num_cols <= BLOCK_SIZE
+
+    row_idx = tl.program_id(0)                     # One block processes one row
+    col_offsets = tl.arange(0, BLOCK_SIZE)
+
+    # 1. Load the complete row into registers
+    x_row = tl.load(x_ptr + row_idx * x_row_stride + col_offsets,
+                    mask=col_offsets < num_cols, other=float("-inf"))
+
+    # 2. Compute the intra-block reductions
+    x_row = x_row - tl.max(x_row, axis=0)          # Numerically stable shift
+    numerator = tl.exp(x_row)
+    denominator = tl.sum(numerator, axis=0)
+    y_row = numerator / denominator
+
+    # 3. Store the result in HBM
+    tl.store(y_ptr + row_idx * y_row_stride + col_offsets,
+             y_row, mask=col_offsets < num_cols)
+```
+
+Key points:
+
+- **`other=float("-inf")`** supplies the masked positions. Their exponentials become zero and do not change the Softmax result;
+- **`tl.max(..., axis=0)` and `tl.sum(..., axis=0)`** express block-level reductions. Triton generates the required warp shuffles or shared-memory communication;
+- **One block per row** makes `program_id(0)` the row index, so all rows execute in parallel.
+
+GeLU demonstrates element-wise load → compute → store. Softmax adds an intra-block reduction while retaining the same overall structure.
+
+### 3.4 Triton: Row Sum Example (Cross-Tile Reduction)
+
+![Triton Row Sum](triton-row-sum.png)
+
+The Softmax kernel assumes that one complete row fits in a block (`num_cols <= BLOCK_SIZE`). If a row has 4096 columns but `BLOCK_SIZE = 1024`, the row must be split into tiles.
+
+**Strategy:** divide the row into multiple tiles. Each thread visits every tile and accumulates a partial sum in its register; a final block-level reduction combines those partial sums.
+
+```text
+One row with 4096 columns, BLOCK_SIZE = 1024:
+| Tile 0 (cols 0..1023) | Tile 1 (cols 1024..2047) | Tile 2 (cols 2048..3071) | Tile 3 (cols 3072..4095) |
+
+Each thread: acc = 0 → add tile 0 → add tile 1 → add tile 2 → add tile 3 → final reduction
+```
+
+#### Kernel Implementation
+
+```python
+@triton.jit
+def row_sum_kernel(x_ptr, out_ptr, N, BLOCK_SIZE: tl.constexpr):
+    row = tl.program_id(0)                            # One block processes one row
+
+    # Every thread maintains one accumulator
+    acc = tl.zeros([BLOCK_SIZE], dtype=tl.float32)
+
+    # 1. Load and accumulate across all tiles
+    for start in range(0, N, BLOCK_SIZE):
+        cols = start + tl.arange(0, BLOCK_SIZE)
+        mask = cols < N                               # The final tile may be incomplete
+        x = tl.load(x_ptr + row * N + cols, mask=mask, other=0.0)
+        acc += x                                      # Accumulate in registers
+
+    # 2. Reduce BLOCK_SIZE partial sums to one scalar
+    result = tl.sum(acc, axis=0)
+
+    # 3. Store
+    tl.store(out_ptr + row, result)
+```
+
+The launch function is
+
+```python
+def triton_row_sum(x: torch.Tensor, BLOCK_SIZE: int = 1024) -> torch.Tensor:
     M, N = x.shape
     y = torch.empty(M, device=x.device, dtype=x.dtype)
     row_sum_kernel[(M,)](x, y, N, BLOCK_SIZE=BLOCK_SIZE)
@@ -321,11 +468,11 @@ def triton_gelu_kernel(x_ptr, y_ptr, num_elements, BLOCK_SIZE: tl.constexpr):
 
 #### Key Points
 
-- **`for start in range(0, N, BLOCK_SIZE)`**: Loop over tiles; each iteration loads a block from HBM and accumulates into registers. This is the core mechanism of cross-tile reduction — data is loaded in batches, and partial sums stay in registers;
-- **`acc = tl.zeros([BLOCK_SIZE])`**: Each thread allocates one accumulator. It is not shared — each thread independently accumulates the data it is responsible for;
-- **Two reductions**: The first is implicit — each thread’s own `acc += x` is done in registers (once per tile); the second is explicit — `tl.sum(acc, axis=0)` merges the partial sums from BLOCK_SIZE threads into a single scalar.
+- **`for start in range(0, N, BLOCK_SIZE)`** iterates over tiles. Each iteration reads a tile from HBM and accumulates it in registers, keeping partial sums on chip;
+- **`acc = tl.zeros([BLOCK_SIZE])`** gives each thread its own accumulator rather than a shared one;
+- **Two reduction stages** are involved: each thread first accumulates values across tiles in its register, then `tl.sum(acc, axis=0)` combines the `BLOCK_SIZE` partial sums into one scalar.
 
-This is essentially a "baby version" of matrix multiplication tiling — splitting data into chunks, loading them in a loop, accumulating in registers, and finally merging. Next, extending the 1D `for` loop to 2D gives us tiled matrix multiplication.
+This is a small-scale version of matrix multiplication tiling: split the data into blocks, load them iteratively, accumulate in registers, and merge the result. Extending the one-dimensional loop to two dimensions leads to tiled matrix multiplication.
 
 ### 3.5 Triton: Matrix Multiplication + ReLU (2D Tiling + Kernel Fusion)
 

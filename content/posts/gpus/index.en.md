@@ -3,7 +3,7 @@ title: "GPU Architecture and Machine Learning Optimization"
 date: 2026-06-10T11:17:05+08:00
 series:
   main: "Large Language Model"
-  subseries: "System and Hardware"
+  subseries: "Systems and Hardware"
 draft: false
 categories: ["大语言模型", "系统"]
 tags: ["GPU", "CUDA", "并行计算", "训练"]
@@ -154,7 +154,7 @@ The relationship with hardware can be understood as:
 - **Warp**: The unit scheduled within an SM;
 - **Thread**: A single logical execution flow within a warp, ultimately executed by the compute units inside the SM.
 
-Specifically, when you launch a CUDA kernel (e.g., `my_kernel__HTMLTAG_27__>>(args)` or `my_kernel[(grid,)](args)` in Triton), the GPU execution flow is as follows:
+Specifically, when you launch a CUDA kernel (e.g., `my_kernel<<<gridDim, blockDim>>>(args)` or `my_kernel[(grid,)](args)` in Triton), the GPU execution flow is as follows:
 
 1. **Grid Division**: The entire computation task is wrapped into a **grid**. The grid dimensions are determined by launch parameters—for example, `gridDim` with `(M, N)` means there are M × N blocks. You **explicitly specify** the grid division; you decide "how many blocks to cut the task into";
 

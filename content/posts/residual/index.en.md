@@ -2,8 +2,8 @@
 title: "Residual Connections and Their Variants"
 date: 2026-04-29T11:30:03+08:00
 series:
-    main: "Large Language Models"
-    subseries: "Architecture & Training"
+    main: "Large Language Model"
+    subseries: "Architecture and Training"
 categories: ["Large Language Models"]
 tags: ["Architecture", "Training"]
 author: "CSPaulia"

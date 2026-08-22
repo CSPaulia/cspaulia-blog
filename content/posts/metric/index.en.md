@@ -1,6 +1,9 @@
 ---
-title: "100 Evaluation Metrics (Work in Progress)"
+title: "A Collection of N Evaluation Metrics"
 date: 2025-07-09T14:05:03+08:00
+series:
+    main: "Deep Learning Foundations"
+    subseries: "Evaluation Metrics"
 # weight: 1
 # aliases: ["/first"]
 categories: ["Deep Learning Skills"]
@@ -36,6 +39,47 @@ editPost:
     Text: "Suggest Changes" # edit text
     appendFilePath: true # to append file path to Edit link
 ---
+
+## Language Model Evaluation Metrics
+
+### Perplexity (PPL)
+
+Given a token sequence \(x_1,\ldots,x_T\), an autoregressive language model assigns each target token a conditional probability \(p_\theta(x_t\mid x_{1:t-1})\). First compute the mean negative log-likelihood per token:
+
+\[
+\mathcal{L}=-\frac{1}{T}\sum_{t=1}^{T}\log p_\theta(x_t\mid x_{1:t-1}).
+\]
+
+Perplexity is the exponential of this mean negative log-likelihood:
+
+\[
+\begin{aligned}
+\operatorname{PPL}(x_{1:T})
+&=\exp(\mathcal{L})\\
+&=\left(\prod_{t=1}^{T}p_\theta(x_t\mid x_{1:t-1})\right)^{-\frac{1}{T}}.
+\end{aligned}
+\]
+
+For a dataset containing multiple examples, sum the negative log-likelihood over all valid tokens before dividing by the total number of valid tokens \(N\):
+
+\[
+\operatorname{PPL}(D)=\exp\left(-\frac{1}{N}\sum_{s}\sum_{t}\log p_\theta(x_t^{(s)}\mid x_{1:t-1}^{(s)})\right).
+\]
+
+The computation has four steps:
+
+1. Use teacher forcing to obtain the log-probability of every target token;
+2. Exclude padding, any initial token that is not predicted, and other masked positions;
+3. Sum the remaining negative log-likelihoods and divide by the number of valid tokens;
+4. Exponentiate the mean. If cross-entropy uses base-2 logarithms, compute \(2^{\mathcal{L}}\) instead.
+
+For example, if a model assigns probabilities \(0.5\), \(0.25\), and \(0.125\) to three target tokens, then
+
+\[
+\operatorname{PPL}=\left(0.5\times0.25\times0.125\right)^{-\frac{1}{3}}=4.
+\]
+
+A lower PPL means that the model assigns higher probability to the observed sequence. It can be interpreted as the model's effective number of choices at each step, but direct comparisons are meaningful only when the dataset, tokenizer, and preprocessing are the same.
 
 ## Classification metrics
 

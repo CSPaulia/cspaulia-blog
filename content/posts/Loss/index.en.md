@@ -1,6 +1,9 @@
 ---
-title: "100 Loss Functions (Work in Progress)"
+title: "A Collection of N Loss Functions"
 date: 2025-05-20T12:59:00+08:00
+series:
+    main: "Deep Learning Foundations"
+    subseries: "Loss Functions"
 # weight: 1
 # aliases: ["/first"]
 categories: ["Deep Learning Skills"]

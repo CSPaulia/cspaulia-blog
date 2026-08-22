@@ -23,12 +23,13 @@
 <div class="series-container">
     <div class="series-grid">
         {{- range $index, $main := $mainSeries }}
+        {{- $mainStorageKey := printf "series:%s:%s" site.Language.Lang (md5 $main) }}
         <div class="series-section">
             <button class="collapse-btn" onclick="toggleSeries({{ $index }})">
                 <span class="collapse-text">{{ $main }}</span>
                 <span class="collapse-icon">▼</span>
             </button>
-            <div class="series-card collapsed" id="series-{{ $index }}">
+            <div class="series-card collapsed" id="series-{{ $index }}" data-storage-key="{{ $mainStorageKey }}">
                 <div class="posts-list">
                     {{- /* 获取当前主系列下的所有子系列 */ -}}
                     {{- $currentPosts := where $pages "Params.series.main" $main }}
@@ -41,12 +42,13 @@
                     
                     {{- /* 按子系列分组显示文章 */ -}}
                     {{- range $subIndex, $sub := $subseries }}
+                    {{- $subStorageKey := printf "subseries:%s:%s" site.Language.Lang (md5 (printf "%s/%s" $main $sub)) }}
                     <div class="subseries-group">
                         <button class="subseries-btn" onclick="toggleSubseries({{ $index }}, {{ $subIndex }})">
                             <span class="subseries-text">{{ $sub }}</span>
                             <span class="subseries-icon">▼</span>
                         </button>
-                        <div class="subseries-content collapsed" id="subseries-{{ $index }}-{{ $subIndex }}">
+                        <div class="subseries-content collapsed" id="subseries-{{ $index }}-{{ $subIndex }}" data-storage-key="{{ $subStorageKey }}">
                             {{- range $currentPosts }}
                                 {{- if eq .Params.series.subseries $sub }}
                                 <div class="post-item">
@@ -193,86 +195,32 @@ series-container {
 function toggleSeries(index) {
     const seriesCard = document.getElementById(`series-${index}`);
     const btn = seriesCard.previousElementSibling;
-    const icon = btn.querySelector('.collapse-icon');
-    
+
     seriesCard.classList.toggle('collapsed');
     btn.classList.toggle('collapsed');
-    
-    // 保存折叠状态到 localStorage
-    const collapsedState = seriesCard.classList.contains('collapsed');
-    localStorage.setItem(`series-${index}-collapsed`, collapsedState);
-}
 
-// 页面加载时恢复折叠状态
-document.addEventListener('DOMContentLoaded', function() {
-    const seriesCards = document.querySelectorAll('.series-card');
-    seriesCards.forEach((card, index) => {
-        const collapsedState = localStorage.getItem(`series-${index}-collapsed`);
-        if (collapsedState === 'true') {
-            card.classList.add('collapsed');
-            card.previousElementSibling.classList.add('collapsed');
-        }
-    });
-});
+    const collapsedState = seriesCard.classList.contains('collapsed');
+    localStorage.setItem(seriesCard.dataset.storageKey, collapsedState);
+}
 
 function toggleSubseries(mainIndex, subIndex) {
     const content = document.getElementById(`subseries-${mainIndex}-${subIndex}`);
     const btn = content.previousElementSibling;
-    const icon = btn.querySelector('.subseries-icon');
-    
+
     content.classList.toggle('collapsed');
     btn.classList.toggle('collapsed');
-    
-    // 保存子系列折叠状态
+
     const collapsedState = content.classList.contains('collapsed');
-    localStorage.setItem(`subseries-${mainIndex}-${subIndex}-collapsed`, collapsedState);
+    localStorage.setItem(content.dataset.storageKey, collapsedState);
 }
 
-// 页面加载时恢复所有折叠状态
 document.addEventListener('DOMContentLoaded', function() {
-    // 检查是否是首次访问
-    const isFirstVisit = !localStorage.getItem('visited');
-    
-    if (isFirstVisit) {
-        // 首次访问，设置所有系列为折叠状态
-        const seriesCards = document.querySelectorAll('.series-card');
-        const subseriesContents = document.querySelectorAll('.subseries-content');
-        
-        seriesCards.forEach((card, index) => {
-            card.classList.add('collapsed');
-            card.previousElementSibling.classList.add('collapsed');
-            localStorage.setItem(`series-${index}-collapsed`, 'true');
-        });
-        
-        subseriesContents.forEach((content) => {
-            content.classList.add('collapsed');
-            content.previousElementSibling.classList.add('collapsed');
-            localStorage.setItem(`${content.id}-collapsed`, 'true');
-        });
-        
-        // 标记已访问
-        localStorage.setItem('visited', 'true');
-    } else {
-        // 非首次访问，使用保存的状态
-        const seriesCards = document.querySelectorAll('.series-card');
-        seriesCards.forEach((card, index) => {
-            const collapsedState = localStorage.getItem(`series-${index}-collapsed`);
-            if (collapsedState !== 'false') {
-                card.classList.add('collapsed');
-                card.previousElementSibling.classList.add('collapsed');
-            }
-        });
-        
-        const subseries = document.querySelectorAll('.subseries-content');
-        subseries.forEach((content) => {
-            const id = content.id;
-            const collapsedState = localStorage.getItem(`${id}-collapsed`);
-            if (collapsedState !== 'false') {
-                content.classList.add('collapsed');
-                content.previousElementSibling.classList.add('collapsed');
-            }
-        });
-    }
+    document.querySelectorAll('.series-card, .subseries-content').forEach((element) => {
+        const collapsedState = localStorage.getItem(element.dataset.storageKey);
+        const shouldCollapse = collapsedState !== 'false';
+        element.classList.toggle('collapsed', shouldCollapse);
+        element.previousElementSibling.classList.toggle('collapsed', shouldCollapse);
+    });
 });
 </script>
 
