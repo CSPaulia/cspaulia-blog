@@ -62,7 +62,7 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Cite papers, webpages, and related blog sections with descriptive inline Markdown links in the form `[link text](URL)`. Do not leave a bare URL in the article body when a meaningful link label can be provided.
 - After editing formulas, emphasis, tables, or citations, check the rendered result for broken LaTeX or Markdown rather than relying only on the source text.
 - Run `hugo --enableGitInfo=false` after meaningful Markdown or asset changes when feasible.
-- For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`. Format each reference as an academic bibliographic entry with an author or organization, quoted title, publication or medium, year when available, resource type, and URL. Inline citations may use descriptive Markdown links, but the final references section should retain this fuller bibliographic form:
+- For references, use a plain Markdown section in the style already used by `content/posts/gpus/index.md`. Format each reference as an academic bibliographic entry with an author or organization, quoted title, publication or medium, year when available, resource type, and URL. If the body already links sources inline with descriptive Markdown links, do not duplicate them in the references section — keep the references section to the course/lecture source only (e.g., the CS336 lecture slides or video):
 
 ```markdown
 ## 参考文献
