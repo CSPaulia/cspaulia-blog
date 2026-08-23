@@ -24,7 +24,7 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "artificial-analysis.png"
+    image: "artificial-analysis-cover.png"
     alt: "Artificial Analysis 模型能力排行榜"
     caption: "Artificial Analysis 模型能力排行榜。"
     relative: true

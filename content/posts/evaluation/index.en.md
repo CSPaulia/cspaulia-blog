@@ -24,7 +24,7 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-    image: "artificial-analysis.png"
+    image: "artificial-analysis-cover.png"
     alt: "Artificial Analysis model intelligence leaderboard"
     caption: "Artificial Analysis model intelligence leaderboard."
     relative: true
