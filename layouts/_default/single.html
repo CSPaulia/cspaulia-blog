@@ -1,4 +1,5 @@
 {{- define "main" }}
+{{- $content := .Content -}}
 
 <article class="post-single">
   <header class="post-header">
@@ -44,11 +45,11 @@
   {{- partial "toc.html" . }}
   {{- end }}
 
-  {{- if .Content }}
+  {{- if $content }}
   <div class="post-content">
     {{- if not (.Param "disableAnchoredHeadings") }}
-    {{- partial "anchored_headings.html" .Content -}}
-    {{- else }}{{ .Content }}{{ end }}
+    {{- partial "anchored_headings.html" $content -}}
+    {{- else }}{{ $content }}{{ end }}
   </div>
   {{- end }}
 
