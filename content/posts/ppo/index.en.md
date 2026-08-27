@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+  image: "cover.jpg"
+  alt: "Reference, reward, and value models, GAE, and policy updates in language-model PPO training"
+  caption: "The PPO training pipeline for language models: reward shaping, GAE, PPO-Clip, and value-model updates. Source: [Zheng et al., 2023](https://arxiv.org/abs/2307.04964)."
+  relative: true
+  hidden: false
+  hiddenInList: false
 editPost:
   URL: "https://cspaulia.github.io/cspaulia-blog/content/"
   Text: "Suggest Changes"

@@ -15,8 +15,17 @@
 {{- /* 获取所有主系列 */ -}}
 {{- $mainSeries := slice }}
 {{- range $pages }}
-    {{- with .Params.series.main }}
-        {{- $mainSeries = union $mainSeries (slice .) }}
+    {{- $series := .Params.series }}
+    {{- if reflect.IsSlice $series }}
+        {{- range $series }}
+            {{- with .main }}
+                {{- $mainSeries = union $mainSeries (slice .) }}
+            {{- end }}
+        {{- end }}
+    {{- else }}
+        {{- with $series.main }}
+            {{- $mainSeries = union $mainSeries (slice .) }}
+        {{- end }}
     {{- end }}
 {{- end }}
 
@@ -32,10 +41,23 @@
             <div class="series-card collapsed" id="series-{{ $index }}" data-storage-key="{{ $mainStorageKey }}">
                 <div class="posts-list">
                     {{- /* 获取当前主系列下的所有子系列 */ -}}
-                    {{- $currentPosts := where $pages "Params.series.main" $main }}
+                    {{- $currentEntries := slice }}
+                    {{- range $pages }}
+                        {{- $page := . }}
+                        {{- $series := .Params.series }}
+                        {{- if reflect.IsSlice $series }}
+                            {{- range $series }}
+                                {{- if eq .main $main }}
+                                    {{- $currentEntries = $currentEntries | append (dict "page" $page "subseries" .subseries) }}
+                                {{- end }}
+                            {{- end }}
+                        {{- else if eq $series.main $main }}
+                            {{- $currentEntries = $currentEntries | append (dict "page" $page "subseries" $series.subseries) }}
+                        {{- end }}
+                    {{- end }}
                     {{- $subseries := slice }}
-                    {{- range $currentPosts }}
-                        {{- with .Params.series.subseries }}
+                    {{- range $currentEntries }}
+                        {{- with .subseries }}
                             {{- $subseries = union $subseries (slice .) }}
                         {{- end }}
                     {{- end }}
@@ -49,12 +71,12 @@
                             <span class="subseries-icon">▼</span>
                         </button>
                         <div class="subseries-content collapsed" id="subseries-{{ $index }}-{{ $subIndex }}" data-storage-key="{{ $subStorageKey }}">
-                            {{- range $currentPosts }}
-                                {{- if eq .Params.series.subseries $sub }}
+                            {{- range $currentEntries }}
+                                {{- if eq .subseries $sub }}
                                 <div class="post-item">
-                                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                                    <a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a>
                                     <span class="post-meta">
-                                        <time>{{ .Date.Format "2006-01-02" }}</time>
+                                        <time>{{ .page.Date.Format "2006-01-02" }}</time>
                                     </span>
                                 </div>
                                 {{- end }}

@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+  image: "cover.jpg"
+  alt: "语言模型 PPO 训练中的参考模型、奖励模型、价值模型、GAE 与策略更新流程"
+  caption: "语言模型中的 PPO 训练流程：奖励塑形、GAE、PPO-Clip 与价值模型更新。图源：[Zheng et al., 2023](https://arxiv.org/abs/2307.04964)。"
+  relative: true
+  hidden: false
+  hiddenInList: false
 editPost:
   URL: "https://cspaulia.github.io/cspaulia-blog/content/"
   Text: "建议修改"
