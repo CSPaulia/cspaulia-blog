@@ -26,9 +26,9 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-  image: "ppo-clipping.png"
-  alt: "The PPO clipped objective"
-  caption: "PPO clips the probability ratio to limit policy movement on one batch of data"
+  image: "cover.png"
+  alt: "Policy and Preference Optimization in LLMs"
+  caption: "Policy and Preference Optimization in LLMs"
   relative: true
   hidden: false
   hiddenInList: false

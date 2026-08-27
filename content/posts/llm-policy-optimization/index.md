@@ -26,9 +26,9 @@ ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
 cover:
-  image: "ppo-clipping.png"
-  alt: "PPO 截断目标示意图"
-  caption: "PPO 通过截断概率比限制单批数据上的策略变化"
+  image: "cover.png"
+  alt: "大语言模型中的策略与偏好优化"
+  caption: "大语言模型中的策略与偏好优化"
   relative: true
   hidden: false
   hiddenInList: false
