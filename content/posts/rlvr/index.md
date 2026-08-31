@@ -25,6 +25,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+  image: "qwen3-post-training-pipeline.png"
+  alt: "Qwen3 旗舰模型的四阶段后训练流程，以及轻量模型的强到弱蒸馏流程"
+  caption: "Qwen3 的后训练流程：推理强化学习是旗舰模型四阶段训练的一部分。"
+  relative: true
+  hidden: false
+  hiddenInList: false
 editPost:
   URL: "https://cspaulia.github.io/cspaulia-blog/content/"
   Text: "建议修改"

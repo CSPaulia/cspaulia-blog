@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-original_image_path = 'content/posts/generation_targets/Bao.jpg'
+original_image_path = 'content/posts/flow_matching/Bao.jpg'
 original_image = np.array(Image.open(original_image_path))
 
 def add_noise(image, noise_level):
@@ -19,4 +19,4 @@ if __name__ == "__main__":
     for i in range(100):
         noisy_image = add_noise(noisy_image, noise_level)
         if i % save_steps == 0:
-            Image.fromarray(noisy_image.astype(np.uint8)).save(f'content/posts/generation_targets/noisy_Bao_{i}.png')
+            Image.fromarray(noisy_image.astype(np.uint8)).save(f'content/posts/flow_matching/noisy_Bao_{i}.png')

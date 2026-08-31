@@ -63,10 +63,10 @@ def linear_sde_euler(steps=200):
 
 if __name__ == "__main__":
     x_t, t, x_0 = linear_ode()
-    plot_ode(t, x_0, x_t, title="Linear ODE Trajectories", filename="content/posts/flow/linear_ode_trajectories.png")
+    plot_ode(t, x_0, x_t, title="Linear ODE Trajectories", filename="content/posts/flow_and_diffusion_models/linear_ode_trajectories.png")
 
     x_t_euler, t_euler, x_0_euler = linear_ode_euler()
-    plot_ode(t_euler, x_0_euler, x_t_euler, title="Linear ODE Euler Trajectories", filename="content/posts/flow/linear_ode_euler_trajectories.png")
+    plot_ode(t_euler, x_0_euler, x_t_euler, title="Linear ODE Euler Trajectories", filename="content/posts/flow_and_diffusion_models/linear_ode_euler_trajectories.png")
 
     x_t_sde, t_sde, x_0_sde = linear_sde_euler()
-    plot_ode(t_sde, x_0_sde, x_t_sde, title="Linear SDE Euler Trajectories", filename="content/posts/flow/linear_sde_euler_trajectories.png")
+    plot_ode(t_sde, x_0_sde, x_t_sde, title="Linear SDE Euler Trajectories", filename="content/posts/flow_and_diffusion_models/linear_sde_euler_trajectories.png")

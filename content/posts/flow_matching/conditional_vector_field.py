@@ -11,7 +11,7 @@ z = np.array([3.0, 3.0], dtype=float)
 frames = 10
 fps = 2
 eps = 1e-3  # avoid t=1 where sigma_t=0
-out_path = "content/posts/generation_targets/conditional_vector_field_2d.gif"
+out_path = "content/posts/flow_matching/conditional_vector_field_2d.gif"
 
 # Make the Gaussian "smaller" (more concentrated): variance scale factor.
 # Smaller -> tighter distribution. Try 0.3, 0.5, 1.0.

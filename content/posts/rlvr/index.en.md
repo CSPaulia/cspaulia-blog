@@ -25,6 +25,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+  image: "qwen3-post-training-pipeline.png"
+  alt: "Qwen3's four-stage post-training pipeline for flagship models and strong-to-weak distillation pipeline for lightweight models"
+  caption: "Qwen3's post-training pipeline: reasoning reinforcement learning is one of four stages for its flagship models."
+  relative: true
+  hidden: false
+  hiddenInList: false
 editPost:
   URL: "https://cspaulia.github.io/cspaulia-blog/content/"
   Text: "Suggest Changes"

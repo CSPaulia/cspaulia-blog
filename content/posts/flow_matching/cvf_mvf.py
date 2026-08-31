@@ -232,7 +232,7 @@ def plot_vector_field(ax, xx, yy, u, v, background_points=None, highlight_point=
     ax.set_aspect("equal")
 
 
-def visualize_process(save_path="content/posts/generation_targets/cvf_mvf_visualization.png"):
+def visualize_process(save_path="content/posts/flow_matching/cvf_mvf_visualization.png"):
     selected_z = samples_data[0]
     xmin, xmax, ymin, ymax = infer_plot_bounds(np.vstack([samples, samples_data]))
     t_values = [0.0, 0.25, 0.5, 0.75, 1.0]
@@ -267,4 +267,3 @@ if __name__ == "__main__":
     print("marginal vector field u_t(x):", mvf)
 
     visualize_process()
-

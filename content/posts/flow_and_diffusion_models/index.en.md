@@ -1,11 +1,11 @@
 ---
-title: "Generation Models with SDEs"
+title: "Flow and Diffusion Models"
 date: 2025-10-10T8:30:03+08:00
 # weight: 1
-# aliases: ["/first"]
+aliases: ["/en/posts/generation_with_sdes/"]
 series:
   main: "Generative Models"
-  subseries: "Flow Matching"
+  subseries: "Fundamentals"
 categories: ["Generative Models"]
 tags: ["Flow Matching", "Diffusion Models"]
 author: "CSPaulia"
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "Notes for Flow Matching and Diffusion Lecture 1 from MIT course."
+description: "Notes for Lecture 1 of MIT's “Introduction to Flow Matching and Diffusion Models 2026”: introduction to generative models, ordinary and stochastic differential equations, and sampling from flow and diffusion models."
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -236,6 +236,10 @@ As a stochastic process $W_t$:
 1. $W_0 = 0$
 2. Gaussian increments: for any $0 \leq s < t \leq 1$, $W_t - W_s \sim \mathcal{N}(0, (t-s)I_d)$
 3. Independent increments: for any $0 \leq t_0 < t_1 < \cdots < t_n \leq 1$, the increments $W_{t_1} - W_{t_0}, W_{t_2} - W_{t_1}, \cdots, W_{t_n} - W_{t_{n-1}}$ are independent
+
+<figure style="text-align: center;">
+  <img src="../../../posts/flow_and_diffusion_models/brownian_motion.png" alt="Five sample paths of one-dimensional standard Brownian motion starting at the origin" loading="lazy" style="max-width: 568px; width: 100%;">
+</figure>
 
 #### 2.2.2 Expansions for $X_t$
 

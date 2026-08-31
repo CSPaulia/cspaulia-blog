@@ -30,10 +30,10 @@
   "content\\posts\\cross_attention\\index.md": {
     "zh_hash": "c0173eea6fe214ed8f72deca60054b148327b398d361cb2578c364e300098116"
   },
-  "content\\posts\\generation_targets\\index.md": {
+  "content\\posts\\flow_matching\\index.md": {
     "zh_hash": "e28942597dc5aa9d6bf9af8704711fdf7a09b080389a29012ebc0dd8c482d422"
   },
-  "content\\posts\\generation_with_sdes\\index.md": {
+  "content\\posts\\flow_and_diffusion_models\\index.md": {
     "zh_hash": "6769af6ada2780e8b11b1022338e1501622a5ea207e716605077d2dc12fe77f4"
   },
   "content\\posts\\github-tips\\index.md": {

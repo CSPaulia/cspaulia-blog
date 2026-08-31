@@ -1,11 +1,11 @@
 ---
-title: "从随机微分方程观察生成模型"
+title: "流模型与扩散模型"
 date: 2025-10-10T8:30:03+08:00
 # weight: 1
-# aliases: ["/first"]
+aliases: ["/posts/generation_with_sdes/"]
 series:
     main: "生成模型"
-    subseries: "流匹配"
+    subseries: "基本原理"
 categories: ["生成模型"]
 tags: ["流匹配", "扩散模型"]
 author: "CSPaulia"
@@ -15,7 +15,7 @@ TocOpen: true # show table of contents
 draft: false
 hidemeta: false
 comments: false
-description: "MIT 课程《Flow Matching and Diffusion》Lecture 1 笔记"
+description: "MIT 课程《Introduction to Flow Matching and Diffusion Models 2026》Lecture 1 笔记：生成模型简介、常微分方程与随机微分方程、从流模型和扩散模型中采样"
 # canonicalURL: "https://canonical.url/to/page"
 disableShare: false
 disableHLJS: false
@@ -236,6 +236,10 @@ $$
 1. $W_0 = 0$
 2. 高斯增量：对于任意 $0 \leq s < t \leq 1$，$W_t - W_s \sim \mathcal{N}(0, (t-s)I_d)$
 3. 独立增量：对于任意 $0 \leq t_0 < t_1 < \cdots < t_n \leq 1$，增量 $W_{t_1} - W_{t_0}, W_{t_2} - W_{t_1}, \cdots, W_{t_n} - W_{t_{n-1}}$ 相互独立
+
+<figure style="text-align: center;">
+  <img src="brownian_motion.png" alt="五条从原点出发的一维标准布朗运动样本路径" loading="lazy" style="max-width: 568px; width: 100%;">
+</figure>
 
 #### 2.2.2. $X_t$ 的解析
 

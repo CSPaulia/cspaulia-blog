@@ -45,7 +45,7 @@ for i in t:
     ax.tick_params(which="both", bottom=False, left=False, labelbottom=False, labelleft=False)
     plt.tight_layout()
     plt.savefig(
-        f"content/posts/generation_targets/distribution_2d_alpha{alpha:.2f}_beta{beta:.2f}.png",
+        f"content/posts/flow_matching/distribution_2d_alpha{alpha:.2f}_beta{beta:.2f}.png",
         bbox_inches="tight",
     )
     plt.close()
