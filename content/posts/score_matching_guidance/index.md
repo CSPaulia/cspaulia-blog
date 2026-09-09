@@ -1,5 +1,5 @@
 ---
-title: "分数匹配与引导"
+title: "分数函数与分数匹配"
 date: 2026-08-31T12:00:00+08:00
 series:
     main: "生成模型"
@@ -23,6 +23,11 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "score_function_visualization.png"
+    alt: "对数似然函数与对应分数向量场的对比"
+    caption: "分数函数的可视化"
+    relative: true
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "建议修改"

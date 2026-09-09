@@ -1,5 +1,5 @@
 ---
-title: "Score Matching and Guidance"
+title: "Score Functions and Score Matching"
 date: 2026-08-31T12:00:00+08:00
 series:
     main: "Generative Models"
@@ -23,6 +23,11 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "score_function_visualization.png"
+    alt: "Comparison between a log-likelihood function and its score vector field"
+    caption: "Visualization of a score function"
+    relative: true
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes"
