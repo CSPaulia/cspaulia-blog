@@ -52,8 +52,7 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 
 ## Markdown And Hugo
 
-- Be careful with bold text next to Chinese punctuation. If Markdown emphasis fails in Hugo, use `<strong>...</strong>`.
-- Avoid patterns like `**中文（English） **的`; remove extra spaces or use HTML `<strong>`.
+- Hugo/Goldmark may fail to render `**...**` as bold when the closing marker directly touches Chinese text or punctuation, especially around mixed Chinese-English terms. Do not insert a visually awkward space to force parsing; use `<strong>...</strong>` for the emphasized span and verify the generated HTML.
 - Write inline formulas with `\(` and `\)`, not ordinary parentheses or `$...$` delimiters. Write display formulas with `\[` and `\]`, not `$$` delimiters.
 - Inside display formulas, never put a bare `=` on its own source line. Hugo's Markdown parser can treat it as a Setext heading and break the formula. Keep `=` beside an expression or use `\begin{aligned}` with `&=`.
 - Do not add slide-location prose such as “CS336 Lecture 9，第 14 页” to the article body. Preserve source attribution through figure captions and the references section instead.
@@ -80,6 +79,7 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 
 ## Git And Local Work
 
+- Before starting blog construction or editing, check whether the current branch is up to date with its remote and run a safe fast-forward pull (`git pull --ff-only`) when a remote tracking branch is available. Preserve unrelated local changes, and stop rather than forcing the pull if it cannot fast-forward cleanly.
 - Do not revert user changes unless explicitly requested.
 - The worktree may be dirty; ignore unrelated changes.
 - Use `apply_patch` for manual file edits.
