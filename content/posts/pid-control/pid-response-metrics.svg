@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Step-response performance metrics</title>
+  <desc id="desc">A damped step response showing the setpoint, tolerance band, rise time, overshoot, settling time, and steady-state error.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <style>
+      .label { font-family: "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; fill: #0f172a; }
+      .small { font-size: 19px; }
+      .main { font-size: 25px; font-weight: 650; }
+      .axis { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .guide { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 9 8; fill: none; }
+      .measure { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-start: url(#arrow-blue); marker-end: url(#arrow-blue); }
+    </style>
+  </defs>
+
+  <rect width="1200" height="680" fill="#ffffff"/>
+  <text class="label main" x="600" y="52" text-anchor="middle">阶跃响应指标 / Step-response metrics</text>
+
+  <rect x="120" y="232" width="960" height="42" fill="#dcfce7" opacity="0.75"/>
+  <text class="label small" x="1065" y="220" text-anchor="end">稳定带 / Tolerance band</text>
+
+  <path class="axis" d="M 120 590 L 1110 590"/>
+  <path class="axis" d="M 120 590 L 120 92"/>
+  <text class="label small" x="1115" y="620">时间 / Time</text>
+  <text class="label small" x="80" y="105" transform="rotate(-90 80 105)">输出 / Output</text>
+
+  <path class="guide" d="M 120 252 L 1080 252"/>
+  <text class="label small" x="1065" y="242" text-anchor="end">目标值 / Setpoint</text>
+
+  <path d="M 120 590
+           C 205 585, 235 540, 278 445
+           C 335 320, 382 135, 470 158
+           C 550 180, 555 325, 650 300
+           C 725 280, 730 220, 805 238
+           C 885 257, 900 249, 1060 253"
+        fill="none" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/>
+
+  <circle cx="470" cy="158" r="7" fill="#e11d48"/>
+  <path class="measure" d="M 505 158 L 505 252"/>
+  <text class="label small" x="522" y="190">超调量</text>
+  <text class="label small" x="522" y="216">Overshoot</text>
+
+  <path class="guide" d="M 278 445 L 278 610"/>
+  <path class="guide" d="M 360 282 L 360 610"/>
+  <path class="measure" d="M 280 625 L 358 625"/>
+  <text class="label small" x="319" y="657" text-anchor="middle">上升时间 / Rise time</text>
+
+  <path class="guide" d="M 805 238 L 805 610"/>
+  <path class="measure" d="M 122 552 L 803 552"/>
+  <text class="label small" x="650" y="535" text-anchor="middle">调节时间 / Settling time</text>
+
+  <path class="guide" d="M 1060 253 L 1060 305"/>
+  <path class="measure" d="M 1090 253 L 1090 270"/>
+  <text class="label small" x="1065" y="326" text-anchor="end">稳态误差 / Steady-state error</text>
+
+  <circle cx="1060" cy="253" r="7" fill="#e11d48"/>
+  <text class="label small" x="925" y="382">响应曲线 / Response</text>
+  <line x1="900" y1="374" x2="855" y2="310" stroke="#e11d48" stroke-width="3"/>
+</svg>
