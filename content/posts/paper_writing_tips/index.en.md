@@ -6,8 +6,8 @@ date: 2026-04-16T11:30:03+08:00
 # series:
 #     main: "Large Language Model"
 #     subseries: "Mainstream Series"
-categories: ["论文写作"]
-tags: ["学术论文", "写作技巧"]
+categories: ["Academic Writing"]
+tags: ["Research Papers", "Writing Skills"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true

@@ -63,11 +63,11 @@ Almost all modern language models use pre-norm (except BERT), which tends to mak
 
 Left: post-norm. Right: pre-norm.
 
-<img src="pre-post-norm.png" alt="pre-vs-post" width="300"/>
+<img src="../../../posts/transformer_in_LLM/pre-post-norm.png" alt="pre-vs-post" width="300"/>
 
 **New!** Left: post-norm. Right: “double norm” (used by e.g. Grok, Gemma 2).
 
-<img src="pre-double-norm.png" alt="pre-vs-double" width="300"/>
+<img src="../../../posts/transformer_in_LLM/pre-double-norm.png" alt="pre-vs-double" width="300"/>
 
 **New!** OlMo 2 applies post-norm only to the non-residual branch.
 
@@ -246,7 +246,7 @@ where $\langle \cdot, \cdot \rangle$ denotes an inner product.
 
 The core idea of RoPE is to embed position into each pair of dimensions via complex rotation (equivalently, a 2D plane rotation).
 
-<img src="rope_example.png" alt="rope-example" width="400"/>
+<img src="../../../posts/transformer_in_LLM/rope_example.png" alt="rope-example" width="400"/>
 
 $$
 \begin{aligned}
@@ -321,7 +321,7 @@ $$
 3d\_{model} \times d'\_{ff} = 8d\_{model}^2
 $$
 
-即
+That is,
 
 $$
 d'\_{ff} = \frac{8}{3}d\_{model}
@@ -377,7 +377,7 @@ $$
 
 Very deep models are harder to parallelize and tend to have higher latency.
 
-<img src="parallel.png" alt="model-parallelism" width="400"/>
+<img src="../../../posts/transformer_in_LLM/parallel.png" alt="model-parallelism" width="400"/>
 
 ---
 
@@ -405,7 +405,7 @@ Very deep models are harder to parallelize and tend to have higher latency.
 | LLaMA | 0 | 0.1 |
 | Qwen 14B | 0.1 | 0.1 |
 
-<img src="weight_decay_effect.png" alt="weight-decay-effect" width="400"/>
+<img src="../../../posts/transformer_in_LLM/weight_decay_effect.png" alt="weight-decay-effect" width="400"/>
 
 ---
 
@@ -413,11 +413,11 @@ Very deep models are harder to parallelize and tend to have higher latency.
 
 During training, we want to avoid “spikes” (the blue curve below):
 
-<img src="stability.png" alt="training-stability-techniques" width="600"/>
+<img src="../../../posts/transformer_in_LLM/stability.png" alt="training-stability-techniques" width="600"/>
 
 ### z-loss
 
-<img src="softmax_in_llm.png" alt="softmax_in_llm" width="200"/>
+<img src="../../../posts/transformer_in_LLM/softmax_in_llm.png" alt="softmax_in_llm" width="200"/>
 
 Consider the softmax at the final layer of an LLM:
 
@@ -453,7 +453,7 @@ where $\lambda$ is a small coefficient, typically $1e-3$ or $1e-4$.
 
 ### 4.1. KV Cache
 
-<img src="kv_cache.gif" alt="kv-cache" width="600"/>
+<img src="../../../posts/transformer_in_LLM/kv_cache.gif" alt="kv-cache" width="600"/>
 
 Image source: [link](https://medium.com/@joaolages/kv-caching-explained-276520203249)
 
@@ -519,7 +519,7 @@ The KV Cache bottleneck comes from storing \(K, V\) **for every head separately*
 - **MQA (Multi-Query Attention)**: all \(h\) heads share one set of \(K, V\) — maximal compression, but the largest expressive loss
 - **GQA (Grouped-Query Attention)**: split \(h\) heads into \(g\) groups, each group shares one set of \(K, V\) — the middle ground between MHA and MQA
 
-<img src="attention_variant.png" alt="attention-variants" width="600"/>
+<img src="../../../posts/transformer_in_LLM/attention_variant.png" alt="attention-variants" width="600"/>
 
 | Mechanism | KV copies | KV cache size |
 |-----------|-----------|---------------|
@@ -586,7 +586,7 @@ At inference, KV Cache adds \(2bktd\) (with current sequence length \(t\)). When
 
 Sparse attention: see this [blog post](https://newsletter.theaiedge.io/p/understanding-the-sparse-transformers).
 
-<img src="sparse_attention.png" alt="sparse-attention"/>
+<img src="../../../posts/transformer_in_LLM/sparse_attention.png" alt="sparse-attention"/>
 
 ---
 

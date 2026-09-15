@@ -376,7 +376,7 @@ L_{\mathrm{actor}}^{\mathrm{clip}}(\theta)
 \right].
 \]
 
-![How PPO clips the probability ratio differently for positive and negative advantages](ppo-clipping.png)
+![How PPO clips the probability ratio differently for positive and negative advantages](../../../posts/llm-policy-optimization/ppo-clipping.png)
 
 - **\(\hat A_t>0\)**: the action was better than expected, so its probability should increase; improvement stops once \(\rho_t(\theta)>1+\epsilon\).
 - **\(\hat A_t\lt 0\)**: the action was worse than expected, so its probability should decrease; improvement stops once \(\rho_t(\theta)\lt 1-\epsilon\).
@@ -729,7 +729,7 @@ The probability ratio \(\rho_t(\theta)\) has the same definition as in PPO, and 
 
 ### 3.1 Optimization Signal: Reusing PPO's Advantage Estimation
 
-TRPO does not prescribe how rewards must be converted into advantages. It can likewise use MC, one-step TD, n-step TD, or GAE to obtain \(\hat A_t\); see [PPO Section 2.1](#21-optimization-signal-computing-advantages-with-mctd-n-step-td-or-gae) for the formulas.
+TRPO does not prescribe how rewards must be converted into advantages. It can likewise use MC, one-step TD, n-step TD, or GAE to obtain \(\hat A_t\); see [PPO Section 2.1](#21-optimization-signal-computing-advantages-with-mc-td-n-step-td-or-gae) for the formulas.
 
 The optimization signal is essentially the same in both methods: the old policy collects trajectories, a critic or return estimator computes \(\hat A_t\), and the actor raises the probabilities of positive-advantage actions while lowering those of negative-advantage actions. TRPO differs in <strong>how it limits the size of a policy update</strong>.
 

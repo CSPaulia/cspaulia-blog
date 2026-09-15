@@ -9,7 +9,7 @@ tags: ["Inference", "KV Cache", "Quantization", "Speculative Decoding", "PagedAt
 author: "CSPaulia"
 showToc: true
 TocOpen: true
-draft: true
+draft: false
 hidemeta: false
 comments: false
 description: "Study notes for CS336 Lecture 10 on performance analysis and system optimization for large language model inference."
@@ -37,7 +37,7 @@ editPost:
 ---
 
 <figure>
-  <img src="inference-schema.png" alt="A model and prompt pass through inference to produce a response">
+  <img src="../../../posts/inference/inference-schema.png" alt="A model and prompt pass through inference to produce a response">
   <figcaption>A trained model receives a prompt and produces a response through inference. Source: Stanford CS336 Lecture 10.</figcaption>
 </figure>
 
@@ -111,7 +111,7 @@ For the matrix multiplication \(\mathrm{BTD}\times\mathrm{DH}\rightarrow\mathrm{
 - A **batching dimension** appears in both operands and the output. For example, in \(\mathrm{BD}\times\mathrm{BD}\rightarrow\mathrm{B}\), \(D\) is contracted and \(B\) remains as a batching dimension.
 
 <figure>
-  <img src="transformer-diagram.png" alt="Tensor dimensions in Transformer attention and multilayer perceptron layers">
+  <img src="../../../posts/inference/transformer-diagram.png" alt="Tensor dimensions in Transformer attention and multilayer perceptron layers">
   <figcaption>Attention and multilayer perceptron layers in a Transformer. Red marks contracting dimensions, blue marks batching dimensions, and each operation is annotated with its input and output shapes. Source: How to Scale Your Model.<sup><a href="#references">[4]</a></sup></figcaption>
 </figure>
 
@@ -195,7 +195,7 @@ At the extreme \(B=1\), the operation becomes a matrix-vector multiplication wit
 The most direct form of autoregressive inference feeds the complete history through the Transformer after every newly generated token and samples the next token from the distribution at the final position.
 
 <figure>
-  <img src="naive-inference.webp" alt="Naive autoregressive inference repeatedly feeds all historical tokens into the Transformer">
+  <img src="../../../posts/inference/naive-inference.webp" alt="Naive autoregressive inference repeatedly feeds all historical tokens into the Transformer">
   <figcaption>Naive autoregressive inference reruns the Transformer on the entire extended sequence after every token, repeatedly computing the same prefix. Source: How to Scale Your Model.<sup><a href="#references">[5]</a></sup></figcaption>
 </figure>
 
@@ -210,7 +210,7 @@ Adjacent generation steps share almost the same prefix, so much of this work can
 #### KV Cache Separates Prefill from Generation
 
 <figure>
-  <img src="cached-inference.webp" alt="Prefill and token-by-token generation using a KV Cache">
+  <img src="../../../posts/inference/cached-inference.webp" alt="Prefill and token-by-token generation using a KV Cache">
   <figcaption>With a KV Cache, the prompt is encoded in parallel during prefill. Generation computes only the new token and appends its keys and values to the cache. Source: How to Scale Your Model.<sup><a href="#references">[5]</a></sup></figcaption>
 </figure>
 
@@ -434,14 +434,14 @@ In multi-head attention (MHA), every query head has its own key and value heads.
 - **GQA:** \(1<K<N\), balancing MHA expressiveness and MQA cache efficiency.
 
 <figure>
-  <img src="gqa-architecture.png" alt="Key-value head sharing in MHA, GQA, and MQA">
+  <img src="../../../posts/inference/gqa-architecture.png" alt="Key-value head sharing in MHA, GQA, and MQA">
   <figcaption>MHA, GQA, and MQA. In GQA, a group of query heads shares one key head and one value head. Source: GQA.</figcaption>
 </figure>
 
 Relative to MHA, GQA reduces the KV Cache to \(K/N\) of its original size. Less cache traffic lowers theoretical latency, and freed memory can support larger batches.
 
 <figure>
-  <img src="gqa-speed.png" alt="Single-example inference time for MHA, GQA, and MQA">
+  <img src="../../../posts/inference/gqa-speed.png" alt="Single-example inference time for MHA, GQA, and MQA">
   <figcaption>Single-example inference time in the GQA experiments. More key-value groups move GQA toward MHA latency; MQA has the smallest cache and lowest latency. Source: GQA.</figcaption>
 </figure>
 
@@ -456,7 +456,7 @@ Using the earlier simplified Llama 2 13B configuration with \(N=40\):
 At equal batch size, GQA lowers theoretical latency and raises throughput. Its smaller cache also permits a batch of 256 within 80 GB. Accuracy must still be verified: GQA-8-XXL approached MHA-XXL's average task score in the paper while running substantially faster, but results depend on architecture, training, and evaluation.<sup><a href="#references">[8]</a></sup>
 
 <figure>
-  <img src="gqa-accuracy.png" alt="Inference time and task accuracy of MHA, MQA, and GQA">
+  <img src="../../../posts/inference/gqa-accuracy.png" alt="Inference time and task accuracy of MHA, MQA, and GQA">
   <figcaption>GQA achieved an average score close to MHA while retaining inference efficiency close to MQA in this experiment. Source: GQA.</figcaption>
 </figure>
 
@@ -475,7 +475,7 @@ c=W_ch,
 Ordinary attention caches key and value dimensions of \(NH\), while MLA mainly caches a compressed vector of dimension \(C\). The saving is substantial when \(C\ll NH\).
 
 <figure>
-  <img src="mla-schema.png" alt="KV Cache structures of MHA, GQA, MQA, and MLA">
+  <img src="../../../posts/inference/mla-schema.png" alt="KV Cache structures of MHA, GQA, MQA, and MLA">
   <figcaption>Shaded regions are stored during inference. MLA caches compressed latent KV representations and projects them when needed. Source: DeepSeek-V2.</figcaption>
 </figure>
 
@@ -486,11 +486,11 @@ Its ablations provide two model-specific observations: MHA outperformed GQA and 
 <details>
   <summary>DeepSeek-V2 attention ablations</summary>
   <figure>
-    <img src="mla-accuracy.png" alt="Accuracy comparison of MHA, GQA, and MQA in DeepSeek-V2">
+    <img src="../../../posts/inference/mla-accuracy.png" alt="Accuracy comparison of MHA, GQA, and MQA in DeepSeek-V2">
     <figcaption>MHA performed better overall than GQA and MQA on these harder benchmarks. Source: DeepSeek-V2.</figcaption>
   </figure>
   <figure>
-    <img src="mla-accuracy2.png" alt="KV Cache and accuracy comparison of MLA and MHA in DeepSeek-V2">
+    <img src="../../../posts/inference/mla-accuracy2.png" alt="KV Cache and accuracy comparison of MLA and MHA in DeepSeek-V2">
     <figcaption>MLA greatly reduced per-token KV Cache size and scored higher on most listed tasks. Source: DeepSeek-V2.</figcaption>
   </figure>
 </details>
@@ -502,14 +502,14 @@ These are empirical results for a particular model and training setup, not a uni
 Cross-layer attention (CLA) extends sharing across Transformer layers. GQA shares keys and values among query heads; CLA lets adjacent layers reuse the same keys and values instead of caching a separate set per layer.<sup><a href="#references">[10]</a></sup>
 
 <figure>
-  <img src="cla-diagram.png" alt="Key-value projections in a conventional Transformer and cross-layer attention">
+  <img src="../../../posts/inference/cla-diagram.png" alt="Key-value projections in a conventional Transformer and cross-layer attention">
   <figcaption>A conventional Transformer computes and caches keys and values in every layer; CLA lets upper layers reuse those from lower layers. Source: Reducing Transformer Key-Value Cache Size with Cross-Layer Attention.</figcaption>
 </figure>
 
 Experiments on 1B models showed that CLA could use a smaller cache at similar validation perplexity, improving the accuracy–cache Pareto frontier.<sup><a href="#references">[10]</a></sup>
 
 <figure>
-  <img src="cla-results.png" alt="Pareto frontier of validation perplexity and KV Cache size with and without CLA">
+  <img src="../../../posts/inference/cla-results.png" alt="Pareto frontier of validation perplexity and KV Cache size with and without CLA">
   <figcaption>Validation perplexity versus per-token cache size. Red points use CLA and show a better trade-off. Source: Reducing Transformer Key-Value Cache Size with Cross-Layer Attention.</figcaption>
 </figure>
 
@@ -518,7 +518,7 @@ Experiments on 1B models showed that CLA could use a smaller cache at similar va
 Local or sliding-window attention reads only a fixed recent window rather than the full history. The cache per layer no longer grows with complete sequence length.<sup><a href="#references">[11]</a></sup><sup><a href="#references">[12]</a></sup><sup><a href="#references">[13]</a></sup>
 
 <figure>
-  <img src="longformer-attention.png" alt="Global, sliding-window, dilated-window, and combined global-window attention patterns">
+  <img src="../../../posts/inference/longformer-attention.png" alt="Global, sliding-window, dilated-window, and combined global-window attention patterns">
   <figcaption>Global attention and three sparse patterns. Sliding windows restrict local context, dilation expands the receptive field, and global tokens restore long-distance communication. Source: Longformer.</figcaption>
 </figure>
 
@@ -536,7 +536,7 @@ DeepSeek-V4 supports contexts up to one million tokens using three mechanisms:<s
 - **Heavily compressed attention (HCA):** increase compression further for very long contexts.
 
 <figure>
-  <img src="deepseek-v4-attention.png" alt="DeepSeek-V4 attends to sliding-window KV and selected compressed KV">
+  <img src="../../../posts/inference/deepseek-v4-attention.png" alt="DeepSeek-V4 attends to sliding-window KV and selected compressed KV">
   <figcaption>DeepSeek-V4 concatenates recent sliding-window KV with compressed KV selected by an indexer, then applies shared-key-value multi-query attention. Source: DeepSeek-V4.</figcaption>
 </figure>
 
@@ -576,7 +576,7 @@ The reconstruction error is \(0.0342\). A smaller scale gives finer spacing but 
 #### Common Numerical Formats
 
 <figure>
-  <img src="number-formats.png" alt="Bit layouts of FP32, FP16, FP8, and INT8">
+  <img src="../../../posts/inference/number-formats.png" alt="Bit layouts of FP32, FP16, FP8, and INT8">
   <figcaption>Floating-point formats allocate bits to sign, exponent, and mantissa; integer formats do not. Source: <a href="https://www.baseten.co/blog/fp8-efficient-model-inference-with-8-bit-floating-point-numbers/">Baseten</a>.</figcaption>
 </figure>
 
@@ -614,7 +614,7 @@ Activation-aware weight quantization (AWQ) observes that weights multiplied by u
 Keeping a few weights in FP16 creates inefficient mixed-precision computation. AWQ instead uses equivalent scaling so all weights retain one low-precision format.
 
 <figure>
-  <img src="awq-schema.png" alt="AWQ identifies salient channels from activations and scales them before quantization">
+  <img src="../../../posts/inference/awq-schema.png" alt="AWQ identifies salient channels from activations and scales them before quantization">
   <figcaption>Direct INT3 rounding causes large error; retaining FP16 outliers hurts hardware efficiency; AWQ scales salient channels before uniform low-precision computation. Source: AWQ.</figcaption>
 </figure>
 
@@ -629,7 +629,7 @@ Structured pruning removes complete layers, attention heads, or hidden dimension
 3. Use the original model as a teacher to recover capability through distillation.
 
 <figure>
-  <img src="pruning-kd-loop.png" alt="Iterative LLM importance estimation, ranking, pruning, and knowledge distillation">
+  <img src="../../../posts/inference/pruning-kd-loop.png" alt="Iterative LLM importance estimation, ranking, pruning, and knowledge distillation">
   <figcaption>Estimate and rank embedding dimensions, attention heads, and MLP channels; remove unimportant structures; then recover capability through distillation. Source: Compact Language Models via Pruning and Knowledge Distillation.</figcaption>
 </figure>
 
@@ -638,7 +638,7 @@ Structured pruning removes complete layers, attention heads, or hidden dimension
 Starting from Nemotron-4 15B, the method produced 8B and 4B Minitron models through pruning and distillation. The paper reports using as little as about \(1/40\) of the tokens required for training same-size models from scratch, with improved MMLU in some comparisons.<sup><a href="#references">[18]</a></sup>
 
 <figure>
-  <img src="pruning-kd.png" alt="Training cost and MMLU scores of Minitron models">
+  <img src="../../../posts/inference/pruning-kd.png" alt="Training cost and MMLU scores of Minitron models">
   <figcaption>Training cost and MMLU of Minitron 4B and 8B. The green dashed path starts from Nemotron-4 15B. Source: Compact Language Models via Pruning and Knowledge Distillation.</figcaption>
 </figure>
 
@@ -663,4 +663,321 @@ This is direct but pays the full training cost.
 
 This route reuses prior training investment, but success depends on architectural compatibility and whether distillation can recover capability lost through compression.<sup><a href="#references">[18]</a></sup>
 
-<!-- Translation continues with Chapter 3. Keep this draft unpublished until all sections and references are synchronized. -->
+## 3. Use Shortcuts but Double Check: Lossless Methods
+
+The methods in Chapter 2 trade changes in architecture or numerical precision for speed and may reduce accuracy. Another approach is to guess outputs using a low-cost method and then verify them with the original model. With a mathematically correct verification procedure, generation can be accelerated while preserving the original model's output distribution.
+
+Here, “lossless” means that the <strong>final sampling distribution is identical to that of the target model</strong>, not that every randomized run produces exactly the same token sequence.
+
+### 3.1 Speculative Sampling: A Draft Model Proposes and the Target Model Verifies
+
+Prefill can process a span of tokens in parallel, whereas ordinary decoding proceeds one token at a time. In other words, it is often more efficient for the target model to check several candidate tokens in one parallel pass than to generate them sequentially. Speculative sampling exploits precisely this asymmetry: <strong>parallel verification is more efficient than sequential generation</strong>.<sup><a href="#references">[19]</a></sup><sup><a href="#references">[20]</a></sup>
+
+Speculative sampling uses two models:
+
+- **Draft model \(p\)**: a smaller, cheaper model that first generates \(K\) candidate tokens autoregressively—for example, four at a time;
+- **Target model \(q\)**: the original large model, which evaluates all candidate positions in one forward pass and applies an acceptance rule to determine how many tokens to retain.
+
+One round of speculative sampling can be summarized as follows:
+
+1. The draft model generates \(K\) candidate tokens in sequence.
+2. The target model computes the probabilities at all candidate positions in parallel.
+3. Candidates are accepted in order until the first rejection.
+4. After a rejection, one token is sampled from a corrected residual distribution. If every candidate is accepted, one additional token is sampled from the target model.
+
+For a token \(x\) proposed by the draft model, the acceptance probability is
+
+\[
+a(x)=\min\left(1,\frac{q(x)}{p(x)}\right).
+\]
+
+When a candidate is rejected, sampling directly from \(q\) again would be incorrect. The token must instead be sampled from the normalized residual distribution
+
+\[
+r(x)=\frac{\max(q(x)-p(x),0)}
+{\sum_y\max(q(y)-p(y),0)}.
+\]
+
+This corrected rejection-sampling rule guarantees that every target-model call produces at least one token and, in theory, makes the final token an exact sample from the target distribution \(q\). Practical implementations remain subject to finite numerical precision.<sup><a href="#references">[20]</a></sup>
+
+<details>
+  <summary>Expand: Complete speculative-sampling algorithm</summary>
+
+  <figure>
+    <img src="../../../posts/inference/speculative-sampling-algorithm.png" alt="Complete speculative-sampling algorithm in which a draft model proposes candidates and a target model verifies them in parallel">
+    <figcaption>Speculative-sampling algorithm. The draft model \(p\) proposes \(K\) consecutive tokens, the target model \(q\) computes probabilities for the candidate prefixes in parallel, and sampling is corrected through the acceptance probability and residual distribution. Source: Accelerating Large Language Model Decoding with Speculative Sampling.</figcaption>
+  </figure>
+
+</details>
+
+> **Supplementary material**
+>
+> Google's [speculative decoding animation](https://storage.googleapis.com/gweb-research2023-media/media/SpeculativeDecoding-1-Illustration.mp4) gives an intuitive view of the “draft—parallel verification—accept or reject” process.
+
+<details>
+  <summary>Expand: Verifying distribution preservation with a binary vocabulary</summary>
+
+  Suppose the vocabulary contains only \(A\) and \(B\), and the target and draft distributions are \([q(A),q(B)]\) and \([p(A),p(B)]\), respectively. Further suppose the draft model oversamples \(A\):
+
+  \[
+  p(A)>q(A),\qquad p(B) < q(B).
+  \]
+
+  The residual distribution then samples only \(B\), so \(r(A)=0\) and \(r(B)=1\). The final probability of sampling \(A\) is
+
+  \[
+  \begin{aligned}
+  \Pr(A)
+  &=p(A)\frac{q(A)}{p(A)}+p(B)\times 0\\
+  &=q(A).
+  \end{aligned}
+  \]
+
+  The final probability of sampling \(B\) is
+
+  \[
+  \begin{aligned}
+  \Pr(B)
+  &=p(B)+p(A)\left(1-\frac{q(A)}{p(A)}\right)\\
+  &=p(A)+p(B)-q(A)\\
+  &=1-q(A)\\
+  &=q(B).
+  \end{aligned}
+  \]
+
+  Therefore, whether a token comes from the draft model or the residual distribution, its final probability is exactly the target-model probability. This binary example captures why speculative sampling preserves the target distribution.
+
+</details>
+
+#### Speedup Depends on Candidate Acceptance Rate
+
+In experiments with Chinchilla 70B, speculative sampling accelerates decoding by roughly \(2\)–\(2.5\times\) on XSum and HumanEval while producing essentially the same task results as ordinary autoregressive sampling.<sup><a href="#references">[20]</a></sup>
+
+However, a larger number of draft tokens \(K\) is not always better:
+
+1. Increasing \(K\) lets one target-model call attempt to confirm more tokens.
+2. Later candidates depend on all earlier candidates being correct, so the joint acceptance rate gradually declines.
+3. Draft generation and target verification both have costs, so an excessively large \(K\) can increase total latency again.
+
+<details>
+  <summary>Expand: Experimental results and the draft-length tradeoff</summary>
+
+  <figure>
+    <img src="../../../posts/inference/speculative-sampling-results.png" alt="Speed and task results of ordinary autoregressive sampling and speculative sampling on XSum and HumanEval">
+    <figcaption>Comparison of ordinary autoregressive sampling and speculative sampling. Speculative sampling roughly halves average time per token while preserving similar task performance. Source: Accelerating Large Language Model Decoding with Speculative Sampling.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="../../../posts/inference/speculative-sampling-stats.png" alt="Effects of draft-token count on sampling time, acceptance rate, and per-round latency">
+    <figcaption>Effect of draft-token count \(K\). Increasing \(K\) reduces the number of target-model calls, but also lowers candidate acceptance and raises verification time per round. The best \(K\) therefore depends on the task. Source: Accelerating Large Language Model Decoding with Speculative Sampling.</figcaption>
+  </figure>
+
+</details>
+
+#### The Draft Model Must Be Cheap and Close to the Target Model
+
+In practice, a much smaller model is commonly used as the draft model—for example, an approximately 8B model for a 70B target, or an approximately 1B model for an 8B target. A smaller model proposes candidates more cheaply, but if its distribution differs too much from the target model, acceptance falls.
+
+The draft model must therefore balance two objectives:
+
+1. **Low generation cost**: otherwise the draft stage consumes the intended speedup.
+2. **A distribution close to the target model**: this raises candidate acceptance and can be encouraged through knowledge distillation.
+
+#### Medusa and EAGLE Improve Candidate Generation
+
+Most opportunities to improve speculative sampling lie in generating candidate tokens more quickly and accurately:
+
+- **Medusa** adds multiple decoding heads to the target model, predicts several future tokens in parallel, and verifies multiple candidate paths at once with tree attention, eliminating the need to maintain a complete independent draft model.<sup><a href="#references">[21]</a></sup>
+- **EAGLE** autoregressively predicts high-level features from the target model's penultimate layer and combines them with a one-token-shifted sequence to reduce uncertainty in feature prediction.<sup><a href="#references">[22]</a></sup>
+
+<figure>
+  <img src="../../../posts/inference/medusa-eagle.png" alt="Candidate generation in ordinary speculative sampling, Lookahead, Medusa, and EAGLE">
+  <figcaption>Comparison of candidate-generation methods. Medusa uses multiple decoding heads to predict future tokens in parallel; EAGLE uses both tokens and high-level features from the target model to generate candidates. Source: Stanford CS336 Lecture 10.</figcaption>
+</figure>
+
+#### Speculative Sampling Summary
+
+- Mathematical correction keeps the final result an exact sample from the target-model distribution, within the limits of numerical precision.
+- Draft generation and target verification exploit the asymmetry that parallel checking is more efficient than sequential generation.
+- Actual speedup depends on draft cost, candidate acceptance, and the number of proposed tokens; there remains substantial room to innovate in draft-model training and architecture.
+
+## 4. Handling Dynamic Workloads
+
+The shapes of offline training data are usually known in advance, whereas online inference traffic changes continuously. Real-time requests are difficult to assemble directly into stable, regular batches for three main reasons:
+
+1. **Requests arrive at different times**: waiting to fill a batch increases queueing latency for requests that arrived earlier.
+2. **Requests may share prefixes**: a common system prompt or multiple samples from the same prompt create duplicate prefixes. Processing them independently repeats both computation and KV Cache storage.
+3. **Sequence lengths differ**: prompt and generation lengths are both variable, and padding every request to a common length wastes computation and GPU memory.
+
+A dynamic inference system must therefore do more than raise GPU utilization. It must admit new requests promptly, remove completed requests, and process sequences of different lengths efficiently.
+
+### 4.1 Continuous Batching: Dynamically Updating the Batch at Each Decoding Iteration
+
+#### Online Inference Requests Form Irregular Batches
+
+Training and online inference have different data shapes:
+
+- **Training**: a batch can usually be represented as a regular \(B\times S\times D\) tensor, with every sequence in the batch sharing length \(S\).
+- **Online inference**: requests arrive at different times and finish after generating different numbers of tokens, so active sequences resemble a ragged array.
+
+In static batching, once a batch starts running, it normally cannot be updated until every request has completed. Positions belonging to short requests become idle after those requests finish, while newly arrived requests must wait for the current batch to end.
+
+<figure>
+  <img src="../../../posts/inference/static-batching.png" alt="Sequences of different lengths in static batching and idle positions left after early completion">
+  <figcaption>Variation in sequence length under static batching. Yellow denotes prompt tokens, blue denotes generated tokens, and red denotes sequence termination. After a short request finishes, its position cannot immediately be reused by a new request. Source: Stanford CS336 Lecture 10.</figcaption>
+</figure>
+
+#### Iteration-Level Scheduling: Updating the Batch after Every Decoding Step
+
+Continuous batching reduces scheduling granularity from an entire request to a single decoding iteration. Orca calls this mechanism iteration-level scheduling:<sup><a href="#references">[23]</a></sup>
+
+1. The scheduler selects a group of requests to execute.
+2. The model performs one decoding iteration for that group, generating one token for each request.
+3. The scheduler identifies completed requests and removes them immediately.
+4. Before the next iteration, waiting requests are inserted into the newly available positions.
+
+As a result, a new request waits only for the current decoding iteration rather than for the longest request in the whole batch. A request that finishes early can also return its result immediately.
+
+#### Selective Batching: Separate Attention, Combine Other Operators
+
+Iteration-level scheduling creates batches whose requests have different context lengths. Ordinary batching expects matching tensor shapes, so these sequences cannot simply be stacked into one regular \(B\times S\times D\) tensor.
+
+Orca uses selective batching to treat two classes of operations differently:<sup><a href="#references">[23]</a></sup>
+
+1. **Attention operations**: each sequence reads a different length of KV Cache, so attention is computed separately according to each sequence's length.
+2. **Non-attention operations**: MLPs, linear projections, and normalization do not require cross-token interaction, so tokens from all sequences can be concatenated along the sequence dimension and processed together.
+
+For example, suppose three sequence tensors have shapes \([3,D]\), \([9,D]\), and \([5,D]\). Attention handles the three sequences separately, while non-attention operations can pack them as
+
+\[
+\begin{aligned}
+X_{\mathrm{packed}}
+&=\operatorname{concat}(X_1,X_2,X_3)\\
+&\in\mathbb{R}^{(3+9+5)\times D}\\
+&=\mathbb{R}^{17\times D}.
+\end{aligned}
+\]
+
+This avoids padding every sequence to length 9 while still creating larger matrix operations for computations that share model parameters. The core principle is to <strong>batch only operators whose shapes are compatible and that genuinely benefit from batching</strong>.
+
+### 4.2 PagedAttention: Managing the KV Cache with Paging
+
+Continuous batching constantly adds and removes requests, while each sequence's KV Cache grows dynamically during generation. PagedAttention, introduced by vLLM, borrows virtual-memory paging from operating systems. It maps a logically contiguous KV Cache onto physically noncontiguous GPU-memory blocks, enabling on-demand allocation and prefix sharing between sequences.<sup><a href="#references">[24]</a></sup>
+
+#### Contiguous Preallocation Wastes Memory through Internal and External Fragmentation
+
+Traditional systems reserve one contiguous KV Cache region for an entire sequence when a request arrives, based on prompt length and maximum generation length. This causes two kinds of memory waste:
+
+1. **Internal fragmentation**: generation often stops before the maximum length, leaving reserved but unused space unavailable to other requests.
+2. **External fragmentation**: scattered gaps remain between request caches. Even when enough total GPU memory is free, there may be no single contiguous region large enough for a new allocation.
+
+<figure>
+  <img src="../../../posts/inference/paged-attention-fragmentation.png" alt="Internal and external fragmentation caused by contiguous KV Cache allocation">
+  <figcaption>GPU-memory fragmentation caused by contiguous preallocation. Slots reserved for the maximum generation length but never used form internal fragmentation; gaps between requests that cannot be combined into a large contiguous region form external fragmentation. Source: vLLM.</figcaption>
+</figure>
+
+#### Paged Mapping: Logically Contiguous, Physically Noncontiguous
+
+PagedAttention divides a sequence's KV Cache into fixed-size blocks. The sequence remains logically ordered by token, but each logical block can map to any free physical block. The system allocates another block only after the existing one is full.
+
+<figure>
+  <img src="../../../posts/inference/paged-attention-blocks.png" alt="Attention reads physically noncontiguous KV Cache through a block table">
+  <figcaption>Attention computation under PagedAttention. A query reads historical keys and values scattered across physical blocks through a block mapping; physical storage need not be contiguous. Source: vLLM.</figcaption>
+</figure>
+
+<figure>
+  <img src="../../../posts/inference/paged-attention-logical.png" alt="Mapping logical KV blocks of two requests to noncontiguous physical KV blocks">
+  <figcaption>Mapping between logical and physical blocks. Each request maintains its own logical ordering, while a block table maps those logical blocks to any available physical KV blocks. Source: vLLM.</figcaption>
+</figure>
+
+This design has two immediate consequences:
+
+1. **On-demand growth**: the cache is no longer reserved for the maximum generation length in advance. Internal fragmentation can occur only in the final partially filled block.
+2. **Flexible allocation**: a new block can use any free location, so the full KV Cache no longer needs to occupy one contiguous physical region and external fragmentation no longer prevents allocation.
+
+#### KV Cache Sharing: Store a Common Prefix Only Once
+
+Different sequences often share the same prefix, particularly in two situations:
+
+1. **Shared system prompts**: multiple requests use the same system prompt or few-shot examples.
+2. **Multiple samples from one prompt**: tasks such as program synthesis generate several candidate answers from the same prompt.
+
+<figure>
+  <img src="../../../posts/inference/paged-attention-sharing.png" alt="Multiple requests share KV Cache for a common system prompt and few-shot examples">
+  <figcaption>Different requests can share the KV Cache corresponding to a common prefix and allocate new blocks only for their distinct inputs and outputs. Source: vLLM.</figcaption>
+</figure>
+
+PagedAttention implements this sharing with block-level copy-on-write (CoW). Multiple sequences can map their logical blocks to the same read-only physical blocks. Only when one sequence must modify a shared block does the system copy that block and redirect the sequence's write to its private copy. This avoids duplicate prefix storage without allowing one sequence's writes to affect another.
+
+<figure>
+  <img src="../../../posts/inference/paged-attention-parallel.png" alt="Multiple sampled sequences share prefix blocks and use block-level copy-on-write when they diverge">
+  <figcaption>Multiple samples from one prompt initially share prefix blocks. When their sequences diverge, only the final shared block that requires a write is copied, and block references are updated accordingly. Source: vLLM.</figcaption>
+</figure>
+
+#### Other vLLM Optimizations
+
+In addition to PagedAttention, vLLM reduces inference overhead through several techniques:
+
+1. **Fusing block reads with attention computation**: physical-block access and attention are performed in one kernel, reducing kernel-launch overhead.
+2. **Efficient attention kernels**: implementations such as FlashAttention and FlashDecoding accelerate attention computation.
+3. **CUDA Graphs**: previously recorded GPU workflows are replayed to reduce CPU scheduling and kernel-launch overhead.
+
+PagedAttention does not change the model's computation. Its core contribution is to <strong>manage GPU memory for dynamic workloads using the operating-system idea of paging</strong>. Continuous batching dynamically updates the set of active requests, while PagedAttention lets their KV caches grow on demand, be reclaimed promptly, and share prefixes.
+
+## 5. Summary
+
+1. **Inference has broad uses**: large-language-model inference powers practical applications such as chatbots, code completion, and agents, and is also an important part of model evaluation and reinforcement learning.
+2. **Inference workloads differ from training workloads**: autoregressive generation has sequential dependencies, decoding is usually memory-bandwidth-bound, and online request arrivals and sequence lengths change dynamically.
+3. **Model-level optimization can lower inference cost**: new attention architectures, quantization, pruning, knowledge distillation, and speculative sampling improve efficiency by reducing cache size, numerical precision, model size, or generation cost.
+4. **Ideas from systems research are equally important**: speculative sampling borrows from speculative execution, while PagedAttention borrows paging from operating systems, creating new optimization methods for large-language-model inference.
+5. **There is substantial room for better model architectures**: inference efficiency is not merely a deployment concern; it can be considered during model design and training.
+
+## References
+
+[1] Stanford CS336. Lecture 10: Inference. [Online]. Available: https://github.com/stanford-cs336/lectures/blob/main/lecture_10.py
+
+[2] OpenAI Bests Google in Race for Consumer AI Token Consumption. [Online]. Available: https://www.pymnts.com/artificial-intelligence-2/2025/openai-bests-google-in-race-for-consumer-ai-token-consumption/
+
+[3] DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence. [Online]. Available: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf
+
+[4] How to Scale Your Model: Transformers. [Online]. Available: https://jax-ml.github.io/scaling-book/transformers/
+
+[5] How to Scale Your Model: Inference. [Online]. Available: https://jax-ml.github.io/scaling-book/inference/
+
+[6] Llama 2: Open Foundation and Fine-Tuned Chat Models. [Online]. Available: https://arxiv.org/abs/2307.09288
+
+[7] NVIDIA H100 Tensor Core GPU. [Online]. Available: https://www.nvidia.com/en-us/data-center/h100/
+
+[8] GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints. [Online]. Available: https://arxiv.org/abs/2305.13245
+
+[9] DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model. [Online]. Available: https://arxiv.org/abs/2405.04434
+
+[10] Reducing Transformer Key-Value Cache Size with Cross-Layer Attention. [Online]. Available: https://arxiv.org/abs/2405.12981
+
+[11] Longformer: The Long-Document Transformer. [Online]. Available: https://arxiv.org/abs/2004.05150
+
+[12] Generating Long Sequences with Sparse Transformers. [Online]. Available: https://arxiv.org/abs/1904.10509
+
+[13] Mistral 7B. [Online]. Available: https://arxiv.org/abs/2310.06825
+
+[14] FP8-LM: Training FP8 Large Language Models. [Online]. Available: https://arxiv.org/abs/2310.18313
+
+[15] FP8 versus INT8 for Efficient Deep Learning Inference. [Online]. Available: https://arxiv.org/abs/2303.17951
+
+[16] GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers. [Online]. Available: https://arxiv.org/abs/2210.17323
+
+[17] AWQ: Activation-Aware Weight Quantization for LLM Compression and Acceleration. [Online]. Available: https://arxiv.org/abs/2306.00978
+
+[18] Compact Language Models via Pruning and Knowledge Distillation. [Online]. Available: https://arxiv.org/abs/2407.14679
+
+[19] Fast Inference from Transformers via Speculative Decoding. [Online]. Available: https://arxiv.org/abs/2211.17192
+
+[20] Accelerating Large Language Model Decoding with Speculative Sampling. [Online]. Available: https://arxiv.org/abs/2302.01318
+
+[21] Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads. [Online]. Available: https://arxiv.org/abs/2401.10774
+
+[22] EAGLE: Speculative Sampling Requires Rethinking Feature Uncertainty. [Online]. Available: https://arxiv.org/abs/2401.15077
+
+[23] Orca: A Distributed Serving System for Transformer-Based Generative Models. [Online]. Available: https://www.usenix.org/system/files/osdi22-yu.pdf
+
+[24] Efficient Memory Management for Large Language Model Serving with PagedAttention. [Online]. Available: https://arxiv.org/abs/2309.06180

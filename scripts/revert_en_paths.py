@@ -8,7 +8,7 @@ for md in glob.glob(os.path.join(ROOT, "content", "**", "*.en.md"), recursive=Tr
     m = re.match(r"content/((?:posts|publications)/[^/]+)/[^/]+\.en\.md", rel)
     if not m:
         continue
-    base = "/" + m.group(1) + "/"
+    base = "../../../" + m.group(1) + "/"
 
     with open(md, encoding="utf-8") as f:
         content = f.read()
@@ -20,15 +20,11 @@ for md in glob.glob(os.path.join(ROOT, "content", "**", "*.en.md"), recursive=Tr
         f'src="{base}', 'src="'
     ).replace(
         f'href="{base}', 'href="'
-    ).replace(
-        f'src="/{base}', 'src="/'
     )
 
     # Revert markdown images
     content = content.replace(
         f']({base}', ']('
-    ).replace(
-        f'](/{base}', '](/'
     )
 
     if content != original:

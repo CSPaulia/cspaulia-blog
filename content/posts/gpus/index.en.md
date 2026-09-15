@@ -5,8 +5,8 @@ series:
   main: "Large Language Model"
   subseries: "Systems and Hardware"
 draft: false
-categories: ["大语言模型", "系统"]
-tags: ["GPU", "CUDA", "并行计算", "训练"]
+categories: ["Large Language Model", "Systems"]
+tags: ["GPU", "CUDA", "Parallel Computing", "Training"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
@@ -26,7 +26,7 @@ ShowRssButtonInSectionTermList: true
 cover:
     image: "gpu-vs-cpu.png"
     alt: "GPU vs CPU"
-    caption: "CPU 和 GPU 的结构对比"
+    caption: "Structural comparison of CPUs and GPUs"
     relative: true
     hidden: false
     hiddenInList: false
@@ -40,7 +40,7 @@ editPost:
 
 ### 1.1 Differences between GPU and CPU
 
-![Structural comparison of CPU and GPU](gpu-vs-cpu.png)
+![Structural comparison of CPU and GPU](../../../posts/gpus/gpu-vs-cpu.png)
 
 - **CPU** allocates more chip area to control logic and cache, suitable for handling complex branches, system scheduling, and a small number of flexible tasks;
 - **GPU** dedicates more area to compute units, suitable for executing a large number of similar small computations simultaneously, such as matrix multiplication and deep learning training.
@@ -63,12 +63,12 @@ GPUs reduce the proportion of control and storage, ensuring computation throughp
 #### 1.2.1 GPU and SM
 
 <figure>
-  <img src="ga100-full-gpu.png" alt="GA100 GPU architecture diagram">
+  <img src="../../../posts/gpus/ga100-full-gpu.png" alt="GA100 GPU architecture diagram">
   <figcaption>Overall structure of GA100 GPU. A complete GA100 contains 128 SMs; actual A100 enables 108 of them. </figcaption>
 </figure>
 
 <figure>
-  <img src="ga100-sm.png" alt="GA100 SM architecture diagram">
+  <img src="../../../posts/gpus/ga100-sm.png" alt="GA100 SM architecture diagram">
   <figcaption>Internal structure of a single SM (Streaming Multiprocessor) in GA100; the SM in the figure is divided into 4 processing partitions, each with its own scheduler, registers, and compute units. </figcaption>
 </figure>
 
@@ -79,7 +79,7 @@ Each SM contains many **SPs** (Streaming Processors), which can execute multiple
 #### 1.2.2 Memory Hierarchy
 
 <figure>
-  <img src="gpu-memory-hierarchy.png" alt="GPU memory hierarchy diagram">
+  <img src="../../../posts/gpus/gpu-memory-hierarchy.png" alt="GPU memory hierarchy diagram">
   <figcaption>Memory hierarchy of GPU. L1 / shared memory is inside the SM, L2 cache is on the GPU chip, global memory / DRAM is in the VRAM chips next to the GPU. </figcaption>
 </figure>
 
@@ -122,7 +122,7 @@ The following lists key hardware specifications for three generations of GPUs: A
 ### 1.2.3 Board Composition
 
 <figure>
-  <img src="gpu-board-vram.png" alt="GPU board architecture diagram">
+  <img src="../../../posts/gpus/gpu-board-vram.png" alt="GPU board architecture diagram">
   <figcaption>GPU board structure. The GPU chip performs computation, the adjacent VRAM / HBM stores data, and the board's interfaces and power modules handle connection and power supply. </figcaption>
 </figure>
 
@@ -138,7 +138,7 @@ From a physical board perspective, a GPU is not just a compute chip but an entir
 #### 1.2.4 Execution Model
 
 <figure>
-  <img src="cuda-execution-model.svg" alt="CUDA execution model diagram">
+  <img src="../../../posts/gpus/cuda-execution-model.svg" alt="CUDA execution model diagram">
   <figcaption>CUDA execution model. A program is split into blocks, blocks are assigned to SMs for execution; each block is further split into warps, each warp typically contains 32 consecutive threads. </figcaption>
 </figure>
 
@@ -169,10 +169,10 @@ Specifically, when you launch a CUDA kernel (e.g., `my_kernel<<<gridDim, blockDi
 Thus, the mapping chain from code to hardware is:
 
 ```
-kernel 启动参数 → Grid（block 数量由你指定）
-                   → Block（分配到各个 SM）
-                       → Warp（硬件自动按 32 个 thread 分组）
-                           → Thread（执行计算的逻辑个体）
+Kernel launch parameters → Grid (you specify the number of blocks)
+                           → Block (assigned to individual SMs)
+                               → Warp (hardware groups 32 threads automatically)
+                                   → Thread (logical unit that executes computation)
 ```
 
 Simple note: **You determine the grid and block sizes; the hardware groups threads in a block into warps and schedules execution.**
@@ -180,7 +180,7 @@ Simple note: **You determine the grid and block sizes; the hardware groups threa
 #### 1.2.5 Memory Access Scope
 
 <figure>
-  <img src="cuda-memory-access-scope.png" alt="CUDA memory access scope diagram">
+  <img src="../../../posts/gpus/cuda-memory-access-scope.png" alt="CUDA memory access scope diagram">
   <figcaption>CUDA memory access scope. Each thread has its own registers; threads within the same block can share shared memory; data exchange across blocks must go through global memory. </figcaption>
 </figure>
 
@@ -202,13 +202,13 @@ Use a concrete example: Assume each thread block has 128 threads, each thread us
 num_threads_per_block = 128
 num_registers_per_thread = 160
 
-max_registers = 65536  # SM 上的寄存器总数
-max_warps = 64         # SM 最多支持的并发 warp 数
+max_registers = 65536  # Total registers on one SM
+max_warps = 64         # Maximum concurrent warps supported by one SM
 
 num_registers_per_block = 128 × 160 = 20480
-num_blocks = 65536 // 20480 = 3      # 受寄存器数量限制，最多放 3 个 block
-num_warps = 3 × 128 / 32 = 12       # 实际运行的 warp 数
-occupancy = 12 / 64 = 18.75%        # 占用率不到 20%
+num_blocks = 65536 // 20480 = 3      # Register capacity limits the SM to 3 blocks
+num_warps = 3 × 128 / 32 = 12       # Number of warps actually running
+occupancy = 12 / 64 = 18.75%        # Occupancy is below 20%
 ```
 
 Low occupancy is not necessarily bad—if each thread is doing more work (e.g., **thread coarsening**, where one thread processes multiple elements), low occupancy can be acceptable. The key is not occupancy itself, but whether the SM's compute resources are efficiently utilized.
@@ -241,7 +241,7 @@ The solution is straightforward: **make the number of thread blocks divisible by
 ### 1.3 Simple Comparison with TPU
 
 <figure>
-  <img src="tpu-tensorcore-layout.png" alt="TPU TensorCore abstract architecture diagram">
+  <img src="../../../posts/gpus/tpu-tensorcore-layout.png" alt="TPU TensorCore abstract architecture diagram">
   <figcaption>Abstract structure of TPU TensorCore. TPUs and GPUs are similar at a high level: lightweight control, large matrix multiplication units, fast memory. </figcaption>
 </figure>
 
@@ -298,7 +298,7 @@ Early NVIDIA GPUs were primarily designed for graphics rendering, offering progr
 Modern GPUs now have dedicated matrix multiplication hardware, such as **Tensor Cores**. Tensor Cores are circuits specifically designed for matrix multiply-accumulate, so matmul speeds are much higher than ordinary floating-point operations.
 
 <figure>
-  <img src="matmul-vs-nonmatmul-flops.png" alt="Comparison of Matmul and non-Matmul FLOPs">
+  <img src="../../../posts/gpus/matmul-vs-nonmatmul-flops.png" alt="Comparison of Matmul and non-Matmul FLOPs">
   <figcaption>As GPU architecture evolves, matmul FLOPs grow significantly faster than ordinary floating-point operations. </figcaption>
 </figure>
 
@@ -307,7 +307,7 @@ This is very important for large models because the main computation in Transfor
 However, compute capability grows faster than memory and interconnect bandwidth:
 
 <figure>
-  <img src="compute-vs-memory-scaling.png" alt="Comparison of compute capability and memory bandwidth scaling speed">
+  <img src="../../../posts/gpus/compute-vs-memory-scaling.png" alt="Comparison of compute capability and memory bandwidth scaling speed">
   <figcaption>Hardware FLOPs grow faster than DRAM bandwidth and interconnect bandwidth. </figcaption>
 </figure>
 
@@ -330,7 +330,7 @@ Whether a machine learning workload is fast or not cannot be determined solely b
 The **Roofline Model** aims to answer: Is a program currently limited by **compute capability** or **memory bandwidth**?
 
 <figure>
-  <img src="roofline-model.svg" alt="Roofline Model concept diagram">
+  <img src="../../../posts/gpus/roofline-model.svg" alt="Roofline Model concept diagram">
   <figcaption>Core idea of the Roofline Model: When data reuse rate is low, the program is more likely to be limited by memory bandwidth; when data reuse rate is high enough, the program can approach the GPU's compute ceiling. </figcaption>
 </figure>
 
@@ -347,7 +347,7 @@ GPUs can be slowed not only by memory but also by **control divergence**.
 GPUs use the **SIMT (Single Instruction, Multiple Threads)** model: threads within the same **warp** usually execute the same instruction. If these threads take different paths in an `if / else` statement, the GPU often needs to execute the different branches separately.
 
 <figure>
-  <img src="control-divergence.png" alt="Control divergence schematic diagram">
+  <img src="../../../posts/gpus/control-divergence.png" alt="Control divergence schematic diagram">
   <figcaption>Control divergence diagram: When threads in the same warp diverge into different branches, the GPU executes these branches in batches rather than all threads advancing simultaneously. </figcaption>
 </figure>
 
@@ -378,7 +378,7 @@ For example, **Float 32 (FP32)** typically occupies 4 bytes, while **half precis
 > But 0.1650390625 can be represented in FP16; the FP16 representation is 0 01100 0101001000.
 
 <figure>
-  <img src="tensor-core-mixed-precision.png" alt="Tensor Core mixed-precision computation schematic diagram">
+  <img src="../../../posts/gpus/tensor-core-mixed-precision.png" alt="Tensor Core mixed-precision computation schematic diagram">
   <figcaption>Tensor Cores often use mixed precision. They can use FP16 or BF16 as input to increase throughput, but use FP32 for accumulation to minimize numerical errors. </figcaption>
 </figure>
 
@@ -391,7 +391,7 @@ For example, **Float 32 (FP32)** typically occupies 4 bytes, while **half precis
 **Microscaling FP8 (MXFP8)** works by not sharing a single scale factor across a whole block of data, but by having a smaller group of data share one **scaling factor**. This allows each group to have its own numeric range.
 
 <figure>
-  <img src="mxfp8-scaling-factors.png" alt="MXFP8 scaling factors schematic diagram">
+  <img src="../../../posts/gpus/mxfp8-scaling-factors.png" alt="MXFP8 scaling factors schematic diagram">
   <figcaption>Normal FP8 can be understood as one large block of data (in the figure, 4 x 8 = 32 FP8 data) sharing one scale factor; MXFP8 assigns separate scale factors to smaller data blocks. </figcaption>
 </figure>
 
@@ -405,7 +405,7 @@ Key points about MXFP8:
 The benefit is that compared to normal FP8, MXFP8 can more flexibly adapt to the numeric ranges of different data blocks, making training more stable.
 
 <figure>
-  <img src="mxfp8-training-practice.png" alt="MXFP8 training workflow schematic diagram">
+  <img src="../../../posts/gpus/mxfp8-training-practice.png" alt="MXFP8 training workflow schematic diagram">
   <figcaption>MXFP8 training flow diagram: Before matrix multiplication, weights, activations, or gradients are quantized to MXFP8; the computation result is typically output as BF16 or FP32. </figcaption>
 </figure>
 
@@ -418,21 +418,21 @@ In actual training, MXFP8 does not directly convert everything to FP8. As shown 
 **MXFP4** is more aggressive. 4 bits can represent very few numbers, so it relies more heavily on scaling factors to expand the representable range.
 
 <figure>
-  <img src="mxfp4-values.png" alt="Diagram of representable values for MXFP4">
+  <img src="../../../posts/gpus/mxfp4-values.png" alt="Diagram of representable values for MXFP4">
   <figcaption>A single MXFP4 number can only represent a few discrete values, so it must rely on scaling factors to cover a larger numeric range. Currently, no model has been successfully trained using MXFP4. </figcaption>
 </figure>
 
 ### 2.4 Technique 2: Operator Fusion—Move Data Back and Forth Less
 
 <figure>
-  <img src="operator-fusion-sin-cos-before.png" alt="Example computation graph of sin and cos">
+  <img src="../../../posts/gpus/operator-fusion-sin-cos-before.png" alt="Example computation graph of sin and cos">
   <figcaption>Without fusing, `sin(x)^2 + cos(x)^2` is split into multiple pointwise operations, each step may correspond to an independent CUDA kernel call. Each kernel call requires reading and writing data, incurring transfer overhead. </figcaption>
 </figure>
 
 The idea of operator fusion is to combine these consecutive small operations into a single kernel.
 
 <figure>
-  <img src="operator-fusion-before-after.png" alt="Comparison diagram before and after operator fusion">
+  <img src="../../../posts/gpus/operator-fusion-before-after.png" alt="Comparison diagram before and after operator fusion">
   <figcaption>Before operator fusion, multiple pointwise operations are executed separately; after fusing, the compiler can combine them into one CUDA kernel. </figcaption>
 </figure>
 
@@ -449,12 +449,12 @@ Thus, operator fusion also fundamentally addresses the memory-bound problem: mov
 During backpropagation, we need to store activations from the forward pass and compute the Jacobian matrices needed for backprop. Take a three-layer sigmoid as an example; without recomputation:
 
 <figure>
-  <img src="activation-storage-old.png" alt="Old forward pass and old backward pass">
+  <img src="../../../posts/gpus/activation-storage-old.png" alt="Old forward pass and old backward pass">
   <figcaption>Without recomputation, 8 read or write operations are needed (low arithmetic intensity). </figcaption>
 </figure>
 
 <figure>
-  <img src="activation-recompute-new.png" alt="New forward pass and new backward pass">
+  <img src="../../../posts/gpus/activation-recompute-new.png" alt="New forward pass and new backward pass">
   <figcaption>With recomputation, only 6 read or write operations are needed (high arithmetic intensity). </figcaption>
 </figure>
 
@@ -465,14 +465,14 @@ During backpropagation, we need to store activations from the forward pass and c
 This relates to how <strong>Dynamic Random Access Memory (DRAM) </strong> is read. DRAM, i.e., GPU's <strong>global memory </strong>, typically does not read a single tiny piece; it reads a contiguous chunk of data at once in <strong>burst mode </strong>.
 
 <figure>
-  <img src="dram-burst-mode.png" alt="DRAM burst mode schematic diagram">
+  <img src="../../../posts/gpus/dram-burst-mode.png" alt="DRAM burst mode schematic diagram">
   <figcaption>DRAM reads data in burst sections. When accessing one location, neighboring locations in the same segment are also sent to the processor together. </figcaption>
 </figure>
 
 Thus, the GPU's most preferred access pattern is: threads within the same <strong>warp </strong> accessing adjacent addresses simultaneously. This way, multiple thread reads can be merged into fewer DRAM requests.
 
 <figure>
-  <img src="memory-coalescing-burst.png" alt="Memory coalescing schematic diagram">
+  <img src="../../../posts/gpus/memory-coalescing-burst.png" alt="Memory coalescing schematic diagram">
   <figcaption>If threads in a warp access the same burst section, the hardware can merge these accesses into one DRAM request. </figcaption>
 </figure>
 
@@ -481,7 +481,7 @@ Conversely, if threads in the same warp access scattered addresses, the GPU need
 Matrix multiplication often encounters this problem. For a <strong>row-major matrix </strong>, elements in a row are contiguous in memory. However, note that memory coalescing considers not "where a single thread goes sequentially," but "whether the addresses accessed by different threads in the same warp at the same time are contiguous."
 
 <figure>
-  <img src="matrix-memory-coalescing.png" alt="Memory coalescing in matrix multiplication schematic diagram">
+  <img src="../../../posts/gpus/matrix-memory-coalescing.png" alt="Memory coalescing in matrix multiplication schematic diagram">
   <figcaption>In a row-major matrix, if different threads access adjacent addresses at the same time, it is easier to achieve coalescing; if they access addresses with a large stride, coalescing is harder. </figcaption>
 </figure>
 
@@ -494,7 +494,7 @@ Therefore, when writing GPU kernels, try to make threads in a warp access contig
 In ordinary <strong>matrix multiplication </strong>, the same input element may be repeatedly read from global memory, and these reads may not satisfy memory coalescing.
 
 <figure>
-  <img src="tiling-matmul-nontiled.png" alt="Repeated memory access in ordinary matrix multiplication">
+  <img src="../../../posts/gpus/tiling-matmul-nontiled.png" alt="Repeated memory access in ordinary matrix multiplication">
   <figcaption>In ordinary matrix multiplication, the same element may be read repeatedly by multiple threads; the access pattern may also hinder memory coalescing. </figcaption>
 </figure>
 
@@ -506,14 +506,14 @@ Tiling cuts the matrix into smaller <strong>tiles </strong> and first loads the 
 4. Repeat.
 
 <figure>
-  <img src="tiling-shared-memory-phases.png" alt="Tiling placing matrix blocks into shared memory">
+  <img src="../../../posts/gpus/tiling-shared-memory-phases.png" alt="Tiling placing matrix blocks into shared memory">
   <figcaption>Tiling first loads reusable matrix blocks into shared memory. Subsequent reads access shared memory instead of repeatedly accessing global memory. </figcaption>
 </figure>
 
 The benefit is straightforward: repeated reads now happen in shared memory rather than global memory; also, global memory reads can be made more coalesced.
 
 <figure>
-  <img src="tiling-math.png" alt="Tiling reducing the number of global memory accesses">
+  <img src="../../../posts/gpus/tiling-math.png" alt="Tiling reducing the number of global memory accesses">
   <figcaption>The core benefit of tiling is data reuse: after loading a small block of data, it is used multiple times within the tile. </figcaption>
 </figure>
 
@@ -526,7 +526,7 @@ If the matrix size is `N` and the tile size is `T`:
 Tiling also has costs. The tile size may not evenly divide the matrix dimensions, causing some thread blocks to do a lot of ineffective work.
 
 <figure>
-  <img src="tiling-tile-size-utilization.png" alt="Low utilization due to tile size not divisible by matrix size">
+  <img src="../../../posts/gpus/tiling-tile-size-utilization.png" alt="Low utilization due to tile size not divisible by matrix size">
   <figcaption>When matrix dimensions are not divisible by tile size, many empty slots appear in edge tiles, reducing GPU utilization. </figcaption>
 </figure>
 
@@ -539,7 +539,7 @@ When choosing tile size, at least three factors must be considered:
 Another detail is <strong>memory alignment </strong>. DRAM reads data in bursts; if tiles are aligned with burst sections, reads are faster; if not, more segments may need to be read.
 
 <figure>
-  <img src="tiling-memory-alignment.png" alt="Memory alignment in tiling">
+  <img src="../../../posts/gpus/tiling-memory-alignment.png" alt="Memory alignment in tiling">
   <figcaption>The left tile is aligned with burst sections, making reads cleaner; the right tile is not aligned, potentially spanning multiple burst sections. </figcaption>
 </figure>
 

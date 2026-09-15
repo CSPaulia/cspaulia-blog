@@ -164,7 +164,7 @@ If there are $n$ negative samples ($y=0$) and $m$ positive samples ($y=1$), then
 
 Balanced cross entropy helps with imbalance, but not with easy vs hard examples. For that, see [Focal Loss](#focal-loss).
 
-![easy-vs-hard](easyhard.jpg)
+![easy-vs-hard](../../../posts/loss/easyhard.jpg)
 
 ### Focal Loss
 
@@ -175,7 +175,7 @@ $$
 Here $p_t$ is the predicted probability of the ground-truth class.
 Since $-\log(p_t)$ is the same as cross entropy, a smaller $p_t$ (worse prediction) increases $(1-p_t)^\gamma$, making the loss focus more on hard examples. In other words, focal loss increases the contribution of hard samples to both loss and gradients.
 
-![focal-loss-effect](Focal_exp.png)
+![focal-loss-effect](../../../posts/loss/Focal_exp.png)
 
 The earlier $\alpha_t$ term is a class weight. For imbalanced datasets, we usually assign a larger weight to the minority class. In multi-class problems, $\alpha_t$ is typically a **vector** of length equal to the number of classes; a common heuristic is to set it proportional to the inverse frequency of each class.
 

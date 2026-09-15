@@ -339,13 +339,13 @@ GPU 和 TPU 的大致对应关系：
 
 所以这一节的关键问题是：**如何避免程序被 memory-bound 卡住？**
 
-直觉上，优化方向就是让数据被搬进来之后尽量多用几次。比如把数据放进**共享内存（shared memory）**或**缓存（cache）**中复用，减少反复访问 global memory，让 GPU 的计算单元不要一直等数据。
+直觉上，优化方向就是让数据被搬进来之后尽量多用几次。比如把数据放进<strong>共享内存（shared memory）</strong>或<strong>缓存（cache）</strong>中复用，减少反复访问 global memory，让 GPU 的计算单元不要一直等数据。
 
 ### 2.2 控制流分歧（Control Divergence）：分支也会让 GPU 变慢
 
 GPU 不是只会被内存卡住，也会被**控制流分歧**卡住。
 
-GPU 采用**单指令多线程（Single Instruction, Multiple Threads，SIMT）**模型：同一个**线程束（warp）**里的**线程（thread）**通常要执行同一条指令。如果这些 thread 在 `if / else` 中走了不同分支，GPU 往往需要把不同分支分开执行。
+GPU 采用<strong>单指令多线程（Single Instruction, Multiple Threads，SIMT）</strong>模型：同一个<strong>线程束（warp）</strong>里的<strong>线程（thread）</strong>通常要执行同一条指令。如果这些 thread 在 `if / else` 中走了不同分支，GPU 往往需要把不同分支分开执行。
 
 <figure>
   <img src="control-divergence.png" alt="Control divergence 示意图">
@@ -354,7 +354,7 @@ GPU 采用**单指令多线程（Single Instruction, Multiple Threads，SIMT）*
 
 如果一个 warp 里有些 thread 满足条件，有些 thread 不满足条件，GPU 通常会这样执行：
 
-- 先执行 `if` 分支里的 `A; B;`，只让满足条件的 thread 生效，其他 thread 被**掩码（mask）**掉；
+- 先执行 `if` 分支里的 `A; B;`，只让满足条件的 thread 生效，其他 thread 被<strong>掩码（mask）</strong>掉；
 - 再执行 `else` 分支里的 `X; Y;`，只让不满足条件的 thread 生效，前一批 thread 被 mask 掉；
 - 最后所有 thread 重新汇合，一起执行 `Z;`。
 
@@ -366,7 +366,7 @@ GPU 采用**单指令多线程（Single Instruction, Multiple Threads，SIMT）*
 
 低精度计算（low precision computation）的核心很简单：**一个数占用的比特（bit）越少，从内存里搬它需要的数据也越少**。
 
-比如**单精度浮点数（Float 32，FP32）**通常占 4 字节（byte），而**半精度浮点数（Float 16，FP16）**通常占 2 bytes。
+比如<strong>单精度浮点数（Float 32，FP32）</strong>通常占 4 字节（byte），而<strong>半精度浮点数（Float 16，FP16）</strong>通常占 2 bytes。
 
 #### 2.3.2. 低精度加速矩阵乘法
 

@@ -41,7 +41,7 @@ Unguided generation only asks the model to produce a sample, without specifying 
 - **Unguided**: “Generate an image.”
 - **Guided**: “Generate an image of a cat baking a cake.”
 
-<img src="guided_generation_examples.png" alt="Examples of unguided and guided generation" width="100%" />
+<img src="../../../posts/classifier_free_guidance/guided_generation_examples.png" alt="Examples of unguided and guided generation" width="100%" />
 
 Figure 1: Examples of unguided and guided generation. Figure source: MIT 6.S184 Lecture 3; example images from *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*.
 
@@ -69,7 +69,7 @@ u_t^{\theta}(x\mid y)-u_t^{\mathrm{target}}(x\mid z)
 
 Vanilla guidance can produce suboptimal results. For the prompt “Corgi dog,” some generated images do not fit the prompt well and contain obvious errors.
 
-<img src="vanilla_guidance_suboptimal_results.png" alt="Examples of suboptimal results from vanilla guidance" width="100%" />
+<img src="../../../posts/classifier_free_guidance/vanilla_guidance_suboptimal_results.png" alt="Examples of suboptimal results from vanilla guidance" width="100%" />
 
 Figure 2: Suboptimal results from vanilla guidance for the prompt “Corgi dog.” Figure source: MIT 6.S184 Lecture 3; examples from *Classifier-free diffusion guidance*.
 
@@ -130,7 +130,7 @@ u_t^{\mathrm{target}}(x\mid y)
 
 </details>
 
-<img src="classifier_guidance_intuition.png" alt="Intuition for classifier guidance" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_guidance_intuition.png" alt="Intuition for classifier guidance" width="100%" />
 
 Figure 3: The classifier gradient as the prompt-dependent component added to the no-prompt vector field. Figure source: MIT 6.S184 Lecture 3.
 
@@ -144,7 +144,7 @@ u_t^{\mathrm{target}}(x\mid y)
 +\underbrace{w a_t\nabla_x\log p_t(y\mid x)}_{\text{classifier}}.
 \]
 
-<img src="classifier_guidance_scale.png" alt="Classifier guidance with a scaled prompt-dependent component" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_guidance_scale.png" alt="Classifier guidance with a scaled prompt-dependent component" width="100%" />
 
 Figure 4: Scaling up the prompt-dependent component to obtain a prompt-reinforced vector field. Figure source: MIT 6.S184 Lecture 3.
 
@@ -190,7 +190,7 @@ In practice, an empty prompt \(\phi\) (Empty tokens) can be introduced, where \(
 u_t^{\mathrm{target}}(x)\ \longrightarrow\ u_t^{\mathrm{target}}(x\mid\phi).
 \]
 
-<img src="classifier_free_guidance_page30.png" alt="Classifier-free guidance using an empty prompt in place of the unconditional vector field" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_free_guidance_page30.png" alt="Classifier-free guidance using an empty prompt in place of the unconditional vector field" width="100%" />
 
 Figure 5: Classifier-free guidance using the vector field with an empty prompt in place of the unconditional vector field. Figure source: MIT 6.S184 Lecture 3.
 
@@ -202,7 +202,7 @@ Thus, classifier-free guidance can be written as
 +(1-w)u_t^{\mathrm{target}}(x\mid\phi).
 \]
 
-<img src="classifier_free_guidance_page31.png" alt="Classifier-free guidance with an amplified condition-dependent component" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_free_guidance_page31.png" alt="Classifier-free guidance with an amplified condition-dependent component" width="100%" />
 
 Figure 6: Scaling up the condition-dependent component to obtain a prompt-reinforced vector field. Figure source: MIT 6.S184 Lecture 3.
 
@@ -248,7 +248,7 @@ u_t^{\theta,w}(x)
 
 When \(w\) increases from \(1.0\) to \(4.0\), the generated results become more consistent with the prompt “corgi dog.”
 
-<img src="classifier_free_guidance_page34.png" alt="Comparison of corgi dog generation results at different guidance scales" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_free_guidance_page34.png" alt="Comparison of corgi dog generation results at different guidance scales" width="100%" />
 
 Figure 7: Comparison of generated results at different guidance scales. Figure source: MIT 6.S184 Lecture 3; examples from *Classifier-free diffusion guidance*.
 
@@ -267,7 +267,7 @@ u_t^{\theta,w}(x)
 
 generally no longer corresponds to the vector field learned from the original data distribution. CFG pushes the sampling direction beyond the data distribution, so it is not a strict model of the original distribution but a heuristic. Its main justification is empirical: an appropriate guidance scale often improves prompt consistency, but it can also change the generation distribution.
 
-<img src="classifier_free_guidance_page37.png" alt="Illustration that classifier-free guidance no longer strictly models the data distribution" width="100%" />
+<img src="../../../posts/classifier_free_guidance/classifier_free_guidance_page37.png" alt="Illustration that classifier-free guidance no longer strictly models the data distribution" width="100%" />
 
 Figure 8: As guidance strength increases, the sampling direction may move beyond the data distribution. Figure source: MIT 6.S184 Lecture 3; illustration from *Classifier-free diffusion guidance*.
 

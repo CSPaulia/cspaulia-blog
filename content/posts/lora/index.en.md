@@ -25,7 +25,7 @@ cover:
 ## LoRA
 
 <p align="center">
-  {{< img src="lora_overview.png" alt="lora_overview" width="60%" >}}
+  {{< img src="../../../posts/lora/lora_overview.png" alt="lora_overview" width="60%" >}}
 </p>
 
 > LoRA is a parameter-efficient fine-tuning method for large language models, introduced in the paper
@@ -63,7 +63,7 @@ cover:
 
   This family of methods is called **parameter-efficient fine-tuning** (PEFT). There are many approaches (e.g., Adapters, prefix-tuning, etc.). LoRA encodes the update using low-rank matrices; compared with some alternatives, it does not add inference latency and is easy to optimize.
 
-#### 2. 数学表达
+#### 2. Mathematical Formulation
 
 > The work by [Aghajanyan et al.](https://arxiv.org/abs/2012.13255) suggests that pretrained models can have a small intrinsic dimension: there may exist a very low-dimensional subspace such that fine-tuning within it can achieve comparable performance to full-space fine-tuning.
 
@@ -74,10 +74,10 @@ W = W_{\theta} + BA
 $$
 
 where:
-- $B \in \mathbb{R}^{d \times r}$，初始化为0矩阵
-- $A \in \mathbb{R}^{r \times k}$，初始化为高斯分布矩阵
-- $r \ll \min{(k, d)}$，r 是秩 (rank),通常远小于 d 和 k
-- 初始化$W = W_{\theta} + \mathbf{0} \times A = W_{\theta}$
+- $B \in \mathbb{R}^{d \times r}$, initialized as the zero matrix
+- $A \in \mathbb{R}^{r \times k}$, initialized from a Gaussian distribution
+- $r \ll \min{(k, d)}$, where $r$ is the rank and is usually much smaller than $d$ and $k$
+- At initialization, $W = W_{\theta} + \mathbf{0} \times A = W_{\theta}$
 
 In words:
 - $B \in \mathbb{R}^{d \times r}$ is initialized as a zero matrix
@@ -97,4 +97,4 @@ In words:
 
 [1] *LoRA: Low-Rank Adaptation of Large Language Models*. [Online]. Available: https://arxiv.org/abs/2106.09685.
 
-[2] LORA微调系列（一）：LORA和它的基本原理. [Online]. Available: https://zhuanlan.zhihu.com/p/646791309.
+[2] LoRA Fine-Tuning Series, Part I: LoRA and Its Basic Principles. [Online, in Chinese]. Available: https://zhuanlan.zhihu.com/p/646791309.

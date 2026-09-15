@@ -68,7 +68,7 @@ SVD separates this process into three steps:
 3. \(U\) expresses the scaled result in the output-space coordinates.
 
 <figure>
-  <img src="svd-transform.svg" alt="The three stages of SVD: V transpose, singular-value scaling, and U">
+  <img src="../../../posts/svd/svd-transform.svg" alt="The three stages of SVD: V transpose, singular-value scaling, and U">
   <figcaption>Read \(A=U\Sigma V^\top\) from right to left: \(V^\top\) changes the input coordinates, \(\Sigma\) scales them, and \(U\) maps them into the output space.</figcaption>
 </figure>
 

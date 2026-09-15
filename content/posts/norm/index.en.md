@@ -41,7 +41,7 @@ editPost:
 ---
 
 <p align="center">
-  {{< img src="LNvsBN.jpg" alt="LN vs BN" >}}
+  {{< img src="../../../posts/norm/LNvsBN.jpg" alt="LN vs BN" >}}
 </p>
 
 In the figure above, \(N\) denotes the sample axis, \(C\) the channel axis, and \(F\) the number of features per channel. BN normalizes <strong>the same channel across different samples</strong>, while LN normalizes <strong>different channels within the same sample</strong>.
@@ -55,7 +55,7 @@ BN computes normalization statistics from the samples in a batch. When the batch
 ### 1.2 BN and Recurrent Neural Networks
 
 <p align="center">
-  {{< img src="RNN.jpg" alt="RNN" >}}
+  {{< img src="../../../posts/norm/RNN.jpg" alt="RNN" >}}
 </p>
 
 Sequence lengths often differ within a batch of recurrent neural network (RNN) inputs. At later time steps, such as \(t>4\) in the figure, only one sample may still contain data. Statistics computed from that sample cannot represent the overall distribution, so BN is ineffective in this setting.

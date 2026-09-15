@@ -66,7 +66,7 @@ Parameters, gradients, activations, and optimizer states are almost always store
 Default dtype, 4 bytes, wide dynamic range.
 
 <p align="center">
-  {{< img src="fp32.png" alt="fp32" >}}
+  {{< img src="../../../posts/primitives/fp32.png" alt="fp32" >}}
 </p>
 
 Memory is determined by (i) the number of values and (ii) the dtype.
@@ -84,7 +84,7 @@ assert get_memory_usage(x) == 4 * 8 * 4  # 128 bytes
 2 bytes. Saves memory but has a smaller dynamic range and is more prone to underflow.
 
 <p align="center">
-  {{< img src="fp16.png" alt="fp16" >}}
+  {{< img src="../../../posts/primitives/fp16.png" alt="fp16" >}}
 </p>
 
 ```python
@@ -104,7 +104,7 @@ assert x == 0  # Underflow!
 2 bytes. Same dynamic range as float32, slightly lower precision.
 
 <p align="center">
-  {{< img src="bf16.png" alt="bf16" >}}
+  {{< img src="../../../posts/primitives/bf16.png" alt="bf16" >}}
 </p>
 
 Less likely to underflow:
@@ -137,7 +137,7 @@ bfloat16 info="finfo(resolution=0.01, min=-3.38953e+38,max=3.38953e+38, eps=0.00
 1 byte. Extreme compression, designed for newer hardware (e.g., H100).
 
 <p align="center">
-  <img src="fp8.png" alt="fp8" />
+  <img src="../../../posts/primitives/fp8.png" alt="fp8" />
 </p>
 
 H100 supports two FP8 formats: E4M3 (range [-448, 448]) and E5M2 ([-57344, 57344]).
@@ -169,7 +169,7 @@ A common mixed-precision recipe:
 - A tensor is a **memory pointer** + **metadata** (describing how to index into storage, e.g., strides).
 
 <p align="center">
-  <img src="2D_tensor_strides.png" alt="2D_tensor_strides" />
+  <img src="../../../posts/primitives/2D_tensor_strides.png" alt="2D_tensor_strides" />
 </p>
 
 [PyTorch stride definition](https://docs.pytorch.org/docs/stable/generated/torch.Tensor.stride.html)
@@ -321,7 +321,7 @@ assert y.size() == torch.Size([16, 2])
 In practice, we apply this multiplication per example in the batch and per token position in the sequence.
 
 <p align="center">
-  <img src="batch-sequence.png" alt="batch-sequence" width=75% />
+  <img src="../../../posts/primitives/batch-sequence.png" alt="batch-sequence" width=75% />
 </p>
 
 ```python
@@ -601,7 +601,7 @@ num_backward_flops = (2 + 2) * B * D * K + (2 + 2) * B * D * D  # @inspect num_b
 ```
 
 <p align="center">
-  <img src="back_flops.gif" alt="back_flops" />
+  <img src="../../../posts/primitives/back_flops.gif" alt="back_flops" />
 </p>
 
 {{< alert type="info" title="Summary" >}}

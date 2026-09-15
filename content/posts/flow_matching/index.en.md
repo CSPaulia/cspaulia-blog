@@ -71,7 +71,7 @@ $$
 L(\theta) = || u_t^{\theta}(x) - u_t^{target}(x) ||^2
 $$
 
-<img src="denoise.png" alt="Denoised Image" width="100%" />
+<img src="../../../posts/flow_matching/denoise.png" alt="Denoised Image" width="100%" />
 
 ## 2. Conditional probability paths and marginal probability paths
 
@@ -104,7 +104,7 @@ $$
 > Here the noise schedule satisfies $\alpha_t = t, \sigma_t = 1 - t$, so $\alpha_0 = 0, \sigma_0 = 1$, and $\alpha_1 = 1, \sigma_1 = 0$.
 > The Gaussian conditional probability path is illustrated below:
 >
-> <img src="distribution_variance.png" alt="Conditional Probability Path" width="100%" />
+> <img src="../../../posts/flow_matching/distribution_variance.png" alt="Conditional Probability Path" width="100%" />
 
 **Definition 3 (Marginal Probability Path)**: suppose $z \sim P_{data}$ and $x \sim P_t(\cdot|z)$. Then the marginal probability path $\{P_t, t \in [0,1]\}$, which is independent of $z$, satisfies:
 1. $p_t(x) = \int p_t(x|z) p_{data}(z) dz$;
@@ -159,7 +159,7 @@ $$
 > where $\dot{\alpha}_t$ and $\dot{\sigma}_t$ denote the derivatives of $\alpha_t$ and $\sigma_t$ with respect to $t$.
 > This formula requires $\sigma_t > 0$. For $\sigma_t=1-t$, it applies when $0 \leq t < 1$; the endpoint $P_1(\cdot|z)=\delta_z$ should be understood as a limit in distribution.
 >
-> <img src="conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
+> <img src="../../../posts/flow_matching/conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
 
 **Theorem 1 (Marginalization Trick) / Definition 5 (Marginal Vector Field)**: if $u_t^{target}(x|z)$ is a conditional vector field, then the marginal vector field is:
 

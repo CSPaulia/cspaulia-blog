@@ -216,7 +216,7 @@ Exams are also useful for evaluating language models:
 - GPT-3 was originally evaluated with few-shot prompting.
 
 <figure>
-  <img src="mmlu.png" alt="MMLU few-shot prompt examples and GPT-3 performance across task categories" loading="lazy">
+  <img src="../../../posts/evaluation/mmlu.png" alt="MMLU few-shot prompt examples and GPT-3 performance across task categories" loading="lazy">
   <figcaption>MMLU few-shot prompting and GPT-3 test results. Source: <a href="https://arxiv.org/abs/2009.03300">MMLU paper</a>.</figcaption>
 </figure>
 
@@ -233,7 +233,7 @@ The [HELM MMLU prediction viewer](https://crfm.stanford.edu/helm/mmlu/latest/) e
 > Relative to MMLU, model accuracy drops by 16%–33% on MMLU-Pro, indicating that the benchmark is less saturated. [Wang et al., 2024](https://arxiv.org/abs/2406.01574)
 
 <figure>
-  <img src="mmlu-pro.png" alt="Comparison of MMLU and MMLU-Pro accuracy, choice distributions, and prompting methods" loading="lazy">
+  <img src="../../../posts/evaluation/mmlu-pro.png" alt="Comparison of MMLU and MMLU-Pro accuracy, choice distributions, and prompting methods" loading="lazy">
   <figcaption>MMLU-Pro improves discrimination through cleaning, more choices, and reasoning prompts. Source: <a href="https://arxiv.org/abs/2406.01574">MMLU-Pro paper</a>.</figcaption>
 </figure>
 
@@ -242,7 +242,7 @@ The [HELM MMLU prediction viewer](https://crfm.stanford.edu/helm/mmlu/latest/) e
 [Graduate-Level Google-Proof Q&A (GPQA)](https://arxiv.org/abs/2311.12022) was written by 61 PhD-level contractors recruited through Upwork and filtered through multiple validation stages.
 
 <figure>
-  <img src="gpqa.png" alt="GPQA question writing, expert validation, and non-expert validation pipeline" loading="lazy">
+  <img src="../../../posts/evaluation/gpqa.png" alt="GPQA question writing, expert validation, and non-expert validation pipeline" loading="lazy">
   <figcaption>GPQA retains questions on which experts agree but non-experts still struggle even with search access. Source: <a href="https://arxiv.org/abs/2311.12022">GPQA paper</a>.</figcaption>
 </figure>
 
@@ -259,17 +259,17 @@ The [HELM MMLU prediction viewer](https://crfm.stanford.edu/helm/mmlu/latest/) e
 - Frontier language models filtered the submissions before several rounds of expert review.
 
 <figure>
-  <img src="hle-examples.png" alt="HLE examples from classics, ecology, mathematics, and computer science" loading="lazy">
+  <img src="../../../posts/evaluation/hle-examples.png" alt="HLE examples from classics, ecology, mathematics, and computer science" loading="lazy">
   <figcaption>HLE covers highly specialized fields and uses both text and images. Source: <a href="https://arxiv.org/abs/2501.14249">HLE paper</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="hle-pipeline.png" alt="HLE construction pipeline from submissions through model difficulty checks and expert review" loading="lazy">
+  <img src="../../../posts/evaluation/hle-pipeline.png" alt="HLE construction pipeline from submissions through model difficulty checks and expert review" loading="lazy">
   <figcaption>HLE selected 2,500 public questions from roughly 70,000 submission attempts. Source: <a href="https://arxiv.org/abs/2501.14249">HLE paper</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="hle-results.png" alt="Accuracy of several language models on HLE, GPQA, MATH, and MMLU" loading="lazy">
+  <img src="../../../posts/evaluation/hle-results.png" alt="Accuracy of several language models on HLE, GPQA, MATH, and MMLU" loading="lazy">
   <figcaption>Frontier models at the time remained far from saturating HLE. Source: <a href="https://arxiv.org/abs/2501.14249">HLE paper</a>.</figcaption>
 </figure>
 
@@ -293,7 +293,7 @@ All four benchmarks evaluate whether the final answer is correct, but they obtai
 Exam benchmarks have explicit answers, but users rarely ask AI assistants multiple-choice questions. Real requests produce open-ended responses whose correctness, helpfulness, and style are difficult to reduce to a single reference answer.
 
 <figure>
-  <img src="arena-beets.png" alt="Comparison of two Arena AI responses to a question about herbs for a beet and goat cheese salad" loading="lazy">
+  <img src="../../../posts/evaluation/arena-beets.png" alt="Comparison of two Arena AI responses to a question about herbs for a beet and goat cheese salad" loading="lazy">
   <figcaption>The same open-ended question can produce two reasonable responses with different styles, requiring a rater to decide which is better. Source: <a href="https://arena.ai/">Arena AI</a>.</figcaption>
 </figure>
 
@@ -330,12 +330,12 @@ The ratings are fitted by maximizing the probability of the observed comparisons
 Language-model judges favor longer responses, allowing models to improve their ranking through verbosity. AlpacaEval 2.0 uses regression to control for length differences and reports a length-controlled win rate. [Dubois et al., 2024](https://arxiv.org/abs/2404.04475)
 
 <figure>
-  <img src="alpacaeval-chat-correlations.png" alt="Spearman correlations between automatic evaluation metrics and Chatbot Arena rankings" loading="lazy">
+  <img src="../../../posts/evaluation/alpacaeval-chat-correlations.png" alt="Spearman correlations between automatic evaluation metrics and Chatbot Arena rankings" loading="lazy">
   <figcaption>Automatic metrics are often validated by correlation with Chatbot Arena's human-preference rankings; length-controlled AlpacaEval 2.0 has a stronger correlation. Source: <a href="https://github.com/tatsu-lab/alpaca_eval">AlpacaEval</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="alpacaeval-leaderboard.png" alt="AlpacaEval 2.0 leaderboard with length-controlled win rates" loading="lazy">
+  <img src="../../../posts/evaluation/alpacaeval-leaderboard.png" alt="AlpacaEval 2.0 leaderboard with length-controlled win rates" loading="lazy">
   <figcaption>Raw and length-controlled win rates can produce different rankings. Source: <a href="https://tatsu-lab.github.io/alpaca_eval/">AlpacaEval leaderboard</a>.</figcaption>
 </figure>
 
@@ -350,7 +350,7 @@ Language-model judges favor longer responses, allowing models to improve their r
 - Its results correlate strongly with Chatbot Arena rankings.
 
 <figure>
-  <img src="wildbench.png" alt="WildBench pipeline for checklist-guided pairwise and single-response evaluation" loading="lazy">
+  <img src="../../../posts/evaluation/wildbench.png" alt="WildBench pipeline for checklist-guided pairwise and single-response evaluation" loading="lazy">
   <figcaption>Task-specific checklists structure the judging process and produce interpretable rationales. Source: <a href="https://arxiv.org/abs/2406.04770">WildBench paper</a>.</figcaption>
 </figure>
 
@@ -379,7 +379,7 @@ An agent combines a language model with an agent scaffold. The scaffold decides 
 - The primary metric is whether the unit tests pass.
 
 <figure>
-  <img src="swebench.png" alt="SWE-bench issue description, gold patch, generated patch, and unit-test results" loading="lazy">
+  <img src="../../../posts/evaluation/swebench.png" alt="SWE-bench issue description, gold patch, generated patch, and unit-test results" loading="lazy">
   <figcaption>SWE-bench does not require textual identity with the reference patch; tests determine whether the repair works. Source: <a href="https://arxiv.org/abs/2310.06770">SWE-bench paper</a>.</figcaption>
 </figure>
 
@@ -395,7 +395,7 @@ Current results are available on the [LLM Stats SWE-bench Verified page](https:/
 - Contributors crowdsourced 229 tasks, with 89 forming Terminal-Bench 2.0.
 
 <figure>
-  <img src="terminal-bench.png" alt="Terminal-Bench task input, Docker execution environment, and hidden-test workflow" loading="lazy">
+  <img src="../../../posts/evaluation/terminal-bench.png" alt="Terminal-Bench task input, Docker execution environment, and hidden-test workflow" loading="lazy">
   <figcaption>The agent receives the task description and execution environment, but not the test files or reference solution. Source: <a href="https://www.tbench.ai/">Terminal-Bench</a>.</figcaption>
 </figure>
 
@@ -403,12 +403,12 @@ Current results are available on the [LLM Stats SWE-bench Verified page](https:/
 <summary>View Terminal-Bench task difficulty and results</summary>
 
 <figure>
-  <img src="terminal-bench-human-time.png" alt="Distribution of time required by expert and junior engineers for Terminal-Bench tasks" loading="lazy">
+  <img src="../../../posts/evaluation/terminal-bench-human-time.png" alt="Distribution of time required by expert and junior engineers for Terminal-Bench tasks" loading="lazy">
   <figcaption>Experts usually finish within one day, while junior engineers more often require several hours or days. Source: <a href="https://arxiv.org/abs/2601.11868">Terminal-Bench paper</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="terminal-bench-results.png" alt="Terminal-Bench 2.0 agent leaderboard snapshot" loading="lazy">
+  <img src="../../../posts/evaluation/terminal-bench-results.png" alt="Terminal-Bench 2.0 agent leaderboard snapshot" loading="lazy">
   <figcaption>The leaderboard identifies both the agent scaffold and the underlying model, reflecting their combined performance. Source: <a href="https://www.tbench.ai/">Terminal-Bench leaderboard</a>.</figcaption>
 </figure>
 
@@ -424,12 +424,12 @@ Current results are available on the [LLM Stats SWE-bench Verified page](https:/
 - Human first-solve time measures task difficulty.
 
 <figure>
-  <img src="cybench.png" alt="CyBench task description, agent interaction, environment, and answer evaluation workflow" loading="lazy">
+  <img src="../../../posts/evaluation/cybench.png" alt="CyBench task description, agent interaction, environment, and answer evaluation workflow" loading="lazy">
   <figcaption>CyBench records both the final flag and subtask answers to reveal progress on complex security tasks. Source: <a href="https://arxiv.org/abs/2408.08926">CyBench paper</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="cybench-agent.png" alt="CyBench agent loop across acting, execution, observation, and memory updates" loading="lazy">
+  <img src="../../../posts/evaluation/cybench-agent.png" alt="CyBench agent loop across acting, execution, observation, and memory updates" loading="lazy">
   <figcaption>The agent repeatedly chooses commands, observes the environment, and updates memory before submitting an answer. Source: <a href="https://arxiv.org/abs/2408.08926">CyBench paper</a>.</figcaption>
 </figure>
 
@@ -437,7 +437,7 @@ Current results are available on the [LLM Stats SWE-bench Verified page](https:/
 <summary>View CyBench results</summary>
 
 <figure>
-  <img src="cybench-results.png" alt="CyBench task solve rate, subtask completion, and hardest solved task" loading="lazy">
+  <img src="../../../posts/evaluation/cybench-results.png" alt="CyBench task solve rate, subtask completion, and hardest solved task" loading="lazy">
   <figcaption>CyBench reports full-task solve rate, subtask completion, and the hardest solved task. Source: <a href="https://llm-stats.com/benchmarks/cybench">LLM Stats CyBench</a>.</figcaption>
 </figure>
 
@@ -455,7 +455,7 @@ Current results are available on the [LLM Stats CyBench page](https://llm-stats.
 - receive a score under the original competition metric.
 
 <figure>
-  <img src="mlebench.png" alt="MLE-bench workflow from Kaggle competition materials to agent submission and grading" loading="lazy">
+  <img src="../../../posts/evaluation/mlebench.png" alt="MLE-bench workflow from Kaggle competition materials to agent submission and grading" loading="lazy">
   <figcaption>MLE-bench evaluates whether an agent can complete a machine learning engineering task, not merely answer a question. Source: <a href="https://arxiv.org/abs/2410.07095">MLE-bench paper</a>.</figcaption>
 </figure>
 
@@ -463,7 +463,7 @@ Current results are available on the [LLM Stats CyBench page](https://llm-stats.
 <summary>View MLE-bench results</summary>
 
 <figure>
-  <img src="mlebench-results.png" alt="Performance of different agents across MLE-bench difficulty levels" loading="lazy">
+  <img src="../../../posts/evaluation/mlebench-results.png" alt="Performance of different agents across MLE-bench difficulty levels" loading="lazy">
   <figcaption>The leaderboard must identify the agent, underlying language model, and runtime together. Source: <a href="https://github.com/openai/mle-bench">MLE-bench</a>.</figcaption>
 </figure>
 
@@ -479,7 +479,7 @@ An [agent scaffold](https://www.philschmid.de/agents-2.0-deep-agents) organizes 
 - **context engineering**: constrain execution with more explicit process instructions.
 
 <figure>
-  <img src="agent-scaffolds.png" alt="An agent completing tasks through planning, sub-agents, and persistent memory" loading="lazy">
+  <img src="../../../posts/evaluation/agent-scaffolds.png" alt="An agent completing tasks through planning, sub-agents, and persistent memory" loading="lazy">
   <figcaption>An agent scaffold can combine planning, orchestration, sub-agents, and persistent memory. Source: <a href="https://www.philschmid.de/agents-2.0-deep-agents">Agent 2.0: Deep Agents</a>.</figcaption>
 </figure>
 
@@ -502,12 +502,12 @@ The preceding tasks all depend on linguistic or world knowledge. Pure reasoning 
 - **ARC-AGI-3 (March 2026)**: extend static puzzles into interactive environments.
 
 <figure>
-  <img src="arc-task-grids.jpg" alt="ARC-AGI task requiring inference of a colored-grid transformation from examples" loading="lazy">
+  <img src="../../../posts/evaluation/arc-task-grids.jpg" alt="ARC-AGI task requiring inference of a colored-grid transformation from examples" loading="lazy">
   <figcaption>ARC-AGI requires a model to infer a rule from examples and apply it to a new input. Source: <a href="https://arcprize.org/arc-agi">ARC Prize</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="arc-agi-2-unsolved.png" alt="ARC-AGI-2 visual grid tasks requiring multi-step reasoning" loading="lazy">
+  <img src="../../../posts/evaluation/arc-agi-2-unsolved.png" alt="ARC-AGI-2 visual grid tasks requiring multi-step reasoning" loading="lazy">
   <figcaption>ARC-AGI-2 adds more complex compositional and multi-step transformations. Source: <a href="https://arcprize.org/arc-agi">ARC Prize</a>.</figcaption>
 </figure>
 
@@ -517,7 +517,7 @@ Pretrained language models initially made almost no progress on ARC-AGI. Scores 
 <summary>View ARC-AGI-1 and ARC-AGI-2 score trends</summary>
 
 <figure>
-  <img src="arc-agi-results.png" alt="ARC-AGI-1 and ARC-AGI-2 scores by model release date" loading="lazy">
+  <img src="../../../posts/evaluation/arc-agi-results.png" alt="ARC-AGI-1 and ARC-AGI-2 scores by model release date" loading="lazy">
   <figcaption>ARC-AGI-1 scores rose rapidly with reasoning models and coding agents, while ARC-AGI-2 remains harder. Source: <a href="https://arcprize.org/arc-agi">ARC Prize</a>.</figcaption>
 </figure>
 
@@ -526,7 +526,7 @@ Pretrained language models initially made almost no progress on ARC-AGI. Scores 
 [ARC-AGI-3](https://arcprize.org/media/ARC_AGI_3_Technical_Report.pdf) further requires an agent to observe an environment, act, and adapt its strategy from feedback.
 
 <figure>
-  <img src="arc-agi-3.png" alt="Interactive visual environment in ARC-AGI-3" loading="lazy">
+  <img src="../../../posts/evaluation/arc-agi-3.png" alt="Interactive visual environment in ARC-AGI-3" loading="lazy">
   <figcaption>ARC-AGI-3 extends abstract reasoning into environments that require continued interaction. Source: <a href="https://arcprize.org/media/ARC_AGI_3_Technical_Report.pdf">ARC-AGI-3 technical report</a>.</figcaption>
 </figure>
 
@@ -534,7 +534,7 @@ Pretrained language models initially made almost no progress on ARC-AGI. Scores 
 <summary>View ARC-AGI-3 results</summary>
 
 <figure>
-  <img src="arc-agi-3-results.png" alt="Scores of different models on ARC-AGI-3" loading="lazy">
+  <img src="../../../posts/evaluation/arc-agi-3-results.png" alt="Scores of different models on ARC-AGI-3" loading="lazy">
   <figcaption>Current models still score very poorly on ARC-AGI-3. Source: <a href="https://arcprize.org/media/ARC_AGI_3_Technical_Report.pdf">ARC-AGI-3 technical report</a>.</figcaption>
 </figure>
 
@@ -559,7 +559,7 @@ The [HELM HarmBench leaderboard](https://crfm.stanford.edu/helm/safety/latest/#/
 [AIR-Bench](https://arxiv.org/abs/2407.17436) derives risks from regulatory frameworks and company policies, organizing them into 314 fine-grained categories and constructing 5,694 test prompts.
 
 <figure>
-  <img src="air-bench-overview.png" alt="AIR-Bench taxonomy covering system safety, content safety, societal risks, and legal rights" loading="lazy">
+  <img src="../../../posts/evaluation/air-bench-overview.png" alt="AIR-Bench taxonomy covering system safety, content safety, societal risks, and legal rights" loading="lazy">
   <figcaption>AIR-Bench uses a four-level risk taxonomy to unify safety policies from different organizations. Source: <a href="https://crfm.stanford.edu/helm/air-bench/latest/#/leaderboard">HELM AIR-Bench</a>.</figcaption>
 </figure>
 
@@ -575,7 +575,7 @@ Results are available on the [HELM AIR-Bench leaderboard](https://crfm.stanford.
 <summary>View GCG jailbreak examples</summary>
 
 <figure>
-  <img src="gcg-examples.png" alt="GCG adversarial suffixes causing several language models to bypass refusal mechanisms" loading="lazy">
+  <img src="../../../posts/evaluation/gcg-examples.png" alt="GCG adversarial suffixes causing several language models to bypass refusal mechanisms" loading="lazy">
   <figcaption>Nonsensical adversarial suffixes can cause different models to answer requests that they should refuse. Source: <a href="https://arxiv.org/abs/2307.15043">Universal and Transferable Adversarial Attacks on Aligned Language Models</a>.</figcaption>
 </figure>
 
@@ -604,7 +604,7 @@ Ecological validity measures how closely an evaluation reflects practical use:
 [GDPVal](https://arxiv.org/abs/2510.04374) covers 44 occupations from the nine largest sectors of the US economy by GDP. Its tasks come from professionals with roughly 14 years of experience on average.
 
 <figure>
-  <img src="gdpval.png" alt="GDPVal tasks in manufacturing engineering, financial analysis, nursing, video editing, and customer service" loading="lazy">
+  <img src="../../../posts/evaluation/gdpval.png" alt="GDPVal tasks in manufacturing engineering, financial analysis, nursing, video editing, and customer service" loading="lazy">
   <figcaption>GDPVal asks models to produce documents, spreadsheets, designs, or multimedia artifacts resembling professional deliverables. Source: <a href="https://arxiv.org/abs/2510.04374">GDPVal paper</a>.</figcaption>
 </figure>
 
@@ -613,7 +613,7 @@ Ecological validity measures how closely an evaluation reflects practical use:
 [MedHELM](https://arxiv.org/abs/2505.23802) moves beyond standardized medical exams. Twenty-nine clinicians contributed 121 clinical tasks spanning both public and private datasets.
 
 <figure>
-  <img src="medhelm-overview.png" alt="MedHELM workflow from clinical task categorization and datasets to model evaluation and community resources" loading="lazy">
+  <img src="../../../posts/evaluation/medhelm-overview.png" alt="MedHELM workflow from clinical task categorization and datasets to model evaluation and community resources" loading="lazy">
   <figcaption>MedHELM covers clinical decisions, note generation, patient communication, medical research, and administrative workflows. Source: <a href="https://crfm.stanford.edu/helm/medhelm/latest/#/leaderboard">MedHELM</a>.</figcaption>
 </figure>
 
@@ -625,7 +625,7 @@ Ecological validity measures how closely an evaluation reflects practical use:
 <summary>View Clio topic-classification results</summary>
 
 <figure>
-  <img src="clio-table4.png" alt="Comparison between Clio-predicted user conversation categories and human annotations" loading="lazy">
+  <img src="../../../posts/evaluation/clio-table4.png" alt="Comparison between Clio-predicted user conversation categories and human annotations" loading="lazy">
   <figcaption>Clio's counts for common topics such as software development, homework help, and technical troubleshooting are close to human annotations. Source: <a href="https://arxiv.org/abs/2412.13678">Clio paper</a>.</figcaption>
 </figure>
 
@@ -647,7 +647,7 @@ There are four routes for addressing train-test overlap:
 4. **Use private evaluations.** Internal company codebases or personal writings are less likely to overlap with Internet training data; such data are especially convenient for perplexity evaluation.
 
 <figure>
-  <img src="contamination-exchangeability.png" alt="Detecting training-data contamination by comparing canonical and shuffled dataset orders" loading="lazy">
+  <img src="../../../posts/evaluation/contamination-exchangeability.png" alt="Detecting training-data contamination by comparing canonical and shuffled dataset orders" loading="lazy">
   <figcaption>An unusually high log-probability for the canonical order can provide evidence of training-data contamination. Source: <a href="https://arxiv.org/abs/2310.17623">Proving Test Set Contamination in Black-Box Language Models</a>.</figcaption>
 </figure>
 
@@ -662,12 +662,12 @@ There are four routes for addressing train-test overlap:
 <summary>View benchmark errors and the effect of cleaning</summary>
 
 <figure>
-  <img src="benchmark-platinum-1.jpg" alt="Examples of mislabeled questions, logical contradictions, ambiguity, and missing conditions in benchmarks" loading="lazy">
+  <img src="../../../posts/evaluation/benchmark-platinum-1.jpg" alt="Examples of mislabeled questions, logical contradictions, ambiguity, and missing conditions in benchmarks" loading="lazy">
   <figcaption>Benchmark data can contain incorrect labels, logical contradictions, ambiguity, or missing conditions. Source: <a href="https://arxiv.org/abs/2502.03461">Platinum benchmark paper</a>.</figcaption>
 </figure>
 
 <figure>
-  <img src="benchmark-platinum-2.jpg" alt="Average number of errors in several benchmarks before and after cleaning" loading="lazy">
+  <img src="../../../posts/evaluation/benchmark-platinum-2.jpg" alt="Average number of errors in several benchmarks before and after cleaning" loading="lazy">
   <figcaption>Error rates vary substantially across benchmarks and usually fall sharply after cleaning. Source: <a href="https://arxiv.org/abs/2502.03461">Platinum benchmark paper</a>.</figcaption>
 </figure>
 
@@ -692,7 +692,7 @@ There is no single correct evaluation; its form depends on the question being as
 <summary>View the nanoGPT speedrun example</summary>
 
 <figure>
-  <img src="karpathy-nanogpt-speedrun.png" alt="nanoGPT speedrun comparing training efficiency at a fixed target validation loss" loading="lazy">
+  <img src="../../../posts/evaluation/karpathy-nanogpt-speedrun.png" alt="nanoGPT speedrun comparing training efficiency at a fixed target validation loss" loading="lazy">
   <figcaption>With data and target loss fixed, score changes more directly reflect improvements in the training method. Source: <a href="https://x.com/karpathy/status/1846790537262571739">Andrej Karpathy</a>.</figcaption>
 </figure>
 

@@ -56,7 +56,7 @@ The core idea: [Hyper-Connection](http://arxiv.org/abs/2409.19606) recasts the r
     \mathbf{H}^{l+1} = \mathbf{A}_r \mathbf{H}^l + \mathbf{B} \mathcal{T}(\mathbf{A}_m^{\top} \mathbf{H}^l)
 \]
 
-{{< figure src="hc.png" alt="HC" caption="Hyper-Connection Diagram" >}}
+{{< figure src="../../../posts/residual/hc.png" alt="HC" caption="Hyper-Connection Diagram" >}}
 
 ### 2.1. From One Residual Stream to Many
 
@@ -202,7 +202,7 @@ If most singular values of these Jacobians are less than 1, gradients shrink as 
 
 The mHC paper proves that HC training is unstable, and that the extra learnable parameters cause significant memory-access overhead, severely impacting training speed.
 
-{{< figure src="hc_io.png" alt="hc" >}}
+{{< figure src="../../../posts/residual/hc_io.png" alt="hc" >}}
 
 ### 3.2. Design of mHC
 

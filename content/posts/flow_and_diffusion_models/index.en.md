@@ -88,7 +88,7 @@ We do not know the true probability density in practice.
 
 **Generation** means sampling $z \sim p_{data}$. For example:
 
-{{< img src="Bao.jpg" alt="Baobao" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/Bao.jpg" alt="Baobao" width="300" >}}
 
 ---
 
@@ -114,11 +114,11 @@ We do not know the true probability density in practice.
 
 > Intuition: a trajectory describes how a particle’s position changes over time $t \in [0, 1]$. The input is time $t$, and the output is the position $X_t$ at that time.
 
-{{< img src="traj.png" alt="Trajectory" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/traj.png" alt="Trajectory" width="300" >}}
 
 **Definition 2 (Vector field)**: $u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$, where $x$ is the location and $u_t(x)$ is the vector direction.
 
-{{< img src="vector_field.png" alt="Vector Field" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/vector_field.png" alt="Vector Field" width="300" >}}
 
 **Definition 3 (Ordinary Differential Equation, ODE)**: given the initial condition $X_0 = x_0$, the dynamics are
 
@@ -126,7 +126,7 @@ $$
 \frac{dX_t}{dt} = u_t(X_t)
 $$
 
-{{< img src="ode.png" alt="ODE" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/ode.png" alt="ODE" width="300" >}}
 
 > $dX_t/dt$ is the tangent vector of the trajectory. You can interpret it as velocity, so an ODE describes how a particle moves in a vector field.
 
@@ -144,11 +144,11 @@ $$
 
 Intuitively, a flow is a collection of ODE solutions for many different initial conditions.
 
-{{< img src="flow_process.png" alt="Flow Process" width="80%" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/flow_process.png" alt="Flow Process" width="80%" >}}
 
 Flow visualization:
 
-{{< img src="flow.gif" alt="Flow" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/flow.gif" alt="Flow" width="300" >}}
 
 > **Linear ODE:**
 > 
@@ -172,7 +172,7 @@ Flow visualization:
 > $$ \phi_0(x) = e^{C(x)} e^{0} = e^{C(x)} = x \Rightarrow e^{C(x)} = x $$
 > $$ \frac{d}{dt} \phi_t(x) = \frac{d}{dt} (x e^{-\theta t}) = -\theta x e^{-\theta t} = -\theta \phi_t(x) $$
 >
-> {{< img src="linear_ode_trajectories.png" alt="Linear ODE Trajectories" width="80%" >}}
+> {{< img src="../../../posts/flow_and_diffusion_models/linear_ode_trajectories.png" alt="Linear ODE Trajectories" width="80%" >}}
 
 | **Algorithm 1** Solving an ODE with Euler’s method |
 |-------------------------------|
@@ -196,7 +196,7 @@ Flow visualization:
 - Simulate the ODE driven by $u_t^{\theta}$
 - Goal: $X_1 \sim p_{data}$
 
-{{< img src="flow_distribution.gif" alt="Flow Distribution" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/flow_distribution.gif" alt="Flow Distribution" width="300" >}}
 
 | **Algorithm 2** Sampling from a flow model with Euler’s method |
 |-------------------------------|
@@ -216,7 +216,7 @@ Flow visualization:
 
 **Definition 6 (Stochastic process)**: random variables $X_t, 0 \le t \le 1$, whose trajectory is $X: [0, 1] \to \mathbb{R}^d, t \mapsto X_t$.
 
-{{< img src="stochastic_traj.png" alt="Stochastic Process" width="300" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/stochastic_traj.png" alt="Stochastic Process" width="300" >}}
 
 > **Definition 2 (Vector field)**: $u: \mathbb{R}^d \times [0,1] \to \mathbb{R}^d, (x, t) \mapsto u_t(x)$.
 
@@ -278,7 +278,7 @@ where $\lim_{h \to 0} \sqrt{\mathbb{E}[\|R_t(h)\|^2]} = 0$. Because Brownian mot
 | 8: **end for** |
 | **Output**: $X_0, X_h, X_{2h}, \cdots, X_1$ |
 
-{{< img src="linear_sde_euler_trajectories.png" alt="Linear SDE Trajectories" width="80%" >}}
+{{< img src="../../../posts/flow_and_diffusion_models/linear_sde_euler_trajectories.png" alt="Linear SDE Trajectories" width="80%" >}}
 
 #### 2.2.3 Definition of a diffusion model
 
@@ -296,4 +296,4 @@ where $\lim_{h \to 0} \sqrt{\mathbb{E}[\|R_t(h)\|^2]} = 0$. Because Brownian mot
 
 ## References
 
-[1] GPT中英字幕课程资源, "《流匹配与扩散模型|6.S184 Flow Matching and Diffusion Models》中英字幕（Claude-3.7-s）》," Bilibili, Jul. 29, 2025. [Online video]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.
+[1] GPT Bilingual Course Resources. “Flow Matching and Diffusion Models | MIT 6.S184” (Chinese–English subtitles, Claude 3.7 Sonnet). Bilibili, Jul. 29, 2025. [Online video, in Chinese]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.

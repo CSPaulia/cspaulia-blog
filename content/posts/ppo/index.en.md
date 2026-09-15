@@ -39,7 +39,7 @@ editPost:
 ## 1. Complete Handwritten Notes
 
 <iframe
-  src="ppo-notes.pdf"
+  src="../../../posts/ppo/ppo-notes.pdf"
   title="Handwritten notes on proximal policy optimization"
   width="100%"
   height="900px"

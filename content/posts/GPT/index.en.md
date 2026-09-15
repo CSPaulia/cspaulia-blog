@@ -93,7 +93,7 @@ So the fine-tuning objective combines $L_1$ and $L_2$.
 #### 3. Task-specific input transformations
 
 <p align="center">
-  {{< img src="gpt-tasks.png" alt="gpt-tasks" >}}
+  {{< img src="../../../posts/GPT/gpt-tasks.png" alt="gpt-tasks" >}}
 </p>
 
 For similarity tasks, because GPT is a unidirectional model (generating tokens left-to-right), the order of Text 1 and Text 2 matters. You can feed different orderings and average the resulting similarity scores.
@@ -140,7 +140,7 @@ Even when tasks are unknown in advance, most language models still require task-
     - few-shot
 
 <p align="center">
-  {{< img src="gpt-3-tasks.png" alt="gpt-3-tasks" >}}
+  {{< img src="../../../posts/GPT/gpt-3-tasks.png" alt="gpt-3-tasks" >}}
 </p>
 
 #### Model & architecture
@@ -150,7 +150,7 @@ Even when tasks are unknown in advance, most language models still require task-
 - 8 different sizes
 
 <p align="center">
-  {{< img src="gpt-3-models.png" alt="gpt-3-models" >}}
+  {{< img src="../../../posts/GPT/gpt-3-models.png" alt="gpt-3-models" >}}
 </p>
 
 ---

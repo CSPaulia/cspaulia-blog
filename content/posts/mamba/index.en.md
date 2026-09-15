@@ -4,8 +4,8 @@ date: 2026-04-27T11:30:03+08:00
 # series:
 #     main: "Large Language Model"
 #     subseries: "Architecture and Training"
-categories: ["大语言模型"]
-tags: ["架构", "状态空间模型"]
+categories: ["Large Language Model"]
+tags: ["Architecture", "State Space Model"]
 author: "CSPaulia"
 showToc: false
 TocOpen: false
@@ -36,5 +36,5 @@ editPost:
     appendFilePath: true
 ---
 
-<iframe src="mamba.pdf" width="100%" height="800px" style="border: none;">
+<iframe src="../../../posts/mamba/mamba.pdf" width="100%" height="800px" style="border: none;">
 </iframe>

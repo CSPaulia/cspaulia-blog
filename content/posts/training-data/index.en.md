@@ -51,7 +51,7 @@ Data is the most important thing to get right when training language models. A s
 - But they reveal almost nothing about training data.
 
 <figure>
-  <img src="llama3-data.png" alt="The pre-training data section of the Llama 3 paper, with specific details redacted" loading="lazy">
+  <img src="../../../posts/training-data/llama3-data.png" alt="The pre-training data section of the Llama 3 paper, with specific details redacted" loading="lazy">
   <figcaption>The “Pre-Training Data” section of the Llama 3 paper: only high-level statements about diverse sources, deduplication, cleaning, and PII removal remain; the specific sources and mix are redacted. Source: <a href="https://arxiv.org/abs/2407.21783">Llama 3 paper</a>.</figcaption>
 </figure>
 
@@ -95,21 +95,21 @@ Increasingly, companies release only instruct models and not base models — Qwe
 1. **Pre-training**: OLMo 2 1124 Mix, mostly web pages (DCLM-Baseline), supplemented with code, academic papers, and math data:
 
 <figure>
-  <img src="olmo2-pretraining.png" alt="Composition table of the OLMo 2 1124 Mix pre-training data" loading="lazy">
+  <img src="../../../posts/training-data/olmo2-pretraining.png" alt="Composition table of the OLMo 2 1124 Mix pre-training data" loading="lazy">
   <figcaption>OLMo 2's pre-training data (OLMo 2 1124 Mix): mostly DCLM-Baseline web pages, supplemented with code (StarCoder), academic papers (peS2o, arXiv), math data (OpenWebMath et al.), and encyclopedic content (Wikipedia & Wikibooks). Source: <a href="https://arxiv.org/abs/2501.00656">OLMo 2 paper</a>.</figcaption>
 </figure>
 
 2. **Mid-training**: the Dolmino high-quality subset, which filters high-quality web pages out of the pre-training data and adds curated Q&A and synthetic math data:
 
 <figure>
-  <img src="olmo2-dolmino.png" alt="Composition table of the Dolmino high-quality subset for mid-training" loading="lazy">
+  <img src="../../../posts/training-data/olmo2-dolmino.png" alt="Composition table of the Dolmino high-quality subset for mid-training" loading="lazy">
   <figcaption>The Dolmino high-quality subset used for OLMo 2 mid-training: filtered high-quality web pages (DCLM-Baseline top 7%, FineWeb) plus curated Stack Exchange Q&A and various synthetic math data. Source: <a href="https://arxiv.org/abs/2501.00656">OLMo 2 paper</a>.</figcaption>
 </figure>
 
 3. **Post-training**: [Tülu 3](https://arxiv.org/abs/2411.15124), an instruction dataset organized by capability (general, knowledge, math, reasoning, coding, safety, and more):
 
 <figure>
-  <img src="tulu.png" alt="Composition table of the Tülu 3 instruction dataset organized by capability" loading="lazy">
+  <img src="../../../posts/training-data/tulu.png" alt="Composition table of the Tülu 3 instruction dataset organized by capability" loading="lazy">
   <figcaption>Tülu 3's instruction dataset, organized by capability: general, knowledge, math, reasoning, coding, safety, and multilingual. Source: <a href="https://arxiv.org/abs/2411.15124">Tülu 3 paper</a>.</figcaption>
 </figure>
 
@@ -155,7 +155,7 @@ Legal restrictions:
 **Consent is declining**: [Consent in Crisis](https://arxiv.org/abs/2407.14933) examined the robots.txt and ToS restrictions on URLs in common datasets (C4, RefinedWeb, Dolma) and found that restrictions have increased over time:
 
 <figure>
-  <img src="decline-consent.png" alt="Rising robots.txt restriction rates from 2016 to 2024" loading="lazy">
+  <img src="../../../posts/training-data/decline-consent.png" alt="Rising robots.txt restriction rates from 2016 to 2024" loading="lazy">
   <figcaption>Since 2016, robots.txt restrictions against major crawlers (Google-Extended, GPTBot, GPT-4, ChatGPT) have steadily increased. Source: <a href="https://arxiv.org/abs/2407.14933">Consent in Crisis paper</a>.</figcaption>
 </figure>
 
@@ -169,7 +169,7 @@ When crawlers are not well-behaved — violating ToS or robots.txt, or imposing 
   For example, iFixit accused Anthropic's crawler of hitting its servers about a million times in 24 hours:
 
   <figure>
-    <img src="anthropic-crawling.png" alt="Tweet by the iFixit CEO protesting Anthropic's crawler" loading="lazy">
+    <img src="../../../posts/training-data/anthropic-crawling.png" alt="Tweet by the iFixit CEO protesting Anthropic's crawler" loading="lazy">
     <figcaption>The iFixit CEO publicly protested on X that Anthropic's crawler was tying up devops resources; Read the Docs reported the same behavior. Source: Kyle Wiens' tweet.</figcaption>
   </figure>
 
@@ -296,7 +296,7 @@ Even if you have a license or can appeal to fair use for a work, terms of servic
 Crawling uses [Apache Nutch](https://blog.commoncrawl.org/blog/common-crawl-move-to-nutch): starting from a seed set of URLs (at least hundreds of millions), it repeatedly pops a URL from the queue, downloads the page, and adds the page's hyperlinks back to the queue:
 
 <figure>
-  <img src="crawler-architecture.png" alt="Standard web crawler architecture: URL queue, fetch, parse, and duplicate filtering" loading="lazy">
+  <img src="../../../posts/training-data/crawler-architecture.png" alt="Standard web crawler architecture: URL queue, fetch, parse, and duplicate filtering" loading="lazy">
   <figcaption>The standard crawler architecture: take a link from the URL frontier → fetch the page → parse and extract hyperlinks → filter duplicates → enqueue again. Source: Wikimedia Commons.</figcaption>
 </figure>
 
@@ -315,7 +315,7 @@ Two formats:
 HTML is converted to text with [trafilatura](https://trafilatura.readthedocs.io/en/latest/) or [resiliparse](https://resiliparse.chatnoir.eu/en/stable/), and the conversion directly affects downstream task accuracy:
 
 <figure>
-  <img src="dclm-wet.png" alt="Downstream task accuracy of different text extraction methods in the DCLM paper" loading="lazy">
+  <img src="../../../posts/training-data/dclm-wet.png" alt="Downstream task accuracy of different text extraction methods in the DCLM paper" loading="lazy">
   <figcaption>The DCLM paper compares text extraction methods: WET files (12.2–12.5) score clearly below trafilatura and resiliparse (13.4–24.5). Source: DCLM paper.</figcaption>
 </figure>
 
@@ -441,7 +441,7 @@ End result: 806GB of text (156 billion tokens).
 [Dodge et al.'s analysis of C4](https://arxiv.org/pdf/2104.08758):
 
 <figure>
-  <img src="c4-domains.png" alt="Bar chart of the most common top-level domains in C4" loading="lazy">
+  <img src="../../../posts/training-data/c4-domains.png" alt="Bar chart of the most common top-level domains in C4" loading="lazy">
   <figcaption>The most common top-level domains in C4: .com and .org dominate, and the sources concentrate heavily in a few domains. Source: Documenting Large Webtext Corpora paper.</figcaption>
 </figure>
 
@@ -477,7 +477,7 @@ Result: 570GB (400 billion tokens). How the Common Crawl part was processed:
 - 825 GB of text (~275B tokens).
 
 <figure>
-  <img src="the-pile.png" alt="List of The Pile's 22 component domains" loading="lazy">
+  <img src="../../../posts/training-data/the-pile.png" alt="List of The Pile's 22 component domains" loading="lazy">
   <figcaption>The Pile's 22 domains (partial): Pile-CC, PubMed Central, Books3, OpenWebText2, arXiv, GitHub, FreeLaw, Stack Exchange, USPTO, and Gutenberg. Source: The Pile paper.</figcaption>
 </figure>
 
@@ -568,7 +568,7 @@ Result: 15T tokens.
 [Dolma](https://arxiv.org/pdf/2402.00159) composition:
 
 <figure>
-  <img src="dolma-mix.png" alt="Composition table of the Dolma dataset sources" loading="lazy">
+  <img src="../../../posts/training-data/dolma-mix.png" alt="Composition table of the Dolma dataset sources" loading="lazy">
   <figcaption>Dolma's composition: mostly Common Crawl web pages, plus The Stack, C4, Reddit, PeS2o, Project Gutenberg, and Wikipedia/Wikibooks. Source: Dolma paper.</figcaption>
 </figure>
 
@@ -593,7 +593,7 @@ Result: 3T tokens.
 - DCLM-baseline: DCLM-pool filtered down with a quality classifier.
 
 <figure>
-  <img src="dclm-filter.png" alt="Schematic of the DCLM data processing pipeline" loading="lazy">
+  <img src="../../../posts/training-data/dclm-filter.png" alt="Schematic of the DCLM data processing pipeline" loading="lazy">
   <figcaption>The DCLM pipeline: heuristic cleaning (reproducing RefinedWeb) → DCLM-pool → deduplication → model-based quality filtering. Source: DCLM paper.</figcaption>
 </figure>
 
@@ -605,7 +605,7 @@ Model-based filtering replaces rules with a classifier:
 The trained fastText classifier was run over all of DCLM-pool, yielding 3.8T tokens. This quality classifier outperforms other filtering methods:
 
 <figure>
-  <img src="dclm-quality.png" alt="Comparison table of quality filtering methods in the DCLM paper" loading="lazy">
+  <img src="../../../posts/training-data/dclm-quality.png" alt="Comparison table of quality filtering methods in the DCLM paper" loading="lazy">
   <figcaption>DCLM's quality filtering comparison: at the 1B scale, a trained fastText classifier filters best. Source: DCLM paper.</figcaption>
 </figure>
 
@@ -620,7 +620,7 @@ The trained fastText classifier was run over all of DCLM-pool, yielding 3.8T tok
 Result: 6.3T tokens (HQ subset is 1.1T). For reference, Llama 3 trained on 15T and Qwen3 on 36T.
 
 <figure>
-  <img src="nemotron-results.png" alt="Benchmark comparison of Nemotron-CC against other datasets" loading="lazy">
+  <img src="../../../posts/training-data/nemotron-results.png" alt="Benchmark comparison of Nemotron-CC against other datasets" loading="lazy">
   <figcaption>Nemotron-CC versus FineWebEdu and DCLM on benchmarks: comparable quality with far more tokens. Source: Nemotron-CC paper.</figcaption>
 </figure>
 
@@ -649,12 +649,12 @@ Result: 3.1 TB of code.
 Pull requests are handled by linearizing the structured object into a token sequence, with some inline context (e.g., the file surrounding the diff):
 
 <figure>
-  <img src="stackv2-pr1.png" alt="Serialization format of pull requests in The Stack v2" loading="lazy">
+  <img src="../../../posts/training-data/stackv2-pr1.png" alt="Serialization format of pull requests in The Stack v2" loading="lazy">
   <figcaption>A PR is linearized into a structured token sequence: title, status, repo name, involved files, and the diff. Source: The Stack v2 paper.</figcaption>
 </figure>
 
 <figure>
-  <img src="stackv2-pr2.png" alt="Serialization format of PR comments and reviews in The Stack v2" loading="lazy">
+  <img src="../../../posts/training-data/stackv2-pr2.png" alt="Serialization format of PR comments and reviews in The Stack v2" loading="lazy">
   <figcaption>PR comments and reviews are serialized too; review states include approved, rejected, commented, and changes_required. Source: The Stack v2 paper.</figcaption>
 </figure>
 
@@ -665,7 +665,7 @@ Recall: almost all data on the Internet is copyrighted, only some of it is permi
 [CommonPile](https://arxiv.org/pdf/2506.05209) collected an 8TB dataset of permissively licensed data:
 
 <figure>
-  <img src="commonpile.png" alt="List of CommonPile's licensed data sources" loading="lazy">
+  <img src="../../../posts/training-data/commonpile.png" alt="List of CommonPile's licensed data sources" loading="lazy">
   <figcaption>CommonPile's sources: Stack v2, USPTO, US and UK government publications (CAP, USGPO, UK Hansard, Regulations.gov), Wikimedia, and more. Source: CommonPile paper.</figcaption>
 </figure>
 
@@ -676,7 +676,7 @@ Some subtleties:
 - The status of synthetic data from LMs trained on unlicensed data is unclear.
 
 <figure>
-  <img src="comma-results.png" alt="Performance comparison of the Comma model against other open models" loading="lazy">
+  <img src="../../../posts/training-data/comma-results.png" alt="Performance comparison of the Comma model against other open models" loading="lazy">
   <figcaption>Comma v0.1-1T, trained on CommonPile, versus LLaMA, MPT, and RPJ-INCITE: it can do decently. Source: CommonPile paper.</figcaption>
 </figure>
 

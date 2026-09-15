@@ -578,8 +578,6 @@ MQA 和 GQA 与 MHA 相比，计算复杂度不变，但存储开销减少。设
 
 计算量三者完全相同。差异全在 KV 相关存储：\(h \to g \to 1\)，KV Cache 从 \(O(hTd)\) 降为 \(O(Td)\)，直接缩放 \(h\) 倍。
 
-</details>
-
 推理时，KV Cache 额外占 \(2bktd\)（序列当前长 \(t\)）。当 \(k=1\)（MQA）时 KV Cache 最小，仅为 MHA 的 \(1/h\)。
 
 </details>

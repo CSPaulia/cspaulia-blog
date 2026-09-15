@@ -46,7 +46,7 @@ $$
 \text{ReLU}(x) = \max(0, x)
 $$
 
-![ReLU](activation_relu.png)
+![ReLU](../../../posts/activation/activation_relu.png)
 
 ---
 
@@ -74,7 +74,7 @@ $$
 \text{GELU}(x) = 0.5x(1+\tanh(\sqrt{\frac{2}{\pi}}(x+0.044715x^3)))
 $$
 
-![GELU_Derivative](activation_gelu.png)
+![GELU_Derivative](../../../posts/activation/activation_gelu.png)
 
 #### Intuition
 
@@ -104,7 +104,7 @@ $$
 
 The derivative is smooth and behaves like a gate.
 
-![Swish](activation_swish.png)
+![Swish](../../../posts/activation/activation_swish.png)
 
 Swish can be adjusted with a smoothing parameter $\beta$:
 

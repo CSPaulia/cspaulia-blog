@@ -172,13 +172,13 @@ languages:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: ExampleSite
-  description: "ExampleSite description"
-  keywords: [Blog, Portfolio, PaperMod]
+  title: cspaulia-blog
+  description: "CSPaulia 的个人技术博客，记录人工智能、机器人学与深度学习。"
+  keywords: [人工智能, 机器人学, 深度学习, Artificial Intelligence, Robotics]
   author: CSPaulia
   GitHubUser: CSPaulia
   # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
+  images: ["images/ly&sj.jpg"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
@@ -207,22 +207,13 @@ params:
   assets:
     disableHLJS: false # to disable highlight.js
     # disableFingerprinting: true
-    favicon: "<link / abs url>"
-    favicon16x16: "<link / abs url>"
-    favicon32x32: "<link / abs url>"
-    apple_touch_icon: "<link / abs url>"
-    safari_pinned_tab: "<link / abs url>"
-
-  extend_head: |
-    <link rel="stylesheet" href="{{ "css/extended/alerts.css" | absURL }}">
-    <script src="{{ "js/alerts.js" | absURL }}"></script>
-    <link rel="stylesheet" href="{{ "css/extended/profile.css" | absURL }}">
+    favicon: "images/ly&sj.jpg"
 
   syntax_highlighter: "highlight.js" # 设置代码高亮主题
 
   label:
     text: "Home"
-    icon: /apple-touch-icon.png
+    icon: "images/ly&sj.jpg"
     iconHeight: 35
 
   # profile-mode
@@ -236,17 +227,9 @@ params:
     - name: github
       url: "https://github.com/CSPaulia"
     - name: googlescholar
-      url: "https://scholar.google.com/citations?user=YOUR_ID&user=FzhDpUcAAAAJ"
+      url: "https://scholar.google.com/citations?user=FzhDpUcAAAAJ"
     - name: email
-      url: "shuaijiachen@stu.xjtu.edu.cn"
-
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+      url: "mailto:shuaijiachen@stu.xjtu.edu.cn"
 
   cover:
     hidden: false # hide everywhere but not in structured data

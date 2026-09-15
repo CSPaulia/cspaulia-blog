@@ -363,7 +363,7 @@ $$
 
 #### 4.1.1. 路由训练的稳定性
 
-观察到路由分数的计算涉及到 $\mathrm{softmax}$ 操作，$\mathrm{softmax}$ 会引发训练不稳定的问题，见[博客](/posts/transformer_in_llm/#模型训练稳定性技巧)，因此引入了路由 z-loss 来稳定训练过程。
+观察到路由分数的计算涉及到 $\mathrm{softmax}$ 操作，$\mathrm{softmax}$ 会引发训练不稳定的问题，见[博客](/posts/transformer_in_llm/#3-模型训练稳定性技巧)，因此引入了路由 z-loss 来稳定训练过程。
 
 {{< figure src="router_z-loss.png" alt="路由 z-loss 示例">}}
 

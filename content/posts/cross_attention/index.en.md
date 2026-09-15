@@ -55,7 +55,7 @@ The key difference is the input:
 - **Self-attention** uses a single sequence to produce Q/K/V.
 - **Cross-attention** uses two sequences: one for Q and the other for K/V.
 
-![cross attention](cross_attention.png)
+![cross attention](../../../posts/cross_attention/cross_attention.png)
 
 ### Cross-attention algorithm
 

@@ -51,7 +51,7 @@ The most common transformation is HTML to text:
 - Accuracy matters: the extraction method directly affects downstream accuracy, as [DataComp-LM](https://arxiv.org/abs/2406.11794) systematically compared.
 
 <figure>
-  <img src="dclm-wet.png" alt="Downstream accuracy of different text extraction methods in the DataComp-LM paper" loading="lazy">
+  <img src="../../../posts/training-data-2/dclm-wet.png" alt="Downstream accuracy of different text extraction methods in the DataComp-LM paper" loading="lazy">
   <figcaption>DataComp-LM compares text extraction methods: Common Crawl's built-in WET text (12.2–12.5) scores well below trafilatura and resiliparse (13.4–24.5). Source: <a href="https://arxiv.org/abs/2406.11794">DataComp-LM paper</a>.</figcaption>
 </figure>
 
@@ -65,7 +65,7 @@ PDFs are much harder than HTML: HTML has a clean tag tree, but a PDF is just dra
 - Limitation: much layout information is lost in the conversion.
 
 <figure>
-  <img src="finepdfs.webp" alt="A PDF's source structure versus its visual layout" loading="lazy">
+  <img src="../../../posts/training-data-2/finepdfs.webp" alt="A PDF's source structure versus its visual layout" loading="lazy">
   <figcaption>The anatomy of a PDF: source structure (left) versus visual layout (right). PDFs preserve appearance rather than structure; the gap between the two is the missing semantic information. Source: <a href="https://huggingface.co/spaces/HuggingFaceFW/FinePDFsBlog">FinePDFs blog</a>.</figcaption>
 </figure>
 
@@ -76,7 +76,7 @@ PDFs are much harder than HTML: HTML has a clean tag tree, but a PDF is just dra
 The algorithmic building block of filtering: given some target data T and lots of raw data R, find a subset T' of R that is similar to T.
 
 <figure>
-  <img src="raw-target-schema.png" alt="The filtering framework: finding a subset T' of R similar to target data T" loading="lazy">
+  <img src="../../../posts/training-data-2/raw-target-schema.png" alt="The filtering framework: finding a subset T' of R similar to target data T" loading="lazy">
   <figcaption>The filtering framework: given target data T and raw data R, find a subset T' of R that is similar to T. Source: CS336 Lecture 14 slides.</figcaption>
 </figure>
 
@@ -159,7 +159,7 @@ There is no single optimal filtering threshold; it depends on how long you train
 - Training shorter: want less (higher quality) data.
 
 <figure>
-  <img src="data-filtering-scale.png" alt="Scale-dependent effects of filtering: training duration determines the optimal filtering strength" loading="lazy">
+  <img src="../../../posts/training-data-2/data-filtering-scale.png" alt="Scale-dependent effects of filtering: training duration determines the optimal filtering strength" loading="lazy">
   <figcaption>Scale-dependent effects of filtering: the optimal filtering strength differs with training duration. Source: CS336 Lecture 14 slides.</figcaption>
 </figure>
 
@@ -184,7 +184,7 @@ Typical examples of near duplicates:
 - Minor formatting differences from copy/pasting.
 
 <figure>
-  <img src="dedup-examples.png" alt="Examples of near duplicates in Table 1 of the deduplication paper" loading="lazy">
+  <img src="../../../posts/training-data-2/dedup-examples.png" alt="Examples of near duplicates in Table 1 of the deduplication paper" loading="lazy">
   <figcaption>Examples of near duplicates (Table 1 of the paper): documents identical except for templated fields (last row), a typical form of formulaic writing. Source: <a href="https://arxiv.org/abs/2107.06499">Lee et al. 2021</a>.</figcaption>
 </figure>
 
@@ -303,7 +303,7 @@ Given sim = Jaccard(A, B):
 Example: sim = 0.8, b = 5, r = 10: the band match probability is 0.107, and the collision probability is 0.433.
 
 <figure>
-  <img src="lsh-curve.png" alt="The S-shaped LSH collision probability curve (b=5, r=10)" loading="lazy">
+  <img src="../../../posts/training-data-2/lsh-curve.png" alt="The S-shaped LSH collision probability curve (b=5, r=10)" loading="lazy">
   <figcaption>The S-shaped LSH collision probability curve (b=5, r=10): at similarity 0.8 the collision probability is about 0.43. Source: CS336 Lecture 14 slides.</figcaption>
 </figure>
 
@@ -313,7 +313,7 @@ The effect of tuning b and r:
 - Increasing b moves the curve left (easier to match).
 
 <figure>
-  <img src="lsh-b-r-curves.png" alt="A family of LSH collision probability curves for different b and r" loading="lazy">
+  <img src="../../../posts/training-data-2/lsh-b-r-curves.png" alt="A family of LSH collision probability curves for different b and r" loading="lazy">
   <figcaption>A family of curves for different b and r: r controls the position and steepness of the threshold, b shifts the curve horizontally. Source: CS336 Lecture 14 slides.</figcaption>
 </figure>
 
@@ -334,14 +334,14 @@ In [Lee et al. 2021](https://arxiv.org/abs/2107.06499), the phase transition hap
 Language models are trained on multiple data sources. The [token viewer for the Marin dataset](https://huggingface.co/spaces/marin-community/token-count-viewer) makes the scale of each source visible:
 
 <figure>
-  <img src="marin-token-viewer.png" alt="Screenshot of the Marin dataset token viewer" loading="lazy">
+  <img src="../../../posts/training-data-2/marin-token-viewer.png" alt="Screenshot of the Marin dataset token viewer" loading="lazy">
   <figcaption>The Marin dataset token viewer: comparing the scale of each dataset at a glance. Source: <a href="https://huggingface.co/spaces/marin-community/token-count-viewer">Marin token viewer</a>.</figcaption>
 </figure>
 
 [The Pile](https://arxiv.org/abs/2101.00027) is the classic example, made of 22 sub-datasets:
 
 <figure>
-  <img src="the-pile.png" alt="The share of the 22 sub-datasets in The Pile" loading="lazy">
+  <img src="../../../posts/training-data-2/the-pile.png" alt="The share of the 22 sub-datasets in The Pile" loading="lazy">
   <figcaption>The composition of The Pile: 22 sub-datasets by share. Source: <a href="https://arxiv.org/abs/2101.00027">The Pile paper</a>.</figcaption>
 </figure>
 
@@ -392,7 +392,7 @@ Regression-based mixing (e.g., [RegMix](https://arxiv.org/abs/2407.01492), [Olmi
 4. Accept the discrepancy between small and large scale (a cost-accuracy tradeoff).
 
 <figure>
-  <img src="regmix.png" alt="The regression-based data mixing framework of RegMix" loading="lazy">
+  <img src="../../../posts/training-data-2/regmix.png" alt="The regression-based data mixing framework of RegMix" loading="lazy">
   <figcaption>RegMix's regression-based data mixing framework: sample mixtures, train small models, fit "mixture → loss" with a regressor, and optimize. Source: <a href="https://arxiv.org/abs/2407.01492">RegMix paper</a>.</figcaption>
 </figure>
 
@@ -400,7 +400,7 @@ Regression-based mixing (e.g., [RegMix](https://arxiv.org/abs/2407.01492), [Olmi
   <summary>Comparison of data mixing methods</summary>
 
 <figure>
-  <img src="data-mixing-methods.png" alt="A comparison of data mixing methods" loading="lazy">
+  <img src="../../../posts/training-data-2/data-mixing-methods.png" alt="A comparison of data mixing methods" loading="lazy">
   <figcaption>A comparison of data mixing methods. Source: CS336 Lecture 14 slides.</figcaption>
 </figure>
 
@@ -439,7 +439,7 @@ The general recipe for synthetic data has three steps:
 [OpenThoughts](https://arxiv.org/abs/2506.04178) used QwQ-32B as the teacher to generate 1.2M examples, with questions from 27 human and synthetic sources (e.g., StackExchange, NuminaMath, Chemistry):
 
 <figure>
-  <img src="openthoughts-sources.png" alt="The 27 sources of OpenThoughts and their shares" loading="lazy">
+  <img src="../../../posts/training-data-2/openthoughts-sources.png" alt="The 27 sources of OpenThoughts and their shares" loading="lazy">
   <figcaption>The 27 sources of OpenThoughts and their shares. Source: OpenThoughts paper.</figcaption>
 </figure>
 
@@ -451,7 +451,7 @@ Four lessons from the generation process:
 - Smaller high-quality sources (e.g., OpenMath-2-Math) beat large diverse sources.
 
 <figure>
-  <img src="openthoughts-pipeline.png" alt="The OpenThoughts generation pipeline" loading="lazy">
+  <img src="../../../posts/training-data-2/openthoughts-pipeline.png" alt="The OpenThoughts generation pipeline" loading="lazy">
   <figcaption>The OpenThoughts generation pipeline. Source: OpenThoughts paper.</figcaption>
 </figure>
 
@@ -464,7 +464,7 @@ Math problems can be posed out of thin air, but SWE tasks depend on real reposit
 [SWE-smith](https://arxiv.org/abs/2504.21798): given a repository, use an LM to generate tasks — that is, plant bugs in the code with an LM. 128 GitHub repositories yield 50K tasks.
 
 <figure>
-  <img src="swe-smith.png" alt="The SWE-smith task generation flow" loading="lazy">
+  <img src="../../../posts/training-data-2/swe-smith.png" alt="The SWE-smith task generation flow" loading="lazy">
   <figcaption>The SWE-smith task generation flow: planting bugs in real repositories with an LM to create tasks. Source: SWE-smith paper.</figcaption>
 </figure>
 
@@ -473,7 +473,7 @@ Math problems can be posed out of thin air, but SWE tasks depend on real reposit
 [SWE-Zero](https://arxiv.org/abs/2604.01496) starts from the observation that SWE tasks have heavy dependencies (unlike math or coding contests), and setting up thousands of Docker images is an infrastructural nightmare. The key observation: strong models can solve many tasks without execution feedback — they have an internal "world model" of code semantics.
 
 <figure>
-  <img src="swezero-noexec.png" alt="The SWE-Zero observation: strong models solve many SWE tasks without execution feedback" loading="lazy">
+  <img src="../../../posts/training-data-2/swezero-noexec.png" alt="The SWE-Zero observation: strong models solve many SWE tasks without execution feedback" loading="lazy">
   <figcaption>The SWE-Zero observation: strong models solve many SWE tasks without execution feedback. Source: SWE-Zero paper.</figcaption>
 </figure>
 
@@ -485,12 +485,12 @@ SWE-Zero therefore built 300K agent trajectories that do not require repository-
 - Complemented by SWE-Hero: 13K trajectories that do require execution feedback.
 
 <figure>
-  <img src="swezero-prompt.png" alt="The SWE-Zero prompt and trajectory construction" loading="lazy">
+  <img src="../../../posts/training-data-2/swezero-prompt.png" alt="The SWE-Zero prompt and trajectory construction" loading="lazy">
   <figcaption>The SWE-Zero prompt and trajectory construction. Source: SWE-Zero paper.</figcaption>
 </figure>
 
 <figure>
-  <img src="swezero-results.png" alt="Results comparing SWE-Zero and SWE-Hero" loading="lazy">
+  <img src="../../../posts/training-data-2/swezero-results.png" alt="Results comparing SWE-Zero and SWE-Hero" loading="lazy">
   <figcaption>Results comparing SWE-Zero and SWE-Hero. Source: SWE-Zero paper.</figcaption>
 </figure>
 
@@ -499,7 +499,7 @@ SWE-Zero therefore built 300K agent trajectories that do not require repository-
 [SWE-rebench](https://arxiv.org/abs/2505.20411) built 21K interactive Python SWE tasks from 3.4K GitHub repositories and 450K PRs (GitHub and GitHub Archive), using Qwen 2.5-72B-Instruct to install dependencies and assess PR quality.
 
 <figure>
-  <img src="swe-rebench.png" alt="The SWE-rebench task collection and evaluation pipeline" loading="lazy">
+  <img src="../../../posts/training-data-2/swe-rebench.png" alt="The SWE-rebench task collection and evaluation pipeline" loading="lazy">
   <figcaption>The SWE-rebench task collection and evaluation pipeline. Source: SWE-rebench paper.</figcaption>
 </figure>
 

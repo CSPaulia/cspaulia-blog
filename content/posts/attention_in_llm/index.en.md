@@ -6,8 +6,8 @@ date: 2026-04-23T11:30:03+08:00
 series:
     main: "Large Language Model"
     subseries: "Architecture and Training"
-categories: ["大语言模型"]
-tags: ["架构", "训练"]
+categories: ["Large Language Model"]
+tags: ["Architecture", "Training"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -46,7 +46,7 @@ See [blog](../transformer_in_LLM/index.md#mqa-gqa).
 
 ## Sparse Attention {#sparse-attention}
 
-{{< figure src="sparse_attentions.png" alt="Sparse attention mask example" caption="Sparse attention mask example" >}}
+{{< figure src="../../../posts/attention_in_llm/sparse_attentions.png" alt="Sparse attention mask example" caption="Sparse attention mask example" >}}
 
 ### Motivation for Sparse Attention
 
@@ -121,22 +121,22 @@ Complexity: \(O(N^2/l)\), approximately \(O(N\sqrt{N})\) when \(l\) is of the sa
 Assume the model is processing a 128K token long context, and the last sentence of the current query is:
 
 ```text
-“请根据前文第 3 份合同里的违约条款回答……”
+“Please answer according to the breach clause in the third contract above...”
 ```
 
 Standard attention:
 
 ```text
-当前 token 直接和前面 128K 个 token 全部算 attention
+The current token attends directly to all preceding 128K tokens.
 ```
 
 DSA:
 
 ```text
-1. 轻量化索引器（lighting Indexer）快速阅读历史 token
-2. 给每一个历史 token 计算一个相关性分数
-3. 选取 top-k 相关 token 作为当前 token 的注意力范围
-4. 主注意力模块对这 top-k token 进行全注意力计算
+1. A lightweight indexer quickly scans the historical tokens.
+2. It computes a relevance score for every historical token.
+3. It selects the top-k relevant tokens as the current token's attention range.
+4. The main attention module performs full attention over those top-k tokens.
 ```
 
 The main idea of DSA, like all sparse attention mentioned above, is to reduce the number of tokens each query token interacts with. For a query sequence of length $N$, the number of interacting tokens is reduced from $N$ to $k$, and the complexity is reduced from $O(N^2)$ to $O(Nk)$.
@@ -260,7 +260,7 @@ MLA advances KV cache compression from "reducing the number of heads" to "reduci
 
 **Compressed Sparse Attention** = Compressed KV entries + DeepSeek Sparse Attention + Shared Key-Value Multi-Query Attention. From [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
 
-{{< figure src="csa.png" alt="CSA structure diagram" caption="CSA structure diagram" >}}
+{{< figure src="../../../posts/attention_in_llm/csa.png" alt="CSA structure diagram" caption="CSA structure diagram" >}}
 
 ### Compressed KV Entries {#compressed-kv-entries-csa}
 
@@ -326,7 +326,7 @@ Where \(C^{\text{SprsComp}}_{t} = \{\mathbf{c}_s^{\text{Comp}} \mid I_{t,s} \in 
 
 **Heavily Compressed Attention** = Heavily compressed KV entries + Shared Key-Value Multi-Query Attention. From [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
 
-{{< figure src="hca.png" alt="HCA structure diagram" caption="HCA structure diagram" >}}
+{{< figure src="../../../posts/attention_in_llm/hca.png" alt="HCA structure diagram" caption="HCA structure diagram" >}}
 
 ### Heavily Compressed KV Entries
 

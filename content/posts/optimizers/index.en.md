@@ -161,7 +161,7 @@ Muon stands for MomentUm Orthogonalized by Newton-Schulz. It targets two-dimensi
 The following discussion assumes familiarity with singular values and singular vectors. See [Singular Value Decomposition (SVD)](../svd/).
 
 <figure>
-  <img src="muon-algorithm.png" alt="Muon optimizer: momentum accumulation, Newton-Schulz orthogonalization, and parameter update">
+  <img src="../../../posts/optimizers/muon-algorithm.png" alt="Muon optimizer: momentum accumulation, Newton-Schulz orthogonalization, and parameter update">
   <figcaption>Muon forms a momentum matrix \(B_t\), obtains an update direction \(O_t\) through Newton-Schulz iterations, and then updates the parameters.</figcaption>
 </figure>
 

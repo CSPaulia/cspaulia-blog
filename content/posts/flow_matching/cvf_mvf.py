@@ -118,7 +118,7 @@ def conditional_density(x, z, t, eps=1e-6):
 
 
 def marginal_vector_field(x, z_samples, t, eps=1e-12):
-    """
+    r"""
     Monte-Carlo approximation of the marginal vector field:
 
         u_t(x) = \int u_t(x|z) p_data(z|x) dz

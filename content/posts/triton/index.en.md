@@ -5,8 +5,8 @@ series:
   main: "Large Language Model"
   subseries: "Systems and Hardware"
 draft: false
-categories: ["大语言模型", "系统"]
-tags: ["Triton", "GPU", "CUDA", "并行计算", "Kernel"]
+categories: ["Large Language Model", "Systems"]
+tags: ["Triton", "GPU", "CUDA", "Parallel Computing", "Kernel"]
 author: "CSPaulia"
 showToc: true
 TocOpen: true
@@ -79,42 +79,42 @@ Here’s an example benchmark for matrix multiplication:
 import torch
 
 def run_operation2(dim: int, operation):
-    """创建两个 dim×dim 随机矩阵，返回一个可调用的操作函数"""
+    """Create two dim×dim random matrices and return a callable operation."""
     x = torch.randn(dim, dim, device="cuda")
     y = torch.randn(dim, dim, device="cuda")
     return lambda: operation(x, y)
 
 def benchmark(run, num_warmups: int = 1, num_trials: int = 3) -> float:
-    """运行 `run` 多次并返回平均耗时（毫秒）"""
+    """Execute `run` repeatedly and return the average elapsed time in milliseconds."""
 
-    # 1. Warmup：第一次运行往往偏慢（JIT 编译、缓存未命中），
-    #    我们关心的是稳态性能，所以先预热几次
+    # 1. Warm-up: the first run is often slower because of JIT compilation and cache misses.
+    #    We care about steady-state performance, so run a few warm-up iterations first.
     for _ in range(num_warmups):
         run()
-    torch.cuda.synchronize()  # 等待所有 CUDA 线程完成（重要！）
+    torch.cuda.synchronize()  # Wait for all CUDA work to finish (important).
 
-    # 2. 正式计时
+    # 2. Timed trials
     times: list[float] = []
     for trial in range(num_trials):
-        # 使用 CUDA Event 获得精确的 GPU 端计时
-        # （避免把 CPU 端的 launch overhead 也算进去）
+        # Use CUDA Events for precise GPU-side timing,
+        # excluding CPU-side launch overhead.
         start_event = torch.cuda.Event(enable_timing=True)
         end_event = torch.cuda.Event(enable_timing=True)
 
-        start_event.record()   # 记录开始时间
-        run()                  # 实际执行计算
-        end_event.record()     # 记录结束时间
+        start_event.record()   # Record the start time.
+        run()                  # Execute the computation.
+        end_event.record()     # Record the end time.
 
-        torch.cuda.synchronize()  # 等待 GPU 完成
+        torch.cuda.synchronize()  # Wait for the GPU to finish.
         times.append(start_event.elapsed_time(end_event))
 
     return sum(times) / len(times)
 
-# 对 1024×1024 矩阵乘法做 benchmark
+# Benchmark 1024×1024 matrix multiplication.
 matmul = run_operation2(dim=1024, operation=lambda a, b: a @ b)
 avg_time = benchmark(matmul)
 
-# 观察时间随维度的 scaling
+# Observe how runtime scales with dimension.
 for dim in [256, 512, 1024, 2048, 4096, 8192]:
     op = run_operation2(dim=dim, operation=lambda a, b: a @ b)
     t = benchmark(op)
@@ -164,7 +164,7 @@ def profile(run, num_warmups: int = 1):
         run()
         torch.cuda.synchronize()
 
-    # 按 CUDA 时间排序，显示前 10 个 kernel
+    # Sort by CUDA time and show the top 10 kernels.
     table = prof.key_averages().table(
         sort_by="cuda_time_total",
         max_name_column_width=100,
@@ -172,11 +172,11 @@ def profile(run, num_warmups: int = 1):
     )
     return table
 
-# 对一个简单的 add 操作做 profile
+# Profile a simple addition operation.
 add_op = run_operation2(dim=2048, operation=lambda a, b: a + b)
 print(profile(add_op))
 
-# 对矩阵乘法做 profile
+# Profile matrix multiplication.
 matmul_op = run_operation2(dim=2048, operation=lambda a, b: a @ b)
 print(profile(matmul_op))
 ```
@@ -220,19 +220,19 @@ From the output, we can observe:
 Using benchmarking + profiling to compare different implementations of the same operation is the most illustrative approach. Take the GeLU activation function as an example:
 
 ```python
-# 1. Naive PyTorch 实现（非融合，多个独立 kernel）
+# 1. Naive PyTorch implementation: unfused, with several separate kernels.
 def naive_gelu(x: torch.Tensor):
     return 0.5 * x * (1 + torch.tanh(0.79788456 * (x + 0.044715 * x * x * x)))
 
-# 2. PyTorch 内置实现（融合 kernel）
+# 2. Built-in PyTorch implementation with a fused kernel.
 def builtin_gelu(x: torch.Tensor):
     return torch.nn.functional.gelu(x, approximate="tanh")
 
-# 3. 用 torch.compile 编译 naive 版本（让编译器尝试融合）
+# 3. Compile the naive version with torch.compile so the compiler can attempt fusion.
 compiled_gelu = torch.compile(naive_gelu)
 
 def run_operation1(dim: int, operation):
-    """创建单个 dim×dim 随机矩阵，返回一个可调用的操作函数"""
+    """Create one dim×dim random matrix and return a callable operation."""
     x = torch.randn(dim, dim, device="cuda")
     return lambda: operation(x)
 
@@ -291,10 +291,10 @@ def triton_gelu(x: torch.Tensor):
     y = torch.empty_like(x)
 
     num_elements = x.numel()
-    BLOCK_SIZE = 1024                         # 每个 block 处理 1024 个元素
-    num_blocks = triton.cdiv(num_elements, BLOCK_SIZE)  # 向上取整，确保覆盖所有元素
+    BLOCK_SIZE = 1024                         # Each block processes 1,024 elements.
+    num_blocks = triton.cdiv(num_elements, BLOCK_SIZE)  # Round up to cover every element.
 
-    # 启动 kernel：(num_blocks,) 是 1D grid，每个 block 有 BLOCK_SIZE 个 thread
+    # Launch the kernel: (num_blocks,) is a 1D grid; each block handles BLOCK_SIZE elements.
     triton_gelu_kernel[(num_blocks,)](x, y, num_elements, BLOCK_SIZE=BLOCK_SIZE)
 
     return y
@@ -307,10 +307,10 @@ def triton_gelu(x: torch.Tensor):
 ```python
 @triton.jit
 def triton_gelu_kernel(x_ptr, y_ptr, num_elements, BLOCK_SIZE: tl.constexpr):
-    # ===== 1. 计算索引：当前 block 负责哪些元素 =====
-    pid = tl.program_id(axis=0)                  # 我是第几个 block？
-    start = pid * BLOCK_SIZE                      # 本 block 的起始位置
-    offsets = start + tl.arange(0, BLOCK_SIZE)    # 本 block 内每个 thread 的偏移
+    # ===== 1. Compute indices: which elements belong to the current block? =====
+    pid = tl.program_id(axis=0)                  # Index of the current block.
+    start = pid * BLOCK_SIZE                     # Starting position of this block.
+    offsets = start + tl.arange(0, BLOCK_SIZE)   # Per-element offsets within this block.
 
     mask = offsets < num_elements                 # The final block may be incomplete
 
@@ -352,7 +352,7 @@ For this GeLU kernel, Triton automatically performs **thread coarsening**, allow
 
 ### 3.3 Triton: Softmax Example (Intra-Block Reduction)
 
-![Triton Softmax](triton-softmax.png)
+![Triton Softmax](../../../posts/triton/triton-softmax.png)
 
 GeLU is element-wise, so each thread works independently. Softmax instead performs reductions over an entire row—computing a maximum and a sum—so threads must cooperate.
 
@@ -419,7 +419,7 @@ GeLU demonstrates element-wise load → compute → store. Softmax adds an intra
 
 ### 3.4 Triton: Row Sum Example (Cross-Tile Reduction)
 
-![Triton Row Sum](triton-row-sum.png)
+![Triton Row Sum](../../../posts/triton/triton-row-sum.png)
 
 The Softmax kernel assumes that one complete row fits in a block (`num_cols <= BLOCK_SIZE`). If a row has 4096 columns but `BLOCK_SIZE = 1024`, the row must be split into tiles.
 
@@ -500,7 +500,7 @@ Matrix multiplication is a core operation in deep learning. `C = A @ B`, A is M�
 - Write back the output tile
 - Arithmetic intensity: O(tile_size)
 
-![GEMM Tiled](gemm_tiled.png)
+![GEMM Tiled](../../../posts/triton/gemm_tiled.png)
 
 If ReLU is additionally needed, it can be **directly fused into the same kernel**, saving an extra HBM read/write.
 
@@ -523,10 +523,10 @@ def triton_matmul_relu(a: torch.Tensor, b: torch.Tensor):
     K, N = b.shape
     c = torch.empty((M, N), device=a.device)
 
-    # Tile 尺寸
+    # Tile dimensions
     BLOCK_M, BLOCK_N, BLOCK_K = 64, 64, 32
 
-    # 2D grid：每个 block 负责 C 的一个输出 tile
+    # 2D grid: each block computes one output tile of C.
     grid = (triton.cdiv(M, BLOCK_M), triton.cdiv(N, BLOCK_N))
 
     matmul_relu_kernel[grid](
@@ -549,30 +549,30 @@ Here we use a **2D grid**: `program_id(0)` selects the row tile of C, `program_i
 def matmul_relu_kernel(
     a_ptr, b_ptr, c_ptr,
     M, N, K,
-    stride_am, stride_ak,     # A 的行 stride 和列 stride
-    stride_bk, stride_bn,     # B 的行 stride 和列 stride
-    stride_cm, stride_cn,     # C 的行 stride 和列 stride
+    stride_am, stride_ak,     # Row and column strides of A
+    stride_bk, stride_bn,     # Row and column strides of B
+    stride_cm, stride_cn,     # Row and column strides of C
     BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr,
 ):
-    # 当前 block 负责 C 的第 (pid_m, pid_n) 个 tile
+    # The current block computes tile (pid_m, pid_n) of C.
     pid_m = tl.program_id(0)
     pid_n = tl.program_id(1)
 
-    # 索引范围
+    # Index ranges
     indices_m = pid_m * BLOCK_M + tl.arange(0, BLOCK_M)   # [BLOCK_M]
     indices_n = pid_n * BLOCK_N + tl.arange(0, BLOCK_N)   # [BLOCK_N]
     indices_k = tl.arange(0, BLOCK_K)                      # [BLOCK_K]
 
-    # 初始指针：A 的行 tile，B 的列 tile
+    # Initial pointers: a row tile of A and a column tile of B.
     a_ptrs = (a_ptr + indices_m[:, None] * stride_am
                     + indices_k[None, :] * stride_ak)      # [BLOCK_M, BLOCK_K]
     b_ptrs = (b_ptr + indices_k[:, None] * stride_bk
                     + indices_n[None, :] * stride_bn)      # [BLOCK_K, BLOCK_N]
 
-    # 累加器（在寄存器中）
+    # Accumulator stored in registers
     acc = tl.zeros([BLOCK_M, BLOCK_N], dtype=tl.float32)
 
-    # 1. Load + Compute：沿 K 方向遍历 tile
+    # 1. Load + compute: iterate over tiles along K.
     for k in range(0, K, BLOCK_K):
         a = tl.load(a_ptrs,
                     mask=(indices_m[:, None] < M) & (indices_k[None, :] + k < K),
@@ -581,15 +581,15 @@ def matmul_relu_kernel(
                     mask=(indices_k[:, None] + k < K) & (indices_n[None, :] < N),
                     other=0.0)
 
-        acc += tl.dot(a, b)                       # Tensor Core 加速
+        acc += tl.dot(a, b)                       # Accelerated by Tensor Cores
 
-        a_ptrs += BLOCK_K * stride_ak             # 前进到下一个行 tile
-        b_ptrs += BLOCK_K * stride_bk             # 前进到下一个列 tile
+        a_ptrs += BLOCK_K * stride_ak             # Advance to the next row tile.
+        b_ptrs += BLOCK_K * stride_bk             # Advance to the next column tile.
 
     # 2. Kernel Fusion：ReLU
     acc = tl.maximum(acc, 0.0)
 
-    # 3. Store：写回输出 tile
+    # 3. Store: write the output tile back.
     c_ptrs = (c_ptr + indices_m[:, None] * stride_cm
                     + indices_n[None, :] * stride_cn)
     tl.store(c_ptrs, acc,

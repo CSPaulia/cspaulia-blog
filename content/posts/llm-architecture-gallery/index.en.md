@@ -4,7 +4,7 @@ date: 2026-04-28T11:30:03+08:00
 series:
     main: "Large Language Model"
     subseries: "Architecture and Training"
-categories: ["大语言模型"]
+categories: ["Large Language Model"]
 tags: ["architecture", "attention", "MoE", "optimizer"]
 author: "CSPaulia"
 showToc: true

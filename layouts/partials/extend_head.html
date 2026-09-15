@@ -1,1 +1,3 @@
 {{ partial "math.html" . }}
+{{- $alerts := resources.Get "js/alerts.js" | resources.Minify | fingerprint -}}
+<script defer src="{{ $alerts.RelPermalink }}" integrity="{{ $alerts.Data.Integrity }}" crossorigin="anonymous"></script>

@@ -6,8 +6,8 @@ date: 2026-04-22T10:30:03+08:00
 series:
     main: "Large Language Model"
     subseries: "Architecture and Training"
-categories: ["大语言模型"]
-tags: ["架构", "训练"]
+categories: ["Large Language Model"]
+tags: ["Architecture", "Training"]
 author: "CSPaulia"
 # author: ["Me", "You"] # multiple authors
 showToc: true
@@ -40,7 +40,7 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-<img src="moe_overall.png" alt="Mixture of Experts Architecture Diagram"/>
+<img src="../../../posts/mixture-of-experts/moe_overall.png" alt="Mixture of Experts Architecture Diagram"/>
 
 - Dense FFN: A large FFN that every token runs through.
 - MoE FFN: $N$ expert FFNs, each token runs through only one of them.
@@ -60,7 +60,7 @@ editPost:
 1. MoE's sweet spot is "large-scale distributed systems," not "small, simple single-machine training."
 2. The training objective and process are heuristic and sometimes unstable, as shown in the following figure[3]:
 
-<img src="moe_training_instabilities.png" alt="Training Instability in Mixture of Experts"/>
+<img src="../../../posts/mixture-of-experts/moe_training_instabilities.png" alt="Training Instability in Mixture of Experts"/>
 
 ---
 
@@ -68,13 +68,13 @@ editPost:
 
 ### 2.1. Routing Function
 
-<img src="routing_function.png" alt="Router Function Example"/>
+<img src="../../../posts/mixture-of-experts/routing_function.png" alt="Router Function Example"/>
 
 1. **Token-Choice Routing**: Each token selects the expert it most prefers (most common).
 2. **Expert-Choice Routing**: Each expert selects the tokens it most prefers.
 3. **Optimized Global Routing**: Optimization on top of the former two, considering load balancing, expert utilization, etc.
 
-{{< figure src="routing_type.png" alt="Router Function Types" caption="Compared to Expert Choice, Token Choice is superior in all aspects [2]." >}}
+{{< figure src="../../../posts/mixture-of-experts/routing_type.png" alt="Router Function Types" caption="Compared to Expert Choice, Token Choice is superior in all aspects [2]." >}}
 
 ### 2.2. Routing Type
 
@@ -82,7 +82,7 @@ editPost:
 
 The most common routing type in MoE architectures.
 
-{{< figure src="top-k.png" alt="Top-k Routing Example">}}
+{{< figure src="../../../posts/mixture-of-experts/top-k.png" alt="Top-k Routing Example">}}
 
 The k values for different models are shown in the table below:
 
@@ -117,7 +117,7 @@ where $g\_{i,t}$ can be regarded as the gating value.
 
 #### 2.2.2. Hashing Routing
 
-{{< figure src="hashing.png" alt="Hashing Routing Example">}}
+{{< figure src="../../../posts/mixture-of-experts/hashing.png" alt="Hashing Routing Example">}}
 
 1. Obtain a certain id of the token, which could be: token id, token string, etc.
 2. Hash it.
@@ -131,7 +131,7 @@ $$
 
 Since routing involves assigning tokens to experts, which is a discrete process, reinforcement learning is well-suited for training the routing function.
 
-{{< figure src="rl_to_learn_routes.png" alt="Reinforcement Learning Routing Example">}}
+{{< figure src="../../../posts/mixture-of-experts/rl_to_learn_routes.png" alt="Reinforcement Learning Routing Example">}}
 
 However, training the routing function with reinforcement learning has two drawbacks:
 - Unstable training process.
@@ -143,7 +143,7 @@ Therefore, this method is not commonly used.
 
 It explicitly incorporates "load balancing" into the assignment process itself, rather than first selecting and then adding a balancing loss as a remedy, unlike ordinary top-k routing.
 
-{{< figure src="linear_assignment.png" alt="BASE Routing Example">}}
+{{< figure src="../../../posts/mixture-of-experts/linear_assignment.png" alt="BASE Routing Example">}}
 
 General steps:
 1. Compute routing scores: same as ordinary router, first assign scores using a small gating network.
@@ -153,7 +153,7 @@ General steps:
 
 ### 2.3. MoE Variants
 
-{{< figure src="moe_variants.png" alt="MoE Variant Example">}}
+{{< figure src="../../../posts/mixture-of-experts/moe_variants.png" alt="MoE Variant Example">}}
 
 The main changes in MoE design language are as follows (assuming the original FFN feature dimension is $d$):
 
@@ -342,7 +342,7 @@ The advantage is that all expert computations can be done with a single matrix m
 
 #### 3.2.2. Latent MoE
 
-{{<figure src="latent_moe.png" alt="Latent MoE Example">}}
+{{<figure src="../../../posts/mixture-of-experts/latent_moe.png" alt="Latent MoE Example">}}
 
 Downsample and then upsample the token feature dimension.
 
@@ -354,7 +354,7 @@ When all batches tend to select the same expert, drop a portion of the batches, 
 
 **Upcycling**: Use a pre-trained dense model to initialize the expert weights in an MoE model.
 
-{{< figure src="upcycling.png" alt="Upcycling Example">}}
+{{< figure src="../../../posts/mixture-of-experts/upcycling.png" alt="Upcycling Example">}}
 
 ## 4. Issues with MoE
 
@@ -362,9 +362,9 @@ When all batches tend to select the same expert, drop a portion of the batches, 
 
 #### 4.1.1. Routing Training Stability
 
-It has been observed that routing score computation involves the $\mathrm{softmax}$ operation, and $\mathrm{softmax}$ can cause training instability. See [blog](/posts/transformer_in_llm/#模型训练稳定性技巧). Therefore, routing z-loss is introduced to stabilize training.
+It has been observed that routing score computation involves the $\mathrm{softmax}$ operation, and $\mathrm{softmax}$ can cause training instability. See [blog](/posts/transformer_in_llm/#3-training-stability-tips). Therefore, routing z-loss is introduced to stabilize training.
 
-{{< figure src="router_z-loss.png" alt="Router z-loss Example">}}
+{{< figure src="../../../posts/mixture-of-experts/router_z-loss.png" alt="Router z-loss Example">}}
 
 #### 4.2. Overfitting During SFT
 

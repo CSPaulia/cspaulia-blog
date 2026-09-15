@@ -39,7 +39,7 @@ editPost:
 ## Complete Handwritten Notes
 
 <iframe
-  src="dqn-notes.pdf"
+  src="../../../posts/dqn/dqn-notes.pdf"
   title="Handwritten deep Q-network notes"
   width="100%"
   height="900px"

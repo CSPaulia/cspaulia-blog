@@ -39,7 +39,7 @@ editPost:
 ## Complete Handwritten Notes
 
 <iframe
-  src="deep-reinforcement-learning-overview-notes.pdf"
+  src="../../../posts/deep-reinforcement-learning-overview/deep-reinforcement-learning-overview-notes.pdf"
   title="Handwritten deep reinforcement learning overview notes"
   width="100%"
   height="900px"

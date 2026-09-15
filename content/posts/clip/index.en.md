@@ -41,7 +41,7 @@ editPost:
 ## I. CLIP
 
 <p align="center">
-  {{< img src="clip.png" alt="clip" >}}
+  {{< img src="../../../posts/clip/clip.png" alt="clip" >}}
 </p>
 
 1. Contrastive pre-training:
@@ -69,7 +69,7 @@ editPost:
 ### 2.1 LSeg
 
 <p align="center">
-  {{< img src="lseg.png" alt="lseg" >}}
+  {{< img src="../../../posts/clip/lseg.png" alt="lseg" >}}
 </p>
 
 1. Relationship to CLIP:
@@ -91,7 +91,7 @@ editPost:
 ### 2.2 GroupViT
 
 <p align="center">
-  {{< img src="groupvit_overview.png" alt="groupvit_overview" width="50%" >}}
+  {{< img src="../../../posts/clip/groupvit_overview.png" alt="groupvit_overview" width="50%" >}}
 </p>
 
 1. Relationship to CLIP and LSeg:
@@ -108,7 +108,7 @@ editPost:
 2. Architecture details:
 
 <p align="center">
-  {{< img src="groupvit.png" alt="groupvit" >}}
+  {{< img src="../../../posts/clip/groupvit.png" alt="groupvit" >}}
 </p>
 
 - Model input: `image patches` + `learnable group tokens`
@@ -120,7 +120,7 @@ editPost:
 ### 3.1 ViLD
 
 <p align="center">
-  {{< img src="vild_compare.png" alt="vild_compare" >}}
+  {{< img src="../../../posts/clip/vild_compare.png" alt="vild_compare" >}}
 </p>
 
 - `Vanilla Detector` = `Head` + `Classifier` + supervised cross-entropy
@@ -140,7 +140,7 @@ editPost:
 ### 4.1 GLIP
 
 <p align="center">
-  {{< img src="glip.png" alt="glip" >}}
+  {{< img src="../../../posts/clip/glip.png" alt="glip" >}}
 </p>
 
 - Essentially supervised training.
@@ -154,7 +154,7 @@ editPost:
 ### 5.1 CLIPasso
 
 <p align="center">
-  {{< img src="clipasso.png" alt="clipasso" >}}
+  {{< img src="../../../posts/clip/clipasso.png" alt="clipasso" >}}
 </p>
 
 #### Motivation
@@ -181,7 +181,7 @@ Goal: leverage CLIP’s strong generalization to generate sketches for arbitrary
 #### Motivation
 
 <p align="center">
-  {{< img src="clip4clip.png" alt="clip4clip" >}}
+  {{< img src="../../../posts/clip/clip4clip.png" alt="clip4clip" >}}
 </p>
 
 - CLIP is designed for image–text pairs. For video retrieval, the task is matching one text query against multiple frames and finding the most relevant frames.
@@ -193,11 +193,11 @@ Goal: leverage CLIP’s strong generalization to generate sketches for arbitrary
 ### 6.2 ActionCLIP
 
 <p align="center">
-  {{< img src="actionclip_overview.png" alt="actionclip_overview" width="50%" >}}
+  {{< img src="../../../posts/clip/actionclip_overview.png" alt="actionclip_overview" width="50%" >}}
 </p>
 
 <p align="center">
-  {{< img src="actionclip.png" alt="actionclip" >}}
+  {{< img src="../../../posts/clip/actionclip.png" alt="actionclip" >}}
 </p>
 
 Similar to CLIP4Clip.
@@ -207,7 +207,7 @@ Similar to CLIP4Clip.
 ### 7.1 AudioCLIP
 
 <p align="center">
-  {{< img src="audioclip.png" alt="audioclip" >}}
+  {{< img src="../../../posts/clip/audioclip.png" alt="audioclip" >}}
 </p>
 
 Add an audio encoder and follow CLIP-style objectives: `audio–image` contrastive learning and `audio–text` contrastive learning.
@@ -217,7 +217,7 @@ Add an audio encoder and follow CLIP-style objectives: `audio–image` contrasti
 ### 8.1 PointCLIP
 
 <p align="center">
-  {{< img src="pointclip.png" alt="pointclip" >}}
+  {{< img src="../../../posts/clip/pointclip.png" alt="pointclip" >}}
 </p>
 
 1. Project the point cloud into a 2D space.
@@ -228,7 +228,7 @@ Add an audio encoder and follow CLIP-style objectives: `audio–image` contrasti
 ### 9.1 DepthCLIP
 
 <p align="center">
-  {{< img src="depthclip.png" alt="depthclip" >}}
+  {{< img src="../../../posts/clip/depthclip.png" alt="depthclip" >}}
 </p>
 
 - Build 7 text prompts: "This object is [distance class]", where `[distance class]` is:
@@ -245,6 +245,6 @@ Add an audio encoder and follow CLIP-style objectives: `audio–image` contrasti
 
 ## References
 
-[1] CLIP 改进工作串讲（上）【论文精读·42】. [Online video]. Available: https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8.
+[1] A Guided Review of Improvements to CLIP, Part I (Paper Reading 42). [Online video, in Chinese]. Available: https://www.bilibili.com/video/BV1FV4y1p7Lm?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8.
 
-[2] CLIP 改进工作串讲（下）【论文精读·42】. [Online video]. Available: https://www.bilibili.com/video/BV1gg411U7n4?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8.
+[2] A Guided Review of Improvements to CLIP, Part II (Paper Reading 42). [Online video, in Chinese]. Available: https://www.bilibili.com/video/BV1gg411U7n4?spm_id_from=333.788.videopod.sections&vd_source=9e4f1724ef60547fa31e3c8270245ff8.

@@ -52,7 +52,7 @@ editPost:
 
 > Diagram source: [InstructGPT](https://arxiv.org/abs/2203.02155).
 
-![stages](stage.png)
+![stages](../../../posts/sft_rlhf/stage.png)
 
 1. Collect data and train a **supervised** policy.
   - Sample a prompt from the prompt dataset.
@@ -83,7 +83,7 @@ SFT has two components: training data and a training method. This section first 
 
 Open SFT datasets have broadly evolved from task-oriented instructions, synthetic instructions, and multi-turn conversations to tool calling and agentic tasks:
 
-![The evolution of open SFT datasets from task fine-tuning and synthetic instructions to conversations and tool use](sft-data-progression.png)
+![The evolution of open SFT datasets from task fine-tuning and synthetic instructions to conversations and tool use](../../../posts/sft_rlhf/sft-data-progression.png)
 
 FLAN → Self-Instruct → Alpaca → ShareGPT/Vicuna → OpenAssistant → WizardLM → Tulu3 → Nemotron → tool use, and more.
 
@@ -92,28 +92,28 @@ FLAN → Self-Instruct → Alpaca → ShareGPT/Vicuna → OpenAssistant → Wiza
 **FLAN** includes traditional NLP tasks such as email subject generation, text classification, long-form summarization, and structured data-to-text generation.
 
 <figure>
-  <img src="flan-examples.png" alt="Complete FLAN examples of email subject generation, text classification, summarization, and structured data-to-text generation">
+  <img src="../../../posts/sft_rlhf/flan-examples.png" alt="Complete FLAN examples of email subject generation, text classification, summarization, and structured data-to-text generation">
   <figcaption>Complete FLAN examples of email subject generation, text classification, summarization, and structured data-to-text generation. Source: CS336 Lecture 15.</figcaption>
 </figure>
 
 **Alpaca** uses short, single-turn instructions covering common-sense advice, concept explanations, and code generation.
 
 <figure>
-  <img src="alpaca-examples.png" alt="Complete Alpaca examples of health advice, algorithm explanation, and code generation for computing a list average">
+  <img src="../../../posts/sft_rlhf/alpaca-examples.png" alt="Complete Alpaca examples of health advice, algorithm explanation, and code generation for computing a list average">
   <figcaption>Complete Alpaca examples of health advice, algorithm explanation, and code generation for computing a list average. Source: CS336 Lecture 15.</figcaption>
 </figure>
 
 **OpenAssistant** responses are typically longer and more detailed, and may involve complex knowledge and references.
 
 <figure>
-  <img src="openassistant-examples.png" alt="Complete OpenAssistant examples of an economics explanation and science project suggestions for children">
+  <img src="../../../posts/sft_rlhf/openassistant-examples.png" alt="Complete OpenAssistant examples of an economics explanation and science project suggestions for children">
   <figcaption>Complete OpenAssistant examples of an economics explanation and science project suggestions for children. Source: CS336 Lecture 15.</figcaption>
 </figure>
 
 **Nemotron-SFT-OpenCode-v1** extends instruction data to task planning, structured messages, and tool calling.
 
 <figure>
-  <img src="nemotron-tool-use-examples.png" alt="Complete Nemotron-SFT-OpenCode-v1 examples of task planning and tool calling">
+  <img src="../../../posts/sft_rlhf/nemotron-tool-use-examples.png" alt="Complete Nemotron-SFT-OpenCode-v1 examples of task planning and tool calling">
   <figcaption>Complete Nemotron-SFT-OpenCode-v1 examples of task planning and tool calling. Source: CS336 Lecture 15.</figcaption>
 </figure>
 
@@ -126,7 +126,7 @@ FLAN → Self-Instruct → Alpaca → ShareGPT/Vicuna → OpenAssistant → Wiza
 - **Scale and safety**: dataset size, long-tail coverage, and the proportion of safety examples are not visible from a few samples, but can substantially affect model behavior.
 
 <figure>
-  <img src="instrction_dataset.png" alt="Comparison of dataset size, conversation turns, and input-output lengths across instruction datasets">
+  <img src="../../../posts/sft_rlhf/instrction_dataset.png" alt="Comparison of dataset size, conversation turns, and input-output lengths across instruction datasets">
   <figcaption>Instruction datasets differ substantially in size, average conversation turns, and input-output lengths. Source: Wang et al., 2023.</figcaption>
 </figure>
 
@@ -137,7 +137,7 @@ FLAN → Self-Instruct → Alpaca → ShareGPT/Vicuna → OpenAssistant → Wiza
 - **In capability evaluation**: longer and more detailed answers do not necessarily improve factuality, reasoning, coding, or other benchmark results. A [systematic evaluation by Wang et al.](https://arxiv.org/abs/2306.04751) also found that preference-based evaluations did not fully reflect the capability differences exposed by benchmarks.
 
 <figure>
-  <img src="preference-length-bias.png" alt="Human and GPT evaluator preferences for lists and longer responses">
+  <img src="../../../posts/sft_rlhf/preference-length-bias.png" alt="Human and GPT evaluator preferences for lists and longer responses">
   <figcaption>Human and GPT evaluators commonly prefer lists and longer responses, so preference scores can contain a strong style component. Source: Dubois et al., 2023.</figcaption>
 </figure>
 
@@ -147,7 +147,7 @@ FLAN → Self-Instruct → Alpaca → ShareGPT/Vicuna → OpenAssistant → Wiza
   <summary>View the benchmark comparison across instruction datasets</summary>
 
   <figure>
-    <img src="instruction-benchmark-comparison.png" alt="Performance of instruction datasets on factuality, reasoning, multilinguality, coding, and open-ended evaluation">
+    <img src="../../../posts/sft_rlhf/instruction-benchmark-comparison.png" alt="Performance of instruction datasets on factuality, reasoning, multilinguality, coding, and open-ended evaluation">
     <figcaption>Different instruction datasets excel at different capabilities; a high open-ended preference score does not guarantee corresponding gains on other benchmarks. Source: Wang et al., 2023.</figcaption>
   </figure>
 </details>
@@ -172,7 +172,7 @@ SFT examples containing complex knowledge or references teach the model two thin
   <summary>View the explanation and experiment on unknown-fact fine-tuning</summary>
 
   <figure>
-    <img src="knowledge-extraction-hallucination.png" alt="Behavior-cloning explanation and experimental results for hallucination caused by fine-tuning on unknown facts">
+    <img src="../../../posts/sft_rlhf/knowledge-extraction-hallucination.png" alt="Behavior-cloning explanation and experimental results for hallucination caused by fine-tuning on unknown facts">
     <figcaption>The left panel illustrates how behavior cloning may teach a model to guess unknown facts; the right panel shows slower fitting of unknown facts and declining development accuracy after overfitting. Sources: <a href="https://news.berkeley.edu/2023/04/24/berkeley-talks-transcript-chatgpt-developer-john-schulman/">Schulman, 2023</a>; <a href="https://arxiv.org/abs/2405.05904">Gekhman et al., 2024</a>.</figcaption>
   </figure>
 </details>
@@ -191,12 +191,12 @@ Widely deployed models must be useful while reducing misinformation, scams and s
   <summary>View examples of open safety data and real user scenarios</summary>
 
   <figure>
-    <img src="tulu3-safety-data.png" alt="Composition and scale of the Tülu 3 safety and non-compliance datasets">
+    <img src="../../../posts/sft_rlhf/tulu3-safety-data.png" alt="Composition and scale of the Tülu 3 safety and non-compliance datasets">
     <figcaption>Tülu 3's safety and non-compliance data includes CoCoNot, WildJailbreak, and WildGuardMix.</figcaption>
   </figure>
 
   <figure>
-    <img src="safety-scenarios-from-users.png" alt="Examples of extracting safety scenarios and jailbreak strategies from real WildChat interactions">
+    <img src="../../../posts/sft_rlhf/safety-scenarios-from-users.png" alt="Examples of extracting safety scenarios and jailbreak strategies from real WildChat interactions">
     <figcaption>Real user logs expose refusal boundaries and provide concrete harmful-query and jailbreak scenarios. Sources: WildChat and Tülu 3.</figcaption>
   </figure>
 </details>
@@ -204,7 +204,7 @@ Widely deployed models must be useful while reducing misinformation, scams and s
 [Experiments in Safety-Tuned LLaMAs](https://arxiv.org/abs/2309.07875) further showed that, under their training setup, adding about 500 Alpaca-style safety examples substantially improved results across four safety evaluations.
 
 <figure>
-  <img src="safety-small-data-effect.png" alt="Effect of different amounts of safety data on scores across four safety evaluation datasets">
+  <img src="../../../posts/sft_rlhf/safety-small-data-effect.png" alt="Effect of different amounts of safety data on scores across four safety evaluation datasets">
   <figcaption>In this experiment, a small amount of safety data sharply reduced harmful-output scores, after which the gains gradually tapered off.</figcaption>
 </figure>
 
@@ -234,7 +234,7 @@ SFT still uses ordinary gradient-descent training. A standard training loop is s
 
 #### Midtraining and two-phase training
 
-![minicpm](./minicpm.png)
+![minicpm](../../../posts/sft_rlhf/minicpm.png)
 
 [MiniCPM](https://arxiv.org/abs/2404.06395) adopts this recipe. Similar approaches also appear to be common among LLM companies, although public details remain limited:
 - In the Stable stage, train on a pure pretraining dataset (left in the figure).
@@ -302,7 +302,7 @@ When these differ, SFT can imitate the annotator's writing behavior without dire
   - **Writing and preference could point in opposite directions**: one annotator wrote abstractive summaries but preferred the more extractive Instruct Davinci summaries 57% of the time.
 
   <figure>
-    <img src="generation-value-gap.png" alt="Preferences of six annotators between freelance-writer and Instruct Davinci summaries">
+    <img src="../../../posts/sft_rlhf/generation-value-gap.png" alt="Preferences of six annotators between freelance-writer and Instruct Davinci summaries">
     <figcaption>Aggregate preference was almost evenly split between human and model summaries, while individual annotators differed substantially. Source: Zhang et al., 2024.</figcaption>
   </figure>
 </details>
@@ -322,7 +322,7 @@ The standard setup generates two responses to the same prompt and asks an annota
 3. Store the result as \((x,y^+,y^-)\), where \(y^+\) is preferred and \(y^-\) is dispreferred.
 
 <figure>
-  <img src="pairwise-feedback-interface.png" alt="Interface showing two model responses and asking an annotator to select the preferred one">
+  <img src="../../../posts/sft_rlhf/pairwise-feedback-interface.png" alt="Interface showing two model responses and asking an annotator to select the preferred one">
   <figcaption>The annotator compares two responses under the same guidelines and selects response 1 or response 2 together with preference strength.</figcaption>
 </figure>
 
@@ -362,7 +362,7 @@ AI feedback is now part of several open post-training pipelines:
 2. **AI-feedback reinforcement-learning stage**: the model generates pairs of answers, AI selects preferences under the principles, and those preferences train a preference model used to optimize the policy. This is called **Reinforcement Learning from AI Feedback (RLAIF)**.
 
 <figure>
-  <img src="constitutional-ai-self-training.png" alt="Two-stage Constitutional AI process from self-critique and revision to RLAIF training">
+  <img src="../../../posts/sft_rlhf/constitutional-ai-self-training.png" alt="Two-stage Constitutional AI process from self-critique and revision to RLAIF training">
   <figcaption>Constitutional AI first constructs supervised data through self-critique and revision, then uses AI preferences to train a preference model and the final policy. Source: Bai et al., 2022.</figcaption>
 </figure>
 
@@ -409,7 +409,7 @@ DPO can train on a fixed preference dataset or participate in multiple rounds of
 4. Select the strongest model from previous rounds and use it to regenerate candidates for the next round.
 
 <figure>
-  <img src="dpo-expert-iteration.png" alt="A multi-round post-training pipeline combining DPO with expert iteration">
+  <img src="../../../posts/sft_rlhf/dpo-expert-iteration.png" alt="A multi-round post-training pipeline combining DPO with expert iteration">
   <figcaption>DPO can be combined with rejection sampling, task-specific SFT, and repeated model iteration rather than being limited to one fixed dataset. Source: Tülu 3.</figcaption>
 </figure>
 
@@ -444,7 +444,7 @@ Early in training, both usually improve. With further optimization, the policy m
 In the figure, the horizontal axis is proxy reward and the vertical axis is independent evaluation win rate. Movement toward the upper right represents genuine improvement; continued movement to the right while the curve turns downward indicates reward overoptimization.
 
 <figure>
-  <img src="reward-overoptimization.png" alt="The relationship between proxy reward and evaluation win rate under different preference sources">
+  <img src="../../../posts/sft_rlhf/reward-overoptimization.png" alt="The relationship between proxy reward and evaluation win rate under different preference sources">
   <figcaption>With human preferences and noisy simulated preferences, evaluation win rate falls after reaching a peak; a single low-noise GPT-4 simulator does not reproduce this pattern. Source: AlpacaFarm.</figcaption>
 </figure>
 

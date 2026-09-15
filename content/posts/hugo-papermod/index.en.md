@@ -353,7 +353,7 @@ Replace it with:
 - **Result**
 
 <p align="center">
-    {{< img src="post_footer.png" alt="post_footer" width="80%" >}}
+    {{< img src="../../../posts/hugo-papermod/post_footer.png" alt="post_footer" width="80%" >}}
 </p>
 
 ## Side Table of Contents (TOC)
@@ -648,6 +648,6 @@ Replace it with:
 
 ## References
 
-[1] 小M平碎碎念：小M平部落格整形手術. [Online]. Available: https://www.lilmp.com/categories/小m平部落格整形手術/.
+[1] Lilmp's Notes: A Makeover for the Lilmp Blog. [Online, in Chinese]. Available: https://www.lilmp.com/categories/%E5%B0%8Fm%E5%B9%B3%E9%83%A8%E8%90%BD%E6%A0%BC%E6%95%B4%E5%BD%A2%E6%89%8B%E8%A1%93/.
 
-[2] CSDN：Hugo 博客 PaperMod 主题目录放在侧边. [Online]. Available: https://blog.csdn.net/Xuyiming564445/article/details/122011603.
+[2] CSDN. Placing the PaperMod Table of Contents in a Hugo Blog Sidebar. [Online, in Chinese]. Available: https://blog.csdn.net/Xuyiming564445/article/details/122011603.
