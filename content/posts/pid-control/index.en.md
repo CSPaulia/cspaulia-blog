@@ -100,9 +100,34 @@ The speed may still be below \(60\,\mathrm{km/h}\) while rising rapidly. Derivat
 Watch four properties while tuning: response speed, overshoot, settling time, and final offset.
 
 <figure>
-  <img src="../../../posts/pid-control/pid-response-metrics.svg" alt="Rise time, overshoot, settling time, and steady-state error on a step response">
-  <figcaption>A typical response after a target change. Tuning balances speed, overshoot, and final error.</figcaption>
+  <img src="../../../posts/pid-control/pid-response-metrics.svg" alt="A step response labeled with the response curve, setpoint, tolerance band, steady-state value, steady-state error, rise time, overshoot, and settling time">
+  <figcaption>A typical response after a target change. The green region is an example tolerance band extending \(5\%\) above and below the setpoint; blue double-headed arrows mark the time and amplitude metrics.</figcaption>
 </figure>
+
+<details>
+<summary><strong>Expand: What does each term in the figure mean?</strong></summary>
+
+- **Response curve \(y(t)\)**: the actual system output as it changes over time. It is the red curve in the figure; in the cruise-control example, it represents measured vehicle speed.
+- **Setpoint \(r(t)\)**: the output that the system is asked to reach. The blue dashed line remains constant after the sudden target change, which is why the input is called a step.
+- **Tolerance band**: a small acceptable range around the setpoint, commonly \(\pm2\%\) or \(\pm5\%\) in engineering practice. It is the green region in the figure, using \(\pm5\%\) as an example. The band is a <strong>range on the output axis</strong>, not an interval of time.
+- **Rise time \(t_r\)**: the time required for the response to rise for the first time from \(10\%\) to \(90\%\) of the target change. A shorter rise time generally means a faster response.
+- **Overshoot**: the portion by which the maximum response exceeds the setpoint. It is commonly reported as
+
+  \[
+  M_p=\frac{y_{\max}-r}{r}\times100\%.
+  \]
+
+- **Settling time \(t_s\)**: the time from the target change until the response enters the tolerance band and never leaves it again. The vertical dashed line marks this final entry.
+- **Steady-state value \(y_{ss}\)**: the value approached by the system output after transient oscillations disappear. The purple dashed line marks it in the figure.
+- **Steady-state error \(e_{ss}\)**: the <strong>vertical difference</strong> between the setpoint and steady-state value, not a segment at the end of the response curve. It is defined as
+
+  \[
+  e_{ss}=\lim_{t\to\infty}\bigl(r(t)-y(t)\bigr)=r-y_{ss}.
+  \]
+
+A response inside the tolerance band is sufficiently close to the target and no longer oscillating significantly; it does not necessarily have exactly zero steady-state error.
+
+</details>
 
 A useful sequence is:
 

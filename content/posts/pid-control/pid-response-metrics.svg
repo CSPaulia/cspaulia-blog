@@ -1,64 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
-  <title id="title">Step-response performance metrics</title>
-  <desc id="desc">A damped step response showing the setpoint, tolerance band, rise time, overshoot, settling time, and steady-state error.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
+  <title id="title">Annotated step-response performance metrics</title>
+  <desc id="desc">A damped step response with explicit labels for the response curve, setpoint, tolerance band, steady-state value, steady-state error, rise time, overshoot, and settling time.</desc>
   <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <marker id="axis-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#334155"/>
     </marker>
-    <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+    <marker id="blue-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#2563eb"/>
+    </marker>
+    <marker id="red-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e11d48"/>
     </marker>
     <style>
       .label { font-family: "Noto Sans SC", "Microsoft YaHei", Arial, sans-serif; fill: #0f172a; }
-      .small { font-size: 19px; }
-      .main { font-size: 25px; font-weight: 650; }
-      .axis { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#arrow); }
-      .guide { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 9 8; fill: none; }
-      .measure { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-start: url(#arrow-blue); marker-end: url(#arrow-blue); }
+      .title { font-size: 28px; font-weight: 700; }
+      .text { font-size: 20px; }
+      .small { font-size: 17px; }
+      .axis { stroke: #334155; stroke-width: 3; fill: none; marker-end: url(#axis-arrow); }
+      .boundary { stroke: #16a34a; stroke-width: 2; stroke-dasharray: 9 7; fill: none; }
+      .guide { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 7 7; fill: none; }
+      .measure { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-start: url(#blue-arrow); marker-end: url(#blue-arrow); }
+      .response { stroke: #e11d48; stroke-width: 6; fill: none; stroke-linecap: round; }
     </style>
   </defs>
 
-  <rect width="1200" height="680" fill="#ffffff"/>
-  <text class="label main" x="600" y="52" text-anchor="middle">阶跃响应指标 / Step-response metrics</text>
+  <rect width="1400" height="820" fill="#ffffff"/>
+  <text class="label title" x="700" y="48" text-anchor="middle">阶跃响应指标 / Step-response metrics</text>
 
-  <rect x="120" y="232" width="960" height="42" fill="#dcfce7" opacity="0.75"/>
-  <text class="label small" x="1065" y="220" text-anchor="end">稳定带 / Tolerance band</text>
+  <rect x="130" y="228" width="1080" height="44" fill="#dcfce7" opacity="0.9"/>
+  <path class="boundary" d="M 130 228 L 1210 228"/>
+  <path class="boundary" d="M 130 272 L 1210 272"/>
+  <path d="M 1230 228 L 1248 228 M 1239 228 L 1239 272 M 1230 272 L 1248 272" stroke="#16a34a" stroke-width="3" fill="none"/>
+  <text class="label text" x="1050" y="105" fill="#15803d">绿色区域：稳定带</text>
+  <text class="label small" x="1050" y="130" fill="#15803d">Green region: tolerance band (±5%)</text>
+  <line x1="1160" y1="140" x2="1235" y2="222" stroke="#16a34a" stroke-width="2.5"/>
 
-  <path class="axis" d="M 120 590 L 1110 590"/>
-  <path class="axis" d="M 120 590 L 120 92"/>
-  <text class="label small" x="1115" y="620">时间 / Time</text>
-  <text class="label small" x="80" y="105" transform="rotate(-90 80 105)">输出 / Output</text>
+  <path class="axis" d="M 130 690 L 1300 690"/>
+  <path class="axis" d="M 130 690 L 130 82"/>
+  <text class="label text" x="1280" y="728">时间 / Time</text>
+  <text class="label text" x="62" y="350" transform="rotate(-90 62 350)">系统输出 / Output</text>
 
-  <path class="guide" d="M 120 252 L 1080 252"/>
-  <text class="label small" x="1065" y="242" text-anchor="end">目标值 / Setpoint</text>
+  <path d="M 130 690 L 165 690 L 165 250 L 1210 250" stroke="#2563eb" stroke-width="3" stroke-dasharray="12 8" fill="none"/>
+  <text class="label text" x="188" y="215" fill="#1d4ed8">目标值 r(t) / Setpoint</text>
+  <line x1="326" y1="220" x2="350" y2="246" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue-arrow)"/>
 
-  <path d="M 120 590
-           C 205 585, 235 540, 278 445
-           C 335 320, 382 135, 470 158
-           C 550 180, 555 325, 650 300
-           C 725 280, 730 220, 805 238
-           C 885 257, 900 249, 1060 253"
-        fill="none" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 930 267 L 1210 267" stroke="#7c3aed" stroke-width="3" stroke-dasharray="6 6" fill="none"/>
+  <text class="label small" x="1000" y="302" fill="#6d28d9">稳态值 yₛₛ / Steady-state value</text>
 
-  <circle cx="470" cy="158" r="7" fill="#e11d48"/>
-  <path class="measure" d="M 505 158 L 505 252"/>
-  <text class="label small" x="522" y="190">超调量</text>
-  <text class="label small" x="522" y="216">Overshoot</text>
+  <path class="response"
+        d="M 130 690
+           C 190 690, 222 655, 260 580
+           C 335 430, 402 180, 486 145
+           C 565 112, 610 305, 700 326
+           C 770 342, 818 220, 878 236
+           C 948 251, 975 279, 1040 266
+           C 1110 253, 1152 270, 1210 267"/>
 
-  <path class="guide" d="M 278 445 L 278 610"/>
-  <path class="guide" d="M 360 282 L 360 610"/>
-  <path class="measure" d="M 280 625 L 358 625"/>
-  <text class="label small" x="319" y="657" text-anchor="middle">上升时间 / Rise time</text>
+  <text class="label text" x="760" y="420" fill="#be123c">响应曲线 y(t) / Response curve</text>
+  <line x1="820" y1="398" x2="795" y2="327" stroke="#e11d48" stroke-width="3" marker-end="url(#red-arrow)"/>
 
-  <path class="guide" d="M 805 238 L 805 610"/>
-  <path class="measure" d="M 122 552 L 803 552"/>
-  <text class="label small" x="650" y="535" text-anchor="middle">调节时间 / Settling time</text>
+  <circle cx="486" cy="145" r="7" fill="#e11d48"/>
+  <path class="measure" d="M 525 145 L 525 250"/>
+  <text class="label text" x="545" y="172">超调量</text>
+  <text class="label small" x="545" y="196">Overshoot</text>
 
-  <path class="guide" d="M 1060 253 L 1060 305"/>
-  <path class="measure" d="M 1090 253 L 1090 270"/>
-  <text class="label small" x="1065" y="326" text-anchor="end">稳态误差 / Steady-state error</text>
+  <path class="guide" d="M 130 646 L 250 646"/>
+  <path class="guide" d="M 130 294 L 378 294"/>
+  <text class="label small" x="142" y="637">10%</text>
+  <text class="label small" x="142" y="287">90%</text>
+  <path class="guide" d="M 226 646 L 226 725"/>
+  <path class="guide" d="M 376 294 L 376 725"/>
+  <path class="measure" d="M 228 738 L 374 738"/>
+  <text class="label text" x="301" y="772" text-anchor="middle">上升时间 tᵣ / Rise time</text>
 
-  <circle cx="1060" cy="253" r="7" fill="#e11d48"/>
-  <text class="label small" x="925" y="382">响应曲线 / Response</text>
-  <line x1="900" y1="374" x2="855" y2="310" stroke="#e11d48" stroke-width="3"/>
+  <path class="guide" d="M 878 236 L 878 714"/>
+  <circle cx="878" cy="236" r="6" fill="#2563eb"/>
+  <path class="measure" d="M 165 650 L 876 650"/>
+  <text class="label text" x="705" y="632" text-anchor="middle">调节时间 tₛ / Settling time</text>
+  <text class="label small" x="892" y="545">此后始终留在稳定带内</text>
+  <text class="label small" x="892" y="568">Remains inside the band afterward</text>
+
+  <circle cx="1210" cy="267" r="7" fill="#7c3aed"/>
+  <path class="measure" d="M 1188 250 L 1188 267"/>
+  <line x1="1155" y1="340" x2="1184" y2="273" stroke="#2563eb" stroke-width="2.5" marker-end="url(#blue-arrow)"/>
+  <text class="label text" x="1015" y="360">稳态误差 eₛₛ</text>
+  <text class="label small" x="1015" y="384">Steady-state error: r − yₛₛ</text>
 </svg>
