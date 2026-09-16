@@ -297,3 +297,5 @@ where $\lim_{h \to 0} \sqrt{\mathbb{E}[\|R_t(h)\|^2]} = 0$. Because Brownian mot
 ## References
 
 [1] GPT Bilingual Course Resources. “Flow Matching and Diffusion Models | MIT 6.S184” (Chinese–English subtitles, Claude 3.7 Sonnet). Bilibili, Jul. 29, 2025. [Online video, in Chinese]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.
+
+[2] P. Holderrieth and E. Erives. “An Introduction to Flow Matching and Diffusion Models.” MIT 6.S184: Generative AI With Stochastic Differential Equations, lecture notes, 2026, 84 pp. [Online]. Available: https://diffusion.csail.mit.edu/2026/docs/lecture_notes.pdf. Local copy: [mit-6s184-lecture-notes.pdf](mit-6s184-lecture-notes.pdf)

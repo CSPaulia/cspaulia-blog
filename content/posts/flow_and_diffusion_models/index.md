@@ -297,3 +297,5 @@ $$
 ## 参考文献
 
 [1] GPT中英字幕课程资源, "《流匹配与扩散模型|6.S184 Flow Matching and Diffusion Models》中英字幕（Claude-3.7-s）》," Bilibili, Jul. 29, 2025. [Online video]. Available: https://www.bilibili.com/video/BV1gc8Ez8EFL. Accessed: Jan. 30, 2026.
+
+[2] P. Holderrieth and E. Erives, "An Introduction to Flow Matching and Diffusion Models," MIT 6.S184: Generative AI With Stochastic Differential Equations, lecture notes, 2026, 84 pp. [Online]. Available: https://diffusion.csail.mit.edu/2026/docs/lecture_notes.pdf. 本地存档：[mit-6s184-lecture-notes.pdf](mit-6s184-lecture-notes.pdf)
