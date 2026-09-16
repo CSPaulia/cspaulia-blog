@@ -40,9 +40,10 @@ editPost:
 
 **定义二 边缘分数**（Marginal Score）：\(\nabla_x \log p_t(x)\)。
 
-> <img src="score_function_visualization.png" alt="对数似然函数与对应分数向量场的对比" width="100%" />
->
-> 左图展示对数似然 \(\log q(x)\) 的等高线，右图展示对应的分数向量场 \(\nabla_x\log q(x)\)。每个箭头都指向对数似然在当前位置增长最快的方向，也就是局部概率密度升高的方向。图源：MIT 6.S184 Lecture 3。
+<figure>
+  <img src="score_function_visualization.png" alt="对数似然函数与对应分数向量场的对比" width="100%" />
+  <figcaption>左图展示对数似然 \(\log q(x)\) 的等高线，右图展示对应的分数向量场 \(\nabla_x\log q(x)\)。每个箭头都指向对数似然在当前位置增长最快的方向，也就是局部概率密度升高的方向。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
 
 > 从**条件分数**中推导出**边缘分数**：
 
@@ -260,9 +261,10 @@ dX_t = u_t(X_t)dt + g_t dW_t,
 
 则 \(p_t\) 满足：
 
-> <img src="fokker_planck_flow.png" alt="Fokker-Planck 方程中的概率流与扩散" width="100%" />
->
-> 图中灰色箭头表示向量场引起的概率流，红色虚线表示扩散导致的概率质量分散。
+<figure>
+  <img src="fokker_planck_flow.png" alt="Fokker-Planck 方程中的概率流与扩散" width="100%" />
+  <figcaption>图中灰色箭头表示向量场引起的概率流，红色虚线表示扩散导致的概率质量分散。</figcaption>
+</figure>
 
 \[
 \begin{aligned}

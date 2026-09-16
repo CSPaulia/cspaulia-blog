@@ -41,9 +41,10 @@ editPost:
 - **无引导（Unguided）**：“Generate an image.”
 - **有引导（Guided）**：“Generate an image of a cat baking a cake.”
 
-<img src="guided_generation_examples.png" alt="无引导与有引导生成示例" width="100%" />
-
-图 1：无引导生成与有引导生成的示例。图源：MIT 6.S184 Lecture 3；示例图来自 *Scaling Rectified Flow Transformers for High-Resolution Image Synthesis*。
+<figure>
+  <img src="guided_generation_examples.png" alt="无引导与有引导生成示例" width="100%" />
+  <figcaption>图 1：无引导生成与有引导生成的示例。图源：MIT 6.S184 Lecture 3；示例图来自 <em>Scaling Rectified Flow Transformers for High-Resolution Image Synthesis</em>。</figcaption>
+</figure>
 
 ## 2. 基础引导采样：沿 **引导向量场（Guided Vector Field）** 积分
 
@@ -69,9 +70,10 @@ u_t^{\theta}(x\mid y)-u_t^{\mathrm{target}}(x\mid z)
 
 基础引导可能产生次优结果。以提示词 “Corgi dog” 为例，部分生成图像与提示词的匹配度不高，并且存在明显错误。
 
-<img src="vanilla_guidance_suboptimal_results.png" alt="基础引导产生次优结果的示例" width="100%" />
-
-图 2：提示词为 “Corgi dog” 时，基础引导产生的次优结果。图源：MIT 6.S184 Lecture 3；示例来自 *Classifier-free diffusion guidance*。
+<figure>
+  <img src="vanilla_guidance_suboptimal_results.png" alt="基础引导产生次优结果的示例" width="100%" />
+  <figcaption>图 2：提示词为 “Corgi dog” 时，基础引导产生的次优结果。图源：MIT 6.S184 Lecture 3；示例来自 <em>Classifier-free diffusion guidance</em>。</figcaption>
+</figure>
 
 ## 3. 分类器引导：利用分类器梯度修正向量场
 
@@ -130,9 +132,10 @@ u_t^{\mathrm{target}}(x\mid y)
 
 </details>
 
-<img src="classifier_guidance_intuition.png" alt="分类器引导的直观示意图" width="100%" />
-
-图 3：分类器梯度作为提示相关分量，叠加到无提示的向量场上。图源：MIT 6.S184 Lecture 3。
+<figure>
+  <img src="classifier_guidance_intuition.png" alt="分类器引导的直观示意图" width="100%" />
+  <figcaption>图 3：分类器梯度作为提示相关分量，叠加到无提示的向量场上。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
 
 ### 3.1. 强化分类器：放大分类器梯度
 
@@ -144,9 +147,10 @@ u_t^{\mathrm{target}}(x\mid y)
 +\underbrace{w a_t\nabla_x\log p_t(y\mid x)}_{\text{classifier}}.
 \]
 
-<img src="classifier_guidance_scale.png" alt="放大提示相关分量后的分类器引导向量场" width="100%" />
-
-图 4：放大提示相关分量后得到提示增强向量场（Prompt-reinforced Vector Field）。图源：MIT 6.S184 Lecture 3。
+<figure>
+  <img src="classifier_guidance_scale.png" alt="放大提示相关分量后的分类器引导向量场" width="100%" />
+  <figcaption>图 4：放大提示相关分量后得到提示增强向量场（Prompt-reinforced Vector Field）。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
 
 ## 4. 无分类器引导：放大条件相关分量
 
@@ -190,9 +194,10 @@ u_t^{\mathrm{target}}(x\mid y)-u_t^{\mathrm{target}}(x)
 u_t^{\mathrm{target}}(x)\ \longrightarrow\ u_t^{\mathrm{target}}(x\mid\phi).
 \]
 
-<img src="classifier_free_guidance_page30.png" alt="使用空提示词替代无条件向量场的无分类器引导示意图" width="100%" />
-
-图 5：使用空提示词向量场替代无条件向量场的无分类器引导示意图。图源：MIT 6.S184 Lecture 3。
+<figure>
+  <img src="classifier_free_guidance_page30.png" alt="使用空提示词替代无条件向量场的无分类器引导示意图" width="100%" />
+  <figcaption>图 5：使用空提示词向量场替代无条件向量场的无分类器引导示意图。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
 
 因此，无分类器引导可以写成
 
@@ -202,9 +207,10 @@ u_t^{\mathrm{target}}(x)\ \longrightarrow\ u_t^{\mathrm{target}}(x\mid\phi).
 +(1-w)u_t^{\mathrm{target}}(x\mid\phi).
 \]
 
-<img src="classifier_free_guidance_page31.png" alt="放大条件相关分量后的无分类器引导示意图" width="100%" />
-
-图 6：放大条件相关分量后得到提示增强向量场。图源：MIT 6.S184 Lecture 3。
+<figure>
+  <img src="classifier_free_guidance_page31.png" alt="放大条件相关分量后的无分类器引导示意图" width="100%" />
+  <figcaption>图 6：放大条件相关分量后得到提示增强向量场。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
 
 由此，无分类器引导只需要一个条件向量场和一个无条件向量场：前者使用提示词 \(y\)，后者不使用提示词。由于 \(w\ge 1\)，条件向量场的作用被增强，而无条件向量场的系数变为 \(1-w\)。
 
@@ -248,9 +254,10 @@ u_t^{\theta,w}(x)
 
 当 \(w\) 从 \(1.0\) 增大到 \(4.0\) 时，生成结果与提示词 “corgi dog” 的一致性提高。
 
-<img src="classifier_free_guidance_page34.png" alt="不同引导强度下的柯基犬生成结果对比" width="100%" />
-
-图 7：不同引导强度下的生成结果对比。图源：MIT 6.S184 Lecture 3；示例来自 *Classifier-free diffusion guidance*。
+<figure>
+  <img src="classifier_free_guidance_page34.png" alt="不同引导强度下的柯基犬生成结果对比" width="100%" />
+  <figcaption>图 7：不同引导强度下的生成结果对比。图源：MIT 6.S184 Lecture 3；示例来自 <em>Classifier-free diffusion guidance</em>。</figcaption>
+</figure>
 
 ### 4.5. CFG 的应用与局限：有效但属于经验启发式方法
 
@@ -267,9 +274,10 @@ u_t^{\theta,w}(x)
 
 通常不再对应原始数据分布所学习的向量场。CFG 会将采样方向推向数据分布之外，因此它并不是对原始分布的严格建模，而是一种经验启发式方法。CFG 的主要依据是良好的实证效果：适当的引导强度往往能够提升提示词一致性，但同时也可能改变生成分布。
 
-<img src="classifier_free_guidance_page37.png" alt="无分类器引导不再严格建模数据分布的示意图" width="100%" />
-
-图 8：随着引导强度增加，采样方向可能超出数据分布。图源：MIT 6.S184 Lecture 3；示意图来自 *Classifier-free diffusion guidance*。
+<figure>
+  <img src="classifier_free_guidance_page37.png" alt="无分类器引导不再严格建模数据分布的示意图" width="100%" />
+  <figcaption>图 8：随着引导强度增加，采样方向可能超出数据分布。图源：MIT 6.S184 Lecture 3；示意图来自 <em>Classifier-free diffusion guidance</em>。</figcaption>
+</figure>
 
 ## 参考文献
 

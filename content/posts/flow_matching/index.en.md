@@ -104,7 +104,7 @@ $$
 > Here the noise schedule satisfies $\alpha_t = t, \sigma_t = 1 - t$, so $\alpha_0 = 0, \sigma_0 = 1$, and $\alpha_1 = 1, \sigma_1 = 0$.
 > The Gaussian conditional probability path is illustrated below:
 >
-> <img src="../../../posts/flow_matching/distribution_variance.png" alt="Conditional Probability Path" width="100%" />
+<img src="../../../posts/flow_matching/distribution_variance.png" alt="Conditional Probability Path" width="100%" />
 
 **Definition 3 (Marginal Probability Path)**: suppose $z \sim P_{data}$ and $x \sim P_t(\cdot|z)$. Then the marginal probability path $\{P_t, t \in [0,1]\}$, which is independent of $z$, satisfies:
 1. $p_t(x) = \int p_t(x|z) p_{data}(z) dz$;
@@ -112,7 +112,7 @@ $$
 
 > The marginal probability path is illustrated below:
 >
-> <img src="../../../posts/flow_matching/marginal_probability_path.png" alt="The marginal probability path evolving from a Gaussian initial distribution into a checkerboard data distribution" width="100%" />
+<img src="../../../posts/flow_matching/marginal_probability_path.png" alt="The marginal probability path evolving from a Gaussian initial distribution into a checkerboard data distribution" width="100%" />
 
 ## 3. Conditional vector fields and marginal vector fields
 
@@ -159,7 +159,7 @@ $$
 > where $\dot{\alpha}_t$ and $\dot{\sigma}_t$ denote the derivatives of $\alpha_t$ and $\sigma_t$ with respect to $t$.
 > This formula requires $\sigma_t > 0$. For $\sigma_t=1-t$, it applies when $0 \leq t < 1$; the endpoint $P_1(\cdot|z)=\delta_z$ should be understood as a limit in distribution.
 >
-> <img src="../../../posts/flow_matching/conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
+<img src="../../../posts/flow_matching/conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
 
 **Theorem 1 (Marginalization Trick) / Definition 5 (Marginal Vector Field)**: if $u_t^{target}(x|z)$ is a conditional vector field, then the marginal vector field is:
 
@@ -194,13 +194,14 @@ $$
 > 
 > This is the core difference between conditional and marginal vector fields. Why does this happen? Because the conditional vector field is defined for each data point $z$, while the marginal vector field is obtained by averaging over all data points, i.e. by marginalization $\left(p_t(x) = \int p_t(x|z) p_{data}(z) dz\right)$.
 
-> <img src="../../../posts/flow_matching/cvf_mvf_visualization.png" alt="Comparison of conditional and marginal probability paths" width="100%" />
+<img src="../../../posts/flow_matching/cvf_mvf_visualization.png" alt="Comparison of conditional and marginal probability paths" width="100%" />
 
 **Theorem (Continuity Equation)**: for any ODE initialized by $X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t(X_t)$, the density $p_t$ satisfies the following PDE:
 
-> <img src="../../../posts/flow_matching/continuity_equation.png" alt="Probability inflow and outflow in a vector field" width="100%" />
->
-> The diagram illustrates probability mass flowing into and out of a local region along the vector field.
+<figure>
+  <img src="../../../posts/flow_matching/continuity_equation.png" alt="Probability inflow and outflow in a vector field" width="100%" />
+  <figcaption>The diagram illustrates probability mass flowing into and out of a local region along the vector field.</figcaption>
+</figure>
 
 $$
 \frac{d}{dt}p_t(x) = - \text{div}(p_t u_t)(x) \Longleftrightarrow X_t \sim P_t, t \in [0,1]
@@ -287,9 +288,10 @@ Because \(\dot{\alpha}_t=1\) and \(\dot{\sigma}_t=-1\), the target velocity simp
 
 This straight-line path is also called the Conditional Optimal Transport (CondOT) path. The model input is a linear interpolation between noise and data, while the training target is the difference between data and noise.
 
-> <img src="../../../posts/flow_matching/straight_line_schedule.png" alt="A straight-line schedule interpolating between Gaussian noise and a data sample" width="100%" />
->
-> The straight-line schedule starts at noise \(\epsilon\) and moves along a straight line to the data sample \(z\). Figure credit: Yaron Lipman.
+<figure>
+  <img src="../../../posts/flow_matching/straight_line_schedule.png" alt="A straight-line schedule interpolating between Gaussian noise and a data sample" width="100%" />
+  <figcaption>The straight-line schedule starts at noise \(\epsilon\) and moves along a straight line to the data sample \(z\). Figure credit: Yaron Lipman.</figcaption>
+</figure>
 
 | **Algorithm 4** Flow Matching Training for the CondOT Path |
 | --- |

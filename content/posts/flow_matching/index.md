@@ -104,7 +104,7 @@ $$
 > 其中，我们令噪声调度函数（noise schedule）满足 $\alpha_t = t, \sigma_t = 1 - t$，则有 $\alpha_0 = 0, \sigma_0 = 1$，以及 $\alpha_1 = 1, \sigma_1 = 0$。
 > 高斯条件概率路径如下图所示：
 >
-> <img src="distribution_variance.png" alt="Conditional Probability Path" width="100%" />
+<img src="distribution_variance.png" alt="Conditional Probability Path" width="100%" />
 
 **定义三 边缘概率路径（Marginal Probability Path）**：已知 $z \sim P_{data}$，$x \sim P_t(\cdot|z)$，边缘概率路径 $\{P_t, t \in [0,1]\}$（该分布与 $z$ 无关）满足：
 1. $p_t(x) = \int p_t(x|z) p_{data}(z) dz$；
@@ -112,7 +112,7 @@ $$
 
 > 边缘概率路径如下图所示：
 >
-> <img src="marginal_probability_path.png" alt="边缘概率路径从高斯初始分布逐渐演化为棋盘状数据分布" width="100%" />
+<img src="marginal_probability_path.png" alt="边缘概率路径从高斯初始分布逐渐演化为棋盘状数据分布" width="100%" />
 
 ## 3. 条件向量场与边缘向量场
 
@@ -159,7 +159,7 @@ $$
 > 其中 $\dot{\alpha}_t$ 和 $\dot{\sigma}_t$ 分别为 $\alpha_t$ 和 $\sigma_t$ 关于 $t$ 的导数。
 > 该公式要求 $\sigma_t > 0$。对于 $\sigma_t=1-t$，它适用于 $0 \leq t < 1$；终点 $P_1(\cdot|z)=\delta_z$ 应理解为分布的极限。
 >
-> <img src="conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
+<img src="conditional_vector_field_2d.gif" alt="Conditional Vector Field" width="100%" />
 
 **定理一 边缘化技巧**/**定义五 边缘向量场**（Marginal Vector Field）：如果 $u_t^{target}(x|z)$ 是条件向量场，那么边缘向量场为：
 
@@ -194,13 +194,14 @@ $$
 > 
 > 这便是条件向量场和边缘向量场的核心差别。为什么导致了这样的差别呢？因为条件向量场是针对每个数据点 $z$ 定义的，而边缘向量场则是对所有数据点进行平均（边缘化）后（$p_t(x) = \int p_t(x|z) p_{data}(z) dz$）的结果。
 
-> <img src="cvf_mvf_visualization.png" alt="条件概率路径与边缘概率路径的对比" width="100%" />
+<img src="cvf_mvf_visualization.png" alt="条件概率路径与边缘概率路径的对比" width="100%" />
 
 **定理 连续性方程**（来自流体力学）：给定任意初始化的 ODE：$X_0 \sim P_{init}, \frac{d}{dt} X_t = u_t(X_t)$，则 $p_t$ 满足以下偏微分方程：
 
-> <img src="continuity_equation.png" alt="向量场中的概率流入与流出" width="100%" />
->
-> 图示说明局部区域中概率质量沿向量场流入和流出的变化。
+<figure>
+  <img src="continuity_equation.png" alt="向量场中的概率流入与流出" width="100%" />
+  <figcaption>图示说明局部区域中概率质量沿向量场流入和流出的变化。</figcaption>
+</figure>
 
 $$
 \frac{d}{dt}p_t(x) = - \text{div}(p_t u_t)(x) \Longleftrightarrow X_t \sim P_t, t \in [0,1]
@@ -287,9 +288,10 @@ x=tz+(1-t)\epsilon,\epsilon\sim\mathcal{N}(0,I_d).
 
 这条直线路径也称为条件最优传输（Conditional Optimal Transport，CondOT）路径。模型输入是噪声与数据的线性插值，训练目标是数据与噪声之差。
 
-> <img src="straight_line_schedule.png" alt="直线调度在高斯噪声与数据样本之间进行线性插值" width="100%" />
->
-> 直线调度从噪声 \(\epsilon\) 出发，沿直线移动到数据样本 \(z\)。图源：Yaron Lipman。
+<figure>
+  <img src="straight_line_schedule.png" alt="直线调度在高斯噪声与数据样本之间进行线性插值" width="100%" />
+  <figcaption>直线调度从噪声 \(\epsilon\) 出发，沿直线移动到数据样本 \(z\)。图源：Yaron Lipman。</figcaption>
+</figure>
 
 | **算法 4** CondOT 路径的流匹配训练流程 |
 | --- |

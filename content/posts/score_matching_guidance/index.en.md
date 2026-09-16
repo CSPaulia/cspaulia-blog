@@ -40,9 +40,10 @@ editPost:
 
 **Definition 2 (Marginal Score)**: \(\nabla_x \log p_t(x)\).
 
-> <img src="../../../posts/score_matching_guidance/score_function_visualization.png" alt="Comparison between a log-likelihood function and its score vector field" width="100%" />
->
-> The left panel shows contours of the log-likelihood \(\log q(x)\), while the right panel shows its score vector field \(\nabla_x\log q(x)\). Each arrow points in the direction of the fastest local increase in log-likelihood, and therefore toward increasing probability density. Figure source: MIT 6.S184 Lecture 3.
+<figure>
+  <img src="../../../posts/score_matching_guidance/score_function_visualization.png" alt="Comparison between a log-likelihood function and its score vector field" width="100%" />
+  <figcaption>The left panel shows contours of the log-likelihood \(\log q(x)\), while the right panel shows its score vector field \(\nabla_x\log q(x)\). Each arrow points in the direction of the fastest local increase in log-likelihood, and therefore toward increasing probability density. Figure source: MIT 6.S184 Lecture 3.</figcaption>
+</figure>
 
 > Deriving the **marginal score** from the **conditional score**:
 
@@ -260,9 +261,10 @@ dX_t = u_t(X_t)dt + g_t dW_t,
 
 the density \(p_t\) satisfies
 
-> <img src="../../../posts/score_matching_guidance/fokker_planck_flow.png" alt="Probability flow and diffusion in the Fokker-Planck equation" width="100%" />
->
-> The gray arrows show probability flow induced by the vector field, while the red dashed arrows show probability dispersion caused by diffusion.
+<figure>
+  <img src="../../../posts/score_matching_guidance/fokker_planck_flow.png" alt="Probability flow and diffusion in the Fokker-Planck equation" width="100%" />
+  <figcaption>The gray arrows show probability flow induced by the vector field, while the red dashed arrows show probability dispersion caused by diffusion.</figcaption>
+</figure>
 
 \[
 \begin{aligned}

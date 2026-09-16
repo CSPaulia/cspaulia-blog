@@ -29,6 +29,19 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - Prefer a numbered or bulleted list for parallel stages, trade-offs, procedures, or paired cases such as prefill versus generation. If a table would become too wide, use a list with bold labels instead.
 - When source notes or slides present parallel points as a list—especially warnings, summaries, procedures, or takeaways—preserve that list structure in the article. Do not expand those points into long paragraphs; keep each item concise and self-contained.
 - Use a blockquote for a short supplementary explanation or paper-specific aside when it should remain visually secondary to the main argument.
+- Mark up every figure that has a caption as `<figure>` + `<figcaption>…</figcaption>`, never as a bare `<img />` followed by a caption paragraph:
+
+```html
+<figure>
+  <img src="example.png" alt="…" width="100%" />
+  <figcaption>图 1：说明文字。图源：MIT 6.S184 Lecture 3。</figcaption>
+</figure>
+```
+
+  Put the caption text directly inside `<figcaption>`, with no inner `<p>`. PaperMod styles `.post-content figure > figcaption` (16px bold, `var(--primary)`), and that is the caption look used by every post on the site. A `<p>` inside the `<figcaption>` matches the theme's other rule, `.post-content figure > figcaption > p` (14px, `var(--secondary)`), and renders lighter than every other caption. A caption written as a plain Markdown paragraph after the image keeps the body style (18px, `var(--primary)`) and becomes visually indistinguishable from the prose. Example: `content/posts/evaluation/index.md`.
+- Hugo's built-in `{{< figure caption="…" >}}` shortcode always emits an inner `<p>`, so its captions render lighter than every other caption. Write the `<figure>` block as raw HTML instead of using the shortcode.
+- Keep the `<figure>` block free of blank lines so Goldmark parses it as one raw HTML block, and remember Markdown is not processed inside it: write emphasis as `<em>…</em>` instead of `*…*`, and keep inline math in `\(…\)` form.
+- Never put a figure inside a blockquote (`>`). Blockquotes are for supplementary prose only. If an image currently sits in a blockquote, keep the prose quoted and move the `<figure>` block out to follow it. A captionless illustration that closes a derivation may stay inside that derivation's blockquote, as in `content/posts/flow_and_diffusion_models/index.md`.
 - Treat paper-specific experiment details—such as exact scores, dataset-specific improvements, ablations, or setup details—as secondary evidence rather than the main method narrative. Put a short result in a blockquote with its citation; use a `<details>` block when the evidence or explanation is longer.
 - Emphasize the central takeaway sparingly with bold text; do not bold entire long paragraphs.
 
