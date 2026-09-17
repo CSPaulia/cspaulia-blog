@@ -16,6 +16,7 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 - This is primarily a Chinese blog. Write headings in Chinese; when a heading introduces a specific English technical term, use `中文（English）` instead of an English-only heading.
 - Number the main `##` chapters and their `###` subsections when the article follows a chapter structure. Use unnumbered `####` headings for smaller topic blocks; avoid deep numeric headings such as `1.1.1`.
 - When a heading needs to foreground its conclusion, prefer the form `主题：核心结论`, for example `量化：通过降低数值精度减少访存`.
+- When a section introduces a concept, name it after the concept itself, optionally followed by a one-line description in the form `概念：一句简短的介绍`. Sections that introduce sibling concepts must share the same naming shape so they read as one group, for example `马尔可夫决策过程（MDP）：状态完全可观测` and `部分可观测马尔可夫决策过程（POMDP）：状态部分可观测`. A section that only supplies prerequisite vocabulary is named as such (`前置知识`) instead of being given a concept name.
 - Make every heading understandable on its own in the table of contents. State the subject being discussed instead of relying on the preceding paragraph for context.
 - Avoid vague headings such as “完整曲线”“为什么会出现幂律” or “相关内容”. Name the object explicitly, for example “数据—性能曲线的三个区间” or “数据—性能曲线为什么会呈现幂律”.
 - Let headings describe the actual relationship, boundary, or conclusion of the section. Do not use an author name alone when the reader is really looking for a concept or result.
