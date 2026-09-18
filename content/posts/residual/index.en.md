@@ -23,6 +23,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+tocEndLevel: 2 # show only h2 headings in the table of contents for this post
 cover:
     image: "hc.png"
     alt: "cover"
@@ -306,10 +307,129 @@ Where \(\vec{\mathbf{x}}_l \in \mathbb{R}^{1 \times nC}\) is the flattened form 
     \mathbf{M}^{(t)} = \mathcal{T}_r\!\left(\mathcal{T}_c\!\left(\mathbf{M}^{(t-1)}\right)\right)
 \]
 
-As \(t \to \infty\), \(\mathbf{M}^{(t)}\) converges to a doubly stochastic matrix.
+As \(t \to \infty\), \(\mathbf{M}^{(t)}\) converges to a doubly stochastic matrix (as guaranteed by Sinkhorn's theorem). Here \(\mathcal{T}_c\) is column normalization—each element is divided by its column sum, making every column sum to 1; \(\mathcal{T}_r\) is row normalization—each element is divided by its row sum, making every row sum to 1:
+
+\[
+\mathcal{T}_c(\mathbf{M})_{ij} = \frac{M_{ij}}{\sum_i M_{ij}}, \quad
+\mathcal{T}_r(\mathbf{M})_{ij} = \frac{M_{ij}}{\sum_j M_{ij}}
+\]
+
+That is, each round performs column normalization first and row normalization second. The original paper only describes the two qualitatively as "row and column normalization" and gives no component-wise formulas; the practical implementation takes \(t_{\max} = 20\), yielding an approximate solution.
 
 ### 3.3. Infrastructure Design
 
 1. **Kernel Fusion**: Too many small operations cause repeated HBM reads/writes and large kernel-launch overhead. Fusing multiple small operations into a single kernel reduces memory access and launch overhead.
 2. **Recomputation**: Intermediate quantities are not stored during the forward pass; they are recomputed during backpropagation.
 3. **Communication-Computation Overlap**: \(n\) information streams increase communication cost; overlapping communication with computation mitigates this overhead.
+
+### 3.4. Single-Pass mHC: Shifting One Step to Break the Data Dependency
+
+[DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf) keeps mHC but improves its implementation. The tech report writes mHC in a more compact form:
+
+\[
+X_{l+1} = B_l X_l + C_l F_l(A_l X_l), \quad (A_l, B_l, C_l) = H(X_l)
+\]
+
+where \(X_l \in \mathbb{R}^{n \times d}\) are the \(n\) residual streams between adjacent blocks (the \(\mathbf{x}_l\) in the notation above), \(B_l \in \mathbb{R}^{n \times n}\) is the residual mixing matrix (i.e., \(\mathcal{H}^{\mathrm{res}}_l\)), \(A_l \in \mathbb{R}^{1 \times n}\) and \(C_l \in \mathbb{R}^{n \times 1}\) are the input-mixing and output-contraction coefficients (playing the roles of \(\mathcal{H}^{\mathrm{pre}}_l\) and \(\mathcal{H}^{\mathrm{post}}_l\)), and all three are predicted from \(X_l\) by a coefficient predictor \(H\).
+
+**Problem of the original implementation**: DeepSeek-V4 executes the equation above with three kernels in sequence—residual update, coefficient prediction, and input mixing:
+
+\[
+X_l = B_{l-1} X_{l-1} + C_{l-1} Y_{l-1} \quad \text{(residual update, contraction over } n\text{)}
+\]
+
+\[
+(A_l, B_l, C_l) = H(X_l) \quad \text{(coefficient prediction, contraction over } nd\text{)}
+\]
+
+\[
+\hat{X}_l = A_l X_l \quad \text{(input mixing, contraction over } n\text{)}
+\]
+
+**The Single-Pass mHC improvement**: shift the input-mixing coefficients by one step, so each block uses the coefficients predicted by the previous block, \(A_{l-1}\):
+
+\[
+X_{l+1} = B_l X_l + C_l F_l(A_{l-1} X_l), \quad (A_l, B_l, C_l) = H(X_l)
+\]
+
+Input mixing no longer depends on the current block's coefficient prediction, so each tile of \(X_l\) can be used immediately for both input mixing and coefficient prediction without waiting for the full reduction. Empirically, this shift incurs negligible performance degradation.
+
+**The Mega-mHC kernel**: for deployment, residual update, input mixing, and coefficient prediction are fused into a single kernel. It processes \(X_l\) in tiles along the hidden dimension: each tile computes the mixed input and accumulates the statistics needed to predict the coefficients for the next block. The three implementations compare as follows:
+
+| Implementation | Kernels | Notes | Activation memory traffic (reads + writes) |
+|----------------|---------|-------|--------------------------------------------|
+| DeepSeek-V4 original | 3 | Residual update, coefficient prediction, and input mixing run sequentially | \((4n+4)d\) |
+| Mega-mHC (without the shift) | 1 | Three operations fused; still bound by the \(A_l\) dependency, requiring two passes | \((3n+2)d\) |
+| Mega-mHC + Single-Pass mHC | 1 | Fusion plus the one-step shift | \((2n+2)d\) (theoretical lower bound, halved) |
+
+The residual is thereby read once and written once.
+
+The shift takes effect in both training and inference—the model already uses the \(A_{l-1}\) semantics during pre-training, merely with the multi-kernel implementation (the shift only changes which coefficients each block applies); the Mega-mHC kernel fusion is a deployment-side optimization, used only at deployment.
+
+## 4. Identity Hyper-Connection (iHC)
+
+A [Zhihu blog post](https://zhuanlan.zhihu.com/p/2010852389670908320) reports the following experimental conclusion: **replacing mHC's \(\mathcal{H}^{\mathrm{res}}\) directly with the identity matrix \(I\) works even better**—the ranking is Identity HC > mHC > mHC lite > mHC orthogonal. The experiments were conducted on Qwen3 1.7B and 8B dense models trained from scratch on 150B tokens. These are small-scale personal experiments without peer review, so take the following as a reference only.
+
+iHC's approach is to directly replace \(\mathcal{H}^{\mathrm{res}}_l\) in the mHC update with the identity matrix \(I\):
+
+\[\mathbf{x}_{l+1} = \mathbf{x}_l + \mathrm{diag}\left(\mathcal{H}^{\mathrm{post}}_l\right) \mathcal{F}_l\left(\mathcal{H}^{\mathrm{pre}}_l \mathbf{x}_l\right)\]
+
+<figure>
+  <img src="../../../posts/residual/ihc_training_curves.png" alt="Identity HC training curve screenshot" loading="lazy" width="100%" />
+  <figcaption>A partial screenshot of the training curves of Qwen3 1.7B trained from scratch on 150B tokens. Source: <a href="https://zhuanlan.zhihu.com/p/2010852389670908320">Zhihu post “Your DeepSeek mHC May Not Need the ‘m’”</a>.</figcaption>
+</figure>
+
+### 4.1. Observation: The Accumulated Product of \(\mathcal{H}^{\mathrm{res}}\) Collapses
+
+The \(\mathcal{H}^{\mathrm{res}}\) learned by a trained mHC shows the following pattern:
+
+- A single layer (depth = 1): close to the identity matrix—diagonal entries around 0.96, off-diagonal entries around 0.01;
+- The accumulated product (depth ≥ 10): collapses to the all-0.25 matrix (uniform mixing).
+
+That is, the single-layer \(\mathcal{H}^{\mathrm{res}}\) learned by Sinkhorn-Knopp is close to the identity matrix, but after multiplying many layers it becomes the all-0.25 matrix, completely homogenizing the information of the \(n = 4\) residual streams.
+
+<figure>
+  <img src="../../../posts/residual/ihc_hres_accumulation.png" alt="Accumulated multi-layer H_res matrix" loading="lazy" width="100%" />
+  <figcaption>The accumulation of multi-layer \(\mathcal{H}^{\mathrm{res}}\): after 10 layers, the information of the 4 streams collapses entirely into uniform mixing. Source: <a href="https://zhuanlan.zhihu.com/p/2010852389670908320">Zhihu post “Your DeepSeek mHC May Not Need the ‘m’”</a>.</figcaption>
+</figure>
+
+The mathematical reason behind this: for a doubly stochastic matrix satisfying the uniform positivity condition (all entries have a positive lower bound \(\delta > 0\)), its Dobrushin ergodic coefficient satisfies \(\tau(P) \leq 1 - d\delta < 1\), so the coefficient of the accumulated product decays geometrically, \(\tau(A_n) \leq (1 - d\delta)^n \to 0\), forcing all rows to converge to each other and the product to converge to the uniform matrix \(\frac{1}{d}\mathbf{1}\mathbf{1}^\top\). Pure permutation matrices or reducible matrices do not satisfy the uniform positivity condition and do not collapse—but Sinkhorn's output is usually strictly positive, satisfying the condition.
+
+The Perron-Frobenius theorem gives the same conclusion: a doubly stochastic matrix has largest eigenvalue 1 and all other eigenvalues with magnitude strictly less than 1 (as long as it is not a reducible permutation matrix), so the smallest singular value of the accumulated product satisfies
+
+\[\sigma_{\min}\left(\prod_{l=1}^L H_l\right) \lesssim \prod_{l=1}^L |\lambda_{\min}(H_l)|\]
+
+Here \(\lambda_{\min}(H_l)\) is the eigenvalue of smallest magnitude of each layer's doubly stochastic matrix—an eigenvalue satisfies \(H_l v = \lambda v\); a doubly stochastic matrix's largest eigenvalue is 1 and all other eigenvalues have magnitude strictly less than 1—and \(\sigma_{\min}\) is the smallest singular value, i.e., the smallest stretch factor when the matrix stretches vectors. For any matrix, the smallest singular value never exceeds the magnitude of any eigenvalue, so the original post gives the heuristic bound, written as \(\lesssim\), that the smallest singular value of the \(L\)-layer product is bounded by the product of the smallest-magnitude eigenvalues of the individual layers. A \(\sigma_{\min}\) approaching 0 means that in some direction, the signal is (almost) completely compressed away after many layers—exactly the signal vanishing discussed in Section 3.1.
+
+The product decays exponentially to zero when \(|\lambda_{\min}| < 1\). On Qwen3-1.7B (28 layers, 56 HC modules), the mean smallest eigenvalue of the Sinkhorn version of \(\mathcal{H}^{\mathrm{res}}\) is 0.49, giving an estimate of \(\sigma_{\min} \sim 0.49^{56} \approx 10^{-17}\), with a measured value of \(9.2 \times 10^{-18}\)—after passing through 56 HC modules, a shallow-layer signal decays to almost nothing except along the mean direction.
+
+In addition, 20 steps of Sinkhorn-Knopp iteration do not guarantee convergence: the measured standard deviation of row sums is 0.12, and this error accumulates across layers; mHC lite also reports that for about 27.9% of inputs the relative range satisfies \(1/\nu \geq 10^{13}\), in which case the column-sum deviation after 20 iterations can reach 100%.
+
+### 4.2. The Advantage of Identity
+
+The identity matrix is itself doubly stochastic (row and column sums equal 1, spectral norm equal to 1, fully norm-preserving)—the simplest possible manifold constraint. \(H^{\mathrm{res}} = I\) means: each residual stream keeps its own information and does not exchange it with other streams.
+
+One might object: doesn't this degenerate to a permutation matrix? The problem is that mHC's \(\mathcal{H}^{\mathrm{res}}\) at different layers are **different approximate permutations**—each layer rearranges the streams, so stream 1 becomes the stream at position 3 after layer 1 and the stream at position 2 after layer 5, and \(\mathcal{H}^{\mathrm{pre}}\) and \(\mathcal{H}^{\mathrm{post}}\) must constantly “track” where each stream has been rearranged to, increasing the learning difficulty. The advantages of identity are:
+
+- Stream 0 is always at position 0—stream semantics remain consistent along depth;
+- \(\mathcal{H}^{\mathrm{pre}}\) / \(\mathcal{H}^{\mathrm{post}}\) do not need to adapt to stream rearrangement and directly learn “which stream to read from and which stream to write to”;
+- The accumulated product \(I^L = I\) neither collapses nor scrambles.
+
+Cross-stream information mixing does not disappear: the \(\varphi\) projection flattens the \(n\) streams and projects them to \(n^2 + 2n\) dimensions, then splits out \(\mathcal{H}^{\mathrm{pre}}\) (\(n\) dimensions), \(\mathcal{H}^{\mathrm{post}}\) (\(n\) dimensions), and \(\mathcal{H}^{\mathrm{res}}\) (\(n^2\) dimensions). Even with \(H^{\mathrm{res}} = I\), the \(\mathcal{H}^{\mathrm{pre}}\) produced by \(\varphi\) is still input-dependent, and the aggregation and write-back are done dynamically with sigmoid weighting (the update formula is shown at the beginning of this section).
+
+### 4.3. Comparison and Failed Alternatives
+
+| Metric | Sinkhorn | Identity |
+|--------|----------|----------|
+| Accumulated product | rank-1 collapse (\(\kappa = 10^{17}\)) | \(I\) (\(\kappa = 1\)) |
+| Approximation error | row-sum std = 0.12 | exact |
+| Extra computation | 20 iterations + backward recomputation | zero |
+| Extra parameters | \(nC \times n^2\) projection weights | none |
+| Signal propagation | shallow signals decay exponentially | lossless |
+
+The author also tried other alternatives, none of which beat the original mHC:
+
+- **mHC lite (exact doubly stochastic via convex combination, softmax weighting)**: on 1.7B it underperforms the original mHC. It was observed that as \(\alpha_{\mathrm{res}}\) grows (from 0.01 to around 2), the softmax temperature drops and the output tends toward one-hot, so stream mixing actually decreases.
+- **Orthogonalization (Cayley transform, Givens rotations)**: the spectral norm is always 1, neither exploding nor vanishing; but \(\alpha_{\mathrm{res}}\) barely moves (stays around 0.01), and allowing negative values can flip some streams, causing capacity collapse.
+
+This approach has also landed in production: the residual pathway of Tencent Hunyuan 4 Preview ([Hy4-preview](https://huggingface.co/tencent/Hy4-preview)) is exactly iHC—the official model card states that “the residual pathway uses iHC (identity Hyper-Connections) to expand inter-layer information flow.” The model has 4 residual streams, drops the Sinkhorn constraint, and fixes \(H^{\mathrm{res}}\) to the identity mapping.

@@ -27,6 +27,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+tocEndLevel: 2 # show only h2 headings in the table of contents for this post
 cover:
     image: "hc.png" # image path/url
     alt: "cover" # alt text
@@ -310,10 +311,129 @@ mHC 的完整设计为：
     \mathbf{M}^{(t)} = \mathcal{T}_r\!\left(\mathcal{T}_c\!\left(\mathbf{M}^{(t-1)}\right)\right)
 \]
 
-当 \(t \to \infty\) 时，\(\mathbf{M}^{(t)}\) 会收敛到一个双随机矩阵。
+当 \(t \to \infty\) 时，\(\mathbf{M}^{(t)}\) 会收敛到一个双随机矩阵（Sinkhorn 定理的保证）。其中 \(\mathcal{T}_c\) 是列归一化——每个元素除以所在列的列和，使每列和为 1；\(\mathcal{T}_r\) 是行归一化——每个元素除以所在行的行和，使每行和为 1：
+
+\[
+\mathcal{T}_c(\mathbf{M})_{ij} = \frac{M_{ij}}{\sum_i M_{ij}}, \quad
+\mathcal{T}_r(\mathbf{M})_{ij} = \frac{M_{ij}}{\sum_j M_{ij}}
+\]
+
+即每轮先做列归一化、再做行归一化。原文只定性说明二者是“行归一化”和“列归一化”，并未给出分量公式；实际实现取 \(t_{\max} = 20\)，得到的是近似解。
 
 ### 3.3. mHC 的工程设计（Infrastructure Design）
 
 1. 计算核融合（Kernel Fusion）：小操作太多，反复读写显存，kernel launch overhead 大；将多个小操作融合成一个大操作，减少显存访问和 kernel launch overhead。
 2. 重计算（Recomputation）：前向不存中间量，反向时重新计算。
 3. 通信计算重叠（Communication-Computation Overlap）：n 个信息流通信开销增大；通信和计算重叠，减少通信开销。
+
+### 3.4. Single-Pass mHC：错位一格消除数据依赖
+
+[DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf) 沿用了 mHC，但对实现做了改进。技术报告把 mHC 写成更紧凑的形式：
+
+\[
+X_{l+1} = B_l X_l + C_l F_l(A_l X_l), \quad (A_l, B_l, C_l) = H(X_l)
+\]
+
+其中 \(X_l \in \mathbb{R}^{n \times d}\) 是相邻 block 之间的 \(n\) 条残差流（对应上文记法中的 \(\mathbf{x}_l\)），\(B_l \in \mathbb{R}^{n \times n}\) 是残差混合矩阵（即 \(\mathcal{H}^{\mathrm{res}}_l\)），\(A_l \in \mathbb{R}^{1 \times n}\) 与 \(C_l \in \mathbb{R}^{n \times 1}\) 分别是输入混合与输出收缩系数（对应 \(\mathcal{H}^{\mathrm{pre}}_l\) 与 \(\mathcal{H}^{\mathrm{post}}_l\) 的角色），三者由系数预测器 \(H\) 从 \(X_l\) 预测得到。
+
+**原实现的问题**：DeepSeek-V4 用三个 kernel 顺序执行上式——残差更新、系数预测、输入混合：
+
+\[
+X_l = B_{l-1} X_{l-1} + C_{l-1} Y_{l-1} \quad \text{（残差更新，对 } n \text{ 收缩）}
+\]
+
+\[
+(A_l, B_l, C_l) = H(X_l) \quad \text{（系数预测，对 } nd \text{ 收缩）}
+\]
+
+\[
+\hat{X}_l = A_l X_l \quad \text{（输入混合，对 } n \text{ 收缩）}
+\]
+
+**Single-Pass mHC 的改进**：把输入混合系数错位一格，每个 block 使用上一个 block 预测的系数 \(A_{l-1}\)：
+
+\[
+X_{l+1} = B_l X_l + C_l F_l(A_{l-1} X_l), \quad (A_l, B_l, C_l) = H(X_l)
+\]
+
+输入混合不再依赖本 block 的系数预测，\(X_l\) 的每个 tile 算出来就可以立刻同时用于输入混合和系数预测，无需等待完整 reduction。实验表明这一步错位带来的性能损失可忽略。
+
+**Mega-mHC 内核**：部署时把残差更新、输入混合、系数预测融合为单个 kernel。它沿 hidden 维度按 tile 处理 \(X_l\)：每个 tile 既计算混合输入，又累加预测下一 block 系数所需的统计量。三种实现的对比：
+
+| 实现 | 内核数 | 说明 | 激活内存流量（读 + 写） |
+|------|--------|------|----------------------|
+| DeepSeek-V4 原实现 | 3 | 残差更新、系数预测、输入混合顺序执行 | \((4n+4)d\) |
+| Mega-mHC（无错位） | 1 | 三操作融合；仍受 \(A_l\) 依赖，需两遍遍历 | \((3n+2)d\) |
+| Mega-mHC + Single-Pass mHC | 1 | 融合 + 系数错位一格 | \((2n+2)d\)（理论下界，减半） |
+
+残差因此只读一次、写一次。
+
+错位在训练与推理中都生效——预训练阶段的模型就已经使用 \(A_{l-1}\) 的语义，只是仍用多 kernel 实现（错位只改变每个 block 使用哪一份系数）；Mega-mHC 的内核融合属于部署侧优化，只在部署时使用。
+
+## 4. 恒等超连接（Identity Hyper-Connection，iHC）
+
+一篇[知乎博客](https://zhuanlan.zhihu.com/p/2010852389670908320)报告了这样的实验结论：**把 mHC 的 \(\mathcal{H}^{\mathrm{res}}\) 直接换成单位阵 \(I\)，效果反而更好**——排序为 Identity HC > mHC > mHC lite > mHC orthogonal。实验在 Qwen3 1.7B 与 8B dense 上从头训练 150B tokens 完成，属于小规模个人实验、未经同行评审，以下内容仅供参考。
+
+iHC 的做法是把 mHC 更新式中的 \(\mathcal{H}^{\mathrm{res}}_l\) 直接换成单位阵 \(I\)：
+
+\[\mathbf{x}_{l+1} = \mathbf{x}_l + \mathrm{diag}\left(\mathcal{H}^{\mathrm{post}}_l\right) \mathcal{F}_l\left(\mathcal{H}^{\mathrm{pre}}_l \mathbf{x}_l\right)\]
+
+<figure>
+  <img src="ihc_training_curves.png" alt="Identity HC 训练曲线截图" loading="lazy" width="100%" />
+  <figcaption>Qwen3 1.7B 从头训练 150B tokens 的部分训练曲线截图。图源：<a href="https://zhuanlan.zhihu.com/p/2010852389670908320">知乎博客《你的 DeepSeek mHC 可能不需要 “m”》</a>。</figcaption>
+</figure>
+
+### 4.1. 观察：\(\mathcal{H}^{\mathrm{res}}\) 的累乘坍缩
+
+训练后的 mHC 学出的 \(\mathcal{H}^{\mathrm{res}}\) 呈现如下模式：
+
+- 单层（depth = 1）：接近单位阵——对角线约 0.96，非对角线约 0.01；
+- 累积乘积（depth ≥ 10）：坍缩为全 0.25 矩阵（均匀混合）。
+
+也就是说，Sinkhorn-Knopp 学到的单层 \(\mathcal{H}^{\mathrm{res}}\) 接近单位阵，但多层连乘后变成全 0.25 矩阵，\(n = 4\) 条残差流的信息被完全同质化。
+
+<figure>
+  <img src="ihc_hres_accumulation.png" alt="多层 H_res 累积矩阵" loading="lazy" width="100%" />
+  <figcaption>多层 \(\mathcal{H}^{\mathrm{res}}\) 的累积：10 层之后，4 条流的信息完全坍缩为均匀混合。图源：<a href="https://zhuanlan.zhihu.com/p/2010852389670908320">知乎博客《你的 DeepSeek mHC 可能不需要 “m”》</a>。</figcaption>
+</figure>
+
+背后的数学原因：满足一致正性条件（所有元素有正下界 \(\delta > 0\)）的双随机矩阵，其 Dobrushin 遍历系数 \(\tau(P) \leq 1 - d\delta < 1\)，连乘的遍历系数以几何速率衰减 \(\tau(A_n) \leq (1 - d\delta)^n \to 0\)，迫使所有行趋于一致，最终收敛到均匀矩阵 \(\frac{1}{d}\mathbf{1}\mathbf{1}^\top\)。纯置换矩阵或可约矩阵不满足一致正性条件、不会坍缩，但 Sinkhorn 输出的矩阵通常是严格正的，满足此条件。
+
+Perron-Frobenius 定理给出同样的结论：双随机矩阵的最大特征值为 1，其余特征值模长小于 1（只要不是可约置换矩阵），累积乘积的最小奇异值满足
+
+\[\sigma_{\min}\left(\prod_{l=1}^L H_l\right) \lesssim \prod_{l=1}^L |\lambda_{\min}(H_l)|\]
+
+其中 \(\lambda_{\min}(H_l)\) 是各层双随机矩阵**模长最小的特征值**——特征值满足 \(H_l v = \lambda v\)，双随机矩阵的最大特征值为 1，其余特征值的模长都小于 1；\(\sigma_{\min}\) 是**最小奇异值**，即矩阵对向量做拉伸时最小的拉伸倍数。对任意矩阵，最小奇异值都不超过任何一个特征值的模长，于是原文以 \(\lesssim\) 给出启发式上界：\(L\) 层连乘的最小奇异值被各层最小特征值模长的乘积界定。\(\sigma_{\min}\) 趋近于 0 意味着存在某个方向，信号经过多层后会被（几乎）完全压缩掉——这正是 3.1 节讨论的信号消失。
+
+当 \(|\lambda_{\min}| < 1\) 时，这个乘积指数衰减到零。在 Qwen3-1.7B（28 层、56 个 HC 模块）上，Sinkhorn 版 \(\mathcal{H}^{\mathrm{res}}\) 的最小特征值均值为 0.49，估计 \(\sigma_{\min} \sim 0.49^{56} \approx 10^{-17}\)，实测为 \(9.2 \times 10^{-18}\)——浅层信号经过 56 个 HC 模块后，除均值方向外基本衰减殆尽。
+
+此外，20 步 Sinkhorn-Knopp 迭代并不保证收敛：实测行和的标准差为 0.12，误差会在多层中累积；mHC lite 也报告约 27.9% 的输入相对范围 \(1/\nu \geq 10^{13}\)，此时 20 步迭代后的列和偏差可达 100%。
+
+### 4.2. Identity 的优势
+
+单位阵本身也是双随机矩阵（行列和均为 1、谱范数为 1，完全 norm-preserving），是最简单的 manifold constraint。\(H^{\mathrm{res}} = I\) 的含义是：各残差流保留自己的信息，不与其他流交换。
+
+有人会质疑：这不就退化到置换矩阵了吗？问题是，mHC 不同层学出的 \(\mathcal{H}^{\mathrm{res}}\) 是**不同的近似置换**——每层做一次流重排，流 1 在第 1 层之后变成流 3 的位置、第 5 层之后又变成流 2 的位置，\(\mathcal{H}^{\mathrm{pre}}\) 和 \(\mathcal{H}^{\mathrm{post}}\) 需要不断“追踪”每条流被重排到了哪里，增加了学习难度。Identity 的优势在于：
+
+- 流 0 永远在位置 0——流的语义在深度方向上完全一致；
+- \(\mathcal{H}^{\mathrm{pre}}\) / \(\mathcal{H}^{\mathrm{post}}\) 不需要适应流重排，直接学习“从哪条流读、往哪条流写”；
+- 累积乘积 \(I^L = I\)，既不会坍缩也不会混乱。
+
+跨流信息混合并没有因此消失：\(\varphi\) 投影把 \(n\) 条流 flatten 后投影到 \(n^2 + 2n\) 维，再拆分出 \(\mathcal{H}^{\mathrm{pre}}\)（\(n\) 维）、\(\mathcal{H}^{\mathrm{post}}\)（\(n\) 维）、\(\mathcal{H}^{\mathrm{res}}\)（\(n^2\) 维）。即使 \(H^{\mathrm{res}} = I\)，\(\varphi\) 生成的 \(\mathcal{H}^{\mathrm{pre}}\) 仍是 input-dependent 的，聚合与写回由 sigmoid 加权动态完成（更新公式见本节开头）。
+
+### 4.3. 对比与失败的替代方案
+
+| 指标 | Sinkhorn | Identity |
+|------|----------|----------|
+| 累积乘积 | rank-1 坍缩（\(\kappa = 10^{17}\)） | \(I\)（\(\kappa = 1\)） |
+| 近似误差 | 行和 std = 0.12 | 精确 |
+| 额外计算 | 20 步迭代 + 反向重计算 | 零 |
+| 额外参数 | \(nC \times n^2\) 投影权重 | 无 |
+| 信号传递 | 浅层信号指数衰减 | 无损传递 |
+
+作者也尝试过其他替代方案，均不如原版 mHC：
+
+- **mHC lite（凸组合做精确双随机，softmax 加权）**：1.7B 上效果不如原版 mHC。观察到 \(\alpha_{\mathrm{res}}\) 增大（从 0.01 增长到 2 附近）时，softmax 温度降低、输出趋向 one-hot，流间混合反而变少。
+- **正交化（Cayley 变换、Givens 旋转）**：谱范数恒为 1，不爆炸也不消失；但 \(\alpha_{\mathrm{res}}\) 几乎不动（停在 0.01 附近），且允许负值使某些流被取反，导致容量坍缩。
+
+该方法也已经落地：腾讯混元 4 Preview（[Hy4-preview](https://huggingface.co/tencent/Hy4-preview)）的残差通路采用的就是 iHC——官方模型卡描述为“残差通路采用 iHC（identity Hyper-Connections）以扩展层间信息流动”，模型共 4 条残差流，去掉了 Sinkhorn 约束、把 \(H^{\mathrm{res}}\) 固定为恒等映射。
