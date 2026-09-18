@@ -36,7 +36,7 @@ editPost:
     appendFilePath: true
 ---
 
-基于 [Sebastian Raschka 的 LLM Architecture Gallery](https://sebastianraschka.com/llm-architecture-gallery/) 整理。截至 2026-07-16，原站共有 85 个条目；本页按发行日排序，模型名在原站提供技术报告或配置时可直接跳转。相较原稿，删除了未逐项核验的 Norm／位置编码推断，改为原站明确提供的字段。
+基于 [Sebastian Raschka 的 LLM Architecture Gallery](https://sebastianraschka.com/llm-architecture-gallery/) 整理。截至 2026-07-16，原站共有 85 个条目；2026-07-16 之后的条目由本博客根据官方发布资料补充。本页按发行日排序，模型名在原站提供技术报告或配置时可直接跳转。相较原稿，删除了未逐项核验的 Norm／位置编码推断，改为原站明确提供的字段。
 
 > **图例**：D = 密集（Dense），M = 稀疏混合专家（Sparse Mixture of Experts，MoE），H = 混合架构（Hybrid），R = 循环架构（Recurrent）。参数量为总参数／单 token 激活参数；`未披露` 表示查阅模型报告、发布页或训练配方后，仍未找到具体训练并行信息。
 >
@@ -915,6 +915,96 @@ editPost:
   <td>未披露</td>
   <td>未披露</td>
 </tr>
+<tr>
+  <td>2026-07-27</td>
+  <td><a href="https://arxiv.org/abs/2607.24653">Kimi K3</a></td>
+  <td>2.8T / 104B</td>
+  <td>H+M</td>
+  <td>3:1 Kimi Delta Attention (KDA) and Gated MLA with Attention Residuals</td>
+  <td>1,048,576</td>
+  <td><a href="https://arxiv.org/abs/2607.24653">Muon（按头正交化）</a></td>
+  <td><a href="https://www.kimi.com/news/kimi-k3-open-source">策略</a>：PP／EP／ZeRO 组合与 MoonEP 专家通信；度数未披露</td>
+</tr>
+<tr>
+  <td>2026-08-10</td>
+  <td><a href="https://huggingface.co/meta-models/Muse-Glimmer-30B">Muse Glimmer 30B</a></td>
+  <td>30B</td>
+  <td>D</td>
+  <td>GQA with 3:1 sliding-window/full attention</td>
+  <td>131,072</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-12</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B">Qwen3.8 2.4T-A95B</a></td>
+  <td>2.4T / 95B</td>
+  <td>H+M</td>
+  <td>3:1 Gated DeltaNet and Gated Attention</td>
+  <td>262,144</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-14</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8 27B</a></td>
+  <td>27B</td>
+  <td>H</td>
+  <td>3:1 Gated DeltaNet and Gated Attention</td>
+  <td>262,144</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-26</td>
+  <td><a href="https://huggingface.co/zai-org/GLM-5.3-Flash">GLM-5.3-Flash</a></td>
+  <td>320B / 18B</td>
+  <td>H+M</td>
+  <td>Hybrid linear and sparse attention with IndexPool</td>
+  <td>1,048,576</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-26</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next">Qwen3.8-Flash-Next 125B-A6B</a></td>
+  <td>125B / 6B</td>
+  <td>H+M</td>
+  <td>3:1 Gated DeltaNet and Qwen Sparse Attention</td>
+  <td>262,144</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-28</td>
+  <td><a href="https://huggingface.co/tencent/Hy4-preview">Tencent Hy4-preview 770B-A49B</a></td>
+  <td>770B / 49B</td>
+  <td>M</td>
+  <td>Gated DSA with IndexCache</td>
+  <td>1,048,576</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-08-29</td>
+  <td><a href="https://arxiv.org/pdf/2602.15763">GLM-5.3 744B</a></td>
+  <td>744B / 40B</td>
+  <td>M</td>
+  <td>MLA with DeepSeek Sparse Attention and IndexShare</td>
+  <td>1,048,576</td>
+  <td>未披露</td>
+  <td>未披露</td>
+</tr>
+<tr>
+  <td>2026-09-10</td>
+  <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek V4.1-Flash</a></td>
+  <td>552B（+196B Engram）/ 8B–16B</td>
+  <td>M</td>
+  <td>CSA2 with sliding-window attention (CED)</td>
+  <td>1,048,576</td>
+  <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">Muon＋AdamW＋Sinkhorn 平衡（按参数类型）</a></td>
+  <td>未披露</td>
+</tr>
     </tbody>
   </table>
 </div>
@@ -922,7 +1012,7 @@ editPost:
 
 ## 观察
 
-- 已公开预训练配方的模型仍以 AdamW 为主；Muon／MuonClip 开始出现在 Kimi K2、Step 3.5 Flash 等较新的大规模训练中。大量模型没有披露优化器，因此不能把家族惯例或常见默认值当作事实。
+- 已公开预训练配方的模型仍以 AdamW 为主；Muon／MuonClip 开始出现在 Kimi K2、Step 3.5 Flash 等较新的大规模训练中，Kimi K3 与 DeepSeek V4.1-Flash 进一步采用按头正交化的 Muon 与按参数类型划分的 Muon／AdamW／Sinkhorn 组合。大量模型没有披露优化器，因此不能把家族惯例或常见默认值当作事实。
 - 扩展参数量时，MoE 仍是主流；长上下文模型同时采用局部／全局、稀疏或混合序列模块以降低注意力成本。
 - KV 缓存优化并未收敛为单一方案：GQA／MQA 减少 KV 头，MLA 进行低秩压缩，DSA／CSA／HCA 则进一步稀疏或压缩长上下文计算。
 - Mamba、DeltaNet、Lightning Attention 和卷积模块已进入部分模型，但不是 GQA／MLA 的直接、统一替代；应按模型报告中的层间比例理解。

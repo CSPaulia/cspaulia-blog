@@ -36,7 +36,7 @@ editPost:
     appendFilePath: true
 ---
 
-This page is based on Sebastian Raschka's [LLM Architecture Gallery](https://sebastianraschka.com/llm-architecture-gallery/). As of 2026-07-16, the upstream gallery lists 85 entries. Rows are sorted by release date, and model names link directly when upstream provides a technical report or configuration. The former unverified Norm and positional-encoding guesses have been removed in favor of fields explicitly maintained upstream.
+This page is based on Sebastian Raschka's [LLM Architecture Gallery](https://sebastianraschka.com/llm-architecture-gallery/). As of 2026-07-16, the upstream gallery lists 85 entries; entries after that date are added by this blog from official release materials. Rows are sorted by release date, and model names link directly when upstream provides a technical report or configuration. The former unverified Norm and positional-encoding guesses have been removed in favor of fields explicitly maintained upstream.
 
 > **Legend**: D = Dense, M = Sparse Mixture of Experts (MoE), H = Hybrid, and R = Recurrent. Parameters are total / active per token; `Undisclosed` means no specific training-parallelism information was found after checking model reports, release posts, and training recipes.
 >
@@ -915,6 +915,96 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
   <td>Undisclosed</td>
   <td>Undisclosed</td>
 </tr>
+<tr>
+  <td>2026-07-27</td>
+  <td><a href="https://arxiv.org/abs/2607.24653">Kimi K3</a></td>
+  <td>2.8T / 104B</td>
+  <td>H+M</td>
+  <td>3:1 Kimi Delta Attention (KDA) and Gated MLA with Attention Residuals</td>
+  <td>1,048,576</td>
+  <td><a href="https://arxiv.org/abs/2607.24653">Muon (per-head orthogonalization)</a></td>
+  <td><a href="https://www.kimi.com/news/kimi-k3-open-source">Strategy</a>: PP / EP / ZeRO with MoonEP expert communication; degrees undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-10</td>
+  <td><a href="https://huggingface.co/meta-models/Muse-Glimmer-30B">Muse Glimmer 30B</a></td>
+  <td>30B</td>
+  <td>D</td>
+  <td>GQA with 3:1 sliding-window/full attention</td>
+  <td>131,072</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-12</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B">Qwen3.8 2.4T-A95B</a></td>
+  <td>2.4T / 95B</td>
+  <td>H+M</td>
+  <td>3:1 Gated DeltaNet and Gated Attention</td>
+  <td>262,144</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-14</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8 27B</a></td>
+  <td>27B</td>
+  <td>H</td>
+  <td>3:1 Gated DeltaNet and Gated Attention</td>
+  <td>262,144</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-26</td>
+  <td><a href="https://huggingface.co/zai-org/GLM-5.3-Flash">GLM-5.3-Flash</a></td>
+  <td>320B / 18B</td>
+  <td>H+M</td>
+  <td>Hybrid linear and sparse attention with IndexPool</td>
+  <td>1,048,576</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-26</td>
+  <td><a href="https://huggingface.co/Qwen/Qwen3.8-Flash-Next">Qwen3.8-Flash-Next 125B-A6B</a></td>
+  <td>125B / 6B</td>
+  <td>H+M</td>
+  <td>3:1 Gated DeltaNet and Qwen Sparse Attention</td>
+  <td>262,144</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-28</td>
+  <td><a href="https://huggingface.co/tencent/Hy4-preview">Tencent Hy4-preview 770B-A49B</a></td>
+  <td>770B / 49B</td>
+  <td>M</td>
+  <td>Gated DSA with IndexCache</td>
+  <td>1,048,576</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-08-29</td>
+  <td><a href="https://arxiv.org/pdf/2602.15763">GLM-5.3 744B</a></td>
+  <td>744B / 40B</td>
+  <td>M</td>
+  <td>MLA with DeepSeek Sparse Attention and IndexShare</td>
+  <td>1,048,576</td>
+  <td>Undisclosed</td>
+  <td>Undisclosed</td>
+</tr>
+<tr>
+  <td>2026-09-10</td>
+  <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek V4.1-Flash</a></td>
+  <td>552B (+196B Engram) / 8B–16B</td>
+  <td>M</td>
+  <td>CSA2 with sliding-window attention (CED)</td>
+  <td>1,048,576</td>
+  <td><a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">Muon + AdamW + Sinkhorn balancing (by parameter type)</a></td>
+  <td>Undisclosed</td>
+</tr>
     </tbody>
   </table>
 </div>
@@ -922,7 +1012,7 @@ Further reading: [attention mechanisms](../attention_in_llm/) (MHA, GQA, MQA, ML
 
 ## Observations
 
-- AdamW remains the most common choice among models with a public pretraining recipe. Muon or MuonClip appears in newer large-scale runs such as Kimi K2 and Step 3.5 Flash. Because many publishers do not disclose their optimizer, family conventions and common defaults should not be treated as facts.
+- AdamW remains the most common choice among models with a public pretraining recipe. Muon or MuonClip appears in newer large-scale runs such as Kimi K2 and Step 3.5 Flash; Kimi K3 and DeepSeek V4.1-Flash adopt per-head Muon and a per-parameter-type Muon/AdamW/Sinkhorn mix, respectively. Because many publishers do not disclose their optimizer, family conventions and common defaults should not be treated as facts.
 - MoE remains the common path for parameter scaling. Long-context models also combine local/global, sparse, or hybrid sequence modules to reduce attention cost.
 - KV-cache optimization has not converged on one method: GQA/MQA reduce KV heads, MLA uses low-rank compression, and DSA/CSA/HCA further sparsify or compress long-context computation.
 - Mamba, DeltaNet, Lightning Attention, and convolution modules appear in a subset of models. They should be understood through the layer ratios in each report, not as a single replacement for GQA or MLA.
