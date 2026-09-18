@@ -1,4 +1,9 @@
 {{- $toc := .TableOfContents -}}
+{{- $tocHeadingSelector := "h2[id],h3[id]" -}}
+{{- if eq (int (.Param "tocEndLevel" | default 0)) 2 -}}
+{{- $toc = $toc | replaceRE `(?s)<li>(<a href="#[^"]+">.*?</a>)\s*<ul>.*?</ul>` "<li>$1" | safeHTML -}}
+{{- $tocHeadingSelector = "h2[id]" -}}
+{{- end -}}
 {{- $hasHeaders := ge (len (findRE "<li>" $toc)) 1 -}}
 {{- if $hasHeaders -}}
 <aside id="toc-container" class="toc-container wide">
@@ -28,7 +33,7 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             checkTocPosition();
-            elements = Array.from(document.querySelectorAll('h2[id],h3[id]'));
+            elements = Array.from(document.querySelectorAll('{{ $tocHeadingSelector }}'));
             if (elements.length === 0) {
                 return;
             }

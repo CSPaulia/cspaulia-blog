@@ -24,6 +24,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+tocEndLevel: 2 # show only h2 headings in the table of contents for this post
 cover:
     image: "cover.svg"
     alt: "Illustration of SGD, AdamW, and Muon optimizers"
