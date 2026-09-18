@@ -27,6 +27,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+tocEndLevel: 2 # show only h2 headings in the table of contents for this post
 cover:
     image: "cover.png" # image path/url
     alt: "cover" # alt text
@@ -40,15 +41,15 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## 分组查询注意力（Grouped Query Attention，GQA）和多查询注意力（Multi-Query Attention，MQA）
+## 1. 分组查询注意力（Grouped Query Attention，GQA）和多查询注意力（Multi-Query Attention，MQA）
 
 见[博客](../transformer_in_LLM/index.md#mqa-gqa)。
 
-## 稀疏注意力（Sparse Attention） {#sparse-attention}
+## 2. 稀疏注意力（Sparse Attention） {#sparse-attention}
 
 {{< figure src="sparse_attentions.png" alt="稀疏注意力掩码示例" caption="稀疏注意力掩码示例" >}}
 
-### 稀疏注意力的动机
+### 2.1 稀疏注意力的动机
 
 标准自注意力的计算可以表述为：给定输入序列 \(X \in \mathbb{R}^{N \times d}\)，其中 \(N\) 为序列长度，\(d\) 为隐藏维度，经线性投影得到 Query、Key、Value：
 
@@ -68,7 +69,7 @@ editPost:
 
 ---
 
-### 滑动窗口注意力 (Sliding Window) {#sliding-window}
+### 2.2 滑动窗口注意力 (Sliding Window) {#sliding-window}
 
 **定义**：每个位置只与前后固定窗口内的邻居交互。给定窗口大小 \(w\)，位置 \(i\) 的注意力范围为：
 
@@ -84,7 +85,7 @@ editPost:
 
 ---
 
-### 分块注意力 (Block，即 Sparse Transformer 的 "Fixed") {#block-attention}
+### 2.3 分块注意力 (Block，即 Sparse Transformer 的 "Fixed") {#block-attention}
 
 与滑动窗口不同，分块注意力将序列按固定大小切分为若干个**互不重叠的块（block）**，每个位置只与同一块内的所有 token 交互，不同块之间完全隔离。设块大小为 \(b\)，位置 \(i\) 所属的块索引为 \(\lfloor i/b \rfloor\)，则注意力范围为：
 
@@ -100,7 +101,7 @@ editPost:
 
 ---
 
-### 跨步注意力 (Strided) {#strided-attention}
+### 2.4 跨步注意力 (Strided) {#strided-attention}
 
 **定义**：Block Attention 局限于同一块内，Strided Attention 则以均匀间隔覆盖全局，使得同一个块内的不同 token 各自连接不同块的 token。给定步长 \(l\)，位置 \(i\) 的注意力范围为：
 
@@ -116,7 +117,7 @@ editPost:
 
 ---
 
-### DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA） {#dsa}
+### 2.5 DeepSeek 稀疏注意力（DeepSeek Sparse Attention，DSA） {#dsa}
 
 假设模型正在处理一个 128K token 的长上下文，当前最后一句问题是：
 
@@ -159,7 +160,7 @@ $$
 
 ---
 
-### 小结
+### 2.6 小结
 
 | 模式 | 注意力范围 \(\mathcal{A}(i)\) | 复杂度 | 代表工作 |
 |------|---------------------------|--------|---------|
@@ -171,11 +172,11 @@ $$
 
 ---
 
-## 多头潜在注意力（Multi-Head Latent Attention，MLA） {#mla}
+## 3. 多头潜在注意力（Multi-Head Latent Attention，MLA） {#mla}
 
 MLA 是 [DeepSeek-V2](https://arxiv.org/abs/2405.04434) 提出的注意力机制，核心动机与 GQA 相同——降低推理时的 KV 缓存开销。但 GQA 只是减少 KV 头的数量，MLA 则直奔本质：**把 KV 压缩到低秩潜在空间，只存压缩后的向量，用的时候再解压。**
 
-### 从 MHA 到 MLA
+### 3.1 从 MHA 到 MLA
 
 标准 MHA 中，输入 \( \mathbf{h}_t \in \mathbb{R}^d \) 经三组投影得到 Q、K、V：
 
@@ -198,7 +199,7 @@ MLA 的做法：**不直接投影到 K 和 V，先投影到一个低维压缩向
 
 其中 \( d_c \ll H d_h \)。在 DeepSeek-V2/V3 中，\( d_c = 512 \)，而 \( H d_h = 128 \times 128 = 16384 \)，仅 KV 缓存即从 16384 降至 512。
 
-### RoPE 的解耦处理
+### 3.2 RoPE 的解耦处理
 
 低秩压缩与 RoPE 天然冲突：压缩向量 \( \mathbf{c}^{KV}_t \) 内信息混合了所有头，无法按头独立旋转。MLA 的方案是**将位置编码从压缩分支中解耦出来**：额外引入一个不经过压缩的轻量 RoPE 通道。
 
@@ -225,7 +226,7 @@ Q 侧的 RoPE 分量 **每个头独立**（无需缓存，保证不同头之间�
 
 缓存内容：\( \mathbf{c}^{KV}_t \)（512 维）+ \( \mathbf{k}^R_t \)（\( d_r = 64 \) 维）= 576 维。
 
-### Q 的压缩：减少训练时中间激活存储 {#q-compression-mla}
+### 3.3 Q 的压缩：减少训练时中间激活存储 {#q-compression-mla}
 
 MLA 对 Q 同样做低秩压缩：
 
@@ -236,14 +237,14 @@ MLA 对 Q 同样做低秩压缩：
 
 训练时，前向传播的中间激活需要保留给反向传播。不压缩 Q 时需存储 \( \mathbf{q}_t \in \mathbb{R}^{H d_h} \)；压缩后仅存 \( \mathbf{c}^{Q}_t \in \mathbb{R}^{d'_c} \)（\( d'_c \) 通常为 1536），反向时解压重算 \( \mathbf{q}_t \)。这与 Flash Attention 的思路一致——用少量重计算换显存。Q 压缩不影响推理，因为推理无需存激活。
 
-### 注意力计算
+### 3.4 注意力计算
 
 \[
     \mathbf{o}_{t,i} = \sum_{j=1}^t \text{Softmax}_j \left(\frac{\mathbf{q}_{t,i}^\top \cdot \mathbf{k}_{j,i}}{\sqrt{d_h + d_r}}\right) \mathbf{v}^C_{j,i}, \\
     \mathbf{u}_t = W^O [\mathbf{o}_{t,1}; \dots; \mathbf{o}_{t,n_h}]
 \]
 
-### 复杂度对比
+### 3.5 复杂度对比
 
 | 机制 | KV 缓存（每 token） | 压缩策略 |
 |------|-------------------|---------|
@@ -256,13 +257,13 @@ MLA 将 KV 缓存的压缩从"减少头数"推进到"减少秩"，是当前推�
 
 ---
 
-## 压缩稀疏注意力（Compressed Sparse Attention, CSA）{#csa}
+## 4. 压缩稀疏注意力（Compressed Sparse Attention, CSA）{#csa}
 
 **压缩稀疏注意力** = 压缩键值条目（KV entries）+ DeepSeek 稀疏注意力 + 键值共享多查询注意力。来自 [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf)。
 
 {{< figure src="csa.png" alt="CSA 结构示意图" caption="CSA 结构示意图" >}}
 
-### 压缩键值条目 {#compressed-kv-entries-csa}
+### 4.1 压缩键值条目 {#compressed-kv-entries-csa}
 
 对于一个长度为 \(n\) 的输入隐层序列 \(H \in \mathbb{R^{n \times d}}\)，CSA 会根据它计算出两段 KV entries：
 
@@ -292,7 +293,7 @@ CSA 会将 m 个 KV entries 压缩成 1 个 entries。假设将 KV entries 以 m
 
 因此，一段原本长度为 \(n\) 的 KV entries 会被压缩成长度为 \(n/m\) 的 KV entries。
 
-### DSA 在 CSA 中的应用
+### 4.2 DSA 在 CSA 中的应用
 
 \[
 I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,h} \cdot \mathbf{k}^{I\text{Comp}}_{s}\right).
@@ -302,7 +303,7 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 \mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h_t},C\right) \Longrightarrow \mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h}_t, \{\mathbf{c}_s^{\text{Comp}} \mid I_{t,s} \in \text{Top-k}(I_{t,:})\}\right).
 \]
 
-### CSA 中 DSA 的注意力机制为 Shared Key-Value MQA
+### 4.3 CSA 中 DSA 的注意力机制为 Shared Key-Value MQA
 
 已知，CSA 中采用了 DSA 来选取压缩后的 top-k KV entries 进行全注意力计算。
 
@@ -322,13 +323,13 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 
 ---
 
-## 重度压缩注意力（Heavily Compressed Attention，HCA）{#hca}
+## 5. 重度压缩注意力（Heavily Compressed Attention，HCA）{#hca}
 
 **重度压缩注意力** = 重度压缩键值条目 + 键值共享多查询注意力。来自 [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf)。
 
 {{< figure src="hca.png" alt="HCA 结构示意图" caption="HCA 结构示意图" >}}
 
-### 重度压缩键值条目
+### 5.1 重度压缩键值条目
 
 请对照[段落](#compressed-kv-entries-csa)中的压缩键值条目，理解重度压缩键值条目的区别：
 
@@ -343,7 +344,7 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 
 其中 \(m' \ll m\)。
 
-### HCA 中的注意力机制 Shared Key-Value MQA
+### 5.2 HCA 中的注意力机制 Shared Key-Value MQA
 
 \[
     \mathbf{o}_{t,i} = \mathrm{CoreAttn}\left(\text{query}=\mathbf{q}_{t,i}, \text{key}=C^{\text{Comp}}_{t},\text{value}=C^{\text{Comp}}_{t} \right).
@@ -351,15 +352,51 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 
 ---
 
-## 线性注意力（Linear Attention）
+## 6. 压缩稀疏注意力 2（Compressed Sparse Attention 2，CSA2）{#csa2}
+
+**CSA2** 是 [DeepSeek-V4.1-Flash 技术报告](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf) 提出的新一代稀疏注意力。与上一代 CSA/HCA 只在序列维压缩不同，CSA2 **在三个可乘的维度上同时压缩 KV 开销**：
+
+- **条目大小**：GQA 减少 KV 头、MLA 共享低秩潜变量、低精度存储
+- **序列**：每 \(m\) 个 token 压成一条（CSA / HCA 的做法）
+- **层**：跨层复用缓存与选择——主 KV、indexer K、Top-K 索引在层间共享（CSA2 核心）
+
+三者相乘，把全局 KV 缓存降到 890 B/token，约为 DeepSeek-V4-Flash 的 1/4；配合部署策略，持久化 KV 缓存进一步降到约 1/8。
+
+<figure>
+  <img src="csa2_architecture.png" alt="DeepSeek-V4.1-Flash 整体架构" loading="lazy" width="100%" />
+  <figcaption>DeepSeek-V4.1-Flash 整体架构：40 层主干分为 20 层因果编码器与 20 层解码器，除前 2 层纯 SWA 外均使用 CSA2。图源：<a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek-V4.1-Flash 技术报告</a>。</figcaption>
+</figure>
+
+与上一代 CSA 相比有两处简化：
+
+- **压缩器**不再让相邻压缩条目共享 \(2m\) 个源条目中的重叠部分，也不再使用绝对位置嵌入；
+- **indexer K 改为由主 KV 投影得到**，不再从隐状态走单独的压缩路径。
+
+每个 CSA2 层被静态指定为三种模式之一。无论哪种模式，每层都自算主注意力 Q 与滑动窗口注意力（Sliding Window Attention，SWA）的 KV，只把主 KV、indexer K、Top-K 索引的获取方式区分开：
+
+| 模式 | 主 KV / indexer K | indexer Q → Top-K |
+|------|-------------------|-------------------|
+| **Full** | 自算主 KV，并由主 KV 投影 indexer K | 自算 indexer Q，打分产生新 Top-K |
+| **Reindex** | 复用前层最近的一份 | 自算 indexer Q，对复用的 K 重打分出新 Top-K |
+| **Reuse** | 复用前层最近的一份 | 不计算，复用最近 Full / Reindex 层产生的 Top-K 索引 |
+
+“缓存共享”与“索引复用”由此解耦：Reindex 层在共享主 KV 的同时让每层的选择可以不同，Reuse 层连 indexer Q 都不算。相比 V4 中 CSA 与 HCA 混合的架构，V4.1-Flash 全部采用 CSA2。
+
+<figure>
+  <img src="csa2_modes.png" alt="CSA2 三种模式示意" loading="lazy" width="100%" />
+  <figcaption>CSA2 的三种模式：绿色为当前层计算的分量，黄色为复用自最近 Full 层的主 KV 与 indexer K，红色为复用自最近产生索引层的 Top-K 索引。图源：<a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek-V4.1-Flash 技术报告</a>。</figcaption>
+</figure>
+---
+
+## 7. 线性注意力（Linear Attention）
 
 [线性注意力和 Mamba（Linear Attention and Mamba)](../mamba/index.md)
 
 ---
 
-## Flash Attention {#flash-attention}
+## 8. Flash Attention {#flash-attention}
 
-### 问题：注意力不是计算瓶颈，是显存带宽瓶颈
+### 8.1 问题：注意力不是计算瓶颈，是显存带宽瓶颈
 
 标准自注意力的计算量为 \(O(N^2 d)\)，但现代 GPU 的 FLOPS 远大于显存带宽（HBM 带宽增速远落后于计算增速）。实际运行时，GPU 需要反复将 \(N \times N\) 的注意力矩阵写入 HBM 再读出：
 
@@ -371,7 +408,7 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 
 其中 \(S\) 和 \(P\) 都是 \(O(N^2)\) 的中间结果，每次 softmax 和矩阵乘都需要在 HBM 上完成读写。**注意力操作的瓶颈不是 FLOP，而是 IO。**
 
-### 关键观察：GPU 存储层次
+### 8.2 关键观察：GPU 存储层次
 
 GPU 有两级显存：
 
@@ -384,7 +421,7 @@ GPU 有两级显存：
 
 **Flash Attention 的核心思想**：将 \(Q, K, V\) 切分为块，每次只加载一个块到 SRAM 上完成局部计算，只将最终输出 \(O\) 写回 HBM，中间结果 \(S, P\) 不落盘。
 
-### 在线 Softmax：平铺的数学基础
+### 8.3 在线 Softmax：平铺的数学基础
 
 标准 softmax 需要完整行才能计算（先求全局最大值、再归一化）。Flash Attention 的关键数学工具是 **online softmax**：通过维护两个运行统计量，在逐块处理时增量更新。
 
@@ -439,7 +476,7 @@ O' = e^{m_{\text{old}} - m'} \cdot O_{\text{old}} + \sum_{B < k \leq B'} e^{s_k 
 处理完所有块后，\(O_i = O_i^{(T_c)} / \ell^{(T_c)}\) 完成最终归一化。
 
 
-### 复杂度分析
+### 8.4 复杂度分析
 
 | | 标准注意力 | Flash Attention |
 |------|---------|---------|
@@ -450,7 +487,7 @@ O' = e^{m_{\text{old}} - m'} \cdot O_{\text{old}} + \sum_{B < k \leq B'} e^{s_k 
 
 Flash Attention 没有改变注意力的算术结果，只改变了 IO 模式。它不是近似方法——输出与标准 softmax attention 在数值上等价。
 
-### 反向传播：重计算换显存
+### 8.5 反向传播：重计算换显存
 
 标准注意力的反向传播需要前向保存的 softmax 矩阵 \(P \in \mathbb{R}^{N \times N}\) 来计算梯度。梯度公式为：
 
@@ -472,7 +509,7 @@ P_{ij} = e^{Q_i K_j - m_i} / \ell_i
 
 **代价**：每个 training step 中需要额外执行一次前向计算（重计算 \(P\)），用约 30% 的额外 FLOP 换取 \(O(N^2) \to O(Nd)\) 的显存节省。对于长序列训练，这一取舍是决定性的——没有它，数十万 token 的上下文根本无法在单张 GPU 上训练。
 
-### 后续迭代
+### 8.6 后续迭代
 
 - **Flash Attention 2 (Dao, 2023)**：优化了 tile 调度顺序，减少线程块间的同步开销；针对 A100/H100 的非对称 SM 结构改进。在 H100 上达到理论峰值吞吐的 75%。
 - **Flash Attention 3 (Shah et al., 2024)**：利用 Hopper 架构的 TMA（Tensor Memory Accelerator）和 WGMMA 指令异步传输数据，对 FP8 实现端到端加速，针对长上下文推理进一步优化。

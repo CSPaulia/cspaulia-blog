@@ -27,6 +27,7 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+tocEndLevel: 2 # show only h2 headings in the table of contents for this post
 cover:
     image: "cover.png" # image path/url
     alt: "cover" # alt text
@@ -40,15 +41,15 @@ editPost:
     appendFilePath: true # to append file path to Edit link
 ---
 
-## Grouped Query Attention (GQA) and Multi-Query Attention (MQA)
+## 1. Grouped Query Attention (GQA) and Multi-Query Attention (MQA)
 
 See [blog](../transformer_in_LLM/index.md#mqa-gqa).
 
-## Sparse Attention {#sparse-attention}
+## 2. Sparse Attention {#sparse-attention}
 
 {{< figure src="../../../posts/attention_in_llm/sparse_attentions.png" alt="Sparse attention mask example" caption="Sparse attention mask example" >}}
 
-### Motivation for Sparse Attention
+### 2.1 Motivation for Sparse Attention
 
 The computation of standard self-attention can be expressed as: given an input sequence \(X \in \mathbb{R}^{N \times d}\), where \(N\) is the sequence length and \(d\) is the hidden dimension, Query, Key, and Value are obtained via linear projections:
 
@@ -68,7 +69,7 @@ Different sparse patterns essentially correspond to different constructions of \
 
 ---
 
-### Sliding Window Attention {#sliding-window}
+### 2.2 Sliding Window Attention {#sliding-window}
 
 **Definition**: Each position interacts only with neighbors within a fixed window before and after it. Given a window size \(w\), the attention range for position \(i\) is:
 
@@ -84,7 +85,7 @@ Complexity: \(O(Nw)\), which approaches linear when \(w \ll N\).
 
 ---
 
-### Block Attention (i.e., Sparse Transformer's "Fixed") {#block-attention}
+### 2.3 Block Attention (i.e., Sparse Transformer's "Fixed") {#block-attention}
 
 Unlike sliding window, block attention divides the sequence into fixed-size **non-overlapping blocks**. Each position interacts only with all tokens within the same block; different blocks are completely isolated. Let the block size be \(b\); the block index for position \(i\) is \(\lfloor i/b \rfloor\); then the attention range is:
 
@@ -100,7 +101,7 @@ Complexity: \(O(Nb)\). Since blocks do not overlap, efficient implementation usi
 
 ---
 
-### Strided Attention {#strided-attention}
+### 2.4 Strided Attention {#strided-attention}
 
 **Definition**: While block attention is confined to the same block, strided attention covers the entire sequence at uniform intervals, so that different tokens within the same block connect to tokens from different blocks. Given a stride \(l\), the attention range for position \(i\) is:
 
@@ -116,7 +117,7 @@ Complexity: \(O(N^2/l)\), approximately \(O(N\sqrt{N})\) when \(l\) is of the sa
 
 ---
 
-### DeepSeek Sparse Attention (DSA) {#dsa}
+### 2.5 DeepSeek Sparse Attention (DSA) {#dsa}
 
 Assume the model is processing a 128K token long context, and the last sentence of the current query is:
 
@@ -159,7 +160,7 @@ Based on the value of \(I_{t,s}\), the model selects the top-k relevant historic
 
 ---
 
-### Summary
+### 2.6 Summary
 
 | Pattern | Attention Range \(\mathcal{A}(i)\) | Complexity | Representative Work |
 |---------|---------------------------|--------|-------------------|
@@ -171,11 +172,11 @@ Currently, sliding window attention is common, often used in combination with gl
 
 ---
 
-## Multi-Head Latent Attention (MLA) {#mla}
+## 3. Multi-Head Latent Attention (MLA) {#mla}
 
 MLA is an attention mechanism proposed by [DeepSeek-V2](https://arxiv.org/abs/2405.04434). Its core motivation is the same as GQA—to reduce the KV cache overhead during inference. However, GQA only reduces the number of KV heads, while MLA goes straight to the essence: **compress KV into a low-rank latent space, store only the compressed vectors, and decompress when needed.**
 
-### From MHA to MLA
+### 3.1 From MHA to MLA
 
 In standard MHA, the input \( \mathbf{h}_t \in \mathbb{R}^d \) is projected through three sets to obtain Q, K, V:
 
@@ -198,7 +199,7 @@ MLA's approach: **Instead of projecting directly to K and V, first project to a 
 
 Where \( d_c \ll H d_h \). In DeepSeek-V2/V3, \( d_c = 512 \), while \( H d_h = 128 \times 128 = 16384 \), so the KV cache alone is reduced from 16384 to 512.
 
-### Decoupled RoPE Processing
+### 3.2 Decoupled RoPE Processing
 
 Low-rank compression inherently conflicts with RoPE: the information in the compressed vector \( \mathbf{c}^{KV}_t \) is mixed across heads, making it impossible to rotate independently per head. MLA's solution is to **decouple the positional encoding from the compression branch**: additionally introduce a lightweight RoPE channel that is not compressed.
 
@@ -225,7 +226,7 @@ Where \( \mathbf{k}^C_{t,i}, \mathbf{q}^C_{t,i} \) comes from the decompressed l
 
 Cached content: \( \mathbf{c}^{KV}_t \) (512 dimensions) + \( \mathbf{k}^R_t \) (\( d_r = 64 \) dimensions) = 576 dimensions.
 
-### Q Compression: Reducing Intermediate Activation Storage During Training {#q-compression-mla}
+### 3.3 Q Compression: Reducing Intermediate Activation Storage During Training {#q-compression-mla}
 
 MLA also applies low-rank compression to Q:
 
@@ -236,14 +237,14 @@ MLA also applies low-rank compression to Q:
 
 During training, the intermediate activations from the forward pass need to be retained for backpropagation. Without compressing Q, one would need to store \( \mathbf{q}_t \in \mathbb{R}^{H d_h} \); after compression, only \( \mathbf{c}^{Q}_t \in \mathbb{R}^{d'_c} \) is stored (\( d'_c \) is typically 1536), and \( \mathbf{q}_t \) is recomputed during backpropagation. This is consistent with the idea of Flash Attention—trading a small amount of recomputation for memory savings. Q compression does not affect inference, as activations do not need to be stored then.
 
-### Attention Computation
+### 3.4 Attention Computation
 
 \[
     \mathbf{o}_{t,i} = \sum_{j=1}^t \text{Softmax}_j \left(\frac{\mathbf{q}_{t,i}^\top \cdot \mathbf{k}_{j,i}}{\sqrt{d_h + d_r}}\right) \mathbf{v}^C_{j,i}, \\
     \mathbf{u}_t = W^O [\mathbf{o}_{t,1}; \dots; \mathbf{o}_{t,n_h}]
 \]
 
-### Complexity Comparison
+### 3.5 Complexity Comparison
 
 | Mechanism | KV Cache (per token) | Compression Strategy |
 |-----------|---------------------|--------------------|
@@ -256,13 +257,13 @@ MLA advances KV cache compression from "reducing the number of heads" to "reduci
 
 ---
 
-## Compressed Sparse Attention (CSA) {#csa}
+## 4. Compressed Sparse Attention (CSA) {#csa}
 
 **Compressed Sparse Attention** = Compressed KV entries + DeepSeek Sparse Attention + Shared Key-Value Multi-Query Attention. From [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
 
 {{< figure src="../../../posts/attention_in_llm/csa.png" alt="CSA structure diagram" caption="CSA structure diagram" >}}
 
-### Compressed KV Entries {#compressed-kv-entries-csa}
+### 4.1 Compressed KV Entries {#compressed-kv-entries-csa}
 
 For an input hidden sequence \(H \in \mathbb{R^{n \times d}}\) of length \(n\), CSA computes two segments of KV entries based on it:
 
@@ -292,7 +293,7 @@ Where \(B^a\) and \(B^b\) are learnable bias terms. Finally, the compressed KV e
 
 Therefore, a segment of KV entries originally of length \(n\) is compressed into KV entries of length \(n/m\).
 
-### Application of DSA in CSA
+### 4.2 Application of DSA in CSA
 
 \[
 I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,h} \cdot \mathbf{k}^{I\text{Comp}}_{s}\right).
@@ -302,7 +303,7 @@ I_{t,s}=\sum_{h=1}^{{n_h}^I} w^I_{t,h} \cdot \mathrm{ReLU}\left(\mathbf{q}^I_{t,
 \mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h_t},C\right) \Longrightarrow \mathbf{u}_t = \mathrm{Attention}\left(\mathbf{h}_t, \{\mathbf{c}_s^{\text{Comp}} \mid I_{t,s} \in \text{Top-k}(I_{t,:})\}\right).
 \]
 
-### Attention Mechanism of DSA in CSA: Shared Key-Value MQA
+### 4.3 Attention Mechanism of DSA in CSA: Shared Key-Value MQA
 
 It is known that CSA uses DSA to select the top-k compressed KV entries for full attention computation.
 
@@ -322,13 +323,13 @@ Where \(C^{\text{SprsComp}}_{t} = \{\mathbf{c}_s^{\text{Comp}} \mid I_{t,s} \in 
 
 ---
 
-## Heavily Compressed Attention (HCA) {#hca}
+## 5. Heavily Compressed Attention (HCA) {#hca}
 
 **Heavily Compressed Attention** = Heavily compressed KV entries + Shared Key-Value Multi-Query Attention. From [DeepSeek-V4](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf).
 
 {{< figure src="../../../posts/attention_in_llm/hca.png" alt="HCA structure diagram" caption="HCA structure diagram" >}}
 
-### Heavily Compressed KV Entries
+### 5.1 Heavily Compressed KV Entries
 
 Please refer to the [section](#compressed-kv-entries-csa) on compressed KV entries to understand the difference for heavily compressed KV entries:
 
@@ -343,7 +344,7 @@ Please refer to the [section](#compressed-kv-entries-csa) on compressed KV entri
 
 Where \(m' \ll m\).
 
-### Attention Mechanism in HCA: Shared Key-Value MQA
+### 5.2 Attention Mechanism in HCA: Shared Key-Value MQA
 
 \[
     \mathbf{o}_{t,i} = \mathrm{CoreAttn}\left(\text{query}=\mathbf{q}_{t,i}, \text{key}=C^{\text{Comp}}_{t},\text{value}=C^{\text{Comp}}_{t} \right).
@@ -351,15 +352,51 @@ Where \(m' \ll m\).
 
 ---
 
-## Linear Attention
+## 6. Compressed Sparse Attention 2 (CSA2) {#csa2}
+
+**CSA2** is the next-generation sparse attention proposed in the [DeepSeek-V4.1-Flash tech report](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf). Unlike the previous CSA/HCA, which compress only along the sequence dimension, CSA2 **jointly compresses KV costs along three multiplicative dimensions**:
+
+- **Entry size**: GQA reduces the number of KV heads, MLA shares a small latent across heads, low-precision storage
+- **Sequence**: every \(m\) tokens are compressed into one entry (as in CSA/HCA)
+- **Layer**: cross-layer reuse of caches and selections—main KV, indexer K, and Top-K indices are shared across layers (the core of CSA2)
+
+Multiplied together, they reduce the global KV cache to 890 B/token, about 1/4 of DeepSeek-V4-Flash; combined with the deployment strategy, the persistent KV cache is further reduced to about 1/8.
+
+<figure>
+  <img src="../../../posts/attention_in_llm/csa2_architecture.png" alt="Overall architecture of DeepSeek-V4.1-Flash" loading="lazy" width="100%" />
+  <figcaption>Overall architecture of DeepSeek-V4.1-Flash: the 40-layer backbone is divided into a 20-layer causal encoder and a 20-layer decoder; all layers use CSA2 except the first two, which are SWA-only. Source: <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek-V4.1-Flash tech report</a>.</figcaption>
+</figure>
+
+Two simplifications compared with the previous CSA:
+
+- The **compressor** no longer lets adjacent compressed entries share overlapping parts of the \(2m\) source entries, nor uses absolute positional embeddings;
+- The **indexer K is projected from the main KV** instead of coming from a separate compression path over hidden states.
+
+Each CSA2 layer is statically assigned one of three modes. In every mode, the layer computes its own main attention Q and sliding-window attention (SWA) KV; the modes differ only in how main KV, indexer K, and Top-K indices are obtained:
+
+| Mode | Main KV / indexer K | indexer Q → Top-K |
+|------|---------------------|-------------------|
+| **Full** | Computes its own main KV and projects indexer K from it | Computes its own indexer Q and produces fresh Top-K |
+| **Reindex** | Reuses the most recent copy from a preceding layer | Computes its own indexer Q and rescores the reused K for fresh Top-K |
+| **Reuse** | Reuses the most recent copy from a preceding layer | No computation; directly uses the Top-K indices produced by the most recent Full / Reindex layer |
+
+Cache sharing and index reuse are thus decoupled: Reindex layers share the main KV while letting each layer's selection differ, and Reuse layers do not even compute indexer Q. Unlike V4's hybrid CSA/HCA architecture, V4.1-Flash uses pure CSA2.
+
+<figure>
+  <img src="../../../posts/attention_in_llm/csa2_modes.png" alt="The three operating modes of CSA2" loading="lazy" width="100%" />
+  <figcaption>The three operating modes of CSA2: green blocks are quantities computed in the current layer, yellow blocks are main KV and indexer K reused from the most recent Full layer, and red blocks are Top-K indices reused from the most recent index-producing layer. Source: <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/blob/main/DeepSeek_V41_Tech_Report.pdf">DeepSeek-V4.1-Flash tech report</a>.</figcaption>
+</figure>
+---
+
+## 7. Linear Attention
 
 [Linear Attention and Mamba](../mamba/index.md)
 
 ---
 
-## Flash Attention {#flash-attention}
+## 8. Flash Attention {#flash-attention}
 
-### Problem: Attention Bottleneck is Not Computation, but Memory Bandwidth
+### 8.1 Problem: Attention Bottleneck is Not Computation, but Memory Bandwidth
 
 The computational cost of standard self-attention is \(O(N^2 d)\), but modern GPU FLOPS far exceed memory bandwidth (HBM bandwidth growth lags far behind compute growth). In practice, the GPU repeatedly writes and reads the \(N \times N\) attention matrix to/from HBM:
 
@@ -371,7 +408,7 @@ The computational cost of standard self-attention is \(O(N^2 d)\), but modern GP
 
 Where \(S\) and \(P\) are both \(O(N^2)\) intermediate results; each softmax and matrix multiplication requires reads/writes on HBM. **The bottleneck of attention operations is not FLOPs, but IO.**
 
-### Key Observation: GPU Memory Hierarchy
+### 8.2 Key Observation: GPU Memory Hierarchy
 
 GPUs have two levels of memory:
 
@@ -384,7 +421,7 @@ Standard attention repeatedly reads and writes \(O(N^2)\) data on HBM—HBM band
 
 **Core idea of Flash Attention**: Divide \(Q, K, V\) into blocks, load only one block at a time onto SRAM to perform local computation, and write only the final output \(O\) back to HBM, while intermediate results \(S, P\) are never materialized.
 
-### Online Softmax: Mathematical Basis for Tiling
+### 8.3 Online Softmax: Mathematical Basis for Tiling
 
 Standard softmax requires the entire row to compute (first find the global maximum, then normalize). The key mathematical tool for Flash Attention is **online softmax**: by maintaining two running statistics, it incrementally updates when processing blocks.
 
@@ -438,7 +475,7 @@ O' = e^{m_{\text{old}} - m'} \cdot O_{\text{old}} + \sum_{B < k \leq B'} e^{s_k 
 
 After processing all blocks, \(O_i = O_i^{(T_c)} / \ell^{(T_c)}\) completes the final normalization.
 
-### Complexity Analysis
+### 8.4 Complexity Analysis
 
 | | Standard Attention | Flash Attention |
 |---|--------------------|-----------------|
@@ -449,7 +486,7 @@ After processing all blocks, \(O_i = O_i^{(T_c)} / \ell^{(T_c)}\) completes the 
 
 Flash Attention does not change the arithmetic result of attention; it only changes the IO pattern. It is not an approximation—the output is numerically equivalent to standard softmax attention.
 
-### Backpropagation: Recomputation for Memory Savings
+### 8.5 Backpropagation: Recomputation for Memory Savings
 
 The backward pass of standard attention requires the softmax matrix \(P \in \mathbb{R}^{N \times N}\) saved from the forward pass to compute gradients. The gradient formula is:
 
@@ -471,7 +508,7 @@ Since \(m_i, \ell_i\) is exactly all the information needed for softmax, togethe
 
 **Cost**: Each training step requires an additional forward pass (recomputing \(P\)), trading about 30% extra FLOPs for a memory saving of \(O(N^2) \to O(Nd)\). This trade-off is decisive for long sequence training—without it, contexts of hundreds of thousands of tokens simply cannot be trained on a single GPU.
 
-### Subsequent Iterations
+### 8.6 Subsequent Iterations
 
 - **Flash Attention 2 (Dao, 2023)**: Optimized tile scheduling order to reduce synchronization overhead between thread blocks; improved for the asymmetric SM structure of A100/H100. Reaches 75% of theoretical peak throughput on H100.
 - **Flash Attention 3 (Shah et al., 2024)**: Leverages Hopper architecture's TMA (Tensor Memory Accelerator) and WGMMA instructions for asynchronous data transfer, achieves end-to-end acceleration for FP8, and further optimizes for long context inference.
