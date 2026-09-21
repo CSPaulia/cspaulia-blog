@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "ddpm_progressive_generation.jpg"
+    alt: "DDPM progressively generating CIFAR-10 images from Gaussian noise"
+    caption: "The progressive DDPM denoising process"
+    relative: true
+    hidden: false
+    hiddenInList: false
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes"

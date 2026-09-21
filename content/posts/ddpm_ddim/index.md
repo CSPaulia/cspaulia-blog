@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "ddpm_progressive_generation.jpg"
+    alt: "DDPM 从高斯噪声逐步生成 CIFAR-10 图像"
+    caption: "DDPM 的渐进去噪生成过程"
+    relative: true
+    hidden: false
+    hiddenInList: false
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "建议修改"
