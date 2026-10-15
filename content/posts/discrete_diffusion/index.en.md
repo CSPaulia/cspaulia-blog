@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "factorized_vs_general_ctmc.png"
+    alt: "Left: jumps from x in a general CTMC can point to any state; right: jumps in a factorized CTMC can only follow the horizontal and vertical lines through x"
+    caption: "Jump ranges in a general CTMC versus a factorized CTMC"
+    relative: true
+    hidden: false
+    hiddenInList: false
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "Suggest Changes"

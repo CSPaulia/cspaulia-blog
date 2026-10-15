@@ -23,6 +23,13 @@ ShowPostNavLinks: true
 ShowWordCount: true
 ShowRssButtonInSectionTermList: true
 UseHugoToc: true
+cover:
+    image: "factorized_vs_general_ctmc.png"
+    alt: "左：一般 CTMC 从 x 出发的跳变可以指向任意状态；右：因子化 CTMC 的跳变只能沿过 x 的水平线与垂直线"
+    caption: "一般 CTMC 与因子化 CTMC 的跳变范围对比"
+    relative: true
+    hidden: false
+    hiddenInList: false
 editPost:
     URL: "https://cspaulia.github.io/cspaulia-blog/content/"
     Text: "建议修改"
