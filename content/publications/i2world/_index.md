@@ -3,15 +3,12 @@ title: "I²-World: Intra-Inter Tokenization for Efficient Dynamic 4D Scene Forec
 date: 2025-10-01
 venue: ICCV 2025
 authors:
-    - name: Zhimin Liao
-      home: https://lzzzzzm.github.io/
-    - name: Ping Wei
-      home: https://gr.xjtu.edu.cn/en/web/pingwei
-    - name: Ruijie Zhang
-    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
-      home: https://cspaulia.github.io/cspaulia-blog/
-    - name: Haoxuan Wang
-    - name: Ziyang Ren
+    - Zhimin Liao
+    - Ping Wei
+    - Ruijie Zhang
+    - Shuaijia Chen
+    - Haoxuan Wang
+    - Ziyang Ren
 selected: true
 paper: https://openaccess.thecvf.com/content/ICCV2025/papers/Liao_I2-World_Intra-Inter_Tokenization_for_Efficient_Dynamic_4D_Scene_Forecasting_ICCV_2025_paper.pdf
 arxiv: https://arxiv.org/abs/2507.09144

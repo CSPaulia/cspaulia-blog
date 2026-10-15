@@ -1,11 +1,42 @@
+{{- /*
+  渲染出版物的作者列表。
+
+  作者信息统一维护在 data/authors.yaml 中，出版物 front matter 里只写姓名即可：
+
+      authors:
+        - Shuaijia Chen
+        - Ping Wei
+
+  两种可选写法：
+    - "姓名 <https://example.com>"：链接直接写在 front matter 里，会覆盖作者表，
+      适合只合作一次、不需要登记进作者表的作者。
+    - 姓名在作者表中已标记 self: true 时，会自动加上 author-highlight 高亮。
+*/ -}}
 {{- $authors := slice }}
-{{- range $author := .Params.authors }}
-  {{- if $author.home }}
-    {{- $author = (printf `<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>` $author.home $author.name) }}
+{{- range $raw := .Params.authors }}
+  {{- $name := $raw }}
+  {{- $url := "" }}
+  {{- $isSelf := false }}
+  {{- if in $raw "<" }}
+    {{- $parts := split $raw "<" }}
+    {{- $name = strings.TrimSpace (index $parts 0) }}
+    {{- $url = strings.TrimSuffix ">" (strings.TrimSpace (index $parts 1)) }}
   {{- else }}
-    {{- $author = $author.name }}
+    {{- range site.Data.authors }}
+      {{- if or (eq .name $name) (in (.aliases | default slice) $name) }}
+        {{- $url = .url | default "" }}
+        {{- $isSelf = .self | default false }}
+      {{- end }}
+    {{- end }}
   {{- end }}
-  {{- $authors = $authors | append $author }}
+  {{- if $isSelf }}
+    {{- $name = printf `<span class='author-highlight'>%s</span>` $name }}
+  {{- end }}
+  {{- if $url }}
+    {{- $authors = $authors | append (printf `<a href="%s" target="_blank" rel="noopener noreferrer">%s</a>` $url $name) }}
+  {{- else }}
+    {{- $authors = $authors | append $name }}
+  {{- end }}
 {{- end }}
 {{ delimit $authors ", " | safeHTML }}
 {{- if .Params.venue }}

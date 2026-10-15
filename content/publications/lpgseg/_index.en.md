@@ -3,14 +3,11 @@ title: Local-to-Global Perception Network for Point Cloud Segmentation
 date: 2024-07-15
 venue: ICME 2024
 authors:
-    - name: Haoxuan Wang
-    - name: Ping Wei
-      home: https://gr.xjtu.edu.cn/en/web/pingwei
-    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
-      home: https://cspaulia.github.io/cspaulia-blog/
-    - name: Zhimin Liao
-      home: https://lzzzzzm.github.io/
-    - name: Jialu Qin
+    - Haoxuan Wang
+    - Ping Wei
+    - Shuaijia Chen
+    - Zhimin Liao
+    - Jialu Qin
 selected: true
 cover:
     image: LPGSeg.png

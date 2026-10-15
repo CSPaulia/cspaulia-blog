@@ -3,14 +3,11 @@ title: "STCOcc: Sparse Spatial-Temporal Cascade Renovation for 3D Occupancy and 
 date: 2025-06-01
 venue: CVPR 2025
 authors:
-    - name: Zhimin Liao
-      home: https://lzzzzzm.github.io/
-    - name: Ping Wei
-      home: https://gr.xjtu.edu.cn/en/web/pingwei
-    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
-      home: https://cspaulia.github.io/cspaulia-blog/
-    - name: Haoxuan Wang
-    - name: Ziyang Ren
+    - Zhimin Liao
+    - Ping Wei
+    - Shuaijia Chen
+    - Haoxuan Wang
+    - Ziyang Ren
 selected: true
 Paper: https://openaccess.thecvf.com/content/CVPR2025/papers/Liao_STCOcc_Sparse_Spatial-Temporal_Cascade_Renovation_for_3D_Occupancy_and_Scene_CVPR_2025_paper.pdf
 Code: https://github.com/lzzzzzm/STCOcc

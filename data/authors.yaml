@@ -1,0 +1,40 @@
+# 出版物作者链接表
+#
+# 出版物 front matter 里只写姓名，个人主页链接统一在这里维护：
+#
+#     authors:
+#       - Shuaijia Chen
+#       - Ping Wei
+#
+# 字段说明：
+#   name     姓名，需与 front matter 中的写法完全一致
+#   url      个人主页；暂时查不到就留空，条目先占位，之后补上即可
+#   self     标记本人，渲染时自动加 author-highlight 高亮
+#   aliases  同一人的其他写法，YAML 列表，例如 [P. Wei, Wei Ping]
+#
+# 若某位作者只合作一次、不想登记进本表，可在 front matter 中直接写
+# "姓名 <https://example.com>"，该链接会覆盖本表。
+
+- name: Shuaijia Chen
+  url: https://cspaulia.github.io/cspaulia-blog/
+  self: true
+- name: Ping Wei
+  url: https://gr.xjtu.edu.cn/en/web/pingwei
+  aliases: [P. Wei]
+- name: Zhimin Liao
+  url: https://lzzzzzm.github.io/
+
+# 以下作者 2026-10 查过一轮，暂无公开个人主页：XJTU 教师主页、XJTU Pure、
+# DBLP、Semantic Scholar、GitHub Pages 都没有结果。查到 url 再补上即可。
+#
+# 同名陷阱：下面这两个个人主页经逐页核对不是本人，不要挂上去。
+#   - https://hatchetproject.github.io/  → 另一位 Haoxuan Wang，UIC 博士生
+#   - https://royaptx4869.github.io/     → 另一位 Ruijie Zhang，HKU 博士生
+- name: Linyu Zhang
+- name: Bole Wang
+- name: Haoxuan Wang
+- name: Ruijie Zhang
+- name: Ziyang Ren
+- name: Jialu Qin
+- name: Shengze Li
+- name: Jieyuan Zhang

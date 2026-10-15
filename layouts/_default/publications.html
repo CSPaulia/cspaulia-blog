@@ -1,9 +1,12 @@
 {{- define "main" }}
 
+{{- /* 有子页面时是出版物列表页，没有子页面时本页自身就是一篇出版物。 */}}
+{{- $pubs := union .RegularPages .Sections }}
+
 <header class="page-header">
   <h1>
     {{ .Title }}
-    {{- if (.Param "ShowRssButtonInSectionTermList") }}
+    {{- if and $pubs (.Param "ShowRssButtonInSectionTermList") }}
     {{- $rss := (.OutputFormats.Get "rss") }}
     {{- if (eq .Kind `page`) }}
     {{- $rss = (.Parent.OutputFormats.Get "rss") }}
@@ -27,7 +30,7 @@
   {{- end }}
 </header>
 
-{{- $pubs := union .RegularPages .Sections }}
+{{- if $pubs }}
 <!-- <div class="post-content">
 {{- if site.Params.ShowOnlySelectedPubs }}
 {{- $pubs = where $pubs "Params.selected" true }}
@@ -59,6 +62,24 @@
       </div>
     </div>
   </article>
+{{- end }}
+{{- else }}
+{{- /* 单篇出版物页面：作者、venue、论文链接与摘要。 */}}
+<article class="pub-entry pub-single">
+  <div class="pub-meta">
+    <div class="entry-content">
+      {{- partial "pub_entry_authors.html" . }}
+    </div>
+    <div class="entry-footer">
+      {{- partial "pub_entry_links.html" . }}
+    </div>
+    {{- with .Content }}
+    <div class="post-content pub-abstract">
+      {{ . }}
+    </div>
+    {{- end }}
+  </div>
+</article>
 {{- end }}
 
 {{- end }}{{/* end main */}}

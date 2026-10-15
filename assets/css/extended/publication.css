@@ -43,6 +43,11 @@
     flex: 5;
 }
 
+/* 单篇出版物页面：没有封面，作者与论文链接在上，摘要正文在下 */
+.pub-entry.pub-single .pub-abstract {
+    margin-top: var(--gap);
+}
+
 .pub-entry, .project-entry {
     position: relative;
     margin-bottom: var(--gap);

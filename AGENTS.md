@@ -84,6 +84,24 @@ This repository is a personal Hugo blog. When editing posts, follow the author's
 [1] Author or Organization, "Title," Publication or Medium, year. [Online]. Available: https://...
 ```
 
+## Publications
+
+- Each publication lives in its own folder under `content/publications/<slug>/` as a page bundle with `_index.md` (Chinese) and `_index.en.md` (English). The two files carry the same front matter and the same English abstract body.
+- Do not write author homepage links into a publication's front matter. List plain names only:
+
+```yaml
+authors:
+    - Shuaijia Chen
+    - Ping Wei
+```
+
+- Author links are centralized in [`data/authors.yaml`](data/authors.yaml), resolved by `layouts/partials/pub_entry_authors.html`. To add or fix a link, edit that table once — every publication picks it up.
+- The table entry marked `self: true` is rendered with the `author-highlight` style automatically; do not wrap names in `<span class='author-highlight'>` by hand.
+- For a one-off co-author who should not be added to the table, write the link inline as `"姓名 <https://example.com>"`.
+- Add a new author to `data/authors.yaml` when the same person appears in a second publication, so the link is recorded in exactly one place.
+- Useful front matter fields: `venue`, `selected`, `paper`, `arxiv`, `code`, `video`, `page`, `summary`, and `cover.image`. The `summary` field is what the publications list page displays, so always fill it in. `paper`, `code`, and similar keys are matched case-insensitively, but write them in lowercase for consistency.
+- Use a date within the publication's actual venue dates; the list sorts by date descending.
+
 ## Image Assets
 
 - Keep images in the same post folder when they belong to a post.

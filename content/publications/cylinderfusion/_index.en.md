@@ -3,14 +3,11 @@ title: "Cylinderfusion: Self-Adaptive Cylindrical 3+1D Radar-Camera Fusion for W
 date: 2026-05-03
 venue: ICASSP 2026
 authors:
-    - name: "<span class='author-highlight'>Shuaijia Chen</span>"
-      home: https://cspaulia.github.io/cspaulia-blog/
-    - name: Ping Wei
-      home: https://gr.xjtu.edu.cn/en/web/pingwei
-    - name: Linyu Zhang
-    - name: Zhimin Liao
-      home: https://lzzzzzm.github.io/
-    - name: Bole Wang
+    - Shuaijia Chen
+    - Ping Wei
+    - Linyu Zhang
+    - Zhimin Liao
+    - Bole Wang
 
 selected: true
 paper: https://ieeexplore.ieee.org/document/11461037
