@@ -1,6 +1,7 @@
 ---
 title: "Multi-scale Frequency-Space Fusion Camouflaged Object Detection"
 date: 2026-03-13
+venue: PRCV 2025
 summary: A camouflaged object detection method based on multi-scale frequency-space fusion.
 authors:
     - Linyu Zhang
