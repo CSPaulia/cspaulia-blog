@@ -1,3 +1,9 @@
 {{ partial "math.html" . }}
 {{- $alerts := resources.Get "js/alerts.js" | resources.Minify | fingerprint -}}
 <script defer src="{{ $alerts.RelPermalink }}" integrity="{{ $alerts.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- /* 卡片 / IEEE 列表切换只出现在出版物列表页。每篇出版物都是 _index.md，属于 section 而非
+    regular page，所以要用 union 判断有没有子页面；单篇出版物页 union 为空，不会命中。 */ -}}
+{{- if and (eq .Section "publications") (union .RegularPages .Sections) }}
+{{- $pubview := resources.Get "js/pubview.js" | resources.Minify | fingerprint -}}
+<script defer src="{{ $pubview.RelPermalink }}" integrity="{{ $pubview.Data.Integrity }}" crossorigin="anonymous"></script>
+{{- end }}

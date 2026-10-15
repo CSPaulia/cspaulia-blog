@@ -39,6 +39,17 @@
 <h3>Publications</h3>
 {{- end }}
 </div> -->
+{{- $labelCards := .Params.viewCards | default "Cards" }}
+{{- $labelIEEE := .Params.viewIEEE | default "IEEE" }}
+{{- /* hidden 由 pubview.js 摘掉：没有 JS 时按钮点了没反应，不如不显示 */}}
+<div class="pub-toolbar" hidden>
+  <div class="pub-viewswitch" role="group" aria-label="{{ $labelCards }} / {{ $labelIEEE }}">
+    <button type="button" class="pub-viewswitch-btn" data-pubview="cards" aria-pressed="true">{{ $labelCards }}</button>
+    <button type="button" class="pub-viewswitch-btn" data-pubview="ieee" aria-pressed="false">{{ $labelIEEE }}</button>
+  </div>
+</div>
+
+<div class="pub-view pub-view-cards">
 {{- range $pubs }}
   <article class="pub-entry">
     {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
@@ -63,6 +74,19 @@
     </div>
   </article>
 {{- end }}
+</div>
+
+{{- /* 简易列表版：不带封面，按 IEEE 引用格式排列，取 front matter 里的题名、作者、venue */}}
+<div class="pub-view pub-view-ieee">
+  <ol class="pub-ieee-list">
+  {{- range $i, $p := $pubs }}
+    <li class="pub-ieee-item">
+      <span class="pub-ieee-num">[{{ add $i 1 }}]</span>
+      <span class="pub-ieee-body">{{ partial "pub_ieee_cite.html" $p }}</span>
+    </li>
+  {{- end }}
+  </ol>
+</div>
 {{- else }}
 {{- /* 单篇出版物页面：作者、venue、论文链接与摘要。 */}}
 <article class="pub-entry pub-single">

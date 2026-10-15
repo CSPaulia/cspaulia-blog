@@ -6,9 +6,10 @@
     text-decoration: underline;
 }
 
+/* 封面与右侧文字按 flex 比例分宽度：3 : 5，即封面占整行的 3/8 */
 .pub-entry .entry-cover {
     margin: auto 3% auto 0;
-    flex: 2;
+    flex: 3;
 }
 
 .pub-entry .entry-content {
@@ -30,10 +31,11 @@
     line-height: 1.4;
 }
 
+/* 窄屏上图相对更大一些，否则缩到看不清 */
 @media screen and (max-width: 600px) {
     .pub-entry .entry-cover {
         margin: auto 5% auto 0;
-        flex: 3;
+        flex: 4;
     }
 }
 
@@ -56,4 +58,84 @@
     border-radius: var(--radius);
     transition: transform 0.1s;
     border: 1px solid var(--border);
+}
+
+/* ── 卡片 / IEEE 列表视图切换 ─────────────────────────────
+   状态挂在 <html data-pubview> 上，由 assets/js/pubview.js 读写。
+   没有该属性时（无 JS）保持卡片视图，IEEE 列表始终先隐藏。 */
+.pub-view-ieee {
+    display: none;
+}
+
+html[data-pubview="ieee"] .pub-view-cards {
+    display: none;
+}
+
+html[data-pubview="ieee"] .pub-view-ieee {
+    display: block;
+}
+
+/* 不加 display，让 .pub-viewswitch 作为 inline-flex 自然靠左，与页面标题对齐；
+   这样 [hidden] 也能直接吃浏览器默认的 display:none，不必再覆盖一次。 */
+.pub-toolbar {
+    margin-bottom: var(--gap);
+}
+
+.pub-viewswitch {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.pub-viewswitch-btn {
+    padding: 3px 12px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--secondary);
+    background: var(--entry);
+    border: 0;
+    cursor: pointer;
+}
+
+.pub-viewswitch-btn + .pub-viewswitch-btn {
+    border-left: 1px solid var(--border);
+}
+
+.pub-viewswitch-btn.is-active {
+    color: var(--theme);
+    background: var(--primary);
+}
+
+/* ── IEEE 引用格式列表 ─────────────────────────────────── */
+.pub-ieee-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pub-ieee-item {
+    display: flex;
+    margin-bottom: 1em;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.pub-ieee-num {
+    flex: 0 0 2.6em;
+    color: var(--secondary);
+}
+
+.pub-ieee-body {
+    flex: 1;
+}
+
+/* 题名指向论文页，但保持文献列表的观感，不额外上色 */
+.pub-ieee-body a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.pub-ieee-body a:hover {
+    text-decoration: underline;
 }

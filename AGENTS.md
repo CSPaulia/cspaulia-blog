@@ -99,8 +99,12 @@ authors:
 - The table entry marked `self: true` is rendered with the `author-highlight` style automatically; do not wrap names in `<span class='author-highlight'>` by hand.
 - For a one-off co-author who should not be added to the table, write the link inline as `"姓名 <https://example.com>"`.
 - Add a new author to `data/authors.yaml` when the same person appears in a second publication, so the link is recorded in exactly one place.
-- Useful front matter fields: `venue`, `selected`, `paper`, `arxiv`, `code`, `video`, `page`, `summary`, and `cover.image`. The `summary` field is what the publications list page displays, so always fill it in. `paper`, `code`, and similar keys are matched case-insensitively, but write them in lowercase for consistency.
+- Useful front matter fields: `venue`, `selected`, `paper`, `arxiv`, `code`, `video`, `page`, `pages`, `summary`, and `cover.image`. The `summary` field is what the publications list page displays, so always fill it in. `paper`, `code`, and similar keys are matched case-insensitively, but write them in lowercase for consistency.
+- `pages` is optional and only used by the IEEE view. Write the page range as a string (`pages: 99-113`); it is appended as `, pp. 99-113`.
 - Use a date within the publication's actual venue dates; the list sorts by date descending.
+- The list page has two views, switched by the buttons in `.pub-toolbar`: the card view with covers, and a plain IEEE-format list with no images. The IEEE view is rendered by [`layouts/partials/pub_ieee_cite.html`](layouts/partials/pub_ieee_cite.html), which turns `Shuaijia Chen` into `S. Chen` and appends `in Proc. <venue>`. The venue string is used verbatim — do not abbreviate it to IEEE conference shorthand.
+- The switch state lives in the `<html data-pubview>` attribute, set by [`assets/js/pubview.js`](assets/js/pubview.js) and persisted in `localStorage`. With no attribute the card view shows, so the page still works without JavaScript. The script is loaded only on the publications list page, from `layouts/partials/extend_head.html` — note that each publication is a `_index.md` (a section, not a regular page), so that guard has to test `union .RegularPages .Sections`.
+- The two button labels come from `viewCards` and `viewIEEE` in `content/publications/_index.md` / `_index.en.md`, not from `i18n`.
 
 ## Image Assets
 

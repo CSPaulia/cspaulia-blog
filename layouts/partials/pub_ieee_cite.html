@@ -1,0 +1,64 @@
+{{- /*
+  把一条出版物渲染成 IEEE 格式的引用文本，供出版物列表的「IEEE 列表」视图使用。
+
+  作者名从 front matter 里的 "Shuaijia Chen" 转成 "S. Chen"：末段是姓（family name），
+  前面每段取首字母。venue 直接沿用 front matter 的写法，不做会议缩写。
+
+  输出形如：
+
+      S. Chen, P. Wei, L. Zhang, Z. Liao, and B. Wang, "CylinderFusion: ...," in Proc. ICASSP 2026.
+
+  venue 缺失时退回用 date 的年份。front matter 里可选填 pages，会补成 ", pp. 99-113"。
+*/ -}}
+{{- $page := . -}}
+
+{{- /* 先把作者名统一转成 IEEE 写法 */ -}}
+{{- $names := slice -}}
+{{- range $raw := .Params.authors -}}
+  {{- $name := $raw -}}
+  {{- /* 兼容 front matter 里 "姓名 <主页链接>" 的一次性写法，这里只要姓名 */ -}}
+  {{- if in $raw "<" -}}
+    {{- $name = strings.TrimSpace (index (split $raw "<") 0) -}}
+  {{- end -}}
+  {{- /* 按空格拆词，顺手丢掉多空格产生的空串 */ -}}
+  {{- $tokens := slice -}}
+  {{- range split $name " " -}}
+    {{- if . -}}{{- $tokens = $tokens | append . -}}{{- end -}}
+  {{- end -}}
+  {{- if $tokens -}}
+    {{- $family := index $tokens (sub (len $tokens) 1) -}}
+    {{- $initials := slice -}}
+    {{- range first (sub (len $tokens) 1) $tokens -}}
+      {{- $initials = $initials | append (printf "%s." (substr . 0 1)) -}}
+    {{- end -}}
+    {{- $names = $names | append (cond (gt (len $initials) 0) (printf "%s %s" (delimit $initials " ") $family) $family) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* IEEE 习惯：两位作者用 "A and B"，三位及以上用 "A, B, and C" */ -}}
+{{- $authorText := "" -}}
+{{- $n := len $names -}}
+{{- if eq $n 1 -}}
+  {{- $authorText = index $names 0 -}}
+{{- else if eq $n 2 -}}
+  {{- $authorText = printf "%s and %s" (index $names 0) (index $names 1) -}}
+{{- else if gt $n 2 -}}
+  {{- $authorText = printf "%s, and %s" (delimit (first (sub $n 1) $names) ", ") (index $names (sub $n 1)) -}}
+{{- end -}}
+
+{{- /* 出处：venue 里已经带了年份，缺 venue 时只写年份 */ -}}
+{{- $tail := "" -}}
+{{- with .Params.venue -}}
+  {{- $tail = printf "in Proc. %v" . -}}
+{{- else -}}
+  {{- $tail = printf "%v" $page.Date.Year -}}
+{{- end -}}
+{{- with .Params.pages -}}
+  {{- $tail = printf "%s, pp. %v" $tail . -}}
+{{- end -}}
+{{- if $authorText }}{{ $authorText }}, {{ end -}}
+{{- with .Params.paper -}}
+<a href="{{ . }}" target="_blank" rel="noopener noreferrer">"{{ $page.Title }},"</a>
+{{- else -}}
+"{{ $page.Title }},"
+{{- end }} {{ $tail }}.
